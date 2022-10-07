@@ -7,6 +7,6 @@ public class HelperTests {
     public void addTest() {
         Helper helper = new Helper();
         int result = helper.add(5, 5);
-        Assertions.assertEquals(11, result);
+        Assertions.assertEquals(10, result);
     }
 }
