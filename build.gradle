@@ -20,6 +20,16 @@ jar{
 	}
 }
 
+configurations{
+	runtime
+}
+task dependencyJar(type: Jar) {
+	manifest.from jar.manifest
+	from {
+		configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) }
+	}
+	with jar
+}
 dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-security'
 	implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
