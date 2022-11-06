@@ -1,5 +1,7 @@
-import org.junit.jupiter.api.Test;
+package com.CanadaEats.group13;
+
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 public class HelperTests {
 
