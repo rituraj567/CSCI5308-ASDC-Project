@@ -11,11 +11,14 @@ public class RestaurantDTO {
     private String country;
     private String postalCode;
     private String phoneNumber;
-    private String ownerId;
     private String status;
     private String userId;
 
-    public RestaurantDTO(int id, String restaurantId, String name, String address, String city, String province, String country, String postalCode, String phoneNumber, String ownerId, String status, String userId) {
+    public RestaurantDTO(){
+        
+    }
+
+    public RestaurantDTO(int id, String restaurantId, String name, String address, String city, String province, String country, String postalCode, String phoneNumber, String status, String userId) {
         this.id = id;
         this.restaurantId = restaurantId;
         this.name = name;
@@ -25,7 +28,6 @@ public class RestaurantDTO {
         this.country = country;
         this.postalCode = postalCode;
         this.phoneNumber = phoneNumber;
-        this.ownerId = ownerId;
         this.status = status;
         this.userId = userId;
     }
@@ -94,20 +96,12 @@ public class RestaurantDTO {
         this.phoneNumber = phoneNumber;
     }
 
-    public String getOwnerId() {
-        return ownerId;
-    }
-
     public String getAddress() {
         return address;
     }
 
     public void setAddress(String address) {
         this.address = address;
-    }
-
-    public void setOwnerId(String ownerId) {
-        this.ownerId = ownerId;
     }
 
     public String getStatus() {

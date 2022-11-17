@@ -5,10 +5,12 @@ import com.CanadaEats.group13.restaurant.dto.RestaurantDTO;
 import org.springframework.stereotype.Component;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 @Component
 public class RestaurantRepository implements IRestaurantRepository {
@@ -22,8 +24,6 @@ public class RestaurantRepository implements IRestaurantRepository {
             databaseConnection = DatabaseConnection.getInstance();
             connection = databaseConnection.getDatabaseConnection();
             Statement statement = connection.createStatement();
-            databaseConnection = DatabaseConnection.getInstance();
-            databaseConnection.getDatabaseConnection();
             String restaurants = "select * from Restaurant";
             ResultSet restaurantResult = statement.executeQuery(restaurants);
 
@@ -38,10 +38,9 @@ public class RestaurantRepository implements IRestaurantRepository {
                 String country = restaurantResult.getString("Country");
                 String postalCode = restaurantResult.getString("PostalCode");
                 String phone = restaurantResult.getString("PhoneNumber");
-                String ownerId = restaurantResult.getString("OwnerId");
                 String status = restaurantResult.getString("Status");
                 String userId = restaurantResult.getString("User_UserId");
-                restaurantDTOList.add(new RestaurantDTO(id, restaurantId, name, address, city, province, country, postalCode, phone, ownerId, status, userId));
+                restaurantDTOList.add(new RestaurantDTO(id, restaurantId, name, address, city, province, country, postalCode, phone, status, userId));
             }
 
             System.out.println("Restaurants");
@@ -57,5 +56,41 @@ public class RestaurantRepository implements IRestaurantRepository {
         }
 
         return restaurantDTOList;
+    }
+
+    @Override
+    public void postRestaurant(RestaurantDTO restaurantDTO) {
+        DatabaseConnection databaseConnection;
+        Connection connection;
+
+        try {
+            databaseConnection = DatabaseConnection.getInstance();
+            connection = databaseConnection.getDatabaseConnection();
+            Statement statement = connection.createStatement();
+            List<RestaurantDTO> restaurantsList = getAllRestaurants();
+            int size = restaurantsList.size();
+         
+            String query = " insert into Restaurant (Id, RestaurantId, Name, Address, City, Province,Country,PostalCode,PhoneNumber,Status,User_UserId)"
+                    + " values (?, ?, ?, ?, ?,?,?,?,?,?,?)";
+
+            PreparedStatement preparedStmt = connection.prepareStatement(query);
+            preparedStmt.setInt(1,size+1);
+            preparedStmt.setString(2,UUID.randomUUID().toString());
+            preparedStmt.setString(3, restaurantDTO.getName());
+            preparedStmt.setString(4, restaurantDTO.getAddress());
+            preparedStmt.setString(5, restaurantDTO.getCity());
+            preparedStmt.setString(6, restaurantDTO.getProvince());
+            preparedStmt.setString(7, restaurantDTO.getCountry());
+            preparedStmt.setString(8, restaurantDTO.getPostalCode());
+            preparedStmt.setString(9, restaurantDTO.getPhoneNumber());
+            preparedStmt.setInt(10, 1);
+            preparedStmt.setString(11, "0f0482eb-1a3a-4ada-88f5-b93e46971abc");
+        
+            preparedStmt.execute();
+
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+
     }
 }
