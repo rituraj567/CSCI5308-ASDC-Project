@@ -1,8 +1,8 @@
-package com.CanadaEats.group13.repository;
+package com.CanadaEats.group13.authentication.repository;
 
 import com.CanadaEats.group13.database.DatabaseConnection;
-import com.CanadaEats.group13.model.response.UserDetailsResponseModel;
-import com.CanadaEats.group13.shared.dto.UserDetailsDto;
+import com.CanadaEats.group13.authentication.model.response.UserDetailsResponseModel;
+import com.CanadaEats.group13.authentication.dto.UserDetailsDto;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Repository;
 
