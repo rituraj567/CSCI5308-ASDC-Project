@@ -1,9 +1,9 @@
-package com.CanadaEats.group13.controller;
+package com.CanadaEats.group13.authentication.controller;
 
-import com.CanadaEats.group13.model.request.UserDetailsRequestModel;
-import com.CanadaEats.group13.model.response.UserDetailsResponseModel;
-import com.CanadaEats.group13.service.UserService;
-import com.CanadaEats.group13.shared.dto.UserDetailsDto;
+import com.CanadaEats.group13.authentication.model.request.UserDetailsRequestModel;
+import com.CanadaEats.group13.authentication.model.response.UserDetailsResponseModel;
+import com.CanadaEats.group13.authentication.service.UserService;
+import com.CanadaEats.group13.authentication.dto.UserDetailsDto;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;

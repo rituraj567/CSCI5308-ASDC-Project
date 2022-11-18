@@ -1,8 +1,8 @@
-package com.CanadaEats.group13.service;
+package com.CanadaEats.group13.authentication.service;
 
-import com.CanadaEats.group13.model.response.UserDetailsResponseModel;
-import com.CanadaEats.group13.repository.UserRepository;
-import com.CanadaEats.group13.shared.dto.UserDetailsDto;
+import com.CanadaEats.group13.authentication.repository.UserRepository;
+import com.CanadaEats.group13.authentication.model.response.UserDetailsResponseModel;
+import com.CanadaEats.group13.authentication.dto.UserDetailsDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

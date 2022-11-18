@@ -1,4 +1,4 @@
-package com.CanadaEats.group13.shared.dto;
+package com.CanadaEats.group13.authentication.dto;
 
 import java.io.Serializable;
 import java.sql.Date;

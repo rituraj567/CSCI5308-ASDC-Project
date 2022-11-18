@@ -1,4 +1,4 @@
-package com.CanadaEats.group13.model.request;
+package com.CanadaEats.group13.authentication.model.request;
 
 
 import java.sql.Date;
