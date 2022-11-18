@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 
 import java.util.List;
 
@@ -27,4 +29,23 @@ public class RestaurantController {
 
         return "/restaurants/restaurant";
     }
+
+ 
+    @GetMapping("/admin/restaurants/newRestaurant")
+    public String newRestuarantForm(Model model){
+
+        RestaurantDTO restaurantDTO = new RestaurantDTO();
+        model.addAttribute("restaurant", restaurantDTO);
+        
+        return "restaurants/newRestuarant";
+    }
+
+    @PostMapping("/admin/restaurants/")
+    public String createRestaurant(@ModelAttribute RestaurantDTO restaurantDTO){
+
+        restaurantRepository.postRestaurant(restaurantDTO);
+        
+        return "redirect:/restaurants";
+    }
+
 }
