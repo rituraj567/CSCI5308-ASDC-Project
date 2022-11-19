@@ -57,6 +57,13 @@ public class RestaurantController {
         return "redirect:/restaurants";
     }
 
+    @GetMapping("/admin/restaurants/{restaurantId}/view")
+    public String viewRestaurant(@PathVariable("restaurantId") int restaurantId,Model model){
+        RestaurantDTO restaurantDTO = restaurantRepository.getRestaurantById(restaurantId);
+        model.addAttribute("restaurant", restaurantDTO);
+        return "restaurants/viewRestaurant";
+    }
+
     @PostMapping("/admin/restaurants/")
     public String createRestaurant(@ModelAttribute RestaurantDTO restaurantDTO){
 

@@ -51,11 +51,18 @@
                  
                   <a
                     type="button"
-                    class="btn btn-danger"
+                    class="btn btn-danger button-space"
                     th:href="@{/admin/restaurants/{restaurantId}/delete(restaurantId=${restaurant.id})}"
                   >
                     Delete
                 </a>
+                <a
+                type="button"
+                class="btn btn-info"
+                th:href="@{/admin/restaurants/{restaurantId}/view(restaurantId=${restaurant.id})}"
+              >
+                View
+            </a>
                 </div>
         </ul>
       </div>
