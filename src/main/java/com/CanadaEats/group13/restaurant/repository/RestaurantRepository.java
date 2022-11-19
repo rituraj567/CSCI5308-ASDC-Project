@@ -93,4 +93,73 @@ public class RestaurantRepository implements IRestaurantRepository {
         }
 
     }
+
+    @Override
+    public RestaurantDTO getRestaurantById(int id) {
+        
+        DatabaseConnection databaseConnection;
+        Connection connection;
+        RestaurantDTO restaurantDTO=null;
+        try {
+            databaseConnection = DatabaseConnection.getInstance();
+            connection = databaseConnection.getDatabaseConnection();
+            Statement statement = connection.createStatement();
+            String restaurants = "select * from Restaurant where id=" + id;
+            ResultSet restaurantResult = statement.executeQuery(restaurants);
+
+            while (restaurantResult.next()) {
+                String restaurantId = restaurantResult.getString("RestaurantId");
+                String name = restaurantResult.getString("Name");
+                String address = restaurantResult.getString("Address");
+                String city = restaurantResult.getString("City");
+                String province = restaurantResult.getString("Province");
+                String country = restaurantResult.getString("Country");
+                String postalCode = restaurantResult.getString("PostalCode");
+                String phone = restaurantResult.getString("PhoneNumber");
+                String status = restaurantResult.getString("Status");
+                String userId = restaurantResult.getString("User_UserId");
+                restaurantDTO = new RestaurantDTO(id, restaurantId, name, address, city, province, country, postalCode, phone, status, userId);
+                
+             System.out.println(restaurantDTO.getName());
+                
+            }
+
+            connection.close();
+            statement.close();
+            restaurantResult.close();
+        } catch (Exception e) {
+            System.out.println(e);
+            System.out.println(e.getMessage());
+        }
+
+        return restaurantDTO;
+    }
+
+    @Override
+    public void updateRestuarant(RestaurantDTO restaurantDTO) {
+        DatabaseConnection databaseConnection;
+        Connection connection;
+
+        try {
+            databaseConnection = DatabaseConnection.getInstance();
+            connection = databaseConnection.getDatabaseConnection();
+    
+            String query = "update Restaurant SET  Name=?, Address=?, City=?, Province=?,Country=?,PostalCode=?,PhoneNumber=? where id=" + restaurantDTO.getId();
+   
+            PreparedStatement preparedStmt = connection.prepareStatement(query);
+            preparedStmt.setString(1, restaurantDTO.getName());
+            preparedStmt.setString(2, restaurantDTO.getAddress());
+            preparedStmt.setString(3, restaurantDTO.getCity());
+            preparedStmt.setString(4, restaurantDTO.getProvince());
+            preparedStmt.setString(5, restaurantDTO.getCountry());
+            preparedStmt.setString(6, restaurantDTO.getPostalCode());
+            preparedStmt.setString(7, restaurantDTO.getPhoneNumber());
+    
+            preparedStmt.execute();
+
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        
+    }
 }

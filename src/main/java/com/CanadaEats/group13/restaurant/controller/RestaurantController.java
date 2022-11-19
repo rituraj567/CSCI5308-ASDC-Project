@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import java.util.List;
@@ -40,11 +41,31 @@ public class RestaurantController {
         return "restaurants/newRestuarant";
     }
 
+    @GetMapping("/admin/restaurants/{resturantId}/edit")
+    public String editRestuarants(@PathVariable("resturantId") int restaurantId,Model model){
+
+        RestaurantDTO restaurantDTO =  restaurantRepository.getRestaurantById(restaurantId);
+       
+        model.addAttribute("restaurant", restaurantDTO);
+        
+        return "restaurants/editRestaurant";
+    }
+
+
     @PostMapping("/admin/restaurants/")
     public String createRestaurant(@ModelAttribute RestaurantDTO restaurantDTO){
 
         restaurantRepository.postRestaurant(restaurantDTO);
         
+        return "redirect:/restaurants";
+    }
+
+    @PostMapping("/admin/restaurants/{restaurantId}")
+    public String updateRestaurant(@PathVariable("restaurantId") int restaurantId, @ModelAttribute("restaurant") RestaurantDTO restaurantDTO,Model model){
+        model.addAttribute("restaurant",restaurantDTO);
+        restaurantDTO.setId(restaurantId);
+        restaurantRepository.updateRestuarant(restaurantDTO);
+
         return "redirect:/restaurants";
     }
 
