@@ -52,7 +52,7 @@
                   <a
                     type="button"
                     class="btn btn-danger"
-                    th:href="@{/restaurant/deleteRestuarant}"
+                    th:href="@{/admin/restaurants/{restaurantId}/delete(restaurantId=${restaurant.id})}"
                   >
                     Delete
                 </a>

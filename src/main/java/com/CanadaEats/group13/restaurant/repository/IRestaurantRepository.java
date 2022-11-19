@@ -9,4 +9,5 @@ public interface IRestaurantRepository {
     public void postRestaurant(RestaurantDTO restaurantDTO);
     public RestaurantDTO getRestaurantById(int id);
     public void updateRestuarant(RestaurantDTO restaurantDTO);
+    public void deleteRestaurant(int restaurantId);
 }

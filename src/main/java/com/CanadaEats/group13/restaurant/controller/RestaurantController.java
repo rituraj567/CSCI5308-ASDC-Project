@@ -51,6 +51,11 @@ public class RestaurantController {
         return "restaurants/editRestaurant";
     }
 
+    @GetMapping("/admin/restaurants/{restaurantId}/delete")
+    public String deleteRestaurant(@PathVariable("restaurantId") int restaurantId){
+        restaurantRepository.deleteRestaurant(restaurantId);
+        return "redirect:/restaurants";
+    }
 
     @PostMapping("/admin/restaurants/")
     public String createRestaurant(@ModelAttribute RestaurantDTO restaurantDTO){

@@ -162,4 +162,25 @@ public class RestaurantRepository implements IRestaurantRepository {
         }
         
     }
+    
+    @Override
+    public void deleteRestaurant(int restaurantId) {
+        DatabaseConnection databaseConnection;
+        Connection connection;
+
+        try {
+            databaseConnection = DatabaseConnection.getInstance();
+            connection = databaseConnection.getDatabaseConnection();
+    
+            String query = "DELETE FROM Restaurant where id=" + restaurantId;
+   
+            PreparedStatement preparedStmt = connection.prepareStatement(query);
+    
+            preparedStmt.execute();
+
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        
+    }
 }
