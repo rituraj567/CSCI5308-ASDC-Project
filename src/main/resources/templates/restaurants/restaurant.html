@@ -43,20 +43,26 @@
                     <li th:text="${restaurant.getAddress()}">Address</li>
                 </div>
                 <div class="col-sm">
-                    <button
-                    type="button"
+                    <a
                     class="btn btn-dark button-space" 
-                    th:href="@{/restaurant/editRestuarant}"
+                    th:href="@{/admin/restaurants/{restaurantId}/edit(restaurantId=${restaurant.id})}"
                   >
-                    Edit
-                  </button>
-                  <button
+                    Edit</a>
+                 
+                  <a
                     type="button"
-                    class="btn btn-danger"
-                    th:href="@{/restaurant/deleteRestuarant}"
+                    class="btn btn-danger button-space"
+                    th:href="@{/admin/restaurants/{restaurantId}/delete(restaurantId=${restaurant.id})}"
                   >
                     Delete
-                  </button>
+                </a>
+                <a
+                type="button"
+                class="btn btn-info"
+                th:href="@{/admin/restaurants/{restaurantId}/view(restaurantId=${restaurant.id})}"
+              >
+                View
+            </a>
                 </div>
         </ul>
       </div>
