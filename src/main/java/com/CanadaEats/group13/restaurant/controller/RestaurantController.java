@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 
@@ -59,6 +60,14 @@ public class RestaurantController {
 
     @GetMapping("/admin/restaurants/{restaurantId}/view")
     public String viewRestaurant(@PathVariable("restaurantId") int restaurantId,Model model){
+        RestaurantDTO restaurantDTO = restaurantRepository.getRestaurantById(restaurantId);
+        model.addAttribute("restaurant", restaurantDTO);
+        return "restaurants/viewRestaurant";
+    }
+
+    
+    @GetMapping("/restaurants/serach")
+    public String searchRestaurants(@RequestParam("query") String query ){
         RestaurantDTO restaurantDTO = restaurantRepository.getRestaurantById(restaurantId);
         model.addAttribute("restaurant", restaurantDTO);
         return "restaurants/viewRestaurant";

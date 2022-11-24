@@ -15,19 +15,8 @@ import java.util.UUID;
 @Component
 public class RestaurantRepository implements IRestaurantRepository {
 
-    @Override
-    public List<RestaurantDTO> getAllRestaurants() {
-        DatabaseConnection databaseConnection;
-        Connection connection;
-        List<RestaurantDTO> restaurantDTOList = new ArrayList<>();
-        try {
-            databaseConnection = DatabaseConnection.getInstance();
-            connection = databaseConnection.getDatabaseConnection();
-            Statement statement = connection.createStatement();
-            String restaurants = "select * from Restaurant";
-            ResultSet restaurantResult = statement.executeQuery(restaurants);
-
-
+    public List<RestaurantDTO> getRestaurantResultSet(ResultSet restaurantResult, List<RestaurantDTO> restaurantDTOList){
+        try{
             while (restaurantResult.next()) {
                 int id = Integer.parseInt(restaurantResult.getString("Id"));
                 String restaurantId = restaurantResult.getString("RestaurantId");
@@ -41,8 +30,30 @@ public class RestaurantRepository implements IRestaurantRepository {
                 String status = restaurantResult.getString("Status");
                 String userId = restaurantResult.getString("User_UserId");
                 restaurantDTOList.add(new RestaurantDTO(id, restaurantId, name, address, city, province, country, postalCode, phone, status, userId));
+    
             }
+          
+        }catch(Exception e){
+            System.out.println(e);
+        }
+       
+        return restaurantDTOList;
+    }
 
+    @Override
+    public List<RestaurantDTO> getAllRestaurants() {
+        DatabaseConnection databaseConnection;
+        Connection connection;
+        List<RestaurantDTO> restaurantDTOList = new ArrayList<>();
+        try {
+            databaseConnection = DatabaseConnection.getInstance();
+            connection = databaseConnection.getDatabaseConnection();
+            Statement statement = connection.createStatement();
+            String restaurants = "select * from Restaurant";
+            ResultSet restaurantResult = statement.executeQuery(restaurants);
+
+
+            restaurantDTOList = getRestaurantResultSet(restaurantResult,restaurantDTOList);
             System.out.println("Restaurants");
             for (RestaurantDTO restaurant : restaurantDTOList) {
                 System.out.println(restaurant.getName());
@@ -183,4 +194,35 @@ public class RestaurantRepository implements IRestaurantRepository {
         }
         
     }
+
+    @Override
+    public List<RestaurantDTO> searchRestaurants(String query) {
+        DatabaseConnection databaseConnection;
+        Connection connection;
+        List<RestaurantDTO> restaurantDTOList = new ArrayList<>();
+        try {
+            databaseConnection = DatabaseConnection.getInstance();
+            connection = databaseConnection.getDatabaseConnection();
+    
+            String expression = "SELECT * FROM Restaurant where Name LIKE %" + query + "%";
+
+   
+            Statement statement = connection.createStatement();
+            ResultSet restaurantResult = statement.executeQuery(expression);
+           
+            restaurantDTOList = getRestaurantResultSet(restaurantResult, restaurantDTOList);
+            
+            for (RestaurantDTO restaurant : restaurantDTOList) {
+                System.out.println(restaurant.getName());
+            }
+
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return restaurantDTOList;
+    }
+
+ 
+
+
 }

@@ -10,4 +10,5 @@ public interface IRestaurantRepository {
     public RestaurantDTO getRestaurantById(int id);
     public void updateRestuarant(RestaurantDTO restaurantDTO);
     public void deleteRestaurant(int restaurantId);
+    public List<RestaurantDTO> searchRestaurants(String query);
 }
