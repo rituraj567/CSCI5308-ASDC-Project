@@ -204,14 +204,16 @@ public class RestaurantRepository implements IRestaurantRepository {
             databaseConnection = DatabaseConnection.getInstance();
             connection = databaseConnection.getDatabaseConnection();
     
-            String expression = "SELECT * FROM Restaurant where Name LIKE %" + query + "%";
+            String expression =  "SELECT * FROM Restaurant WHERE Name LIKE '%" + query + "%'";
+            System.out.println(expression);
 
    
             Statement statement = connection.createStatement();
             ResultSet restaurantResult = statement.executeQuery(expression);
            
             restaurantDTOList = getRestaurantResultSet(restaurantResult, restaurantDTOList);
-            
+            System.out.println(restaurantDTOList);
+
             for (RestaurantDTO restaurant : restaurantDTOList) {
                 System.out.println(restaurant.getName());
             }

@@ -66,11 +66,11 @@ public class RestaurantController {
     }
 
     
-    @GetMapping("/restaurants/serach")
-    public String searchRestaurants(@RequestParam("query") String query ){
-        RestaurantDTO restaurantDTO = restaurantRepository.getRestaurantById(restaurantId);
-        model.addAttribute("restaurant", restaurantDTO);
-        return "restaurants/viewRestaurant";
+    @GetMapping("/restaurants/search")
+    public String searchRestaurants(@RequestParam("query") String query,Model model ){
+       List<RestaurantDTO> restaurantDTOList = restaurantRepository.searchRestaurants(query);
+        model.addAttribute("restaurants", restaurantDTOList);
+        return "restaurants/restaurant";
     }
 
     @PostMapping("/admin/restaurants/")
