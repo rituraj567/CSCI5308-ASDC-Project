@@ -1,19 +1,21 @@
 package com.CanadaEats.group13.authentication.controller;
 
-import com.CanadaEats.group13.authentication.model.request.UserDetailsRequestModel;
+import com.CanadaEats.group13.authentication.dto.UserLoginDto;
 import com.CanadaEats.group13.authentication.model.response.UserDetailsResponseModel;
-import com.CanadaEats.group13.authentication.service.UserService;
+import com.CanadaEats.group13.authentication.business.UserBusiness;
 import com.CanadaEats.group13.authentication.dto.UserDetailsDto;
+import com.CanadaEats.group13.restaurant.dto.RestaurantDTO;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-@RestController
-@RequestMapping("users")
+@Controller
 public class UserController {
 
     @Autowired
-    UserService userService;
+    UserBusiness userService;
 
     @GetMapping
     public String getUser()
@@ -21,14 +23,42 @@ public class UserController {
         return "get user";
     }
 
-    @PostMapping
-    public UserDetailsResponseModel registerUser(@RequestBody UserDetailsRequestModel userDetails)
+    @GetMapping("/userregistrationpage")
+    public String userRegistrationForm(Model model){
+
+        UserDetailsDto userDetailsDto = new UserDetailsDto();
+        model.addAttribute("userregistration", userDetailsDto);
+
+        return "authentication/registerUser";
+    }
+
+    @PostMapping("/register")
+    public String registerUser(@ModelAttribute UserDetailsDto userDetailsDto)
     {
-        UserDetailsDto userDto = new UserDetailsDto();
-        BeanUtils.copyProperties(userDetails, userDto);
+        UserDetailsResponseModel userResponse = userService.registerUser(userDetailsDto);
 
-        UserDetailsResponseModel userResponse = userService.registerUser(userDto);
+        //if userresponse has data means success otherwise failure
+        if(userResponse.getUserId() == null)
+        {
+            return "authentication/registerationError";
+        }
+        else {
+            return "redirect:/userloginpage";
+        }
+    }
 
-        return userResponse;
+    @GetMapping("/userloginpage")
+    public String userLoginForm(Model model){
+
+        UserLoginDto userLoginDto = new UserLoginDto();
+        model.addAttribute("userlogin", userLoginDto);
+
+        return "authentication/login";
+    }
+
+    @PostMapping("/login")
+    public void loginUser()
+    {
+
     }
 }
