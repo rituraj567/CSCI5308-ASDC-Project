@@ -26,11 +26,37 @@
         margin-top: 100px;
       }
 
+      .margin-search {
+        margin-top: 30px;
+      }
+
+      .margin-left {
+        margin-left: 20px;
+      }
+      
     </style>
   </head>
   <div th:replace="restaurants/header :: header"></div>
   <body>
     <div th:replace="restaurants/header :: navbar"></div>
+
+    <div  class="container margin-search">
+    <div class="row">
+      <div class="col-md-5">
+          <div class="form-group">
+              <form class="form-inline" th:action="@{/restaurants/search}">
+                  <div class="input-group">
+                      <input type="text" class="form-control" name="query" />
+                      <span class="input-group-btn">
+                          <button class="btn btn-primary margin-left" type="submit"> Search</button>
+                      </span>
+                  </div>
+              </form>
+          </div>
+      </div>
+  </div>
+</div>
+    <br />
 
     <div class="container margin-container">
       <div class="row">

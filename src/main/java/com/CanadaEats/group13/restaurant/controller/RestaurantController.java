@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 
@@ -62,6 +63,14 @@ public class RestaurantController {
         RestaurantDTO restaurantDTO = restaurantRepository.getRestaurantById(restaurantId);
         model.addAttribute("restaurant", restaurantDTO);
         return "restaurants/viewRestaurant";
+    }
+
+    
+    @GetMapping("/restaurants/search")
+    public String searchRestaurants(@RequestParam("query") String query,Model model ){
+       List<RestaurantDTO> restaurantDTOList = restaurantRepository.searchRestaurants(query);
+        model.addAttribute("restaurants", restaurantDTOList);
+        return "restaurants/restaurant";
     }
 
     @PostMapping("/admin/restaurants/")
