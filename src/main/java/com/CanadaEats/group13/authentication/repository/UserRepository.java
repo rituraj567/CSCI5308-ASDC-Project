@@ -1,8 +1,10 @@
 package com.CanadaEats.group13.authentication.repository;
 
+import com.CanadaEats.group13.authentication.dto.UserLoginDto;
 import com.CanadaEats.group13.database.DatabaseConnection;
 import com.CanadaEats.group13.authentication.model.response.UserDetailsResponseModel;
 import com.CanadaEats.group13.authentication.dto.UserDetailsDto;
+import com.CanadaEats.group13.utils.PasswordEncoderDecoder;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Repository;
 
@@ -13,7 +15,8 @@ public class UserRepository implements IUserRepository{
 
     DatabaseConnection databaseConnection;
     Connection connection;
-
+    Statement statement;
+    ResultSet userResult;
     public UserRepository() {
 
     }
@@ -25,11 +28,11 @@ public class UserRepository implements IUserRepository{
         {
             databaseConnection = DatabaseConnection.getInstance();
             connection = databaseConnection.getDatabaseConnection();
-            Statement statement = connection.createStatement();
-            String getUser = "select * from User where UserName = '" + userDetails.getUserName() + "'";
-            ResultSet userResult = statement.executeQuery(getUser);
+            statement = connection.createStatement();
+            String getUser = "select * from User where UserName = '" + userDetails.getUserName() + "' and Status = 1";
+            userResult = statement.executeQuery(getUser);
 
-            if(userResult.getFetchSize() == 0)
+            if(userResult.next() == false)
             {
                 String insertUser = "insert into User (UserId, FirstName, LastName, EmailId, UserName, Password, MobileNumber, Gender, BirthDate, Address, City, Province, Country, PostalCode, Status, Role_RoleId) values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
                 PreparedStatement prepStat=connection.prepareStatement(insertUser);
@@ -61,15 +64,88 @@ public class UserRepository implements IUserRepository{
                     System.out.println("Failure : UserRepository - registerUser()");
                 }
             }
-            connection.close();
-            statement.close();
-            userResult.close();
+            else{
+                System.out.println("Failure : Already User Present with this UserName");
+            }
+
         }
-        catch (Exception e) {
-            System.out.println(e);
-            System.out.println(e.getMessage());
+        catch (Exception ex) {
+            System.out.println("Exception : UserRepository - registerUser()");
+            System.out.println(ex);
+            System.out.println(ex.getMessage());
+        }
+        finally{
+            try{
+                connection.close();
+                statement.close();
+                userResult.close();
+            }
+            catch (Exception ex){
+                System.out.println("Exception : UserRepository - Closing database connection in registerUser()");
+            }
         }
 
         return userResponse;
+    }
+
+    public String loginUser(UserLoginDto userLoginDto)
+    {
+        //UserLoginDto response = new UserLoginDto();
+        String roleId = "";
+
+        try{
+            databaseConnection = DatabaseConnection.getInstance();
+            connection = databaseConnection.getDatabaseConnection();
+            statement = connection.createStatement();
+            String getUser = "select * from User where UserName = '" + userLoginDto.getUserName() + "' and Status = 1";
+            userResult = statement.executeQuery(getUser);
+            System.out.println("SIZE:- " + userResult.getFetchSize());
+
+            if (userResult.next() == false)
+            {
+                System.out.println("username not found");
+            }
+            else{
+                try
+                {
+                    System.out.println("Got username successfully from Database");
+                    PasswordEncoderDecoder passwordEncoderDecoder = new PasswordEncoderDecoder();
+                    String decryptedPassword =passwordEncoderDecoder.decrypt(userResult.getString("Password"));
+                    System.out.println("DecryptedPassword: " + decryptedPassword);
+                    System.out.println("UserPassword: " + userLoginDto.getPassword());
+                    if(decryptedPassword.equals(userLoginDto.getPassword()))
+                    {
+                        System.out.println("Got username and password successfully from Database");
+                        roleId = userResult.getString("Role_RoleId");
+                        return roleId;
+                    }
+                    else{
+                        System.out.println("Password not matched");
+                        return roleId;
+                    }
+                }
+                catch (Exception ex)
+                {
+                    System.out.println("Exception: In Password Encoding In User Registration");
+                }
+            }
+        }
+        catch (Exception ex)
+        {
+            System.out.println("Exception : UserRepository - loginUser()");
+            System.out.println(ex);
+            System.out.println(ex.getMessage());
+        }
+        finally{
+            try{
+                connection.close();
+                statement.close();
+                userResult.close();
+            }
+            catch (Exception ex){
+                System.out.println("Exception : UserRepository - Closing database connection in registerUser()");
+            }
+        }
+        return roleId;
     }
 }

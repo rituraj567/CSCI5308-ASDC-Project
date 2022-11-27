@@ -1,5 +1,6 @@
 package com.CanadaEats.group13.authentication.business;
 
+import com.CanadaEats.group13.authentication.dto.UserLoginDto;
 import com.CanadaEats.group13.authentication.repository.UserRepository;
 import com.CanadaEats.group13.authentication.model.response.UserDetailsResponseModel;
 import com.CanadaEats.group13.authentication.dto.UserDetailsDto;
@@ -21,10 +22,8 @@ public class UserBusiness implements IUserBusiness {
         try
         {
             PasswordEncoderDecoder passwordEncoderDecoder = new PasswordEncoderDecoder();
-            String encryptedPassword =passwordEncoderDecoder.encrypt(userDto.getPassword());
+            String encryptedPassword = passwordEncoderDecoder.encrypt(userDto.getPassword());
             userDto.setPassword(encryptedPassword);
-            //String decryptedPassword = passwordEncoderDecoder.decrypt(userDto.getPassword());
-            //System.out.println("Decrypted Password:- " + decryptedPassword);
         }
         catch (Exception ex)
         {
@@ -39,5 +38,19 @@ public class UserBusiness implements IUserBusiness {
         userResponse = userRepository.registerUser(userDto);
 
         return userResponse;
+    }
+
+    public String loginUser(UserLoginDto userLoginDto){
+        String response = "";
+        String userName = userLoginDto.getUserName();
+        String password = userLoginDto.getPassword();
+
+        if(userName == null || password == null)
+        {
+            return response;
+        }
+
+        response = userRepository.loginUser(userLoginDto);
+        return response;
     }
 }
