@@ -69,7 +69,7 @@ public class UserController {
         }
         else if (userResponse.equals("086ba4a8-694c-4da0-8932-5998bc8c43cb"))
         {
-            //redirect on restaurant owner home papge
+            //redirect on restaurant owner home page
             System.out.println("RESTAUEANT OWNER ROLE USER");
             return "redirect:/userloginpage";
         }
@@ -96,5 +96,10 @@ public class UserController {
         String errorMessage = "Some error occured, Please, try again";
         model.addAttribute("errorMessageLogin", errorMessage);
         return "authentication/loginUserError";
+    }
+
+    @GetMapping("/logout")
+    public String userLogout(Model model){
+        return "redirect:/userloginpage";
     }
 }

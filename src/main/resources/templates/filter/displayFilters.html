@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>View Filters</title>
+</head>
+<div th:replace="filter/header :: header"></div>
+<style>
+    .margin-container {
+        margin-top: 50px;
+    }
+
+    .btn-flex {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-top: 15px;
+    }
+
+    li, input {
+        display: inline-block;
+    }
+
+</style>
+<body>
+<div th:replace="filter/header :: navbar">
+</div>
+<div class="container margin-container">
+    <form
+            role="form"
+            method="post"
+            th:action="@{/updatefilters}"
+            th:object="${filters}"
+    >
+        <div class="row">
+            <ul th:each="filter,index : ${filters}">
+                <div class="row">
+                    <div class="col-sm form-check form-switch">
+                        <li th:name="${filter.filterName}"th:text="${filter.getFilterName()}">FilterName</li>
+                        <input th:name="${filter.isActive}" th:if="${filter.getIsActive()}" checked class="form-check-input" type="checkbox" th:value="${filter.getIsActive()}">
+                        <input th:name="${filter.isActive}" th:if="${filter.getIsActive() != 1}" class="form-check-input" type="checkbox" th:value="${filter.getIsActive()}">
+                    </div>
+            </ul>
+        </div>
+    </form>
+</div>
+</body>
+</html>
