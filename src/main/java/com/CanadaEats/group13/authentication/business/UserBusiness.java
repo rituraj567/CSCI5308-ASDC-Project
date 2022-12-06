@@ -4,6 +4,7 @@ import com.CanadaEats.group13.authentication.dto.UserLoginDto;
 import com.CanadaEats.group13.authentication.repository.UserRepository;
 import com.CanadaEats.group13.authentication.model.response.UserDetailsResponseModel;
 import com.CanadaEats.group13.authentication.dto.UserDetailsDto;
+import com.CanadaEats.group13.utils.ApplicationConstants;
 import com.CanadaEats.group13.utils.PasswordEncoderDecoder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -32,8 +33,8 @@ public class UserBusiness implements IUserBusiness {
 
         UUID uuid = UUID.randomUUID();
         userDto.setUserId(uuid.toString());
-        userDto.setStatus(1);
-        userDto.setRoleId("407b779e-dc99-4607-83e9-6f3a1716b3ca");
+        userDto.setStatus(ApplicationConstants.ACTIVE_STATUS);
+        userDto.setRoleId(ApplicationConstants.CUSTOMER_ROLEID);
 
         userResponse = userRepository.registerUser(userDto);
 

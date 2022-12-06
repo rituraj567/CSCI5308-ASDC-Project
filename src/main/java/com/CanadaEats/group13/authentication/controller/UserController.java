@@ -4,6 +4,7 @@ import com.CanadaEats.group13.authentication.dto.UserLoginDto;
 import com.CanadaEats.group13.authentication.model.response.UserDetailsResponseModel;
 import com.CanadaEats.group13.authentication.business.UserBusiness;
 import com.CanadaEats.group13.authentication.dto.UserDetailsDto;
+import com.CanadaEats.group13.utils.ApplicationConstants;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -61,25 +62,25 @@ public class UserController {
     {
         String userResponse = userService.loginUser(userLoginDto);
 
-        if(userResponse.equals("0ab745f3-4d0b-472c-9050-986412813900"))
+        if(userResponse.equals(ApplicationConstants.ADMIN_ROLEID))
         {
             //redirect on admin home page
             System.out.println("ADMIN ROLE USER");
             return "redirect:/restaurants";
         }
-        else if (userResponse.equals("086ba4a8-694c-4da0-8932-5998bc8c43cb"))
+        else if (userResponse.equals(ApplicationConstants.RESTAURANT_OWNER_ROLEID))
         {
             //redirect on restaurant owner home page
             System.out.println("RESTAUEANT OWNER ROLE USER");
             return "redirect:/userloginpage";
         }
-        else if(userResponse.equals("407b779e-dc99-4607-83e9-6f3a1716b3ca"))
+        else if(userResponse.equals(ApplicationConstants.CUSTOMER_ROLEID))
         {
             //redirect on customer home page
             System.out.println("CUSTOMER ROLE USER");
             return "redirect:/userloginpage";
         }
-        else if (userResponse.equals("5941532b-da1d-427a-85d0-18cb44bd2932"))
+        else if (userResponse.equals(ApplicationConstants.DELIVERY_PERSON_ROLEID))
         {
             //redirect on delivery person home page
             System.out.println("DELIVERY PERSON ROLE USER");
