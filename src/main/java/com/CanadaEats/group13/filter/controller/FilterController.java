@@ -8,7 +8,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
 
 import java.util.List;
 
@@ -28,7 +27,7 @@ public class FilterController {
     @PostMapping("/updatefilters")
     public String updateFilters(@ModelAttribute List<FilterDto> filterDto,Model model){
         System.out.println("Request has reached");
-        List<FilterDto> filters = filterBusiness.updateFilters(filterDto);
+        filterBusiness.updateFilters(filterDto);
         return "redirect:/filters";
     }
 }

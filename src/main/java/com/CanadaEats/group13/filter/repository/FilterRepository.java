@@ -2,11 +2,10 @@ package com.CanadaEats.group13.filter.repository;
 
 import com.CanadaEats.group13.database.DatabaseConnection;
 import com.CanadaEats.group13.filter.dto.FilterDto;
-import com.CanadaEats.group13.restaurant.dto.RestaurantDTO;
+import com.CanadaEats.group13.utils.ApplicationConstants;
 import org.springframework.stereotype.Repository;
 
 import java.sql.Connection;
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
@@ -34,8 +33,8 @@ public class FilterRepository implements IFilterRepository {
             filterResult = statement.executeQuery(getfilters);
 
             while (filterResult.next()) {
-                String filterName = filterResult.getString("Name");
-                int filterIsActive = Integer.parseInt(filterResult.getString("IsActive"));
+                String filterName = filterResult.getString(ApplicationConstants.FILTER_NAME_COLUMN);
+                int filterIsActive = Integer.parseInt(filterResult.getString(ApplicationConstants.FILTER_ISACTIVE_COLUMN));
                 filtersDtoList.add(new FilterDto(filterName, filterIsActive));
             }
 
@@ -75,8 +74,8 @@ public class FilterRepository implements IFilterRepository {
 
             while (filterResult.next())
             {
-                String currFilterName = filterResult.getString("Name");
-                int currFilterActive = Integer.parseInt(filterResult.getString("IsActive"));
+                String currFilterName = filterResult.getString(ApplicationConstants.FILTER_NAME_COLUMN);
+                int currFilterActive = Integer.parseInt(filterResult.getString(ApplicationConstants.FILTER_ISACTIVE_COLUMN));
 
                 FilterDto currFilter = filterDtos.stream()
                         .filter(x -> currFilterName.equals(x.getFilterName()))
