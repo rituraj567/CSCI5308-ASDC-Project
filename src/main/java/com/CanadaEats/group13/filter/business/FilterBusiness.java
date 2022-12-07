@@ -1,6 +1,5 @@
 package com.CanadaEats.group13.filter.business;
 
-import com.CanadaEats.group13.authentication.repository.UserRepository;
 import com.CanadaEats.group13.filter.dto.FilterDto;
 import com.CanadaEats.group13.filter.repository.FilterRepository;
 import org.springframework.beans.factory.annotation.Autowired;
