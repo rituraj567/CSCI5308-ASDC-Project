@@ -1,9 +1,11 @@
 package com.CanadaEats.group13.authentication.repository;
 
 import com.CanadaEats.group13.authentication.dto.UserLoginDto;
+import com.CanadaEats.group13.authentication.model.response.UserLoginResponseModel;
 import com.CanadaEats.group13.database.DatabaseConnection;
 import com.CanadaEats.group13.authentication.model.response.UserDetailsResponseModel;
 import com.CanadaEats.group13.authentication.dto.UserDetailsDto;
+import com.CanadaEats.group13.utils.ApplicationConstants;
 import com.CanadaEats.group13.utils.PasswordEncoderDecoder;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Repository;
@@ -88,9 +90,9 @@ public class UserRepository implements IUserRepository{
         return userResponse;
     }
 
-    public String loginUser(UserLoginDto userLoginDto)
+    public UserLoginResponseModel loginUser(UserLoginDto userLoginDto)
     {
-        String roleId = "";
+        UserLoginResponseModel userLoginResponseModel = new UserLoginResponseModel();
 
         try{
             databaseConnection = DatabaseConnection.getInstance();
@@ -109,18 +111,19 @@ public class UserRepository implements IUserRepository{
                 {
                     System.out.println("Got username successfully from Database");
                     PasswordEncoderDecoder passwordEncoderDecoder = new PasswordEncoderDecoder();
-                    String decryptedPassword =passwordEncoderDecoder.decrypt(userResult.getString("Password"));
+                    String decryptedPassword =passwordEncoderDecoder.decrypt(userResult.getString(ApplicationConstants.USER_PASSWORD_COLUMN));
                     System.out.println("DecryptedPassword: " + decryptedPassword);
                     System.out.println("UserPassword: " + userLoginDto.getPassword());
                     if(decryptedPassword.equals(userLoginDto.getPassword()))
                     {
                         System.out.println("Got username and password successfully from Database");
-                        roleId = userResult.getString("Role_RoleId");
-                        return roleId;
+                        userLoginResponseModel.setRoleId(userResult.getString(ApplicationConstants.USER_ROLEID_COLUMN));
+                        userLoginResponseModel.setUserName(userResult.getString(ApplicationConstants.USER_USERNAME_COLUMN));
+                        return userLoginResponseModel;
                     }
                     else{
                         System.out.println("Password not matched");
-                        return roleId;
+                        return userLoginResponseModel;
                     }
                 }
                 catch (Exception ex)
@@ -145,6 +148,6 @@ public class UserRepository implements IUserRepository{
                 System.out.println("Exception : UserRepository - Closing database connection in registerUser()");
             }
         }
-        return roleId;
+        return userLoginResponseModel;
     }
 }
