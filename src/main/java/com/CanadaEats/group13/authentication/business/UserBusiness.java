@@ -1,6 +1,7 @@
 package com.CanadaEats.group13.authentication.business;
 
 import com.CanadaEats.group13.authentication.dto.UserLoginDto;
+import com.CanadaEats.group13.authentication.model.response.UserLoginResponseModel;
 import com.CanadaEats.group13.authentication.repository.UserRepository;
 import com.CanadaEats.group13.authentication.model.response.UserDetailsResponseModel;
 import com.CanadaEats.group13.authentication.dto.UserDetailsDto;
@@ -41,8 +42,8 @@ public class UserBusiness implements IUserBusiness {
         return userResponse;
     }
 
-    public String loginUser(UserLoginDto userLoginDto){
-        String response = "";
+    public UserLoginResponseModel loginUser(UserLoginDto userLoginDto){
+        UserLoginResponseModel response = null;
         String userName = userLoginDto.getUserName();
         String password = userLoginDto.getPassword();
 

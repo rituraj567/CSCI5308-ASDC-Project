@@ -9,5 +9,9 @@ public class ApplicationConstants {
     public static final int DEACTIVE_STATUS = 0;
     public static final String FILTER_NAME_COLUMN = "Name";
     public static final String FILTER_ISACTIVE_COLUMN = "IsActive";
-
+    public static final String USER_PASSWORD_COLUMN = "Password";
+    public static final String USER_ROLEID_COLUMN = "Role_RoleId";
+    public static final String USER_USERNAME_COLUMN = "UserName";
+    public static final String COOKIE_USERNAME = "username";
+    public static final String COOKIE_ROLEID = "roleid";
 }
