@@ -3,9 +3,10 @@ package com.CanadaEats.group13.database;
 import java.io.FileInputStream;
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.util.Properties;
 
-public class DatabaseConnection {
+public class DatabaseConnection implements IDatabaseConnection {
     private Connection connection = null;
     private static DatabaseConnection databaseConnection = null;
 
@@ -20,7 +21,7 @@ public class DatabaseConnection {
         return databaseConnection;
     }
 
-
+    @Override
     public Connection getDatabaseConnection() {
 
         try {
@@ -49,5 +50,36 @@ public class DatabaseConnection {
 
     }
 
-}
+    @Override
+    public void closeConnection() {
 
+        Connection connection = getDatabaseConnection();
+        try {
+            connection.close();
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+
+    }
+
+    public void executeQuery(PreparedStatement statement) {
+        try {
+            statement.execute();
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+
+    }
+
+    @Override
+    public void executeInsertQuery(PreparedStatement statement) {
+        executeQuery(statement);
+    }
+
+    @Override
+    public void executeUpdateQuery(PreparedStatement statement) {
+        executeQuery(statement);
+
+    }
+
+}

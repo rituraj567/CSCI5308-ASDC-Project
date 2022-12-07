@@ -1,6 +1,7 @@
 package com.CanadaEats.group13.restaurant.repository;
 
 import com.CanadaEats.group13.database.DatabaseConnection;
+import com.CanadaEats.group13.database.IDatabaseConnection;
 import com.CanadaEats.group13.restaurant.dto.RestaurantDTO;
 import org.springframework.stereotype.Component;
 
@@ -12,11 +13,18 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
-@Component
 public class RestaurantRepository implements IRestaurantRepository {
 
-    public List<RestaurantDTO> getRestaurantResultSet(ResultSet restaurantResult, List<RestaurantDTO> restaurantDTOList){
-        try{
+    IDatabaseConnection databaseConnection;
+    Connection connection;
+
+    public RestaurantRepository(IDatabaseConnection databaseConnection) {
+        this.databaseConnection = databaseConnection;
+    }
+
+    public List<RestaurantDTO> getRestaurantResultSet(ResultSet restaurantResult,
+            List<RestaurantDTO> restaurantDTOList) {
+        try {
             while (restaurantResult.next()) {
                 int id = Integer.parseInt(restaurantResult.getString("Id"));
                 String restaurantId = restaurantResult.getString("RestaurantId");
@@ -29,31 +37,29 @@ public class RestaurantRepository implements IRestaurantRepository {
                 String phone = restaurantResult.getString("PhoneNumber");
                 String status = restaurantResult.getString("Status");
                 String userId = restaurantResult.getString("User_UserId");
-                restaurantDTOList.add(new RestaurantDTO(id, restaurantId, name, address, city, province, country, postalCode, phone, status, userId));
-    
+                restaurantDTOList.add(new RestaurantDTO(id, restaurantId, name, address, city, province, country,
+                        postalCode, phone, status, userId));
+
             }
-          
-        }catch(Exception e){
+
+        } catch (Exception e) {
             System.out.println(e);
         }
-       
+
         return restaurantDTOList;
     }
 
     @Override
     public List<RestaurantDTO> getAllRestaurants() {
-        DatabaseConnection databaseConnection;
-        Connection connection;
         List<RestaurantDTO> restaurantDTOList = new ArrayList<>();
+        Connection connection;
         try {
-            databaseConnection = DatabaseConnection.getInstance();
             connection = databaseConnection.getDatabaseConnection();
             Statement statement = connection.createStatement();
             String restaurants = "select * from Restaurant";
             ResultSet restaurantResult = statement.executeQuery(restaurants);
 
-
-            restaurantDTOList = getRestaurantResultSet(restaurantResult,restaurantDTOList);
+            restaurantDTOList = getRestaurantResultSet(restaurantResult, restaurantDTOList);
             System.out.println("Restaurants");
             for (RestaurantDTO restaurant : restaurantDTOList) {
                 System.out.println(restaurant.getName());
@@ -71,22 +77,18 @@ public class RestaurantRepository implements IRestaurantRepository {
 
     @Override
     public void postRestaurant(RestaurantDTO restaurantDTO) {
-        DatabaseConnection databaseConnection;
         Connection connection;
-
         try {
-            databaseConnection = DatabaseConnection.getInstance();
-            connection = databaseConnection.getDatabaseConnection();
-            Statement statement = connection.createStatement();
             List<RestaurantDTO> restaurantsList = getAllRestaurants();
             int size = restaurantsList.size();
-         
+
             String query = " insert into Restaurant (Id, RestaurantId, Name, Address, City, Province,Country,PostalCode,PhoneNumber,Status,User_UserId)"
                     + " values (?, ?, ?, ?, ?,?,?,?,?,?,?)";
 
+            connection = databaseConnection.getDatabaseConnection();
             PreparedStatement preparedStmt = connection.prepareStatement(query);
-            preparedStmt.setInt(1,size+1);
-            preparedStmt.setString(2,UUID.randomUUID().toString());
+            preparedStmt.setInt(1, size + 1);
+            preparedStmt.setString(2, UUID.randomUUID().toString());
             preparedStmt.setString(3, restaurantDTO.getName());
             preparedStmt.setString(4, restaurantDTO.getAddress());
             preparedStmt.setString(5, restaurantDTO.getCity());
@@ -96,7 +98,7 @@ public class RestaurantRepository implements IRestaurantRepository {
             preparedStmt.setString(9, restaurantDTO.getPhoneNumber());
             preparedStmt.setInt(10, 1);
             preparedStmt.setString(11, "0f0482eb-1a3a-4ada-88f5-b93e46971abc");
-        
+
             preparedStmt.execute();
 
         } catch (Exception e) {
@@ -107,12 +109,9 @@ public class RestaurantRepository implements IRestaurantRepository {
 
     @Override
     public RestaurantDTO getRestaurantById(int id) {
-        
-        DatabaseConnection databaseConnection;
+        RestaurantDTO restaurantDTO = null;
         Connection connection;
-        RestaurantDTO restaurantDTO=null;
         try {
-            databaseConnection = DatabaseConnection.getInstance();
             connection = databaseConnection.getDatabaseConnection();
             Statement statement = connection.createStatement();
             String restaurants = "select * from Restaurant where id=" + id;
@@ -129,10 +128,11 @@ public class RestaurantRepository implements IRestaurantRepository {
                 String phone = restaurantResult.getString("PhoneNumber");
                 String status = restaurantResult.getString("Status");
                 String userId = restaurantResult.getString("User_UserId");
-                restaurantDTO = new RestaurantDTO(id, restaurantId, name, address, city, province, country, postalCode, phone, status, userId);
-                
-             System.out.println(restaurantDTO.getName());
-                
+                restaurantDTO = new RestaurantDTO(id, restaurantId, name, address, city, province, country, postalCode,
+                        phone, status, userId);
+
+                System.out.println(restaurantDTO.getName());
+
             }
 
             connection.close();
@@ -148,15 +148,15 @@ public class RestaurantRepository implements IRestaurantRepository {
 
     @Override
     public void updateRestuarant(RestaurantDTO restaurantDTO) {
-        DatabaseConnection databaseConnection;
+
         Connection connection;
 
         try {
-            databaseConnection = DatabaseConnection.getInstance();
             connection = databaseConnection.getDatabaseConnection();
-    
-            String query = "update Restaurant SET  Name=?, Address=?, City=?, Province=?,Country=?,PostalCode=?,PhoneNumber=? where id=" + restaurantDTO.getId();
-   
+
+            String query = "update Restaurant SET  Name=?, Address=?, City=?, Province=?,Country=?,PostalCode=?,PhoneNumber=? where id="
+                    + restaurantDTO.getId();
+
             PreparedStatement preparedStmt = connection.prepareStatement(query);
             preparedStmt.setString(1, restaurantDTO.getName());
             preparedStmt.setString(2, restaurantDTO.getAddress());
@@ -165,52 +165,48 @@ public class RestaurantRepository implements IRestaurantRepository {
             preparedStmt.setString(5, restaurantDTO.getCountry());
             preparedStmt.setString(6, restaurantDTO.getPostalCode());
             preparedStmt.setString(7, restaurantDTO.getPhoneNumber());
-    
+
             preparedStmt.execute();
+            connection.close();
 
         } catch (Exception e) {
             System.out.println(e);
         }
-        
+
     }
-    
+
     @Override
     public void deleteRestaurant(int restaurantId) {
-        DatabaseConnection databaseConnection;
         Connection connection;
 
         try {
-            databaseConnection = DatabaseConnection.getInstance();
             connection = databaseConnection.getDatabaseConnection();
-    
+
             String query = "DELETE FROM Restaurant where id=" + restaurantId;
-   
+
             PreparedStatement preparedStmt = connection.prepareStatement(query);
-    
+
             preparedStmt.execute();
 
         } catch (Exception e) {
             System.out.println(e);
         }
-        
+
     }
 
     @Override
     public List<RestaurantDTO> searchRestaurants(String query) {
-        DatabaseConnection databaseConnection;
         Connection connection;
         List<RestaurantDTO> restaurantDTOList = new ArrayList<>();
         try {
-            databaseConnection = DatabaseConnection.getInstance();
             connection = databaseConnection.getDatabaseConnection();
-    
-            String expression =  "SELECT * FROM Restaurant WHERE Name LIKE '%" + query + "%'";
+
+            String expression = "SELECT * FROM Restaurant WHERE Name LIKE '%" + query + "%'";
             System.out.println(expression);
 
-   
             Statement statement = connection.createStatement();
             ResultSet restaurantResult = statement.executeQuery(expression);
-           
+
             restaurantDTOList = getRestaurantResultSet(restaurantResult, restaurantDTOList);
             System.out.println(restaurantDTOList);
 
@@ -223,8 +219,5 @@ public class RestaurantRepository implements IRestaurantRepository {
         }
         return restaurantDTOList;
     }
-
- 
-
 
 }
