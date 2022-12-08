@@ -12,8 +12,11 @@ public class ApplicationConstants {
     public static final String USER_PASSWORD_COLUMN = "Password";
     public static final String USER_ROLEID_COLUMN = "Role_RoleId";
     public static final String USER_USERNAME_COLUMN = "UserName";
+    public static final String USER_USERID_COLUMN = "UserId";
+
     public static final String COOKIE_USERNAME = "username";
     public static final String COOKIE_ROLEID = "roleid";
+    public static final String COOKIE_USERID = "userid";
     public static final String COOKIE_ROLENAME = "rolename";
     public static final String ADMIN_ROLE = "Admin";
 

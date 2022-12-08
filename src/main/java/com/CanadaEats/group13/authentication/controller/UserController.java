@@ -76,12 +76,15 @@ public class UserController {
     {
         UserLoginResponseModel userLoginResponseModel = userService.loginUser(userLoginDto);
         System.out.println("UserLoginResponseMoel " + userLoginResponseModel);
-        if(userLoginResponseModel.getRoleId()  != null &&  userLoginResponseModel.getUserName() != null)
+        if(userLoginResponseModel.getRoleId()  != null &&  userLoginResponseModel.getUserName() != null && userLoginResponseModel.getUserId() != null)
         {
             Cookie cookie1 = new Cookie(ApplicationConstants.COOKIE_USERNAME, userLoginResponseModel.getUserName());
             Cookie cookie2 = new Cookie(ApplicationConstants.COOKIE_ROLEID, userLoginResponseModel.getRoleId());
+            Cookie cookie3 = new Cookie(ApplicationConstants.COOKIE_USERID, userLoginResponseModel.getUserId());
+
             response.addCookie(cookie1);
             response.addCookie(cookie2);
+            response.addCookie(cookie3);
 
             if(userLoginResponseModel.getRoleId().equals(ApplicationConstants.ADMIN_ROLEID))
             {

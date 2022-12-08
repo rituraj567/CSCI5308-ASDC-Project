@@ -118,6 +118,7 @@ public class UserRepository implements IUserRepository{
                         System.out.println("Got username and password successfully from Database");
                         userLoginResponseModel.setRoleId(userResult.getString(ApplicationConstants.USER_ROLEID_COLUMN));
                         userLoginResponseModel.setUserName(userResult.getString(ApplicationConstants.USER_USERNAME_COLUMN));
+                        userLoginResponseModel.setUserId(userResult.getString(ApplicationConstants.USER_USERID_COLUMN));
                         return userLoginResponseModel;
                     }
                     else{
