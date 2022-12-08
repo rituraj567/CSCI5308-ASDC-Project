@@ -2,25 +2,24 @@ package com.CanadaEats.group13.authentication.repository;
 
 import com.CanadaEats.group13.authentication.dto.UserLoginDto;
 import com.CanadaEats.group13.authentication.model.response.UserLoginResponseModel;
-import com.CanadaEats.group13.database.DatabaseConnection;
 import com.CanadaEats.group13.authentication.model.response.UserDetailsResponseModel;
 import com.CanadaEats.group13.authentication.dto.UserDetailsDto;
+import com.CanadaEats.group13.database.IDatabaseConnection;
 import com.CanadaEats.group13.utils.ApplicationConstants;
 import com.CanadaEats.group13.utils.PasswordEncoderDecoder;
 import org.springframework.beans.BeanUtils;
-import org.springframework.stereotype.Repository;
 
 import java.sql.*;
 
-@Repository
 public class UserRepository implements IUserRepository{
 
-    DatabaseConnection databaseConnection;
+    IDatabaseConnection databaseConnection;
+    //DatabaseConnection databaseConnection;
     Connection connection;
     Statement statement;
     ResultSet userResult;
-    public UserRepository() {
-
+    public UserRepository(IDatabaseConnection databaseConnection) {
+        this.databaseConnection = databaseConnection;
     }
 
     public UserDetailsResponseModel registerUser(UserDetailsDto userDetails)
@@ -28,7 +27,7 @@ public class UserRepository implements IUserRepository{
         UserDetailsResponseModel userResponse = new UserDetailsResponseModel();
         try
         {
-            databaseConnection = DatabaseConnection.getInstance();
+            //databaseConnection = DatabaseConnection.getInstance();
             connection = databaseConnection.getDatabaseConnection();
             statement = connection.createStatement();
             String getUser = "select * from User where UserName = '" + userDetails.getUserName() + "' and Status = 1";
@@ -95,7 +94,7 @@ public class UserRepository implements IUserRepository{
         UserLoginResponseModel userLoginResponseModel = new UserLoginResponseModel();
 
         try{
-            databaseConnection = DatabaseConnection.getInstance();
+            //databaseConnection = DatabaseConnection.getInstance();
             connection = databaseConnection.getDatabaseConnection();
             statement = connection.createStatement();
             String getUser = "select * from User where UserName = '" + userLoginDto.getUserName() + "' and Status = 1";

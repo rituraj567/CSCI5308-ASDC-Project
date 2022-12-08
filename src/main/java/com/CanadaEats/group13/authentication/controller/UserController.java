@@ -1,12 +1,14 @@
 package com.CanadaEats.group13.authentication.controller;
 
+import com.CanadaEats.group13.authentication.business.IUserBusiness;
 import com.CanadaEats.group13.authentication.dto.UserLoginDto;
 import com.CanadaEats.group13.authentication.model.response.UserDetailsResponseModel;
 import com.CanadaEats.group13.authentication.business.UserBusiness;
 import com.CanadaEats.group13.authentication.dto.UserDetailsDto;
 import com.CanadaEats.group13.authentication.model.response.UserLoginResponseModel;
+import com.CanadaEats.group13.authentication.repository.UserRepository;
+import com.CanadaEats.group13.database.DatabaseConnection;
 import com.CanadaEats.group13.utils.ApplicationConstants;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -17,8 +19,13 @@ import javax.servlet.http.HttpServletResponse;
 
 @Controller
 public class UserController {
-    @Autowired
-    UserBusiness userService;
+    IUserBusiness userService;
+
+    public UserController()
+    {
+        this.userService = new UserBusiness(new UserRepository(DatabaseConnection.getInstance()));
+    }
+
 
     @GetMapping
     public String getUser()
