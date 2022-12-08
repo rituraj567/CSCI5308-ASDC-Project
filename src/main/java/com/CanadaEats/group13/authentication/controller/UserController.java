@@ -13,6 +13,7 @@ import com.CanadaEats.group13.utils.ApplicationConstants;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
@@ -67,7 +68,7 @@ public class UserController {
 
     @PostMapping("/login")
     public String loginUser(@ModelAttribute UserLoginDto userLoginDto, HttpServletRequest request,
-            HttpServletResponse response,Model model) {
+            HttpServletResponse response, RedirectAttributes redirectAttributes, Model model) {
         UserLoginResponseModel userLoginResponseModel = userService.loginUser(userLoginDto);
         System.out.println("UserLoginResponseMoel " + userLoginResponseModel);
         if (userLoginResponseModel.getRoleId() != null && userLoginResponseModel.getUserName() != null
@@ -92,7 +93,7 @@ public class UserController {
                 userRoleStateManager.setCustomerRole();
                 userRoleStateManager.userRoleState(response);
                 model.addAttribute("customer", userLoginResponseModel);
-                return "customer/customerHomePage";
+                return "redirect:/userHomePage";
             } else if (userLoginResponseModel.getRoleId().equals(ApplicationConstants.DELIVERY_PERSON_ROLEID)) {
                 userRoleStateManager.setDeliveryPersonRole();
                 userRoleStateManager.userRoleState(response);
