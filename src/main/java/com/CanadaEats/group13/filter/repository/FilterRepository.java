@@ -1,9 +1,9 @@
 package com.CanadaEats.group13.filter.repository;
 
 import com.CanadaEats.group13.database.DatabaseConnection;
+import com.CanadaEats.group13.database.IDatabaseConnection;
 import com.CanadaEats.group13.filter.dto.FilterDto;
 import com.CanadaEats.group13.utils.ApplicationConstants;
-import org.springframework.stereotype.Repository;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -11,15 +11,14 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-@Repository
 public class FilterRepository implements IFilterRepository {
-    DatabaseConnection databaseConnection;
+    IDatabaseConnection databaseConnection;
     Connection connection;
     Statement statement;
     ResultSet filterResult;
 
-    public FilterRepository() {
-
+    public FilterRepository(IDatabaseConnection databaseConnection){
+        this.databaseConnection = databaseConnection;
     }
     @Override
     public List<FilterDto> getAllFilters() {

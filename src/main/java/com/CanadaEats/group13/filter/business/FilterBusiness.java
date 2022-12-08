@@ -1,17 +1,20 @@
 package com.CanadaEats.group13.filter.business;
 
 import com.CanadaEats.group13.filter.dto.FilterDto;
-import com.CanadaEats.group13.filter.repository.FilterRepository;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
+import com.CanadaEats.group13.filter.repository.IFilterRepository;
+
 
 import java.util.List;
 
-@Service
 public class FilterBusiness implements IFilterBusiness{
 
-    @Autowired
-    FilterRepository filterRepository;
+    IFilterRepository filterRepository;
+
+    public FilterBusiness(IFilterRepository filterRepository)
+    {
+        this.filterRepository = filterRepository;
+    }
+
 
     @Override
     public List<FilterDto> getAllFilters() {

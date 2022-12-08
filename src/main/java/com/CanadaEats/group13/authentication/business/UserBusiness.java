@@ -2,21 +2,23 @@ package com.CanadaEats.group13.authentication.business;
 
 import com.CanadaEats.group13.authentication.dto.UserLoginDto;
 import com.CanadaEats.group13.authentication.model.response.UserLoginResponseModel;
-import com.CanadaEats.group13.authentication.repository.UserRepository;
+import com.CanadaEats.group13.authentication.repository.IUserRepository;
 import com.CanadaEats.group13.authentication.model.response.UserDetailsResponseModel;
 import com.CanadaEats.group13.authentication.dto.UserDetailsDto;
 import com.CanadaEats.group13.utils.ApplicationConstants;
 import com.CanadaEats.group13.utils.PasswordEncoderDecoder;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 
 import java.util.UUID;
 
-@Service
 public class UserBusiness implements IUserBusiness {
 
-    @Autowired
-    UserRepository userRepository;
+    IUserRepository userRepository;
+
+    public UserBusiness(IUserRepository userRepository)
+    {
+       this.userRepository = userRepository;
+    }
+
     @Override
     public UserDetailsResponseModel registerUser(UserDetailsDto userDto){
         UserDetailsResponseModel userResponse = new UserDetailsResponseModel();
