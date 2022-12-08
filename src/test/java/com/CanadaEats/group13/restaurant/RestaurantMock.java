@@ -66,7 +66,12 @@ public class RestaurantMock implements IRestaurantRepository {
 
     @Override
     public List<RestaurantDTO> searchRestaurants(String query) {
-        // TODO Auto-generated method stub
-        return null;
+        List<RestaurantDTO> restaurantDTOs = new ArrayList<>();
+        for (RestaurantDTO restaurantDTO : getAllRestaurants()) {
+            if (restaurantDTO.getName().contains(query)) {
+                restaurantDTOs.add(restaurantDTO);
+            }
+        }
+        return restaurantDTOs;
     }
 }

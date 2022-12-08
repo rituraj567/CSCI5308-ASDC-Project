@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import java.util.List;
 import java.util.Map;
 
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -106,5 +107,20 @@ public class RestaurantBusinessTest {
 
         assertEquals(RestaurantConstants.getErrorMessage(), map.keySet().toArray()[0]);
         assertEquals(RestaurantConstants.getDeleteFailure(), map.values().toArray()[0]);
+    }
+
+    @Test
+    @DisplayName("searchTest() test")
+    public void searchTest() {
+
+        List<RestaurantDTO> restaurantDTOs = restaurantBusiness.searchRestaurants("Passage");
+
+        assertEquals(1, restaurantDTOs.size());
+        assertEquals("Passage to India", restaurantDTOs.get(0).getName());
+    }
+
+    @AfterEach
+    public void testTeardown() {
+        restaurantBusiness = null;
     }
 }
