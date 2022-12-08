@@ -25,8 +25,7 @@ public class UserBusiness implements IUserBusiness {
 
         try
         {
-            PasswordEncoderDecoder passwordEncoderDecoder = new PasswordEncoderDecoder();
-            String encryptedPassword = passwordEncoderDecoder.encrypt(userDto.getPassword());
+            String encryptedPassword = PasswordEncoderDecoder.getInstance().encrypt(userDto.getPassword());
             userDto.setPassword(encryptedPassword);
         }
         catch (Exception ex)

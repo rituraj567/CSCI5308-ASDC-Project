@@ -109,8 +109,8 @@ public class UserRepository implements IUserRepository{
                 try
                 {
                     System.out.println("Got username successfully from Database");
-                    PasswordEncoderDecoder passwordEncoderDecoder = new PasswordEncoderDecoder();
-                    String decryptedPassword =passwordEncoderDecoder.decrypt(userResult.getString(ApplicationConstants.USER_PASSWORD_COLUMN));
+
+                    String decryptedPassword = PasswordEncoderDecoder.getInstance().decrypt(userResult.getString(ApplicationConstants.USER_PASSWORD_COLUMN));
                     System.out.println("DecryptedPassword: " + decryptedPassword);
                     System.out.println("UserPassword: " + userLoginDto.getPassword());
                     if(decryptedPassword.equals(userLoginDto.getPassword()))
