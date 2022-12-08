@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Orders</title>
+
+
+    <style>
+      header{
+        background-color: aqua;
+        font-size: 40px;
+        color: black;
+      }
+    </style>
+
+  </head>
+
+<body>
+<header>
+  <h3>Orders</h3>
+</header>
+<div class="container margin-container">
+  <div class="row">
+    <ul th:each="order, index : ${orders}">
+      <div class="row">
+        <div class="col-sm">
+          <li th:text="${order.getId()}">Id</li>
+        </div>
+        <div class="col-sm">
+          <li th:text="${order.getPayment_options()}">Payment</li>
+        </div>
+      </div>
+
+    </ul>
+  </div>
+</div>
+
+</body>
+</html>
