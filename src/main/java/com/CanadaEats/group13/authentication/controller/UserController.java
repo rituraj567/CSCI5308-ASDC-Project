@@ -90,7 +90,7 @@ public class UserController {
             {
                 userRoleStateManager.setAdminRole();
                 userRoleStateManager.userRoleState(response);
-                return "redirect:/restaurants";
+                return "redirect:/adminuserhomepage";
             }
             else if (userLoginResponseModel.getRoleId().equals(ApplicationConstants.RESTAURANT_OWNER_ROLEID))
             {
