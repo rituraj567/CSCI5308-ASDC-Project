@@ -1,14 +1,14 @@
-package com.CanadaEats.group13.restaurant.repository;
-
-import com.CanadaEats.group13.restaurant.dto.RestaurantDTO;
+package com.CanadaEats.group13.restaurant.business;
 
 import java.util.List;
 import java.util.Map;
 
-public interface IRestaurantRepository {
+import com.CanadaEats.group13.restaurant.dto.RestaurantDTO;
+
+public interface IRestaurantBusiness {
     public List<RestaurantDTO> getAllRestaurants();
 
-    public Map<String, String> postRestaurant(RestaurantDTO restaurantDTO);
+    public Map<String, String> insertRestaurant(RestaurantDTO restaurantDTO);
 
     public RestaurantDTO getRestaurantById(int id);
 
