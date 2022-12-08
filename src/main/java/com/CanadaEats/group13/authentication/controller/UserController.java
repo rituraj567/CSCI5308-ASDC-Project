@@ -22,62 +22,56 @@ import javax.servlet.http.HttpServletResponse;
 public class UserController {
     IUserBusiness userService;
     private UserRoleStateManager userRoleStateManager;
-    public UserController()
-    {
+
+    public UserController() {
         this.userService = new UserBusiness(new UserRepository(DatabaseConnection.getInstance()));
         userRoleStateManager = new UserRoleStateManager();
     }
 
-
     @GetMapping
-    public String getUser()
-    {
+    public String getUser() {
         return "get user";
     }
 
     @GetMapping("/userregistrationpage")
-    public String userRegistrationErrorPage(Model model,HttpServletRequest request){
+    public String userRegistrationErrorPage(Model model, HttpServletRequest request) {
         UserDetailsDto userDetailsDto = new UserDetailsDto();
         model.addAttribute("userregistration", userDetailsDto);
         return "authentication/registerUser";
     }
 
     @PostMapping("/register")
-    public String registerUser(@ModelAttribute UserDetailsDto userDetailsDto,HttpServletRequest request)
-    {
+    public String registerUser(@ModelAttribute UserDetailsDto userDetailsDto, HttpServletRequest request) {
         UserDetailsResponseModel userResponse = userService.registerUser(userDetailsDto);
-        if(userResponse.getUserId() == null)
-        {
+        if (userResponse.getUserId() == null) {
             return "redirect:/userregistrationerrorpage";
-        }
-        else
-        {
+        } else {
             System.out.println("Success");
             return "redirect:/userloginpage";
         }
     }
 
     @GetMapping("/userregistrationerrorpage")
-    public String userRegistrationForm(Model model){
+    public String userRegistrationForm(Model model) {
         String errorMessage = "Some error occured, Please, try again";
         model.addAttribute("errorMessageRegistration", errorMessage);
         return "authentication/registerUserError";
     }
 
     @GetMapping("/userloginpage")
-    public String userLoginForm(Model model,HttpServletRequest request){
+    public String userLoginForm(Model model, HttpServletRequest request) {
         UserLoginDto userLoginDto = new UserLoginDto();
         model.addAttribute("userlogin", userLoginDto);
         return "authentication/loginUser";
     }
 
     @PostMapping("/login")
-    public String loginUser(@ModelAttribute UserLoginDto userLoginDto,HttpServletRequest request, HttpServletResponse response)
-    {
+    public String loginUser(@ModelAttribute UserLoginDto userLoginDto, HttpServletRequest request,
+            HttpServletResponse response,Model model) {
         UserLoginResponseModel userLoginResponseModel = userService.loginUser(userLoginDto);
         System.out.println("UserLoginResponseMoel " + userLoginResponseModel);
-        if(userLoginResponseModel.getRoleId()  != null &&  userLoginResponseModel.getUserName() != null && userLoginResponseModel.getUserId() != null)
-        {
+        if (userLoginResponseModel.getRoleId() != null && userLoginResponseModel.getUserName() != null
+                && userLoginResponseModel.getUserId() != null) {
             Cookie cookie1 = new Cookie(ApplicationConstants.COOKIE_USERNAME, userLoginResponseModel.getUserName());
             Cookie cookie2 = new Cookie(ApplicationConstants.COOKIE_ROLEID, userLoginResponseModel.getRoleId());
             Cookie cookie3 = new Cookie(ApplicationConstants.COOKIE_USERID, userLoginResponseModel.getUserId());
@@ -86,26 +80,20 @@ public class UserController {
             response.addCookie(cookie2);
             response.addCookie(cookie3);
 
-            if(userLoginResponseModel.getRoleId().equals(ApplicationConstants.ADMIN_ROLEID))
-            {
+            if (userLoginResponseModel.getRoleId().equals(ApplicationConstants.ADMIN_ROLEID)) {
                 userRoleStateManager.setAdminRole();
                 userRoleStateManager.userRoleState(response);
                 return "redirect:/adminuserhomepage";
-            }
-            else if (userLoginResponseModel.getRoleId().equals(ApplicationConstants.RESTAURANT_OWNER_ROLEID))
-            {
+            } else if (userLoginResponseModel.getRoleId().equals(ApplicationConstants.RESTAURANT_OWNER_ROLEID)) {
                 userRoleStateManager.setRestaurantOwnerRole();
                 userRoleStateManager.userRoleState(response);
                 return "redirect:/userloginpage";
-            }
-            else if(userLoginResponseModel.getRoleId().equals(ApplicationConstants.CUSTOMER_ROLEID))
-            {
+            } else if (userLoginResponseModel.getRoleId().equals(ApplicationConstants.CUSTOMER_ROLEID)) {
                 userRoleStateManager.setCustomerRole();
                 userRoleStateManager.userRoleState(response);
-                return "redirect:/userloginpage";
-            }
-            else if (userLoginResponseModel.getRoleId().equals(ApplicationConstants.DELIVERY_PERSON_ROLEID))
-            {
+                model.addAttribute("customer", userLoginResponseModel);
+                return "customer/customerHomePage";
+            } else if (userLoginResponseModel.getRoleId().equals(ApplicationConstants.DELIVERY_PERSON_ROLEID)) {
                 userRoleStateManager.setDeliveryPersonRole();
                 userRoleStateManager.userRoleState(response);
                 return "redirect:/userloginpage";
@@ -115,14 +103,14 @@ public class UserController {
     }
 
     @GetMapping("/userloginerrorpage")
-    public String userLoginErrorPage(Model model, HttpServletRequest request){
+    public String userLoginErrorPage(Model model, HttpServletRequest request) {
         String errorMessage = "Some error occured, Please, try again";
         model.addAttribute("errorMessageLogin", errorMessage);
         return "authentication/loginUserError";
     }
 
     @GetMapping("/logout")
-    public String userLogout(Model model, HttpServletRequest request, HttpServletResponse response){
+    public String userLogout(Model model, HttpServletRequest request, HttpServletResponse response) {
         Cookie[] cookies = request.getCookies();
         for (Cookie cookie : cookies) {
             cookie.setValue(ApplicationConstants.COOKIE_EMPTY_STRING);

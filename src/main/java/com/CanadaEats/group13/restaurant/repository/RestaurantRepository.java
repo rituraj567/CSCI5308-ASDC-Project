@@ -1,5 +1,14 @@
 package com.CanadaEats.group13.restaurant.repository;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import java.util.UUID;
+
 import com.CanadaEats.group13.database.IDatabaseConnection;
 import com.CanadaEats.group13.restaurant.business.DeleteErrorOperation;
 import com.CanadaEats.group13.restaurant.business.DeleteSuccessOperation;
@@ -9,15 +18,6 @@ import com.CanadaEats.group13.restaurant.business.InsertSucessOperation;
 import com.CanadaEats.group13.restaurant.business.UpdateErrorOperation;
 import com.CanadaEats.group13.restaurant.business.UpdateSucessOperation;
 import com.CanadaEats.group13.restaurant.dto.RestaurantDTO;
-
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.Statement;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.UUID;
 
 public class RestaurantRepository implements IRestaurantRepository {
 
