@@ -14,4 +14,5 @@ public class ApplicationConstants {
     public static final String USER_USERNAME_COLUMN = "UserName";
     public static final String COOKIE_USERNAME = "username";
     public static final String COOKIE_ROLEID = "roleid";
+
 }

@@ -12,5 +12,6 @@ public class Group13Application {
         SpringApplication.run(Group13Application.class, args);
         TestConnection connection = new TestConnection();
         connection.runSampleQueries();
+
     }
 }

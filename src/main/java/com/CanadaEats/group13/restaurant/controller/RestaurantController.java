@@ -20,7 +20,6 @@ public class RestaurantController {
     RestaurantRepository restaurantRepository;
 
     public RestaurantController() {
-
         this.restaurantRepository = new RestaurantRepository(DatabaseConnection.getInstance());
     }
 

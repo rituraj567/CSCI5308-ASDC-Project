@@ -26,7 +26,6 @@ public class DatabaseConnection implements IDatabaseConnection {
 
         try {
             Properties databaseProperties = new Properties();
-
             FileInputStream inputStream = new FileInputStream("./src/main/resources/application.properties");
             databaseProperties.load(inputStream);
             String jdbcPackage = databaseProperties.getProperty("JDBCDriver");
