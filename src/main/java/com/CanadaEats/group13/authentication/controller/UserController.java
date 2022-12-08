@@ -1,6 +1,7 @@
 package com.CanadaEats.group13.authentication.controller;
 
 import com.CanadaEats.group13.authentication.business.IUserBusiness;
+import com.CanadaEats.group13.authentication.common.UserRoleStateManager;
 import com.CanadaEats.group13.authentication.dto.UserLoginDto;
 import com.CanadaEats.group13.authentication.model.response.UserDetailsResponseModel;
 import com.CanadaEats.group13.authentication.business.UserBusiness;
@@ -20,10 +21,11 @@ import javax.servlet.http.HttpServletResponse;
 @Controller
 public class UserController {
     IUserBusiness userService;
-
+    private UserRoleStateManager userRoleStateManager;
     public UserController()
     {
         this.userService = new UserBusiness(new UserRepository(DatabaseConnection.getInstance()));
+        userRoleStateManager = new UserRoleStateManager();
     }
 
 
@@ -83,26 +85,26 @@ public class UserController {
 
             if(userLoginResponseModel.getRoleId().equals(ApplicationConstants.ADMIN_ROLEID))
             {
-                //redirect on admin home page
-                System.out.println("ADMIN ROLE USER");
+                userRoleStateManager.setAdminRole();
+                userRoleStateManager.userRoleState(response);
                 return "redirect:/restaurants";
             }
             else if (userLoginResponseModel.getRoleId().equals(ApplicationConstants.RESTAURANT_OWNER_ROLEID))
             {
-                //redirect on restaurant owner home page
-                System.out.println("RESTAUEANT OWNER ROLE USER");
+                userRoleStateManager.setRestaurantOwnerRole();
+                userRoleStateManager.userRoleState(response);
                 return "redirect:/userloginpage";
             }
             else if(userLoginResponseModel.getRoleId().equals(ApplicationConstants.CUSTOMER_ROLEID))
             {
-                //redirect on customer home page
-                System.out.println("CUSTOMER ROLE USER");
+                userRoleStateManager.setCustomerRole();
+                userRoleStateManager.userRoleState(response);
                 return "redirect:/userloginpage";
             }
             else if (userLoginResponseModel.getRoleId().equals(ApplicationConstants.DELIVERY_PERSON_ROLEID))
             {
-                //redirect on delivery person home page
-                System.out.println("DELIVERY PERSON ROLE USER");
+                userRoleStateManager.setDeliveryPersonRole();
+                userRoleStateManager.userRoleState(response);
                 return "redirect:/userloginpage";
             }
         }
@@ -120,10 +122,9 @@ public class UserController {
     public String userLogout(Model model, HttpServletRequest request, HttpServletResponse response){
         Cookie[] cookies = request.getCookies();
         for (Cookie cookie : cookies) {
-            cookie.setValue("");
-            cookie.setMaxAge(0);
-            cookie.setPath("/");
-
+            cookie.setValue(ApplicationConstants.COOKIE_EMPTY_STRING);
+            cookie.setMaxAge(ApplicationConstants.COOKIE_MAX_AGE);
+            cookie.setPath(ApplicationConstants.COOKIE_ROOT_PATH);
             response.addCookie(cookie);
         }
         return "redirect:/userloginpage";
