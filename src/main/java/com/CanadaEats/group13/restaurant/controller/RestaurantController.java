@@ -2,6 +2,8 @@ package com.CanadaEats.group13.restaurant.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,6 +17,7 @@ import com.CanadaEats.group13.restaurant.business.IRestaurantBusiness;
 import com.CanadaEats.group13.restaurant.business.RestaurantBusiness;
 import com.CanadaEats.group13.restaurant.dto.RestaurantDTO;
 import com.CanadaEats.group13.restaurant.repository.RestaurantRepository;
+import com.CanadaEats.group13.utils.APIAccessAuthorization;
 
 @Controller
 public class RestaurantController {
@@ -27,41 +30,57 @@ public class RestaurantController {
     }
 
     @GetMapping("/restaurants")
-    public String displayRestaurants(Model model) {
-        List<RestaurantDTO> restaurants = restaurantBusiness.getAllRestaurants();
+    public String displayRestaurants(Model model, HttpServletRequest request) {
+        boolean isAPIAccessible = APIAccessAuthorization.getInstance().getAPIAccess(request);
+        if (isAPIAccessible) {
+            List<RestaurantDTO> restaurants = restaurantBusiness.getAllRestaurants();
 
-        model.addAttribute("restaurants", restaurants);
+            model.addAttribute("restaurants", restaurants);
 
-        return "/restaurants/restaurant";
+            return "/restaurants/restaurant";
+        }
+        return "redirect:/userloginpage";
     }
 
     @GetMapping("/admin/restaurants/newRestaurant")
-    public String newRestuarantForm(Model model) {
+    public String newRestuarantForm(Model model, HttpServletRequest request) {
+        boolean isAPIAccessible = APIAccessAuthorization.getInstance().getAPIAccess(request);
+        if (isAPIAccessible) {
+            RestaurantDTO restaurantDTO = new RestaurantDTO();
+            model.addAttribute("restaurant", restaurantDTO);
 
-        RestaurantDTO restaurantDTO = new RestaurantDTO();
-        model.addAttribute("restaurant", restaurantDTO);
-
-        return "restaurants/newRestuarant";
+            return "restaurants/newRestuarant";
+        }
+        return "redirect:/userloginpage";
     }
 
     @GetMapping("/admin/restaurants/{resturantId}/edit")
-    public String editRestuarants(@PathVariable("resturantId") int restaurantId, Model model) {
+    public String editRestuarants(@PathVariable("resturantId") int restaurantId, Model model,
+            HttpServletRequest request) {
+        boolean isAPIAccessible = APIAccessAuthorization.getInstance().getAPIAccess(request);
+        if (isAPIAccessible) {
+            RestaurantDTO restaurantDTO = restaurantBusiness.getRestaurantById(restaurantId);
 
-        RestaurantDTO restaurantDTO = restaurantBusiness.getRestaurantById(restaurantId);
+            model.addAttribute("restaurant", restaurantDTO);
 
-        model.addAttribute("restaurant", restaurantDTO);
-
-        return "restaurants/editRestaurant";
+            return "restaurants/editRestaurant";
+        }
+        return "redirect:/userloginpage";
     }
 
     @GetMapping("/admin/restaurants/{restaurantId}/delete")
-    public String deleteRestaurant(@PathVariable("restaurantId") int restaurantId) {
-        restaurantBusiness.deleteRestaurant(restaurantId);
-        return "redirect:/restaurants";
+    public String deleteRestaurant(@PathVariable("restaurantId") int restaurantId, HttpServletRequest request) {
+        boolean isAPIAccessible = APIAccessAuthorization.getInstance().getAPIAccess(request);
+        if (isAPIAccessible) {
+            restaurantBusiness.deleteRestaurant(restaurantId);
+            return "redirect:/restaurants";
+        }
+        return "redirect:/userloginpage";
     }
 
     @GetMapping("/admin/restaurants/{restaurantId}/view")
     public String viewRestaurant(@PathVariable("restaurantId") int restaurantId, Model model) {
+
         RestaurantDTO restaurantDTO = restaurantBusiness.getRestaurantById(restaurantId);
         model.addAttribute("restaurant", restaurantDTO);
         return "restaurants/viewRestaurant";
