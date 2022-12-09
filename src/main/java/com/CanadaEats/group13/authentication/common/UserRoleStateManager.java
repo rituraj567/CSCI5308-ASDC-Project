@@ -20,17 +20,20 @@ public class UserRoleStateManager {
     public void setAdminRole() {
         userRole = adminState;
     }
+
     public void setCustomerRole() {
-        userRole  = customerState;
-    }
-    public void setRestaurantOwnerRole() {
-        userRole  = restaurantOwnerState;
-    }
-    public void setDeliveryPersonRole() {
-        userRole  = deliveryPersonState;
+        userRole = customerState;
     }
 
-    public void userRoleState(HttpServletResponse response){
+    public void setRestaurantOwnerRole() {
+        userRole = restaurantOwnerState;
+    }
+
+    public void setDeliveryPersonRole() {
+        userRole = deliveryPersonState;
+    }
+
+    public void userRoleState(HttpServletResponse response) {
         userRole.userRoleState(response);
     }
 

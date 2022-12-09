@@ -12,7 +12,6 @@ import com.CanadaEats.group13.authentication.dto.UserLoginDto;
 import com.CanadaEats.group13.authentication.model.response.UserDetailsResponseModel;
 import com.CanadaEats.group13.authentication.model.response.UserLoginResponseModel;
 import com.CanadaEats.group13.database.IDatabaseConnection;
-import com.CanadaEats.group13.restaurantowner.dto.RestaurantOwnerDto;
 import com.CanadaEats.group13.utils.ApplicationConstants;
 import com.CanadaEats.group13.utils.PasswordEncoderDecoder;
 
@@ -220,5 +219,42 @@ public class UserRepository implements IUserRepository {
         }
         return userDetailsDto;
 
+    }
+
+    @Override
+    public void updateUserProfile(UserDetailsDto userDetails) {
+        Connection connection;
+
+        try {
+            connection = databaseConnection.getDatabaseConnection();
+
+            String query = "update User SET  UserId=?, FirstName=?, LastName=?, EmailId=?, UserName=?, Password=?, MobileNumber=?, Gender=?, BirthDate=?, Address=?, City=?, Province=?, Country=?, PostalCode=?  where UserId= '"
+                    + userDetails.getUserId() + "'";
+
+            PreparedStatement prepStat = connection.prepareStatement(query);
+
+            prepStat.setString(1, userDetails.getUserId());
+            prepStat.setString(2, userDetails.getFirstName());
+            prepStat.setString(3, userDetails.getLastName());
+            prepStat.setString(4, userDetails.getEmailId());
+            prepStat.setString(5, userDetails.getUserName());
+            prepStat.setString(6, userDetails.getPassword());
+            prepStat.setString(7, userDetails.getMobileNumber());
+            prepStat.setString(8, userDetails.getGender());
+            prepStat.setDate(9, userDetails.getBirthDate());
+            prepStat.setString(10, userDetails.getAddress());
+            prepStat.setString(11, userDetails.getCity());
+            prepStat.setString(12, userDetails.getProvince());
+            prepStat.setString(13, userDetails.getCountry());
+            prepStat.setString(14, userDetails.getPostalCode());
+
+            prepStat.executeUpdate();
+
+            connection.close();
+
+        } catch (Exception e) {
+            System.out.println(e);
+
+        }
     }
 }

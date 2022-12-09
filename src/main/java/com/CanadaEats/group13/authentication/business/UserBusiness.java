@@ -56,4 +56,9 @@ public class UserBusiness implements IUserBusiness {
     public UserDetailsDto getUserDetails(String id) {
         return userRepository.getUserDetails(id);
     }
+
+    @Override
+    public void updateUserProfile(UserDetailsDto userDetailsDto) {
+        userRepository.updateUserProfile(userDetailsDto);
+    }
 }

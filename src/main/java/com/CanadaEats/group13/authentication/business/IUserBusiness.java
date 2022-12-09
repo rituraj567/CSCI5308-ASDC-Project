@@ -11,4 +11,6 @@ public interface IUserBusiness {
     UserLoginResponseModel loginUser(UserLoginDto userLoginDto);
 
     public UserDetailsDto getUserDetails(String id);
+
+    public void updateUserProfile(UserDetailsDto userDetailsDto);
 }

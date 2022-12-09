@@ -9,5 +9,8 @@ public interface IUserRepository {
     UserDetailsResponseModel registerUser(UserDetailsDto userDetails);
 
     UserLoginResponseModel loginUser(UserLoginDto userLoginDto);
+
     public UserDetailsDto getUserDetails(String id);
+
+    public void updateUserProfile(UserDetailsDto userDetails);
 }

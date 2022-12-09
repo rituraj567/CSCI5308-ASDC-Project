@@ -41,6 +41,12 @@
         <hr />
         <h4 th:text="${user.getPostalCode()}"></h4>
         <hr />
+        <a
+          class="btn btn-dark button-space"
+          th:href="@{/userProfile/{userId}/edit(userId=${user.getUserId()})}"
+        >
+          Edit Profile</a
+        >
       </div>
     </div>
   </body>

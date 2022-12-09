@@ -8,6 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import com.CanadaEats.group13.authentication.business.CookiesLogic;
@@ -132,6 +133,23 @@ public class UserController {
         UserDetailsDto userDetailsDto = userService.getUserDetails(userId);
         model.addAttribute("user", userDetailsDto);
         return "common/userViewProfile";
+    }
+
+    @GetMapping("/userProfile/{userId}/edit")
+    public String editProfile(@PathVariable("userId") String userId, Model model) {
+        UserDetailsDto userDetailsDto = userService.getUserDetails(userId);
+        model.addAttribute("user", userDetailsDto);
+
+        return "common/editProfile";
+    }
+
+    @PostMapping("/users/{userId}")
+    public String updateRestaurant(@PathVariable("userId") String userId,
+            @ModelAttribute("restaurant") UserDetailsDto userDetailsDto, Model model) {
+        model.addAttribute("user", userDetailsDto);
+        userService.updateUserProfile(userDetailsDto);
+
+        return "redirect:/viewProfile";
     }
 
 }
