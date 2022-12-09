@@ -1,5 +1,6 @@
 package com.CanadaEats.group13.utils;
 
+import com.CanadaEats.group13.database.DatabaseConnection;
 import org.apache.tomcat.util.codec.binary.Base64;
 
 import javax.crypto.Cipher;
@@ -9,6 +10,8 @@ import javax.crypto.spec.DESedeKeySpec;
 import java.security.spec.KeySpec;
 
 public class PasswordEncoderDecoder {
+
+    private static PasswordEncoderDecoder passwordEncoderDecoder;
     private static final String UNICODE_FORMAT = "UTF8";
     public static final String DESEDE_ENCRYPTION_SCHEME = "DESede";
     private KeySpec ks;
@@ -19,17 +22,27 @@ public class PasswordEncoderDecoder {
     private String myEncryptionScheme;
     SecretKey key;
 
-    public PasswordEncoderDecoder() throws Exception {
+    private PasswordEncoderDecoder(){
         myEncryptionKey = "ThisIsGroup13EncryptionKey";
         myEncryptionScheme = DESEDE_ENCRYPTION_SCHEME;
-        arrayBytes = myEncryptionKey.getBytes(UNICODE_FORMAT);
-        ks = new DESedeKeySpec(arrayBytes);
-        skf = SecretKeyFactory.getInstance(myEncryptionScheme);
-        cipher = Cipher.getInstance(myEncryptionScheme);
-        key = skf.generateSecret(ks);
+        try{
+            arrayBytes = myEncryptionKey.getBytes(UNICODE_FORMAT);
+            ks = new DESedeKeySpec(arrayBytes);
+            skf = SecretKeyFactory.getInstance(myEncryptionScheme);
+            cipher = Cipher.getInstance(myEncryptionScheme);
+            key = skf.generateSecret(ks);
+        }
+        catch(Exception ex){
+            System.out.println("Exception occured in PasswordEncoderDecoder");
+        }
     }
 
-
+    public static PasswordEncoderDecoder getInstance() {
+        if (passwordEncoderDecoder == null) {
+            passwordEncoderDecoder = new PasswordEncoderDecoder();
+        }
+        return passwordEncoderDecoder;
+    }
     public String encrypt(String unencryptedString) {
         String encryptedString = null;
         try {

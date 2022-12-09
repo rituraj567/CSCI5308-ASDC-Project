@@ -175,6 +175,7 @@ public class RestaurantDTOTest {
         restaurantDTO.setUserId(newValue);
         assertEquals(newValue, restaurantDTO.getUserId());
     }
+    
 
     @AfterEach
     public void testTeardown() {

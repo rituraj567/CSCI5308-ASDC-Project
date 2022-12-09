@@ -1,9 +1,14 @@
 package com.CanadaEats.group13.restaurant.repository;
 
-import com.CanadaEats.group13.database.DatabaseConnection;
 import com.CanadaEats.group13.database.IDatabaseConnection;
+import com.CanadaEats.group13.restaurant.business.DeleteErrorOperation;
+import com.CanadaEats.group13.restaurant.business.DeleteSuccessOperation;
+import com.CanadaEats.group13.restaurant.business.IRestaurantState;
+import com.CanadaEats.group13.restaurant.business.InsertErrorOperation;
+import com.CanadaEats.group13.restaurant.business.InsertSucessOperation;
+import com.CanadaEats.group13.restaurant.business.UpdateErrorOperation;
+import com.CanadaEats.group13.restaurant.business.UpdateSucessOperation;
 import com.CanadaEats.group13.restaurant.dto.RestaurantDTO;
-import org.springframework.stereotype.Component;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -11,6 +16,7 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 public class RestaurantRepository implements IRestaurantRepository {
@@ -76,7 +82,7 @@ public class RestaurantRepository implements IRestaurantRepository {
     }
 
     @Override
-    public void postRestaurant(RestaurantDTO restaurantDTO) {
+    public Map<String, String> postRestaurant(RestaurantDTO restaurantDTO) {
         Connection connection;
         try {
             List<RestaurantDTO> restaurantsList = getAllRestaurants();
@@ -101,8 +107,15 @@ public class RestaurantRepository implements IRestaurantRepository {
 
             preparedStmt.execute();
 
+            IRestaurantState restaurantState = new InsertSucessOperation();
+
+            return restaurantState.setMessage();
+
         } catch (Exception e) {
             System.out.println(e);
+            IRestaurantState restaurantState = new InsertErrorOperation();
+
+            return restaurantState.setMessage();
         }
 
     }
@@ -147,7 +160,7 @@ public class RestaurantRepository implements IRestaurantRepository {
     }
 
     @Override
-    public void updateRestuarant(RestaurantDTO restaurantDTO) {
+    public Map<String, String> updateRestuarant(RestaurantDTO restaurantDTO) {
 
         Connection connection;
 
@@ -168,15 +181,21 @@ public class RestaurantRepository implements IRestaurantRepository {
 
             preparedStmt.execute();
             connection.close();
+            IRestaurantState restaurantState = new UpdateSucessOperation();
+
+            return restaurantState.setMessage();
 
         } catch (Exception e) {
             System.out.println(e);
+            IRestaurantState restaurantState = new UpdateErrorOperation();
+
+            return restaurantState.setMessage();
         }
 
     }
 
     @Override
-    public void deleteRestaurant(int restaurantId) {
+    public Map<String, String> deleteRestaurant(int restaurantId) {
         Connection connection;
 
         try {
@@ -187,9 +206,13 @@ public class RestaurantRepository implements IRestaurantRepository {
             PreparedStatement preparedStmt = connection.prepareStatement(query);
 
             preparedStmt.execute();
+            IRestaurantState restaurantState = new DeleteSuccessOperation();
+            return restaurantState.setMessage();
 
         } catch (Exception e) {
             System.out.println(e);
+            IRestaurantState restaurantState = new DeleteErrorOperation();
+            return restaurantState.setMessage();
         }
 
     }

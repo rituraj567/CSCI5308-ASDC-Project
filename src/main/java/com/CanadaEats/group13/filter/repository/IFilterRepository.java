@@ -6,4 +6,5 @@ import java.util.List;
 
 public interface IFilterRepository {
     List<FilterDto> getAllFilters();
+    List<FilterDto> updateFilters(List<FilterDto> filterDtos);
 }
