@@ -21,8 +21,6 @@ public class ApplicationConstants {
 
     public static final String COOKIE_USERNAME = "username";
     public static final String COOKIE_ROLEID = "roleid";
-<<<<<<< HEAD
-=======
     public static final String COOKIE_USERID = "userid";
     public static final String COOKIE_ROLENAME = "rolename";
     public static final String COOKIE_RESTAURANTID = "restaurantid";
@@ -37,6 +35,5 @@ public class ApplicationConstants {
     public static final String COOKIE_EMPTY_STRING = "";
     public static final int COOKIE_MAX_AGE = 0;
     public static final String COOKIE_ROOT_PATH = "/";
->>>>>>> develop
 
 }
