@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>View Restaurant</title>
   </head>
-  <div th:replace="restaurants/header :: header"></div>
+  <div th:replace="common/loginHeader :: header"></div>
   <style>
     .margin-container {
       margin-top: 50px;
@@ -20,22 +20,26 @@
     }
   </style>
   <body>
-    <div th:replace="common/header :: navbar"></div>
+    <div th:replace="common/loginHeader :: navbar"></div>
     <div class="container margin-container">
       <div class="row col-md-8 offset-md-2">
-        <h2 th:text="${restaurant.getName()}"></h2>
+        <h2 th:text="${user.getFirstName()}"></h2>
         <hr />
-        <h4 th:text="${restaurant.getAddress()}"></h4>
+        <h4 th:text="${user.getLastName()}"></h4>
         <hr />
-        <h4 th:text="${restaurant.getCity()}"></h4>
+        <h4 th:text="${user.getMobileNumber()}"></h4>
         <hr />
-        <h4 th:text="${restaurant.getProvince()}"></h4>
+        <h4 th:text="${user.getEmailId()}"></h4>
         <hr />
-        <h4 th:text="${restaurant.getPhoneNumber()}"></h4>
+        <h4 th:text="${user.getAddress()}"></h4>
         <hr />
-        <h4 th:text="${restaurant.getPostalCode()}"></h4>
+        <h4 th:text="${user.getBirthDate()}"></h4>
         <hr />
-        <h4 th:text="${restaurant.getPhoneNumber()}"></h4>
+        <h4 th:text="${user.getCity()}"></h4>
+        <hr />
+        <h4 th:text="${user.getCountry()}"></h4>
+        <hr />
+        <h4 th:text="${user.getPostalCode()}"></h4>
         <hr />
       </div>
     </div>

@@ -14,22 +14,18 @@ public class UserBusiness implements IUserBusiness {
 
     IUserRepository userRepository;
 
-    public UserBusiness(IUserRepository userRepository)
-    {
-       this.userRepository = userRepository;
+    public UserBusiness(IUserRepository userRepository) {
+        this.userRepository = userRepository;
     }
 
     @Override
-    public UserDetailsResponseModel registerUser(UserDetailsDto userDto){
+    public UserDetailsResponseModel registerUser(UserDetailsDto userDto) {
         UserDetailsResponseModel userResponse = new UserDetailsResponseModel();
 
-        try
-        {
+        try {
             String encryptedPassword = PasswordEncoderDecoder.getInstance().encrypt(userDto.getPassword());
             userDto.setPassword(encryptedPassword);
-        }
-        catch (Exception ex)
-        {
+        } catch (Exception ex) {
             System.out.println("Exception: In Password Encoding In User Registration");
         }
 
@@ -43,17 +39,21 @@ public class UserBusiness implements IUserBusiness {
         return userResponse;
     }
 
-    public UserLoginResponseModel loginUser(UserLoginDto userLoginDto){
+    public UserLoginResponseModel loginUser(UserLoginDto userLoginDto) {
         UserLoginResponseModel response = null;
         String userName = userLoginDto.getUserName();
         String password = userLoginDto.getPassword();
 
-        if(userName == null || password == null)
-        {
+        if (userName == null || password == null) {
             return response;
         }
 
         response = userRepository.loginUser(userLoginDto);
         return response;
+    }
+
+    @Override
+    public UserDetailsDto getUserDetails(String id) {
+        return userRepository.getUserDetails(id);
     }
 }

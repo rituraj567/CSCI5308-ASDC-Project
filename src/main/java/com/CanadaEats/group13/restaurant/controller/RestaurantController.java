@@ -11,23 +11,24 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.CanadaEats.group13.database.DatabaseConnection;
+import com.CanadaEats.group13.restaurant.business.IRestaurantBusiness;
+import com.CanadaEats.group13.restaurant.business.RestaurantBusiness;
 import com.CanadaEats.group13.restaurant.dto.RestaurantDTO;
-import com.CanadaEats.group13.restaurant.repository.IRestaurantRepository;
 import com.CanadaEats.group13.restaurant.repository.RestaurantRepository;
 
 @Controller
 public class RestaurantController {
 
-    IRestaurantRepository restaurantRepository;
+    IRestaurantBusiness restaurantBusiness;
 
     public RestaurantController() {
 
-        this.restaurantRepository = new RestaurantRepository(DatabaseConnection.getInstance());
+        this.restaurantBusiness = new RestaurantBusiness(new RestaurantRepository(DatabaseConnection.getInstance()));
     }
 
     @GetMapping("/restaurants")
     public String displayRestaurants(Model model) {
-        List<RestaurantDTO> restaurants = restaurantRepository.getAllRestaurants();
+        List<RestaurantDTO> restaurants = restaurantBusiness.getAllRestaurants();
 
         model.addAttribute("restaurants", restaurants);
 
@@ -46,7 +47,7 @@ public class RestaurantController {
     @GetMapping("/admin/restaurants/{resturantId}/edit")
     public String editRestuarants(@PathVariable("resturantId") int restaurantId, Model model) {
 
-        RestaurantDTO restaurantDTO = restaurantRepository.getRestaurantById(restaurantId);
+        RestaurantDTO restaurantDTO = restaurantBusiness.getRestaurantById(restaurantId);
 
         model.addAttribute("restaurant", restaurantDTO);
 
@@ -55,20 +56,20 @@ public class RestaurantController {
 
     @GetMapping("/admin/restaurants/{restaurantId}/delete")
     public String deleteRestaurant(@PathVariable("restaurantId") int restaurantId) {
-        restaurantRepository.deleteRestaurant(restaurantId);
+        restaurantBusiness.deleteRestaurant(restaurantId);
         return "redirect:/restaurants";
     }
 
     @GetMapping("/admin/restaurants/{restaurantId}/view")
     public String viewRestaurant(@PathVariable("restaurantId") int restaurantId, Model model) {
-        RestaurantDTO restaurantDTO = restaurantRepository.getRestaurantById(restaurantId);
+        RestaurantDTO restaurantDTO = restaurantBusiness.getRestaurantById(restaurantId);
         model.addAttribute("restaurant", restaurantDTO);
         return "restaurants/viewRestaurant";
     }
 
     @GetMapping("/restaurants/search")
     public String searchRestaurants(@RequestParam("query") String query, Model model) {
-        List<RestaurantDTO> restaurantDTOList = restaurantRepository.searchRestaurants(query);
+        List<RestaurantDTO> restaurantDTOList = restaurantBusiness.searchRestaurants(query);
         model.addAttribute("restaurants", restaurantDTOList);
         return "restaurants/restaurant";
     }
@@ -76,7 +77,7 @@ public class RestaurantController {
     @PostMapping("/admin/restaurants/")
     public String createRestaurant(@ModelAttribute RestaurantDTO restaurantDTO) {
 
-        restaurantRepository.postRestaurant(restaurantDTO);
+        restaurantBusiness.insertRestaurant(restaurantDTO);
 
         return "redirect:/restaurants";
     }
@@ -86,7 +87,7 @@ public class RestaurantController {
             @ModelAttribute("restaurant") RestaurantDTO restaurantDTO, Model model) {
         model.addAttribute("restaurant", restaurantDTO);
         restaurantDTO.setId(restaurantId);
-        restaurantRepository.updateRestuarant(restaurantDTO);
+        restaurantBusiness.updateRestuarant(restaurantDTO);
 
         return "redirect:/restaurants";
     }

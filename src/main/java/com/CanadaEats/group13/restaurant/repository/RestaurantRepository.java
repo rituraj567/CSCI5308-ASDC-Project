@@ -62,7 +62,7 @@ public class RestaurantRepository implements IRestaurantRepository {
         try {
             connection = databaseConnection.getDatabaseConnection();
             Statement statement = connection.createStatement();
-            String restaurants = "select * from Restaurant";
+            String restaurants = "select * from Restaurant WHERE status=1";
             ResultSet restaurantResult = statement.executeQuery(restaurants);
 
             restaurantDTOList = getRestaurantResultSet(restaurantResult, restaurantDTOList);
@@ -85,15 +85,13 @@ public class RestaurantRepository implements IRestaurantRepository {
     public Map<String, String> postRestaurant(RestaurantDTO restaurantDTO) {
         Connection connection;
         try {
-            List<RestaurantDTO> restaurantsList = getAllRestaurants();
-            int size = restaurantsList.size();
 
             String query = " insert into Restaurant (Id, RestaurantId, Name, Address, City, Province,Country,PostalCode,PhoneNumber,Status,User_UserId)"
                     + " values (?, ?, ?, ?, ?,?,?,?,?,?,?)";
 
             connection = databaseConnection.getDatabaseConnection();
             PreparedStatement preparedStmt = connection.prepareStatement(query);
-            preparedStmt.setInt(1, size + 1);
+            preparedStmt.setObject(1, null);
             preparedStmt.setString(2, UUID.randomUUID().toString());
             preparedStmt.setString(3, restaurantDTO.getName());
             preparedStmt.setString(4, restaurantDTO.getAddress());
@@ -201,7 +199,7 @@ public class RestaurantRepository implements IRestaurantRepository {
         try {
             connection = databaseConnection.getDatabaseConnection();
 
-            String query = "DELETE FROM Restaurant where id=" + restaurantId;
+            String query = "UPDATE Restaurant SET status=0 where id=" + restaurantId;
 
             PreparedStatement preparedStmt = connection.prepareStatement(query);
 

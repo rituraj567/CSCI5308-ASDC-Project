@@ -35,15 +35,13 @@
       }
     </style>
   </head>
-  <div th:replace="common/header :: header"></div>
+  <div th:replace="common/loginHeader :: header"></div>
   <body>
-    <div th:replace="common/header :: navbar"></div>
+    <div th:replace="common/loginHeader:: navbar"></div>
 
     <div class="container margin-container">
       <div class="row col-md-8 offset-md-2">
-        <h2 th:text="${customer.getUserId()}"></h2>
-        <hr />
-        <h4 th:text="${customer.getUserName()}"></h4>
+        <div>Hello</div>
         <hr />
       </div>
     </div>

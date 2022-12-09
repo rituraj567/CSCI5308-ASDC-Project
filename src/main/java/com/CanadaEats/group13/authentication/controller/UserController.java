@@ -1,23 +1,26 @@
 package com.CanadaEats.group13.authentication.controller;
 
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
+
+import com.CanadaEats.group13.authentication.business.CookiesLogic;
 import com.CanadaEats.group13.authentication.business.IUserBusiness;
+import com.CanadaEats.group13.authentication.business.UserBusiness;
 import com.CanadaEats.group13.authentication.common.UserRoleStateManager;
+import com.CanadaEats.group13.authentication.dto.UserDetailsDto;
 import com.CanadaEats.group13.authentication.dto.UserLoginDto;
 import com.CanadaEats.group13.authentication.model.response.UserDetailsResponseModel;
-import com.CanadaEats.group13.authentication.business.UserBusiness;
-import com.CanadaEats.group13.authentication.dto.UserDetailsDto;
 import com.CanadaEats.group13.authentication.model.response.UserLoginResponseModel;
 import com.CanadaEats.group13.authentication.repository.UserRepository;
 import com.CanadaEats.group13.database.DatabaseConnection;
 import com.CanadaEats.group13.utils.ApplicationConstants;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-
-import javax.servlet.http.Cookie;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
 @Controller
 public class UserController {
@@ -68,7 +71,7 @@ public class UserController {
 
     @PostMapping("/login")
     public String loginUser(@ModelAttribute UserLoginDto userLoginDto, HttpServletRequest request,
-            HttpServletResponse response, RedirectAttributes redirectAttributes, Model model) {
+            HttpServletResponse response) {
         UserLoginResponseModel userLoginResponseModel = userService.loginUser(userLoginDto);
         System.out.println("UserLoginResponseMoel " + userLoginResponseModel);
         if (userLoginResponseModel.getRoleId() != null && userLoginResponseModel.getUserName() != null
@@ -92,7 +95,6 @@ public class UserController {
             } else if (userLoginResponseModel.getRoleId().equals(ApplicationConstants.CUSTOMER_ROLEID)) {
                 userRoleStateManager.setCustomerRole();
                 userRoleStateManager.userRoleState(response);
-                model.addAttribute("customer", userLoginResponseModel);
                 return "redirect:/userHomePage";
             } else if (userLoginResponseModel.getRoleId().equals(ApplicationConstants.DELIVERY_PERSON_ROLEID)) {
                 userRoleStateManager.setDeliveryPersonRole();
@@ -121,4 +123,15 @@ public class UserController {
         }
         return "redirect:/userloginpage";
     }
+
+    @GetMapping("/viewProfile")
+    public String viewProfile(Model model, HttpServletRequest request) {
+        String userId = CookiesLogic.extractCookie(request, ApplicationConstants.COOKIE_USERID);
+        System.out.println("userId " + userId);
+
+        UserDetailsDto userDetailsDto = userService.getUserDetails(userId);
+        model.addAttribute("user", userDetailsDto);
+        return "common/userViewProfile";
+    }
+
 }
