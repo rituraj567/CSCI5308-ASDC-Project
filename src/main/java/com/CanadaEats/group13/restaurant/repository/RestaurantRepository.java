@@ -222,7 +222,7 @@ public class RestaurantRepository implements IRestaurantRepository {
         try {
             connection = databaseConnection.getDatabaseConnection();
 
-            String expression = "SELECT * FROM Restaurant WHERE Name LIKE '%" + query + "%'";
+            String expression = "SELECT * FROM Restaurant WHERE Name LIKE '%" + query + "%' and status=1";
             System.out.println(expression);
 
             Statement statement = connection.createStatement();

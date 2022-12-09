@@ -33,15 +33,52 @@
       .margin-left {
         margin-left: 20px;
       }
+
+      .grid-container {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        grid-gap: 20px;
+      }
     </style>
   </head>
   <div th:replace="common/loginHeader :: header"></div>
   <body>
     <div th:replace="common/loginHeader:: navbar"></div>
 
+    <div class="container margin-search">
+      <div class="row">
+        <div class="col-md-5">
+          <div class="form-group">
+            <form
+              class="form-inline"
+              th:action="@{/customer/restaurants/search}"
+            >
+              <div class="input-group">
+                <input type="text" class="form-control" name="query" />
+                <span class="input-group-btn">
+                  <button class="btn btn-primary margin-left" type="submit">
+                    Search
+                  </button>
+                </span>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+
     <div class="container margin-container">
       <div class="row col-md-8 offset-md-2">
-        <div>Hello</div>
+        <div class="grid-container">
+          <div class="card" th:each="restaurant,index : ${restaurants}">
+            <div class="card-body">
+              <a class="card-block stretched-link text-decoration-none" href="">
+                <p th:text="${restaurant.getName()}"></p>
+                <p th:text="${restaurant.getAddress()}">Address</p>
+              </a>
+            </div>
+          </div>
+        </div>
         <hr />
       </div>
     </div>
