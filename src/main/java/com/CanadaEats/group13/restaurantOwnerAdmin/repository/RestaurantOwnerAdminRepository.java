@@ -1,5 +1,6 @@
 package com.CanadaEats.group13.restaurantOwnerAdmin.repository;
 
+import com.CanadaEats.group13.database.DatabaseConnection;
 import com.CanadaEats.group13.database.IDatabaseConnection;
 import com.CanadaEats.group13.restaurant.dto.RestaurantDTO;
 import com.CanadaEats.group13.restaurantOwnerAdmin.dto.RestaurantOwnerAdminDto;
@@ -59,7 +60,7 @@ public class RestaurantOwnerAdminRepository implements IRestaurantOwnerAdminRepo
         try{
             this.connection= databaseConnection.getDatabaseConnection();
             Statement statement = this.connection.createStatement();
-            String getAllRestaurantOwnersQuery = "select * from User where Role_RoleId=ApplicationConstants.RESTAURANT_OWNER_ROLEID";
+            String getAllRestaurantOwnersQuery = "select * from User where Role_RoleId=\'086ba4a8-694c-4da0-8932-5998bc8c43cb\'";
 
             ResultSet restaurantOwnersResult = statement.executeQuery(getAllRestaurantOwnersQuery);
             restaurantOwnerAdminDtoList = getRestaurantOwnerResultSet(restaurantOwnersResult, restaurantOwnerAdminDtoList);
@@ -110,17 +111,82 @@ public class RestaurantOwnerAdminRepository implements IRestaurantOwnerAdminRepo
 
     @Override
     public RestaurantOwnerAdminDto getRestaurantOwner(int id) {
-        return null;
+        RestaurantOwnerAdminDto restaurantOwnerAdminDto= null;
+        try{
+            this.connection = databaseConnection.getDatabaseConnection();
+            Statement statement= connection.createStatement();
+            String restaurantOwner= "select * from User where id=" +id;
+            ResultSet restaurantOwnerResultSet = statement.executeQuery(restaurantOwner);
+
+            while(restaurantOwnerResultSet.next()){
+                String userId = restaurantOwnerResultSet.getString("UserId");
+                String firstName = restaurantOwnerResultSet.getString("FirstName");
+                String lastName = restaurantOwnerResultSet.getString("LastName");
+                String emailId = restaurantOwnerResultSet.getString("EmailId");
+                String userName = restaurantOwnerResultSet.getString("UserName");
+                String password = restaurantOwnerResultSet.getString("Password");
+                String mobileNumber = restaurantOwnerResultSet.getString("MobileNumber");
+                String gender = restaurantOwnerResultSet.getString("Gender");
+                Date birthDate = restaurantOwnerResultSet.getDate("BirthDate");
+                String address = restaurantOwnerResultSet.getString("Address");
+                String city = restaurantOwnerResultSet.getString("City");
+                String province = restaurantOwnerResultSet.getString("Province");
+                String country = restaurantOwnerResultSet.getString("Country");
+                String postalCode = restaurantOwnerResultSet.getString("PostalCode");
+                int status = Integer.parseInt(restaurantOwnerResultSet.getString("Status"));
+                String roleId = restaurantOwnerResultSet.getString("Role_RoleId");
+
+                restaurantOwnerAdminDto=new RestaurantOwnerAdminDto(id,userId,firstName,lastName,emailId,userName,password,mobileNumber,gender, birthDate,address,city,province,country,postalCode,status,roleId);
+
+                System.out.println(restaurantOwnerAdminDto.getFirstName());
+            }
+            connection.close();
+            statement.close();
+            restaurantOwnerResultSet.close();
+        }
+        catch(Exception e){
+            System.out.println(e + " " + e.getMessage());
+        }
+        return restaurantOwnerAdminDto;
     }
 
     @Override
     public void updateRestaurantOwner(RestaurantOwnerAdminDto restaurantOwnerAdminDto) {
+        try{
+            this.connection= databaseConnection.getDatabaseConnection();
+            String query = "update User SET FirstName=?, LastName=?, EmailId=?, UserName=?, Password=?, MobileNumber=?, Gender=?, Address=?, City=?, Province=?, Country=?, PostalCode=? where id=" +restaurantOwnerAdminDto.getId();
+            PreparedStatement preparedStmt = connection.prepareStatement(query);
+            preparedStmt.setString(1, restaurantOwnerAdminDto.getFirstName());
+            preparedStmt.setString(2, restaurantOwnerAdminDto.getLastName());
+            preparedStmt.setString(3, restaurantOwnerAdminDto.getEmailId());
+            preparedStmt.setString(4, restaurantOwnerAdminDto.getUserName());
+            preparedStmt.setString(5, restaurantOwnerAdminDto.getPassword());
+            preparedStmt.setString(6, restaurantOwnerAdminDto.getMobileNumber());
+            preparedStmt.setString(7, restaurantOwnerAdminDto.getAddress());
+            preparedStmt.setString(8, restaurantOwnerAdminDto.getCity());
+            preparedStmt.setString(9, restaurantOwnerAdminDto.getProvince());
+            preparedStmt.setString(10, restaurantOwnerAdminDto.getCountry());
+            preparedStmt.setString(11,restaurantOwnerAdminDto.getPostalCode());
 
+            preparedStmt.execute();
+            connection.close();
+        }
+        catch (Exception e){
+            System.out.println(e + " " + e.getMessage());
+        }
     }
 
     @Override
-    public void deleteRestaurantOwner(int RestaurantOwnerId) {
-
+    public void deleteRestaurantOwner(int restaurantOwnerId) {
+        try{
+            this.connection = databaseConnection.getDatabaseConnection();
+            String deleteQuery = "delete from User where id=" + restaurantOwnerId;
+            PreparedStatement preparedStmt = connection.prepareStatement(deleteQuery);
+            preparedStmt.execute();
+        }
+        catch(Exception e){
+            System.out.println(e + " " + e.getMessage());
+        }
     }
 
     @Override

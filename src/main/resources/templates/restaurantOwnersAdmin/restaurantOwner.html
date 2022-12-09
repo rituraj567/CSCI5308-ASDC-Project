@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
   <head>
     <meta charset="UTF-8" />
-    <title>Restaurants</title>
+    <title>Restaurant Owners</title>
     <link
       crossorigin="anonymous"
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
@@ -36,9 +36,9 @@
       
     </style>
   </head>
-  <div th:replace="restaurants/header :: header"></div>
+  <div th:replace="restaurantOwnersList/header :: header"></div>
   <body>
-    <div th:replace="restaurants/header :: navbar"></div>
+    <div th:replace="restaurantOwnersList/header :: navbar"></div>
 
     <div  class="container margin-search">
     <div class="row">
@@ -90,7 +90,6 @@
                 View
             </a>
                 </div>
-
         </ul>
       </div>
     </div>
