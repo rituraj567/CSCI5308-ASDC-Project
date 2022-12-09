@@ -5,6 +5,7 @@ import com.CanadaEats.group13.authentication.model.response.UserLoginResponseMod
 import com.CanadaEats.group13.authentication.model.response.UserDetailsResponseModel;
 import com.CanadaEats.group13.authentication.dto.UserDetailsDto;
 import com.CanadaEats.group13.database.IDatabaseConnection;
+import com.CanadaEats.group13.restaurantowner.dto.RestaurantOwnerDto;
 import com.CanadaEats.group13.utils.ApplicationConstants;
 import com.CanadaEats.group13.utils.PasswordEncoderDecoder;
 import org.springframework.beans.BeanUtils;
@@ -94,7 +95,6 @@ public class UserRepository implements IUserRepository{
         UserLoginResponseModel userLoginResponseModel = new UserLoginResponseModel();
 
         try{
-            //databaseConnection = DatabaseConnection.getInstance();
             connection = databaseConnection.getDatabaseConnection();
             statement = connection.createStatement();
             String getUser = "select * from User where UserName = '" + userLoginDto.getUserName() + "' and Status = 1";
@@ -111,14 +111,21 @@ public class UserRepository implements IUserRepository{
                     System.out.println("Got username successfully from Database");
 
                     String decryptedPassword = PasswordEncoderDecoder.getInstance().decrypt(userResult.getString(ApplicationConstants.USER_PASSWORD_COLUMN));
-                    System.out.println("DecryptedPassword: " + decryptedPassword);
                     System.out.println("UserPassword: " + userLoginDto.getPassword());
                     if(decryptedPassword.equals(userLoginDto.getPassword()))
                     {
                         System.out.println("Got username and password successfully from Database");
-                        userLoginResponseModel.setRoleId(userResult.getString(ApplicationConstants.USER_ROLEID_COLUMN));
-                        userLoginResponseModel.setUserName(userResult.getString(ApplicationConstants.USER_USERNAME_COLUMN));
-                        userLoginResponseModel.setUserId(userResult.getString(ApplicationConstants.USER_USERID_COLUMN));
+                        String loggedInUserRoleId = userResult.getString(ApplicationConstants.USER_ROLEID_COLUMN);
+                        String loggedInUserUserId = userResult.getString(ApplicationConstants.USER_USERID_COLUMN);
+                        String loggedInUserUserName = userResult.getString(ApplicationConstants.USER_USERNAME_COLUMN);
+                        userLoginResponseModel.setRoleId(loggedInUserRoleId);
+                        userLoginResponseModel.setUserId(loggedInUserUserId);
+                        userLoginResponseModel.setUserName(loggedInUserUserName);
+
+                        if(loggedInUserRoleId.equals(ApplicationConstants.RESTAURANT_OWNER_ROLEID))
+                        {
+                            getResturantIdAndName(loggedInUserUserId, userLoginResponseModel);
+                        }
                         return userLoginResponseModel;
                     }
                     else{
@@ -136,7 +143,6 @@ public class UserRepository implements IUserRepository{
         {
             System.out.println("Exception : UserRepository - loginUser()");
             System.out.println(ex);
-            System.out.println(ex.getMessage());
         }
         finally{
             try{
@@ -149,5 +155,22 @@ public class UserRepository implements IUserRepository{
             }
         }
         return userLoginResponseModel;
+    }
+
+    public void getResturantIdAndName(String userId, UserLoginResponseModel userLoginResponseModel){
+        try{
+            String getUser = "select * from Restaurant where User_UserId = '" + userId + "' and Status = 1";
+            userResult = statement.executeQuery(getUser);
+            userResult.next();
+            try{
+                userLoginResponseModel.setRestaurantId(userResult.getString("RestaurantId"));
+            }
+            catch(Exception ex){
+                System.out.println(ex);
+            }
+        }
+        catch(Exception ex){
+            System.out.println(ex);
+        }
     }
 }
