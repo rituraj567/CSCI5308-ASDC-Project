@@ -72,7 +72,11 @@
         <div class="grid-container">
           <div class="card" th:each="restaurant,index : ${restaurants}">
             <div class="card-body">
-              <a class="card-block stretched-link text-decoration-none" href="">
+              <a
+                class="card-block stretched-link text-decoration-none"
+                th:href="@{/restaurant/{restaurantId}/display(restaurantId=${restaurant.id})}
+              "
+              >
                 <p th:text="${restaurant.getName()}"></p>
                 <p th:text="${restaurant.getAddress()}">Address</p>
               </a>

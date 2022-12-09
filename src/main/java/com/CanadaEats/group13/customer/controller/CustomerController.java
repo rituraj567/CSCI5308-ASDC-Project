@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.CanadaEats.group13.authentication.business.IUserBusiness;
@@ -50,4 +51,13 @@ public class CustomerController {
         model.addAttribute("restaurants", restaurantDTOList);
         return "customer/customerHomePage";
     }
+
+    @GetMapping("/restaurant/{restaurantId}/display")
+    public String showRestaurant(@PathVariable("restaurantId") int restaurantId, Model model) {
+
+        RestaurantDTO restaurantDTO = restaurantBusiness.getRestaurantById(restaurantId);
+        model.addAttribute("restaurant", restaurantDTO);
+        return "customer/restaurantDisplayPage";
+    }
+
 }
