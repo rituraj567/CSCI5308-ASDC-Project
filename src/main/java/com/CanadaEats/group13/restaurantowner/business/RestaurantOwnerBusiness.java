@@ -1,10 +1,15 @@
 package com.CanadaEats.group13.restaurantowner.business;
 
 
+import com.CanadaEats.group13.restaurantowner.dto.MenuDto;
 import com.CanadaEats.group13.restaurantowner.dto.RestaurantOwnerDto;
+import com.CanadaEats.group13.restaurantowner.model.request.MenuRequestModel;
 import com.CanadaEats.group13.restaurantowner.repository.IRestaurantOwnerRepository;
+import com.CanadaEats.group13.utils.ApplicationConstants;
+
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 public class RestaurantOwnerBusiness implements IRestaurantOwnerBusiness {
 
@@ -30,5 +35,17 @@ public class RestaurantOwnerBusiness implements IRestaurantOwnerBusiness {
 
 
         return userResponse;
+    }
+
+    @Override
+    public boolean addMenu(String restaurantId, MenuDto menuDto) {
+        MenuRequestModel menuRequestModel = new MenuRequestModel();
+        UUID uuid = UUID.randomUUID();
+        menuRequestModel.setMenuId(uuid.toString());
+        menuRequestModel.setStatus(ApplicationConstants.ACTIVE_STATUS);
+        menuRequestModel.setName(menuDto.getMenuName());
+        menuRequestModel.setRestaurantId(restaurantId);
+        boolean result = userRepository.addMenu(menuRequestModel);
+        return result;
     }
 }
