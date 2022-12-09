@@ -37,7 +37,6 @@ public class RestaurantController {
 
         RestaurantDTO restaurantDTO = new RestaurantDTO();
         model.addAttribute("restaurant", restaurantDTO);
-
         return "restaurants/newRestuarant";
     }
 

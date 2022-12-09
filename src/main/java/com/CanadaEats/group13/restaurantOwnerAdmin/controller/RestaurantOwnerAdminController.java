@@ -1,7 +1,6 @@
 package com.CanadaEats.group13.restaurantOwnerAdmin.controller;
 
 import com.CanadaEats.group13.database.DatabaseConnection;
-import com.CanadaEats.group13.restaurant.dto.RestaurantDTO;
 import com.CanadaEats.group13.restaurantOwnerAdmin.dto.RestaurantOwnerAdminDto;
 import com.CanadaEats.group13.restaurantOwnerAdmin.repository.IRestaurantOwnerAdminRepository;
 import com.CanadaEats.group13.restaurantOwnerAdmin.repository.RestaurantOwnerAdminRepository;
@@ -24,16 +23,15 @@ public class RestaurantOwnerAdminController {
     @GetMapping("/restaurantOwners")
     public String displayRestaurantOwners(Model model) {
         List<RestaurantOwnerAdminDto> restaurantOwners = restaurantOwnerAdminRepository.getAllRestaurantOwners();
-        System.out.println(restaurantOwners.get(1));
         model.addAttribute("restaurantOwners", restaurantOwners);
-        return "/restaurantOwnersAdmin/viewRestaurantOwner";
+        return "restaurantOwnersAdmin/restaurantOwnerAdmin";
     }
 
     @GetMapping("/admin/restaurantOwners/newRestaurantOwner")
     public String newRestuarantOwnerForm(Model model) {
         RestaurantOwnerAdminDto restaurantOwnerAdminDto = new RestaurantOwnerAdminDto();
         model.addAttribute("restaurantOwner", restaurantOwnerAdminDto);
-        return "restaurantOwnersAdmin/newRestaurantOwner";
+        return "newRestaurantOwnerAdmin";
     }
 
     @PostMapping("/admin/restaurantOwners/")
