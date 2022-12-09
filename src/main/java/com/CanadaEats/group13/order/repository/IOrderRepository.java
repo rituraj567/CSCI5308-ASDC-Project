@@ -1,0 +1,275 @@
+package com.CanadaEats.group13.order.repository;
+import com.CanadaEats.group13.database.DatabaseConnection;
+import com.CanadaEats.group13.database.IDatabaseConnection;
+import com.CanadaEats.group13.order.dto.OrderDTO;
+import com.CanadaEats.group13.order.dto.OrderDetialsDTO;
+import com.CanadaEats.group13.order.dto.OrderDisplayDTO;
+import com.CanadaEats.group13.order.dto.OrderStatusDTO;
+import com.CanadaEats.group13.utils.PasswordEncoderDecoder;
+import org.springframework.stereotype.Repository;
+import com.CanadaEats.group13.utils.ApplicationConstants;
+import sun.java2d.pipe.SpanShapeRenderer;
+
+import java.sql.*;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.*;
+import java.util.Date;
+
+@Repository
+public class IOrderRepository implements IOderRepository {
+
+    IDatabaseConnection databaseConnection;
+    Connection connection;
+    ArrayList<OrderDTO> orderDTOArrayList;
+
+    public IOrderRepository() {
+
+    }
+
+    @Override
+    public ArrayList<OrderDTO> getOrders() {
+        orderDTOArrayList = new ArrayList<OrderDTO>();
+
+        try {
+            databaseConnection = DatabaseConnection.getInstance();
+            connection = databaseConnection.getDatabaseConnection();
+            Statement statement = connection.createStatement();
+            String orders = " select * from Orders";
+            ResultSet orderResult = statement.executeQuery(orders);
+            while (orderResult.next()) {
+                int id = orderResult.getInt("Id");
+                String order_id = orderResult.getString("OrderId");
+                String user_id = orderResult.getString("UserId");
+                String restarunt= findRestaurant(orderResult.getString("RestaurantId"));
+                String delivery_id = orderResult.getString("DeliveryPersonId");
+                int total = orderResult.getInt("Total_Amount");
+                String status = orderResult.getString("OrderStatusId");
+                String payment = findPayment(orderResult.getString("PaymentOptionId"));
+                Date date = orderResult.getDate("Date_of_order");
+                DateFormat date_form = new SimpleDateFormat("yyyy-mm-dd");
+                String str_date = date_form.format(date);
+                orderDTOArrayList.add(new OrderDTO(id, order_id, user_id, restarunt, delivery_id, total, status, payment, str_date));
+            }
+            connection.close();
+            statement.close();
+            orderResult.close();
+
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+        return orderDTOArrayList;
+    }
+
+    @Override
+    public ArrayList<OrderDetialsDTO> getOrderDetails() {
+        ArrayList<OrderDetialsDTO> orderDetialsDTOS = new ArrayList<OrderDetialsDTO>();
+        try {
+            databaseConnection = DatabaseConnection.getInstance();
+            connection = databaseConnection.getDatabaseConnection();
+            Statement statement = connection.createStatement();
+            String orders = " select * from OrderDetail";
+            ResultSet orderDetailResult = statement.executeQuery(orders);
+
+            while (orderDetailResult.next()) {
+                int order_id = orderDetailResult.getInt("Id");
+                String orderDetailId = orderDetailResult.getString("OrderDetailId");
+                String orderId = orderDetailResult.getString("OrderId");
+                String MenuItemId = orderDetailResult.getString("MenuItemId");
+                int quantity = orderDetailResult.getInt("Quantity");
+                int total = orderDetailResult.getInt("Total_Amount");
+
+                orderDetialsDTOS.add(new OrderDetialsDTO(order_id, orderDetailId, orderId, MenuItemId, quantity, total));
+            }
+            connection.close();
+            statement.close();
+            orderDetailResult.close();
+
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+        return orderDetialsDTOS;
+    }
+
+    @Override
+    public void deleteOrder(OrderDTO orderDTO) {
+        try {
+            databaseConnection = DatabaseConnection.getInstance();
+            connection = databaseConnection.getDatabaseConnection();
+            String delete = " DELETE FROM Orders where Id =" + orderDTO.getId();
+            String deleteDetials = " DELETE FROM OrderDetail where Id =" + orderDTO.getId();
+            PreparedStatement preparedStmt = connection.prepareStatement(delete);
+            PreparedStatement preparedStmt2 = connection.prepareStatement(deleteDetials);
+            preparedStmt.execute();
+            preparedStmt2.execute();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @Override
+    public String findRestaurant(String restaurant){
+        String name="";
+        try {
+            databaseConnection = DatabaseConnection.getInstance();
+            connection = databaseConnection.getDatabaseConnection();
+            Statement statement= connection.createStatement();
+            String name2 = "\""+restaurant+"\"";
+            String finder = " select Name from Restaurant where RestaurantId =" + "" + name2;
+            ResultSet orderDetailResult = statement.executeQuery(finder);
+             while(orderDetailResult.next()){
+                 name = orderDetailResult.getString("Name");
+             }
+            connection.close();
+            statement.close();
+            orderDetailResult.close();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    return name;
+    }
+
+    @Override
+    public String findPayment(String payment)
+    {
+        if(payment.equals(ApplicationConstants.DEBIT_CARD))
+        {
+            return "Debit Card";
+        }
+        else if(payment.equals(ApplicationConstants.CREDIT_CARD))
+        {
+            return "Credit Card";
+        }
+        else
+        {
+            return "Cash";
+        }
+    }
+
+    @Override
+    public String findCustomer(String customer){
+        String fullname="";
+        String firstName="";
+        String lastName="";
+        try {
+            databaseConnection = DatabaseConnection.getInstance();
+            connection = databaseConnection.getDatabaseConnection();
+            Statement statement= connection.createStatement();
+            String name2 = "\""+customer+"\"";
+            String finder = " select FirstName,LastName from User where UserId =" + "" + name2;
+            System.out.println(finder);
+            ResultSet orderDetailResult = statement.executeQuery(finder);
+            while(orderDetailResult.next()){
+                firstName = orderDetailResult.getString("FirstName");
+                lastName= orderDetailResult.getString("LastName");
+            }
+           fullname= firstName+lastName;
+            connection.close();
+            statement.close();
+            orderDetailResult.close();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+        return fullname;
+    }
+    @Override
+    public String findPhone(String phone){
+        String phonenum="";
+        try {
+            databaseConnection = DatabaseConnection.getInstance();
+            connection = databaseConnection.getDatabaseConnection();
+            Statement statement= connection.createStatement();
+            String name2 = "\""+phone+"\"";
+            String finder = " select MobileNumber from User where UserId =" + "" + name2;
+            System.out.println(finder);
+            ResultSet orderDetailResult = statement.executeQuery(finder);
+            while(orderDetailResult.next()){
+                phonenum = orderDetailResult.getString("MobileNumber");
+            }
+            connection.close();
+            statement.close();
+            orderDetailResult.close();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+        return phonenum;
+    }
+
+    public String findDeliverPerson(String deliver){
+        String deliverPerson="";
+        try {
+            databaseConnection = DatabaseConnection.getInstance();
+            connection = databaseConnection.getDatabaseConnection();
+            Statement statement= connection.createStatement();
+            String name2 = "\""+deliver+"\"";
+            String finder = " select Firstname from User where UserId =" + "" + name2;
+            System.out.println(finder);
+            ResultSet orderDetailResult = statement.executeQuery(finder);
+            while(orderDetailResult.next()){
+                deliverPerson = orderDetailResult.getString("FirstName");
+            }
+            connection.close();
+            statement.close();
+            orderDetailResult.close();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+        return deliverPerson;
+
+    }
+    @Override
+    public String findDeliverAdd(String address){
+        String deliverAdd="";
+        try {
+            databaseConnection = DatabaseConnection.getInstance();
+            connection = databaseConnection.getDatabaseConnection();
+            Statement statement= connection.createStatement();
+            String name2 = "\""+address+"\"";
+            String finder = " select Address from User where UserId =" + "" + name2;
+            ResultSet orderDetailResult = statement.executeQuery(finder);
+            while(orderDetailResult.next()){
+                deliverAdd = orderDetailResult.getString("Address");
+            }
+            connection.close();
+            statement.close();
+            orderDetailResult.close();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+        return deliverAdd;
+    }
+
+    @Override
+    public ArrayList<OrderDisplayDTO> displayOrder (ArrayList<OrderDTO> orderDTOArrayList)
+    {
+        ArrayList<OrderDisplayDTO> orderDisplayDTOArrayList= new ArrayList<OrderDisplayDTO>();
+
+        for(int i=0; i<orderDTOArrayList.size(); i++)
+        {
+            int id= orderDTOArrayList.get(i).getId();
+            int amount = orderDTOArrayList.get(i).getAmount();
+            String restaurant= orderDTOArrayList.get(i).getRestaurant_id();
+            String payment= orderDTOArrayList.get(i).getPayment_options();
+            String customer = findCustomer(orderDTOArrayList.get(i).getUser_id());
+            String address = findDeliverAdd(orderDTOArrayList.get(i).getUser_id());
+            String phone = findPhone(orderDTOArrayList.get(i).getUser_id());
+            String status = orderDTOArrayList.get(i).getStatus();
+            String deliverPerson= findDeliverPerson(orderDTOArrayList.get(i).getDelivery_id());
+
+            orderDisplayDTOArrayList.add(new OrderDisplayDTO(id,amount,restaurant,payment,customer,address,phone,status,deliverPerson));
+        }
+        return orderDisplayDTOArrayList;
+    }
+
+
+    public static void main(String args[]) throws SQLException
+    {
+
+        IOrderRepository hi = new IOrderRepository();
+
+        ArrayList<OrderDTO> hello = hi.getOrders();
+
+        System.out.println(hello.size());
+
+    }
+}

@@ -8,6 +8,11 @@ public class TestConnection {
     DatabaseConnection databaseConnection = DatabaseConnection.getInstance();
     Connection connection = databaseConnection.getDatabaseConnection();
 
+    public TestConnection()
+    {
+
+    }
+
     public void runSampleQueries() {
         try {
             Statement statement = connection.createStatement();
@@ -29,6 +34,12 @@ public class TestConnection {
             System.out.println(e);
             System.out.println(e.getMessage());
         }
+    }
+
+    public static void Main(String[] args)
+    {
+        TestConnection ts= new TestConnection();
+        ts.runSampleQueries();
     }
 
 
