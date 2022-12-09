@@ -5,6 +5,14 @@ public class UserLoginResponseModel {
     private String roleId;
 
     private String userId;
+    private String restaurantId;
+    public String getRestaurantId() {
+        return restaurantId;
+    }
+
+    public void setRestaurantId(String restaurantId) {
+        this.restaurantId = restaurantId;
+    }
 
     public String getUserId() {
         return userId;
