@@ -1,6 +1,7 @@
 package com.CanadaEats.group13.order.controller;
 
 import com.CanadaEats.group13.order.dto.OrderDTO;
+import com.CanadaEats.group13.order.dto.OrderDisplayDTO;
 import com.CanadaEats.group13.order.repository.IOrderRepository;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -22,9 +23,11 @@ public class OrderController {
     public String displayOrders(Model model)
 
     {
-        ArrayList<OrderDTO> orders = iOrderRepository.getOrders();
-        System.out.println(orders.size());
-        model.addAttribute("orders", orders);
+        ArrayList<OrderDTO> order = iOrderRepository.getOrders();
+        ArrayList<OrderDisplayDTO> orderDisplay = iOrderRepository.displayOrder(order);
+
+        System.out.println(orderDisplay.size());
+        model.addAttribute("orders", orderDisplay);
         return "/order/viewOrder";
     }
 }

@@ -7,13 +7,20 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Orders</title>
 
-
     <style>
       header{
         background-color: aqua;
         font-size: 40px;
         color: black;
       }
+
+      .grid-container{
+        display: grid;
+        grid-template-columns: 20px 20px;
+      }
+
+
+
     </style>
 
   </head>
@@ -30,8 +37,38 @@
           <li th:text="${order.getId()}">Id</li>
         </div>
         <div class="col-sm">
-          <li th:text="${order.getPayment_options()}">Payment</li>
+          <li th:text="${order.getRestaurant()}">Resaurant</li>
         </div>
+        <div class="col-sm">
+          <li th:text="${order.getCustomer()}">Customer</li>
+        </div>
+        <div class="col-sm">
+          <li th:text="${order.getAddress()}">Deliver Adress</li>
+        </div>
+
+        <div class="col-sm">
+          <li th:text="${order.getPhone()}">Phone</li>
+        </div>
+
+        <div class="col-sm">
+          <div class="grid-container">
+          <li th:text="${order.getAmount()}">Amount</li>
+          </div>
+        </div>
+
+        <div class="col-sm">
+          <li th:text="${order.getPaymentOption()}">Payment</li>
+        </div>
+
+        <div class="col-sm">
+          <div class="grid-container">
+            <p th:text="${order.getStatus()}">Status</p>
+          </div>
+
+        <div class="col-sm">
+          <li th:text="${order.getDeliver_person()}">Deliver</li>
+        </div>
+
       </div>
 
     </ul>
