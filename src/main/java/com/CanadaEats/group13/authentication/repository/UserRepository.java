@@ -12,6 +12,7 @@ import com.CanadaEats.group13.authentication.dto.UserLoginDto;
 import com.CanadaEats.group13.authentication.model.response.UserDetailsResponseModel;
 import com.CanadaEats.group13.authentication.model.response.UserLoginResponseModel;
 import com.CanadaEats.group13.database.IDatabaseConnection;
+import com.CanadaEats.group13.restaurantowner.dto.RestaurantOwnerDto;
 import com.CanadaEats.group13.utils.ApplicationConstants;
 import com.CanadaEats.group13.utils.PasswordEncoderDecoder;
 
@@ -103,7 +104,6 @@ public class UserRepository implements IUserRepository {
 
                     String decryptedPassword = PasswordEncoderDecoder.getInstance()
                             .decrypt(userResult.getString(ApplicationConstants.USER_PASSWORD_COLUMN));
-                    System.out.println("DecryptedPassword: " + decryptedPassword);
                     System.out.println("UserPassword: " + userLoginDto.getPassword());
                     if (decryptedPassword.equals(userLoginDto.getPassword())) {
                         System.out.println("Got username and password successfully from Database");
@@ -111,6 +111,16 @@ public class UserRepository implements IUserRepository {
                         userLoginResponseModel
                                 .setUserName(userResult.getString(ApplicationConstants.USER_USERNAME_COLUMN));
                         userLoginResponseModel.setUserId(userResult.getString(ApplicationConstants.USER_USERID_COLUMN));
+                        String loggedInUserRoleId = userResult.getString(ApplicationConstants.USER_ROLEID_COLUMN);
+                        String loggedInUserUserId = userResult.getString(ApplicationConstants.USER_USERID_COLUMN);
+                        String loggedInUserUserName = userResult.getString(ApplicationConstants.USER_USERNAME_COLUMN);
+                        userLoginResponseModel.setRoleId(loggedInUserRoleId);
+                        userLoginResponseModel.setUserId(loggedInUserUserId);
+                        userLoginResponseModel.setUserName(loggedInUserUserName);
+
+                        if (loggedInUserRoleId.equals(ApplicationConstants.RESTAURANT_OWNER_ROLEID)) {
+                            getResturantIdAndName(loggedInUserUserId, userLoginResponseModel);
+                        }
                         return userLoginResponseModel;
                     } else {
                         System.out.println("Password not matched");
@@ -134,6 +144,21 @@ public class UserRepository implements IUserRepository {
             }
         }
         return userLoginResponseModel;
+    }
+
+    public void getResturantIdAndName(String userId, UserLoginResponseModel userLoginResponseModel) {
+        try {
+            String getUser = "select * from Restaurant where User_UserId = '" + userId + "' and Status = 1";
+            userResult = statement.executeQuery(getUser);
+            userResult.next();
+            try {
+                userLoginResponseModel.setRestaurantId(userResult.getString("RestaurantId"));
+            } catch (Exception ex) {
+                System.out.println(ex);
+            }
+        } catch (Exception ex) {
+            System.out.println(ex);
+        }
     }
 
     public UserDetailsDto getUsersDTOFromResultSet(ResultSet resultSet) {

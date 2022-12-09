@@ -13,11 +13,18 @@ public class ApplicationConstants {
     public static final String USER_ROLEID_COLUMN = "Role_RoleId";
     public static final String USER_USERNAME_COLUMN = "UserName";
     public static final String USER_USERID_COLUMN = "UserId";
+    public static final String MENU_MENUID_COLUMN = "MenuId";
+    public static final String MENU_MENUNAME_COLUMN = "Name";
+
+    public static final String RESTAURANT_RESTAURANTID_COLUMN = "RestaurantId";
+    public static final String RESTAURANT_RESTAURANTNAME_COLUMN = "RestaurantName";
 
     public static final String COOKIE_USERNAME = "username";
     public static final String COOKIE_ROLEID = "roleid";
     public static final String COOKIE_USERID = "userid";
     public static final String COOKIE_ROLENAME = "rolename";
+    public static final String COOKIE_RESTAURANTID = "restaurantid";
+
     public static final String ADMIN_ROLE = "Admin";
 
     public static final String CUSTOMER_ROLE = "Customer";
