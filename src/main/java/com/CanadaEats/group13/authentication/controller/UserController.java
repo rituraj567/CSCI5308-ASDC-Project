@@ -85,6 +85,12 @@ public class UserController {
             response.addCookie(cookie2);
             response.addCookie(cookie3);
 
+            if(userLoginResponseModel.getRestaurantId() != null)
+            {
+                Cookie cookie4 = new Cookie(ApplicationConstants.COOKIE_RESTAURANTID, userLoginResponseModel.getRestaurantId());
+                response.addCookie(cookie4);
+            }
+
             if (userLoginResponseModel.getRoleId().equals(ApplicationConstants.ADMIN_ROLEID)) {
                 userRoleStateManager.setAdminRole();
                 userRoleStateManager.userRoleState(response);
@@ -92,7 +98,7 @@ public class UserController {
             } else if (userLoginResponseModel.getRoleId().equals(ApplicationConstants.RESTAURANT_OWNER_ROLEID)) {
                 userRoleStateManager.setRestaurantOwnerRole();
                 userRoleStateManager.userRoleState(response);
-                return "redirect:/userloginpage";
+                return "redirect:/restaurantownerhomepage";
             } else if (userLoginResponseModel.getRoleId().equals(ApplicationConstants.CUSTOMER_ROLEID)) {
                 userRoleStateManager.setCustomerRole();
                 userRoleStateManager.userRoleState(response);
@@ -116,11 +122,14 @@ public class UserController {
     @GetMapping("/logout")
     public String userLogout(Model model, HttpServletRequest request, HttpServletResponse response) {
         Cookie[] cookies = request.getCookies();
-        for (Cookie cookie : cookies) {
-            cookie.setValue(ApplicationConstants.COOKIE_EMPTY_STRING);
-            cookie.setMaxAge(ApplicationConstants.COOKIE_MAX_AGE);
-            cookie.setPath(ApplicationConstants.COOKIE_ROOT_PATH);
-            response.addCookie(cookie);
+        if(cookies != null)
+        {
+            for (Cookie cookie : cookies) {
+                cookie.setValue(ApplicationConstants.COOKIE_EMPTY_STRING);
+                cookie.setMaxAge(ApplicationConstants.COOKIE_MAX_AGE);
+                cookie.setPath(ApplicationConstants.COOKIE_ROOT_PATH);
+                response.addCookie(cookie);
+            }
         }
         return "redirect:/userloginpage";
     }
