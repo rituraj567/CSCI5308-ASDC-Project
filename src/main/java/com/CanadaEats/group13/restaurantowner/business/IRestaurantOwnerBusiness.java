@@ -11,4 +11,5 @@ public interface IRestaurantOwnerBusiness {
     boolean addMenu(String restaurantId, MenuDto menuDto);
     boolean addMenuItem(String menuId, MenuItemDto menuItemDto);
     List<MenuItemDto> getMenuItems(String menuId);
+    boolean deleteMenu(String menuId);
 }

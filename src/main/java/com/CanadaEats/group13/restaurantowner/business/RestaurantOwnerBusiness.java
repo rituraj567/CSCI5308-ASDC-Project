@@ -74,4 +74,10 @@ public class RestaurantOwnerBusiness implements IRestaurantOwnerBusiness {
         List<MenuItemDto> menuItemDtos  = userRepository.getMenuItems(menuId);
         return  menuItemDtos;
     }
+
+    @Override
+    public boolean deleteMenu(String menuId) {
+        boolean result  = userRepository.deleteMenu(menuId);
+        return result;
+    }
 }
