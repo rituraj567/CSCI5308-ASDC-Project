@@ -79,7 +79,8 @@ public class RestaurantController {
     }
 
     @GetMapping("/admin/restaurants/{restaurantId}/view")
-    public String viewRestaurant(@PathVariable("restaurantId") int restaurantId, Model model) {
+    public String viewRestaurant(@PathVariable("restaurantId") int restaurantId, Model model,
+            HttpServletRequest request) {
         boolean isAPIAccessible = APIAccessAuthorization.getInstance().getAPIAccess(request);
         if (isAPIAccessible) {
             RestaurantDTO restaurantDTO = restaurantBusiness.getRestaurantById(restaurantId);
@@ -90,7 +91,7 @@ public class RestaurantController {
     }
 
     @GetMapping("/restaurants/search")
-    public String searchRestaurants(@RequestParam("query") String query, Model model) {
+    public String searchRestaurants(@RequestParam("query") String query, Model model, HttpServletRequest request) {
         boolean isAPIAccessible = APIAccessAuthorization.getInstance().getAPIAccess(request);
         if (isAPIAccessible) {
             List<RestaurantDTO> restaurantDTOList = restaurantBusiness.searchRestaurants(query);
