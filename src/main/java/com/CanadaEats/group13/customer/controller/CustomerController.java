@@ -74,4 +74,20 @@ public class CustomerController {
         return "customer/restaurantDisplayPage";
     }
 
+    @GetMapping("/customer/menuItems/{restaurantId}/{id}/search")
+    public String searchMenuItems(@PathVariable("restaurantId") String restaurantId, @PathVariable("id") int id,
+            @RequestParam("query") String query, Model model) {
+
+        RestaurantDTO restaurantDTO = restaurantBusiness.getRestaurantById(id);
+
+        model.addAttribute("restaurant", restaurantDTO);
+
+        List<List<MenuItemDto>> menuItemsResult = CustomerPageHelpers.getMenuItems(restaurantId);
+        List<List<MenuItemDto>> menuItems = CustomerPageHelpers.searchMenuItems(menuItemsResult, query);
+
+        model.addAttribute("menuItems", menuItems);
+
+        return "customer/restaurantDisplayPage";
+    }
+
 }

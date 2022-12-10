@@ -26,6 +26,10 @@
       .card {
         margin-bottom: 20px;
       }
+
+      .margin-right{
+        margin-right: 10px;
+      }
 </style>
 </head>
     <div th:replace="common/loginHeader :: navbar"></div>
@@ -44,9 +48,9 @@
         <div class="row">
           <div class="col-md-5">
               <div class="form-group">
-                  <form class="form-inline" th:action="@{/menuItems/search}">
+                  <form class="form-inline" th:action="@{/customer/menuItems/{restaurantId}/{id}/search(restaurantId=${restaurant.getRestaurantId()}, id=${restaurant.getId()})}">
                       <div class="input-group">
-                          <input type="text" class="form-control" name="query" placeholder="Search menu Items" />
+                          <input type="text" class="form-control margin-right" name="query" placeholder="Search menu Items" />
                           <span class="input-group-btn">
                               <button class="btn btn-primary margin-left" type="submit"> Search</button>
                           </span>

@@ -12,7 +12,8 @@ import com.CanadaEats.group13.restaurantowner.repository.RestaurantOwnerReposito
 
 public class CustomerPageHelpers {
     public static List<List<MenuItemDto>> getMenuItems(String id) {
-        IRestaurantOwnerBusiness restaurantOwnerBusiness = new RestaurantOwnerBusiness(new RestaurantOwnerRepository(DatabaseConnection.getInstance()));
+        IRestaurantOwnerBusiness restaurantOwnerBusiness = new RestaurantOwnerBusiness(
+                new RestaurantOwnerRepository(DatabaseConnection.getInstance()));
         List<RestaurantOwnerDto> menus = restaurantOwnerBusiness.getAllMenus(id);
         System.out.println(menus.size());
         List<RestaurantOwnerDto> restaurantMenus = new ArrayList<>();
@@ -29,5 +30,19 @@ public class CustomerPageHelpers {
             menuItems.add(restaurantOwnerBusiness.getMenuItems(items.getMenuId()));
         }
         return menuItems;
+    }
+
+    public static List<List<MenuItemDto>> searchMenuItems(List<List<MenuItemDto>> menus, String name) {
+        List<List<MenuItemDto>> result = new ArrayList<>();
+        for (List<MenuItemDto> menu : menus) {
+            for (MenuItemDto item : menu) {
+                List<MenuItemDto> temp = new ArrayList<>();
+                if (item.getName().toLowerCase().contains(name.toLowerCase())) {
+                    temp.add(item);
+                }
+                result.add(temp);
+            }
+        }
+        return result;
     }
 }
