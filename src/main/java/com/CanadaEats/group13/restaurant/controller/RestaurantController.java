@@ -80,17 +80,24 @@ public class RestaurantController {
 
     @GetMapping("/admin/restaurants/{restaurantId}/view")
     public String viewRestaurant(@PathVariable("restaurantId") int restaurantId, Model model) {
-
-        RestaurantDTO restaurantDTO = restaurantBusiness.getRestaurantById(restaurantId);
-        model.addAttribute("restaurant", restaurantDTO);
-        return "restaurants/viewRestaurant";
+        boolean isAPIAccessible = APIAccessAuthorization.getInstance().getAPIAccess(request);
+        if (isAPIAccessible) {
+            RestaurantDTO restaurantDTO = restaurantBusiness.getRestaurantById(restaurantId);
+            model.addAttribute("restaurant", restaurantDTO);
+            return "restaurants/viewRestaurant";
+        }
+        return "redirect:/userloginpage";
     }
 
     @GetMapping("/restaurants/search")
     public String searchRestaurants(@RequestParam("query") String query, Model model) {
-        List<RestaurantDTO> restaurantDTOList = restaurantBusiness.searchRestaurants(query);
-        model.addAttribute("restaurants", restaurantDTOList);
-        return "restaurants/restaurant";
+        boolean isAPIAccessible = APIAccessAuthorization.getInstance().getAPIAccess(request);
+        if (isAPIAccessible) {
+            List<RestaurantDTO> restaurantDTOList = restaurantBusiness.searchRestaurants(query);
+            model.addAttribute("restaurants", restaurantDTOList);
+            return "restaurants/restaurant";
+        }
+        return "redirect:/userloginpage";
     }
 
     @PostMapping("/admin/restaurants/")

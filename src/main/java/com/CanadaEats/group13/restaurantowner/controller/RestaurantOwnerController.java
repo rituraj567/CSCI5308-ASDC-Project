@@ -119,4 +119,20 @@ public class RestaurantOwnerController {
         }
         return "redirect:/userloginpage";
     }
+
+    @GetMapping("/restaurantowner/menu/{MenuId}/delete")
+    public String deleteMenu(@PathVariable("MenuId") String menuId, HttpServletRequest request) {
+        boolean isAPIAccessible = APIAccessAuthorization.getInstance().getAPIAccess(request);
+        if(isAPIAccessible) {
+            boolean result = restaurantOwnerBusiness.deleteMenu(menuId);
+            if(result){
+                return "redirect:/restaurantownerhomepage";
+            }
+            else{
+                return "restaurantowner/addMenuError";
+            }
+        }
+        return "redirect:/userloginpage";
+    }
 }
+
