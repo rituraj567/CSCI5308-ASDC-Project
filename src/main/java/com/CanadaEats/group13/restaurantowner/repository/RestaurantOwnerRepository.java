@@ -3,6 +3,9 @@ package com.CanadaEats.group13.restaurantowner.repository;
 
 import com.CanadaEats.group13.authentication.model.response.UserDetailsResponseModel;
 import com.CanadaEats.group13.database.IDatabaseConnection;
+import com.CanadaEats.group13.restaurant.business.DeleteErrorOperation;
+import com.CanadaEats.group13.restaurant.business.DeleteSuccessOperation;
+import com.CanadaEats.group13.restaurant.business.IRestaurantState;
 import com.CanadaEats.group13.restaurantowner.dto.MenuItemDto;
 import com.CanadaEats.group13.restaurantowner.dto.RestaurantOwnerDto;
 import com.CanadaEats.group13.restaurantowner.model.request.MenuItemRequestModel;
@@ -216,5 +219,37 @@ public class RestaurantOwnerRepository implements IRestaurantOwnerRepository {
             }
         }
         return  response;
+    }
+
+    @Override
+    public boolean deleteMenu(String menuId) {
+        boolean menuDeleted = false;
+        try
+        {
+            connection = databaseConnection.getDatabaseConnection();
+            String query = "DELETE FROM Menu where MenuId='" + menuId + "' and Status = 1";
+
+            PreparedStatement preparedStmt = connection.prepareStatement(query);
+            preparedStmt.execute();
+            menuDeleted = true;
+        }
+        catch (Exception e)
+        {
+            menuDeleted = false;
+            System.out.println(e);
+        }
+        finally
+        {
+            try
+            {
+                connection.close();
+            }
+            catch (Exception ex)
+            {
+                menuDeleted = false;
+                System.out.println("Exception : RestaurantOwnerRepository - Closing database connection in deleteMenu()");
+            }
+        }
+        return menuDeleted;
     }
 }
