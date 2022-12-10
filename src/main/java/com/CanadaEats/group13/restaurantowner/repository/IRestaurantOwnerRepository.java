@@ -12,4 +12,5 @@ public interface IRestaurantOwnerRepository {
     boolean addMenu(MenuRequestModel menuRequestModel);
     boolean addMenuItem(MenuItemRequestModel menuItemRequestModel);
     List<MenuItemDto> getMenuItems(String menuId);
+    boolean deleteMenu(String menuId);
 }
