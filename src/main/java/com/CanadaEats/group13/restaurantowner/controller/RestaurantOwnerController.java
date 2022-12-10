@@ -44,7 +44,7 @@ public class RestaurantOwnerController {
             Cookie loggedInUserRestaurantId = cookieMap.get(ApplicationConstants.COOKIE_RESTAURANTID);
             List<RestaurantOwnerDto> menus = restaurantOwnerBusiness.getAllMenus(loggedInUserRestaurantId.getValue());
             model.addAttribute("menus", menus);
-            return "restaurantowner/restaurantownerhomepage";
+            return "restaurantowner/restaurantOwnerHomePage";
         }
         return "redirect:/userloginpage";
     }
