@@ -12,8 +12,23 @@
 <style>
       .grid-container {
         display: grid;
-        grid-template-columns: 1fr 1fr 1fr;
+        grid-template-columns: 1fr 1fr;
         margin-top: 30px;
+      }
+      ul {
+        list-style-type: none;
+      }
+
+      li {
+        display: inline-block;
+      }
+
+      .card {
+        margin-bottom: 20px;
+      }
+
+      .margin-right{
+        margin-right: 10px;
       }
 </style>
 </head>
@@ -21,13 +36,48 @@
     <div class="container margin-container">
       <div class="grid-container">
 
-        <p th:text="${restaurant.getName()}"></p>
-        <p th:text="${restaurant.getAddress()}"></p>
-        <p th:text="${restaurant.getCity()}"></p>
-        <p th:text="${restaurant.getProvince()}"></p>
-        <p th:text="${restaurant.getPhoneNumber()}"></p>
-        <p th:text="${restaurant.getPostalCode()}"></p>
+       <span>Name:</span> <p th:text="${restaurant.getName()}"></p>
+       <span>Address</span> <p th:text="${restaurant.getAddress()}"></p>
+       <span>City:</span><p th:text="${restaurant.getCity()}"></p>
+       <span>Province:</span> <p th:text="${restaurant.getProvince()}"></p>
+       <span>Phone Number:</span> <p th:text="${restaurant.getPhoneNumber()}"></p>
+       <span>Postal Code:</span> <p th:text="${restaurant.getPostalCode()}"></p>
       </div>
+
+      <div  class="container margin-search">
+        <div class="row">
+          <div class="col-md-5">
+              <div class="form-group">
+                  <form class="form-inline" th:action="@{/customer/menuItems/{restaurantId}/{id}/search(restaurantId=${restaurant.getRestaurantId()}, id=${restaurant.getId()})}">
+                      <div class="input-group">
+                          <input type="text" class="form-control margin-right" name="query" placeholder="Search menu Items" />
+                          <span class="input-group-btn">
+                              <button class="btn btn-primary margin-left" type="submit"> Search</button>
+                          </span>
+                      </div>
+                  </form>
+              </div>
+          </div>
+      </div>
+    </div>
+
+      <div class="container margin-container">
+        <div class="row">
+          <ul th:each="menu,index : ${menuItems}">
+            <ul th:each="menuItem,index : ${menu}">
+              <div class="card" style="width: 18rem;">
+
+                <div class="card-body">
+                  <p class="card-title" th:text="${menuItem.getName()}">Name</p>
+                 <span>$</span> <span class="card-text" th:text="${menuItem.getPrice()}">Price</span>
+                 <br/>
+                 <span>Description:</span> <span class="card-text" th:text="${menuItem.getDescription()}">Description</span>
+                  <a href="#" class="btn btn-primary mt-sm-2">Add To Cart</a>
+                </div>
+              </div>
+              </ul>
+          </ul>
+        </div>
     </div>
   </head>
 </html>
