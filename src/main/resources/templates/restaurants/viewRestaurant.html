@@ -20,22 +20,22 @@
     }
   </style>
   <body>
-    <div th:replace="restaurants/header :: navbar"></div>
+    <div th:replace="common/header :: navbar"></div>
     <div class="container margin-container">
       <div class="row col-md-8 offset-md-2">
-        <h2 th:text="${restaurant.name}"></h2>
+        <h2 th:text="${restaurant.getName()}"></h2>
         <hr />
-        <h4 th:text="${restaurant.address}"></h4>
+        <h4 th:text="${restaurant.getAddress()}"></h4>
         <hr />
-        <h4 th:text="${restaurant.city}"></h4>
+        <h4 th:text="${restaurant.getCity()}"></h4>
         <hr />
-        <h4 th:text="${restaurant.province}"></h4>
+        <h4 th:text="${restaurant.getProvince()}"></h4>
         <hr />
-        <h4 th:text="${restaurant.country}"></h4>
+        <h4 th:text="${restaurant.getPhoneNumber()}"></h4>
         <hr />
-        <h4 th:text="${restaurant.postalCode}"></h4>
+        <h4 th:text="${restaurant.getPostalCode()}"></h4>
         <hr />
-        <h4 th:text="${restaurant.phoneNumber}"></h4>
+        <h4 th:text="${restaurant.getPhoneNumber()}"></h4>
         <hr />
       </div>
     </div>

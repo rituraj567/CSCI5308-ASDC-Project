@@ -2,6 +2,8 @@ package com.CanadaEats.group13.restaurant.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -11,64 +13,82 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.CanadaEats.group13.database.DatabaseConnection;
+import com.CanadaEats.group13.restaurant.business.IRestaurantBusiness;
+import com.CanadaEats.group13.restaurant.business.RestaurantBusiness;
 import com.CanadaEats.group13.restaurant.dto.RestaurantDTO;
-import com.CanadaEats.group13.restaurant.repository.IRestaurantRepository;
 import com.CanadaEats.group13.restaurant.repository.RestaurantRepository;
+import com.CanadaEats.group13.utils.APIAccessAuthorization;
 
 @Controller
 public class RestaurantController {
 
-    IRestaurantRepository restaurantRepository;
+    IRestaurantBusiness restaurantBusiness;
 
     public RestaurantController() {
 
-        this.restaurantRepository = new RestaurantRepository(DatabaseConnection.getInstance());
+        this.restaurantBusiness = new RestaurantBusiness(new RestaurantRepository(DatabaseConnection.getInstance()));
     }
 
     @GetMapping("/restaurants")
-    public String displayRestaurants(Model model) {
-        List<RestaurantDTO> restaurants = restaurantRepository.getAllRestaurants();
+    public String displayRestaurants(Model model, HttpServletRequest request) {
+        boolean isAPIAccessible = APIAccessAuthorization.getInstance().getAPIAccess(request);
+        if (isAPIAccessible) {
+            List<RestaurantDTO> restaurants = restaurantBusiness.getAllRestaurants();
 
-        model.addAttribute("restaurants", restaurants);
+            model.addAttribute("restaurants", restaurants);
 
-        return "/restaurants/restaurant";
+            return "/restaurants/restaurant";
+        }
+        return "redirect:/userloginpage";
     }
 
     @GetMapping("/admin/restaurants/newRestaurant")
-    public String newRestuarantForm(Model model) {
+    public String newRestuarantForm(Model model, HttpServletRequest request) {
+        boolean isAPIAccessible = APIAccessAuthorization.getInstance().getAPIAccess(request);
+        if (isAPIAccessible) {
+            RestaurantDTO restaurantDTO = new RestaurantDTO();
+            model.addAttribute("restaurant", restaurantDTO);
 
-        RestaurantDTO restaurantDTO = new RestaurantDTO();
-        model.addAttribute("restaurant", restaurantDTO);
-
-        return "restaurants/newRestuarant";
+            return "restaurants/newRestuarant";
+        }
+        return "redirect:/userloginpage";
     }
 
     @GetMapping("/admin/restaurants/{resturantId}/edit")
-    public String editRestuarants(@PathVariable("resturantId") int restaurantId, Model model) {
+    public String editRestuarants(@PathVariable("resturantId") int restaurantId, Model model,
+            HttpServletRequest request) {
+        boolean isAPIAccessible = APIAccessAuthorization.getInstance().getAPIAccess(request);
+        if (isAPIAccessible) {
+            RestaurantDTO restaurantDTO = restaurantBusiness.getRestaurantById(restaurantId);
 
-        RestaurantDTO restaurantDTO = restaurantRepository.getRestaurantById(restaurantId);
+            model.addAttribute("restaurant", restaurantDTO);
 
-        model.addAttribute("restaurant", restaurantDTO);
-
-        return "restaurants/editRestaurant";
+            return "restaurants/editRestaurant";
+        }
+        return "redirect:/userloginpage";
     }
 
     @GetMapping("/admin/restaurants/{restaurantId}/delete")
-    public String deleteRestaurant(@PathVariable("restaurantId") int restaurantId) {
-        restaurantRepository.deleteRestaurant(restaurantId);
-        return "redirect:/restaurants";
+    public String deleteRestaurant(@PathVariable("restaurantId") int restaurantId, HttpServletRequest request) {
+        boolean isAPIAccessible = APIAccessAuthorization.getInstance().getAPIAccess(request);
+        if (isAPIAccessible) {
+            restaurantBusiness.deleteRestaurant(restaurantId);
+            return "redirect:/restaurants";
+        }
+        return "redirect:/userloginpage";
     }
 
     @GetMapping("/admin/restaurants/{restaurantId}/view")
     public String viewRestaurant(@PathVariable("restaurantId") int restaurantId, Model model) {
-        RestaurantDTO restaurantDTO = restaurantRepository.getRestaurantById(restaurantId);
+
+        RestaurantDTO restaurantDTO = restaurantBusiness.getRestaurantById(restaurantId);
         model.addAttribute("restaurant", restaurantDTO);
         return "restaurants/viewRestaurant";
     }
 
     @GetMapping("/restaurants/search")
     public String searchRestaurants(@RequestParam("query") String query, Model model) {
-        List<RestaurantDTO> restaurantDTOList = restaurantRepository.searchRestaurants(query);
+        List<RestaurantDTO> restaurantDTOList = restaurantBusiness.searchRestaurants(query);
         model.addAttribute("restaurants", restaurantDTOList);
         return "restaurants/restaurant";
     }
@@ -76,7 +96,7 @@ public class RestaurantController {
     @PostMapping("/admin/restaurants/")
     public String createRestaurant(@ModelAttribute RestaurantDTO restaurantDTO) {
 
-        restaurantRepository.postRestaurant(restaurantDTO);
+        restaurantBusiness.insertRestaurant(restaurantDTO);
 
         return "redirect:/restaurants";
     }
@@ -86,7 +106,7 @@ public class RestaurantController {
             @ModelAttribute("restaurant") RestaurantDTO restaurantDTO, Model model) {
         model.addAttribute("restaurant", restaurantDTO);
         restaurantDTO.setId(restaurantId);
-        restaurantRepository.updateRestuarant(restaurantDTO);
+        restaurantBusiness.updateRestuarant(restaurantDTO);
 
         return "redirect:/restaurants";
     }
