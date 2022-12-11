@@ -10,13 +10,10 @@ import java.util.Map;
 import java.util.UUID;
 
 import com.CanadaEats.group13.database.IDatabaseConnection;
-import com.CanadaEats.group13.restaurant.business.DeleteErrorOperation;
-import com.CanadaEats.group13.restaurant.business.DeleteSuccessOperation;
 import com.CanadaEats.group13.restaurant.business.IRestaurantState;
 import com.CanadaEats.group13.restaurant.business.InsertErrorOperation;
 import com.CanadaEats.group13.restaurant.business.InsertSucessOperation;
-import com.CanadaEats.group13.restaurant.business.UpdateErrorOperation;
-import com.CanadaEats.group13.restaurant.business.UpdateSucessOperation;
+import com.CanadaEats.group13.restaurant.business.OperationsFactory;
 import com.CanadaEats.group13.restaurant.dto.RestaurantDTO;
 
 public class RestaurantRepository implements IRestaurantRepository {
@@ -179,13 +176,13 @@ public class RestaurantRepository implements IRestaurantRepository {
 
             preparedStmt.execute();
             connection.close();
-            IRestaurantState restaurantState = new UpdateSucessOperation();
+            IRestaurantState restaurantState = OperationsFactory.getInstance().createUpdateSuccessOperation();
 
             return restaurantState.setMessage();
 
         } catch (Exception e) {
             System.out.println(e);
-            IRestaurantState restaurantState = new UpdateErrorOperation();
+            IRestaurantState restaurantState = OperationsFactory.getInstance().createUpdateErrorOperation();
 
             return restaurantState.setMessage();
         }
@@ -204,12 +201,12 @@ public class RestaurantRepository implements IRestaurantRepository {
             PreparedStatement preparedStmt = connection.prepareStatement(query);
 
             preparedStmt.execute();
-            IRestaurantState restaurantState = new DeleteSuccessOperation();
+            IRestaurantState restaurantState = OperationsFactory.getInstance().createDeleteSuccessOperation();
             return restaurantState.setMessage();
 
         } catch (Exception e) {
             System.out.println(e);
-            IRestaurantState restaurantState = new DeleteErrorOperation();
+            IRestaurantState restaurantState = OperationsFactory.getInstance().createDeleteErrorOperation();
             return restaurantState.setMessage();
         }
 

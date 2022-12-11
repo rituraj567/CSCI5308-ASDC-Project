@@ -1,7 +1,6 @@
 package com.CanadaEats.group13.restaurant;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -175,7 +174,6 @@ public class RestaurantDTOTest {
         restaurantDTO.setUserId(newValue);
         assertEquals(newValue, restaurantDTO.getUserId());
     }
-    
 
     @AfterEach
     public void testTeardown() {

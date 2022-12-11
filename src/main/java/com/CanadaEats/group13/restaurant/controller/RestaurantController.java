@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.CanadaEats.group13.common.DTOFactory;
 import com.CanadaEats.group13.database.DatabaseConnection;
 import com.CanadaEats.group13.restaurant.business.IRestaurantBusiness;
 import com.CanadaEats.group13.restaurant.business.RestaurantBusiness;
@@ -46,7 +47,7 @@ public class RestaurantController {
     public String newRestuarantForm(Model model, HttpServletRequest request) {
         boolean isAPIAccessible = APIAccessAuthorization.getInstance().getAPIAccess(request);
         if (isAPIAccessible) {
-            RestaurantDTO restaurantDTO = new RestaurantDTO();
+            RestaurantDTO restaurantDTO = DTOFactory.getInstance().createRestaurantDTO();
             model.addAttribute("restaurant", restaurantDTO);
 
             return "restaurants/newRestuarant";
