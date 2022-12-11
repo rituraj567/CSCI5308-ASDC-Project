@@ -30,9 +30,9 @@ public class RestaurantMock implements IRestaurantRepository {
     }
 
     @Override
-    public RestaurantDTO getRestaurantById(int id) {
+    public RestaurantDTO getRestaurantById(String id) {
         List<RestaurantDTO> restaurants = getAllRestaurants();
-        return restaurants.get(id);
+        return restaurants.get(0);
     }
 
     @Override

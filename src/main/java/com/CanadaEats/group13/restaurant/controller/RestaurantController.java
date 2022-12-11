@@ -56,7 +56,7 @@ public class RestaurantController {
     }
 
     @GetMapping("/admin/restaurants/{resturantId}/edit")
-    public String editRestuarants(@PathVariable("resturantId") int restaurantId, Model model,
+    public String editRestuarants(@PathVariable("resturantId") String restaurantId, Model model,
             HttpServletRequest request) {
         boolean isAPIAccessible = APIAccessAuthorization.getInstance().getAPIAccess(request);
         if (isAPIAccessible) {
@@ -80,7 +80,7 @@ public class RestaurantController {
     }
 
     @GetMapping("/admin/restaurants/{restaurantId}/view")
-    public String viewRestaurant(@PathVariable("restaurantId") int restaurantId, Model model,
+    public String viewRestaurant(@PathVariable("restaurantId") String restaurantId, Model model,
             HttpServletRequest request) {
         boolean isAPIAccessible = APIAccessAuthorization.getInstance().getAPIAccess(request);
         if (isAPIAccessible) {
