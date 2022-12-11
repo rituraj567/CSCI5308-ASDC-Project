@@ -71,21 +71,21 @@
                 <div class="col-sm">
                     <a
                     class="btn btn-dark button-space" 
-                    th:href="@{/admin/restaurants/{restaurantId}/edit(restaurantId=${restaurant.id})}"
+                    th:href="@{/admin/restaurants/{restaurantId}/edit(restaurantId=${restaurant.restaurantId})}"
                   >
                     Edit</a>
                  
                   <a
                     type="button"
                     class="btn btn-danger button-space"
-                    th:href="@{/admin/restaurants/{restaurantId}/delete(restaurantId=${restaurant.id})}"
+                    th:href="@{/admin/restaurants/{restaurantId}/delete(restaurantId=${restaurant.restaurantId})}"
                   >
                     Delete
                 </a>
                 <a
                 type="button"
                 class="btn btn-info"
-                th:href="@{/admin/restaurants/{restaurantId}/view(restaurantId=${restaurant.id})}"
+                th:href="@{/admin/restaurants/{restaurantId}/view(restaurantId=${restaurant.restaurantId})}"
               >
                 View
             </a>

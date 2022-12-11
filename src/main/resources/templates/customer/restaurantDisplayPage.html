@@ -72,11 +72,19 @@
                  <span>$</span> <span class="card-text" th:text="${menuItem.getPrice()}">Price</span>
                  <br/>
                  <span>Description:</span> <span class="card-text" th:text="${menuItem.getDescription()}">Description</span>
-                  <a href="#" class="btn btn-primary mt-sm-2">Add To Cart</a>
+                  <a th:href="@{/addtocart/{menuId}/{menuItemId}/(menuItemId=${menuItem.getMenuItemId()},menuId=${menuItem.getMenuId()})}" class="btn btn-primary mt-sm-2" >Add To Cart</a>
                 </div>
               </div>
               </ul>
           </ul>
+        </div>
+        <div>
+          <div th:if="${cartItems!=null}">
+         <span>Added </span><span  th:text=" ${cartItems.size()}"></span><span> Different types of products</span>
+         <br/>
+         <a type="button" th:href="@{/checkout/}"  class="btn btn-primary">Checkout</a>
+          </div>
+          
         </div>
     </div>
   </head>

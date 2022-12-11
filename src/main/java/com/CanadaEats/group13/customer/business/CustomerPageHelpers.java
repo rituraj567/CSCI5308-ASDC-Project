@@ -1,6 +1,7 @@
 package com.CanadaEats.group13.customer.business;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import com.CanadaEats.group13.database.DatabaseConnection;
@@ -11,6 +12,9 @@ import com.CanadaEats.group13.restaurantowner.dto.RestaurantOwnerDto;
 import com.CanadaEats.group13.restaurantowner.repository.RestaurantOwnerRepository;
 
 public class CustomerPageHelpers {
+
+    private static HashMap<String, int[]> cartMap = new HashMap<>();
+
     public static List<List<MenuItemDto>> getMenuItems(String id) {
         IRestaurantOwnerBusiness restaurantOwnerBusiness = new RestaurantOwnerBusiness(
                 new RestaurantOwnerRepository(DatabaseConnection.getInstance()));
@@ -44,5 +48,24 @@ public class CustomerPageHelpers {
             }
         }
         return result;
+    }
+
+    public static HashMap<String, int[]> addItemsToCart(MenuItemDto menuItemDto) {
+        String key = menuItemDto.getName();
+
+        if (!cartMap.containsKey(key)) {
+            int[] values = new int[] { 1, menuItemDto.getPrice() };
+            cartMap.put(key, values);
+        } else {
+            int[] values = cartMap.get(key);
+            values[0] += 1;
+            values[1] += menuItemDto.getPrice();
+        }
+
+        return cartMap;
+    }
+
+    public static HashMap<String, int[]> getCartItems() {
+        return cartMap;
     }
 }

@@ -40,8 +40,9 @@ public class RestaurantRepository implements IRestaurantRepository {
                 String phone = restaurantResult.getString("PhoneNumber");
                 String status = restaurantResult.getString("Status");
                 String userId = restaurantResult.getString("User_UserId");
-                restaurantDTOList.add(new RestaurantDTO(id, restaurantId, name, address, city, province, country,
-                        postalCode, phone, status, userId));
+                restaurantDTOList
+                        .add(new RestaurantDTO(id, restaurantId, name, address, city, province, country,
+                                postalCode, phone, status, userId));
 
             }
 
@@ -116,16 +117,17 @@ public class RestaurantRepository implements IRestaurantRepository {
     }
 
     @Override
-    public RestaurantDTO getRestaurantById(int id) {
+    public RestaurantDTO getRestaurantById(String id) {
         RestaurantDTO restaurantDTO = null;
         Connection connection;
         try {
             connection = databaseConnection.getDatabaseConnection();
             Statement statement = connection.createStatement();
-            String restaurants = "select * from Restaurant where id=" + id;
+            String restaurants = "select * from Restaurant where RestaurantId= '" + id + "'";
             ResultSet restaurantResult = statement.executeQuery(restaurants);
 
             while (restaurantResult.next()) {
+                int Id = Integer.parseInt(restaurantResult.getString("Id"));
                 String restaurantId = restaurantResult.getString("RestaurantId");
                 String name = restaurantResult.getString("Name");
                 String address = restaurantResult.getString("Address");
@@ -136,7 +138,7 @@ public class RestaurantRepository implements IRestaurantRepository {
                 String phone = restaurantResult.getString("PhoneNumber");
                 String status = restaurantResult.getString("Status");
                 String userId = restaurantResult.getString("User_UserId");
-                restaurantDTO = new RestaurantDTO(id, restaurantId, name, address, city, province, country, postalCode,
+                restaurantDTO = new RestaurantDTO(Id, restaurantId, name, address, city, province, country, postalCode,
                         phone, status, userId);
 
                 System.out.println(restaurantDTO.getName());

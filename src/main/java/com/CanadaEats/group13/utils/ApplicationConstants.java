@@ -16,14 +16,13 @@ public class ApplicationConstants {
     public static final String MENU_MENUID_COLUMN = "MenuId";
     public static final String MENU_MENUNAME_COLUMN = "Name";
 
-
-
     public static final String MENUITEM_MENUITEMID_COLUMN = "MenuItemId";
     public static final String MENUITEM_NAME_COLUMN = "Name";
     public static final String MENUITEM_DESCRIPTION_COLUMN = "Description";
     public static final String MENUITEM_PRICE_COLUMN = "Price";
     public static final String MENUITEM_MENUID_COLUMN = "Menu_MenuId";
 
+    public static final String MENUITEM_RESTAURANTID_COLUMN = "Restaurant_RestaurantId";
 
     public static final String RESTAURANT_RESTAURANTID_COLUMN = "RestaurantId";
     public static final String RESTAURANT_RESTAURANTNAME_COLUMN = "RestaurantName";

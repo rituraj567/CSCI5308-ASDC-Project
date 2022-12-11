@@ -28,7 +28,7 @@ public class RestaurantBusiness implements IRestaurantBusiness {
     }
 
     @Override
-    public RestaurantDTO getRestaurantById(int id) {
+    public RestaurantDTO getRestaurantById(String id) {
         return repository.getRestaurantById(id);
 
     }

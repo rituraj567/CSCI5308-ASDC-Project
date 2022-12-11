@@ -10,7 +10,7 @@ public interface IRestaurantRepository {
 
     public Map<String, String> postRestaurant(RestaurantDTO restaurantDTO);
 
-    public RestaurantDTO getRestaurantById(int id);
+    public RestaurantDTO getRestaurantById(String id);
 
     public Map<String, String> updateRestuarant(RestaurantDTO restaurantDTO);
 
