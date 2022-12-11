@@ -85,9 +85,9 @@ public class UserController {
             response.addCookie(cookie2);
             response.addCookie(cookie3);
 
-            if(userLoginResponseModel.getRestaurantId() != null)
-            {
-                Cookie cookie4 = new Cookie(ApplicationConstants.COOKIE_RESTAURANTID, userLoginResponseModel.getRestaurantId());
+            if (userLoginResponseModel.getRestaurantId() != null) {
+                Cookie cookie4 = new Cookie(ApplicationConstants.COOKIE_RESTAURANTID,
+                        userLoginResponseModel.getRestaurantId());
                 response.addCookie(cookie4);
             }
 
@@ -122,8 +122,7 @@ public class UserController {
     @GetMapping("/logout")
     public String userLogout(Model model, HttpServletRequest request, HttpServletResponse response) {
         Cookie[] cookies = request.getCookies();
-        if(cookies != null)
-        {
+        if (cookies != null) {
             for (Cookie cookie : cookies) {
                 cookie.setValue(ApplicationConstants.COOKIE_EMPTY_STRING);
                 cookie.setMaxAge(ApplicationConstants.COOKIE_MAX_AGE);
@@ -153,7 +152,7 @@ public class UserController {
     }
 
     @PostMapping("/users/{userId}")
-    public String updateRestaurant(@PathVariable("userId") String userId,
+    public String updateProfile(@PathVariable("userId") String userId,
             @ModelAttribute("restaurant") UserDetailsDto userDetailsDto, Model model) {
         model.addAttribute("user", userDetailsDto);
         userService.updateUserProfile(userDetailsDto);
