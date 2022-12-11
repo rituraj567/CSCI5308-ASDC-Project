@@ -11,6 +11,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
@@ -36,7 +38,7 @@ public class FilterController {
     }
 
     @PostMapping("/updatefilters")
-    public String updateFilters(@ModelAttribute List<FilterDto> filterDto,Model model, HttpServletRequest request){
+    public String updateFilters(@RequestBody List<FilterDto> filterDto, HttpServletRequest request){
         boolean isAPIAccessible = APIAccessAuthorization.getInstance().getAPIAccess(request);
         if(isAPIAccessible) {
             filterBusiness.updateFilters(filterDto);
