@@ -1,10 +1,10 @@
 package com.CanadaEats.group13.customer;
 
-import com.CanadaEats.group13.restaurantowner.dto.MenuItemDto;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+
+import com.CanadaEats.group13.restaurantowner.dto.MenuItemDto;
 
 public class CustomerMock {
     private static HashMap<String, int[]> mockCartMap = new HashMap<>();
@@ -14,7 +14,6 @@ public class CustomerMock {
 
         menuList.add(new ArrayList<>());
         MenuItemDto menuItemDto = getMockDTo();
-        menuList.get(0).add(menuItemDto);
         menuList.get(0).add(menuItemDto);
         return menuList;
     }

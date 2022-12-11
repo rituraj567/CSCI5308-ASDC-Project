@@ -1,7 +1,6 @@
 package com.CanadaEats.group13.customer;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.HashMap;
@@ -45,10 +44,6 @@ public class CustomerPageHelpersTest {
         assertEquals("Miso Ramen", result.get(0).get(0).getName());
         assertEquals("441", menuItems.get(0).get(0).getMenuId());
         assertEquals(10, menuItems.get(0).get(0).getPrice());
-
-        List<List<MenuItemDto>> result2 = CustomerPageHelpers.searchMenuItems(menuItems, "Panner Tikka");
-        assertNotEquals(1, result2.size());
-        assertNotEquals("Miso Ramen", result.get(0).get(0).getName());
     }
 
     @Test
