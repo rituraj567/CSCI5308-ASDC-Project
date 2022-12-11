@@ -30,6 +30,7 @@ public class ApplicationConstants {
 
     public static final String COOKIE_USERNAME = "username";
     public static final String COOKIE_ROLEID = "roleid";
+
     public static final String COOKIE_USERID = "userid";
     public static final String COOKIE_ROLENAME = "rolename";
     public static final String COOKIE_RESTAURANTID = "restaurantid";
@@ -45,4 +46,13 @@ public class ApplicationConstants {
     public static final int COOKIE_MAX_AGE = 0;
     public static final String COOKIE_ROOT_PATH = "/";
 
+
+    public static final String WAITING_FOR_PICKUP = "cdf30aeb-c730-418a-abcb-be5ce19c3ee3";
+    public static final String EN_ROUTE = "423d5d1e-aa47-4607-801b-1395509175db";
+    public static final String DELIVERED = "79fe57ed-2fc0-49f0-9df7-eb2560ed723a";
+    public static final String CREDIT_CARD = "b340b7b1-465e-439a-9a06-a6ee7785b7fb";
+    public static final String DEBIT_CARD = "7b655d6c-b4f8-4839-be8d-76e58ae9835b";
+    public static final String CASH = "e1f1b8e7-1c25-4918-b4f2-5ec0811e43cc";
+
 }
+
