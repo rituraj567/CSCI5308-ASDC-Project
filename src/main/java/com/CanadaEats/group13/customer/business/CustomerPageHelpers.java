@@ -19,9 +19,8 @@ public class CustomerPageHelpers {
         IRestaurantOwnerBusiness restaurantOwnerBusiness = new RestaurantOwnerBusiness(
                 new RestaurantOwnerRepository(DatabaseConnection.getInstance()));
         List<RestaurantOwnerDto> menus = restaurantOwnerBusiness.getAllMenus(id);
-        System.out.println(menus.size());
         List<RestaurantOwnerDto> restaurantMenus = new ArrayList<>();
-        System.out.println(id);
+
         for (RestaurantOwnerDto menu : menus) {
             if (menu.getRestaurantId().equals(id)) {
                 restaurantMenus.add(menu);
@@ -51,18 +50,23 @@ public class CustomerPageHelpers {
     }
 
     public static HashMap<String, int[]> addItemsToCart(MenuItemDto menuItemDto) {
-        String key = menuItemDto.getName();
 
-        if (!cartMap.containsKey(key)) {
-            int[] values = new int[] { 1, menuItemDto.getPrice() };
-            cartMap.put(key, values);
-        } else {
-            int[] values = cartMap.get(key);
+        return addItemsToMap(cartMap, menuItemDto);
+    }
+
+    public static HashMap<String, int[]> addItemsToMap(HashMap<String, int[]> map, MenuItemDto menuItemDto) {
+        String key = menuItemDto.getName();
+        if (map.containsKey(key)) {
+            int[] values = map.get(key);
             values[0] += 1;
             values[1] += menuItemDto.getPrice();
+        } else {
+            int[] values = new int[] { 1, menuItemDto.getPrice() };
+            map.put(key, values);
         }
 
-        return cartMap;
+        return map;
+
     }
 
     public static HashMap<String, int[]> getCartItems() {
