@@ -33,8 +33,7 @@ public class UserBusinessTest {
     @Test
     final void registerUserSuccessTest(){
 
-        UserDetailsDto userDetailsDto = new UserDetailsDto();
-        userDetailsDto.setPassword("arpit1234");
+        UserDetailsDto userDetailsDto = prepareRegisterValidationData();
         UserDetailsResponseModel userDetailsResponseModel = prepareRegisterData();
         when(userRepository.registerUser(anyObject())).thenReturn(userDetailsResponseModel);
 
@@ -86,6 +85,58 @@ public class UserBusinessTest {
         assertNotEquals("arpit", result.getUserName());
     }
 
+    @Test
+    final void validateRegisterUserSuccessTest(){
+        UserDetailsResponseModel userDetailsResponseModel = new UserDetailsResponseModel();
+        userDetailsResponseModel.setFirstName("Arpit");
+        UserDetailsDto userDetailsDto = prepareRegisterValidationData();
+        when(userRepository.registerUser(anyObject())).thenReturn(userDetailsResponseModel);
+
+        UserDetailsResponseModel result = userBusiness.registerUser(userDetailsDto);
+        assertNotNull(result);
+        assertEquals("Arpit", result.getFirstName());
+    }
+
+    @Test
+    final void validateRegisterUserFirstNameFailureTest(){
+        UserDetailsDto userDetailsDto = prepareRegisterValidationData();
+        userDetailsDto.setFirstName("");
+
+        UserDetailsResponseModel result = userBusiness.registerUser(userDetailsDto);
+        assertNotNull(result);
+        assertEquals(null, result.getFirstName());
+    }
+
+    @Test
+    final void validateRegisterUserUserNameFailureTest(){
+        UserDetailsDto userDetailsDto = prepareRegisterValidationData();
+        userDetailsDto.setUserName("");
+
+        UserDetailsResponseModel result = userBusiness.registerUser(userDetailsDto);
+        assertNotNull(result);
+        assertEquals(null, result.getUserName());
+    }
+
+    @Test
+    final void validateRegisterUserCityFailureTest(){
+        UserDetailsDto userDetailsDto = prepareRegisterValidationData();
+        userDetailsDto.setCity("");
+
+        UserDetailsResponseModel result = userBusiness.registerUser(userDetailsDto);
+        assertNotNull(result);
+        assertEquals(null, result.getCity());
+    }
+
+    @Test
+    final void validateRegisterUserCountryFailureTest(){
+        UserDetailsDto userDetailsDto = prepareRegisterValidationData();
+        userDetailsDto.setCountry("");
+
+        UserDetailsResponseModel result = userBusiness.registerUser(userDetailsDto);
+        assertNotNull(result);
+        assertEquals(null, result.getCountry());
+    }
+
     private UserDetailsResponseModel prepareRegisterData(){
         UserDetailsResponseModel userDetailsResponseModel = new UserDetailsResponseModel();
         userDetailsResponseModel.setFirstName("Arpit");
@@ -105,4 +156,20 @@ public class UserBusinessTest {
         return userLoginResponseModel;
     }
 
+    private UserDetailsDto prepareRegisterValidationData(){
+        UserDetailsDto userDetailsDto = new UserDetailsDto();
+        userDetailsDto.setFirstName("Arpit");
+        userDetailsDto.setLastName("Ribadiya");
+        userDetailsDto.setUserName("arpit1234");
+        userDetailsDto.setEmailId("arpit@gmail.com");
+        userDetailsDto.setPassword("arpit1234");
+        userDetailsDto.setAddress("1333 south park street");
+        userDetailsDto.setGender("Male");
+        userDetailsDto.setCity("Halifax");
+        userDetailsDto.setProvince("NS");
+        userDetailsDto.setPostalCode("B3J2K9");
+        userDetailsDto.setCountry("Canada");
+
+        return userDetailsDto;
+    }
 }

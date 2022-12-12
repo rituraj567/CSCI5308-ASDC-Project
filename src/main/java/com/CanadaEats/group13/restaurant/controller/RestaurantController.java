@@ -57,7 +57,7 @@ public class RestaurantController {
 
     @GetMapping("/admin/restaurants/{resturantId}/edit")
     public String editRestuarants(@PathVariable("resturantId") String restaurantId, Model model,
-            HttpServletRequest request) {
+                                  HttpServletRequest request) {
         boolean isAPIAccessible = APIAccessAuthorization.getInstance().getAPIAccess(request);
         if (isAPIAccessible) {
             RestaurantDTO restaurantDTO = restaurantBusiness.getRestaurantById(restaurantId);
@@ -81,7 +81,7 @@ public class RestaurantController {
 
     @GetMapping("/admin/restaurants/{restaurantId}/view")
     public String viewRestaurant(@PathVariable("restaurantId") String restaurantId, Model model,
-            HttpServletRequest request) {
+                                 HttpServletRequest request) {
         boolean isAPIAccessible = APIAccessAuthorization.getInstance().getAPIAccess(request);
         if (isAPIAccessible) {
             RestaurantDTO restaurantDTO = restaurantBusiness.getRestaurantById(restaurantId);
@@ -112,7 +112,7 @@ public class RestaurantController {
 
     @PostMapping("/admin/restaurants/{restaurantId}")
     public String updateRestaurant(@PathVariable("restaurantId") int restaurantId,
-            @ModelAttribute("restaurant") RestaurantDTO restaurantDTO, Model model) {
+                                   @ModelAttribute("restaurant") RestaurantDTO restaurantDTO, Model model) {
         model.addAttribute("restaurant", restaurantDTO);
         restaurantDTO.setId(restaurantId);
         restaurantBusiness.updateRestuarant(restaurantDTO);

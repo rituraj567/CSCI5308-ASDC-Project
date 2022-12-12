@@ -1,9 +1,9 @@
-package com.CanadaEats.group13.authentication.model.request;
-
+package com.CanadaEats.group13.restaurantOwnerAdmin.dto;
 
 import java.sql.Date;
 
-public class UserDetailsRequestModel {
+public class RestaurantOwnerAdminDto {
+    private int id;
     private String userId;
     private String firstName;
     private String lastName;
@@ -20,6 +20,38 @@ public class UserDetailsRequestModel {
     private String postalCode;
     private int status;
     private String roleId;
+
+    public RestaurantOwnerAdminDto(){
+
+    }
+
+    public RestaurantOwnerAdminDto(int id,String userId, String firstName, String lastName, String emailId, String userName, String password, String mobileNumber, String gender, Date birthDate, String address, String city, String province, String country, String postalCode, int status, String roleId) {
+        this.id=id;
+        this.userId = userId;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.emailId = emailId;
+        this.userName = userName;
+        this.password = password;
+        this.mobileNumber = mobileNumber;
+        this.gender = gender;
+        this.birthDate = birthDate;
+        this.address = address;
+        this.city = city;
+        this.province = province;
+        this.country = country;
+        this.postalCode = postalCode;
+        this.status = status;
+        this.roleId = roleId;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 
     public String getUserId() {
         return userId;
