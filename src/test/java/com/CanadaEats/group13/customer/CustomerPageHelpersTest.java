@@ -17,17 +17,19 @@ import com.CanadaEats.group13.restaurantowner.dto.MenuItemDto;
 public class CustomerPageHelpersTest {
 
     CustomerMock customerMock;
+    List<List<MenuItemDto>> menuItems;
 
     @BeforeEach
+
     public void setUp() {
         customerMock = new CustomerMock();
+        menuItems = customerMock.getMenuItems();
     }
 
     @Test
     @DisplayName("getMenuItems() test")
     public void getMenuItemsTest() {
 
-        List<List<MenuItemDto>> menuItems = customerMock.getMenuItems();
         assertEquals(1, menuItems.size());
         assertEquals("Miso Ramen", menuItems.get(0).get(0).getName());
         assertEquals("441", menuItems.get(0).get(0).getMenuId());
@@ -35,15 +37,28 @@ public class CustomerPageHelpersTest {
     }
 
     @Test
+    @DisplayName("getMenuItemsNull() test")
+    public void getMenuItemsNull() {
+        assertEquals(null, menuItems.get(0).get(1));
+        assertEquals(null, menuItems.get(1));
+
+    }
+
+    @Test
     @DisplayName("searchMenuItems() test")
     public void searchMenuItemsTest() {
-
-        List<List<MenuItemDto>> menuItems = customerMock.getMenuItems();
         List<List<MenuItemDto>> result = CustomerPageHelpers.searchMenuItems(menuItems, "Miso Ramen");
         assertEquals(1, result.size());
         assertEquals("Miso Ramen", result.get(0).get(0).getName());
         assertEquals("441", menuItems.get(0).get(0).getMenuId());
         assertEquals(10, menuItems.get(0).get(0).getPrice());
+    }
+
+    @Test
+    @DisplayName("searchMenuItemsNoPresent() test")
+    public void searchMenuItemsNoPresentTest() {
+        List<List<MenuItemDto>> result = CustomerPageHelpers.searchMenuItems(menuItems, "Panner Tikka");
+        assertEquals(null, result.get(0));
     }
 
     @Test

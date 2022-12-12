@@ -13,9 +13,9 @@ import org.junit.jupiter.api.Test;
 import com.CanadaEats.group13.common.DTOFactory;
 import com.CanadaEats.group13.restaurant.business.IRestaurantBusiness;
 import com.CanadaEats.group13.restaurant.business.RestaurantBusiness;
-import com.CanadaEats.group13.utils.StatePatternConstants;
 import com.CanadaEats.group13.restaurant.dto.RestaurantDTO;
 import com.CanadaEats.group13.restaurant.repository.IRestaurantRepository;
+import com.CanadaEats.group13.utils.StatePatternConstants;
 
 @DisplayName("Restaurant Business Test")
 public class RestaurantBusinessTest {
@@ -36,6 +36,15 @@ public class RestaurantBusinessTest {
         assertEquals(1, restaurantDTOList.size());
         assertEquals("Passage to India", restaurantDTOList.get(0).getName());
         assertEquals("431", restaurantDTOList.get(0).getRestaurantId());
+    }
+
+    @Test
+    @DisplayName("getAllRestaurantsNullTest() test")
+    public void getAllRestaurantsNullTest() {
+
+        List<RestaurantDTO> restaurantDTOList = restaurantBusiness.getAllRestaurants();
+        assertEquals(null, restaurantDTOList.get(1));
+
     }
 
     @Test
@@ -116,6 +125,17 @@ public class RestaurantBusinessTest {
 
         List<RestaurantDTO> restaurantDTOs = restaurantBusiness.searchRestaurants("Passage");
 
+        assertEquals(1, restaurantDTOs.size());
+        assertEquals("Passage to India", restaurantDTOs.get(0).getName());
+    }
+
+    @Test
+    @DisplayName("searchNoPresentTest() test")
+    public void searchNoPresentTest() {
+
+        List<RestaurantDTO> restaurantDTOs = restaurantBusiness.searchRestaurants("Adda");
+
+        assertEquals(null, restaurantDTOs);
         assertEquals(1, restaurantDTOs.size());
         assertEquals("Passage to India", restaurantDTOs.get(0).getName());
     }
