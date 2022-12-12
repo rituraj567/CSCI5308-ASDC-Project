@@ -22,6 +22,29 @@ public class UserDetailsDto implements Serializable {
     private int status;
     private String roleId;
 
+    public UserDetailsDto() {
+    }
+
+    public UserDetailsDto(int id, String userId, String firstName, String lastName, String emailId, String userName, String password, String mobileNumber, String gender, Date birthDate, String address, String city, String province, String country, String postalCode, int status, String roleId) {
+        Id = id;
+        this.userId = userId;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.emailId = emailId;
+        this.userName = userName;
+        this.password = password;
+        this.mobileNumber = mobileNumber;
+        this.gender = gender;
+        this.birthDate = birthDate;
+        this.address = address;
+        this.city = city;
+        this.province = province;
+        this.country = country;
+        this.postalCode = postalCode;
+        this.status = status;
+        this.roleId = roleId;
+    }
+
     public int getId() {
         return Id;
     }
