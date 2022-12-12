@@ -17,10 +17,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.CanadaEats.group13.authentication.business.IUserBusiness;
 import com.CanadaEats.group13.authentication.business.UserBusiness;
 import com.CanadaEats.group13.authentication.repository.UserRepository;
-import com.CanadaEats.group13.customer.business.CustomerBusinness;
 import com.CanadaEats.group13.customer.business.CustomerPageHelpers;
-import com.CanadaEats.group13.customer.business.ICustomerBusiness;
-import com.CanadaEats.group13.customer.repository.CustomerRepository;
 import com.CanadaEats.group13.database.DatabaseConnection;
 import com.CanadaEats.group13.restaurant.business.IRestaurantBusiness;
 import com.CanadaEats.group13.restaurant.business.RestaurantBusiness;
@@ -36,14 +33,12 @@ import com.CanadaEats.group13.restaurantowner.repository.RestaurantOwnerReposito
 @Controller
 public class CustomerController {
 
-    ICustomerBusiness customerBusiness;
     IUserBusiness userBusiness;
     IRestaurantBusiness restaurantBusiness;
     IRestaurantOwnerBusiness restaurantOwnerBusiness;
     IRestaurantOwnerRepository repository;
 
     public CustomerController() {
-        this.customerBusiness = new CustomerBusinness(new CustomerRepository(DatabaseConnection.getInstance()));
         this.userBusiness = new UserBusiness(new UserRepository(DatabaseConnection.getInstance()));
         this.restaurantBusiness = new RestaurantBusiness(new RestaurantRepository(DatabaseConnection.getInstance()));
         this.restaurantOwnerBusiness = new RestaurantOwnerBusiness(
@@ -130,7 +125,6 @@ public class CustomerController {
         List<String> keys = new ArrayList<>(cartItems.keySet());
         model.addAttribute("keys", keys);
         model.addAttribute("cartList", cartlist);
-        System.out.println("size=" + cartlist.size());
         return "customer/checkoutPage";
     }
 

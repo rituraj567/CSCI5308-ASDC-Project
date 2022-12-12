@@ -3,7 +3,7 @@ package com.CanadaEats.group13.restaurant.business;
 import java.util.HashMap;
 import java.util.Map;
 
-import com.CanadaEats.group13.restaurant.config.RestaurantConstants;
+import com.CanadaEats.group13.utils.StatePatternConstants;
 
 public class UpdateSucessOperation implements IRestaurantState {
 
@@ -12,7 +12,7 @@ public class UpdateSucessOperation implements IRestaurantState {
 
         HashMap<String, String> map = new HashMap<>();
 
-        map.put(RestaurantConstants.getSuccessMessage(), RestaurantConstants.getUpdateSuccess());
+        map.put(StatePatternConstants.getSuccessMessage(), StatePatternConstants.getUpdateSuccess());
         return map;
     }
 

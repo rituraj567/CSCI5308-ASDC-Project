@@ -45,7 +45,6 @@ public class ApplicationConstants {
     public static final int COOKIE_MAX_AGE = 0;
     public static final String COOKIE_ROOT_PATH = "/";
 
-
     public static final String WAITING_FOR_PICKUP = "cdf30aeb-c730-418a-abcb-be5ce19c3ee3";
     public static final String EN_ROUTE = "423d5d1e-aa47-4607-801b-1395509175db";
     public static final String DELIVERED = "79fe57ed-2fc0-49f0-9df7-eb2560ed723a";
@@ -53,5 +52,15 @@ public class ApplicationConstants {
     public static final String DEBIT_CARD = "7b655d6c-b4f8-4839-be8d-76e58ae9835b";
     public static final String CASH = "e1f1b8e7-1c25-4918-b4f2-5ec0811e43cc";
 
+    public static final String RESTAURANT_ID = "Id";
+    public static final String RESTAURANT_UUID = "RestaurantId";
+    public static final String RESTAURANT_NAME = "Name";
+    public static final String RESTAURANT_ADDRESS = "Address";
+    public static final String RESTAURANT_CITY = "City";
+    public static final String RESTAURANT_PROVINCE = "Province";
+    public static final String RESTAURANT_COUNTRY = "Province";
+    public static final String RESTAURANT_POSTAL_CODE = "PostalCode";
+    public static final String RESTAURANT_PHONE_NUMBER = "PhoneNumber";
+    public static final String RESTAURANT_STATUS = "Status";
+    public static final String RESTAURANT_USER_ID = "User_UserId";
 }
-
