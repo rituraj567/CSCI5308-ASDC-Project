@@ -3,6 +3,7 @@ package com.CanadaEats.group13.customer.business;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import com.CanadaEats.group13.database.DatabaseConnection;
 import com.CanadaEats.group13.restaurantowner.business.IRestaurantOwnerBusiness;
@@ -71,5 +72,13 @@ public class CustomerPageHelpers {
 
     public static HashMap<String, int[]> getCartItems() {
         return cartMap;
+    }
+    public static int getGrandTotal(){
+        HashMap<String, int[]> cartItems = CustomerPageHelpers.getCartItems();
+        int total = 0;
+        for(Map.Entry<String,int[]> mapElement : cartItems.entrySet()){
+            total=total + mapElement.getValue()[1];
+        }
+        return total;
     }
 }
