@@ -168,8 +168,9 @@ public class UserController {
             @ModelAttribute("restaurant") UserDetailsDto userDetailsDto, Model model) {
         model.addAttribute("user", userDetailsDto);
         userService.updateUserProfile(userDetailsDto);
-
         return "redirect:/viewProfile";
     }
+
+
 
 }
