@@ -3,9 +3,19 @@ package com.CanadaEats.group13.authentication.model.response;
 public class UserLoginResponseModel {
     private String userName;
     private String roleId;
-
     private String userId;
     private String restaurantId;
+
+    public UserLoginResponseModel() {
+    }
+
+    public UserLoginResponseModel(String userName, String roleId, String userId, String restaurantId) {
+        this.userName = userName;
+        this.roleId = roleId;
+        this.userId = userId;
+        this.restaurantId = restaurantId;
+    }
+
     public String getRestaurantId() {
         return restaurantId;
     }

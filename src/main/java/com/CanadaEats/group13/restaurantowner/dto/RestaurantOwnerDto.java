@@ -8,6 +8,16 @@ public class RestaurantOwnerDto implements Serializable {
     private String RestaurantId;
     private String RestaurantName;
 
+    public RestaurantOwnerDto() {
+    }
+
+    public RestaurantOwnerDto(String menuId, String name, String restaurantId, String restaurantName) {
+        MenuId = menuId;
+        Name = name;
+        RestaurantId = restaurantId;
+        RestaurantName = restaurantName;
+    }
+
     public String getRestaurantName() {
         return RestaurantName;
     }

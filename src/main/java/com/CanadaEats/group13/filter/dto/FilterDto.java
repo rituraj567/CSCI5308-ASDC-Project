@@ -1,8 +1,8 @@
 package com.CanadaEats.group13.filter.dto;
 
 public class FilterDto {
-    public String filterName;
-    public int isActive;
+    private String filterName;
+    private int isActive;
 
     public String getFilterName() {
         return filterName;

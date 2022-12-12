@@ -1,8 +1,16 @@
 package com.CanadaEats.group13.restaurantowner.dto;
 
 public class MenuDto {
-    public String menuId;
-    public String menuName;
+    private String menuId;
+    private String menuName;
+
+    public MenuDto() {
+    }
+
+    public MenuDto(String menuId, String menuName) {
+        this.menuId = menuId;
+        this.menuName = menuName;
+    }
 
     public String getMenuId() {
         return menuId;
