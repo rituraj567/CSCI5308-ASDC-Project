@@ -14,7 +14,7 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Matchers.anyObject;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 
 public class UserBusinessTest {
@@ -35,7 +35,7 @@ public class UserBusinessTest {
 
         UserDetailsDto userDetailsDto = prepareRegisterValidationData();
         UserDetailsResponseModel userDetailsResponseModel = prepareRegisterData();
-        when(userRepository.registerUser(anyObject())).thenReturn(userDetailsResponseModel);
+        when(userRepository.registerUser(any())).thenReturn(userDetailsResponseModel);
 
         UserDetailsResponseModel result = userBusiness.registerUser(userDetailsDto);
 
@@ -48,7 +48,7 @@ public class UserBusinessTest {
         UserDetailsDto userDetailsDto = new UserDetailsDto();
         userDetailsDto.setPassword("arpit1234");
         UserDetailsResponseModel userDetailsResponseModel = prepareRegisterData();
-        when(userRepository.registerUser(anyObject())).thenReturn(userDetailsResponseModel);
+        when(userRepository.registerUser(any())).thenReturn(userDetailsResponseModel);
 
         UserDetailsResponseModel result = userBusiness.registerUser(userDetailsDto);
 
@@ -62,7 +62,7 @@ public class UserBusinessTest {
         userLoginDto.setUserName("arpit1234");
         userLoginDto.setPassword("arpit1234");
         UserLoginResponseModel userLoginResponseModel = prepareLoginData();
-        when(userRepository.loginUser(anyObject())).thenReturn(userLoginResponseModel);
+        when(userRepository.loginUser(any())).thenReturn(userLoginResponseModel);
 
         UserLoginResponseModel result = userBusiness.loginUser(userLoginDto);
 
@@ -77,7 +77,7 @@ public class UserBusinessTest {
         userLoginDto.setUserName("arpit1234");
         userLoginDto.setPassword("arpit1234");
         UserLoginResponseModel userLoginResponseModel = prepareLoginData();
-        when(userRepository.loginUser(anyObject())).thenReturn(userLoginResponseModel);
+        when(userRepository.loginUser(any())).thenReturn(userLoginResponseModel);
 
         UserLoginResponseModel result = userBusiness.loginUser(userLoginDto);
 
@@ -90,7 +90,7 @@ public class UserBusinessTest {
         UserDetailsResponseModel userDetailsResponseModel = new UserDetailsResponseModel();
         userDetailsResponseModel.setFirstName("Arpit");
         UserDetailsDto userDetailsDto = prepareRegisterValidationData();
-        when(userRepository.registerUser(anyObject())).thenReturn(userDetailsResponseModel);
+        when(userRepository.registerUser(any())).thenReturn(userDetailsResponseModel);
 
         UserDetailsResponseModel result = userBusiness.registerUser(userDetailsDto);
         assertNotNull(result);

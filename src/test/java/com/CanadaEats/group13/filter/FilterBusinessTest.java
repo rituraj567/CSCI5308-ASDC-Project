@@ -13,7 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Matchers.anyObject;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 
 public class FilterBusinessTest {
@@ -54,7 +54,7 @@ public class FilterBusinessTest {
     @Test
     final void updateFiltersSuccessTest(){
         List<FilterDto> filterResponse = prepareFilterData();
-        when(filterRepository.updateFilters(anyObject())).thenReturn(filterResponse);
+        when(filterRepository.updateFilters(any())).thenReturn(filterResponse);
 
         List<FilterDto> result = filterBusiness.updateFilters(filterResponse);
 
@@ -66,7 +66,7 @@ public class FilterBusinessTest {
     @Test
     final void updateFiltersFailureTest(){
         List<FilterDto> filterResponse = prepareFilterData();
-        when(filterRepository.updateFilters(anyObject())).thenReturn(filterResponse);
+        when(filterRepository.updateFilters(any())).thenReturn(filterResponse);
 
         List<FilterDto> result = filterBusiness.updateFilters(filterResponse);
 

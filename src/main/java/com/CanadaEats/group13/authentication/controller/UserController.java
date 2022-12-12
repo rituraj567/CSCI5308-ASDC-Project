@@ -3,7 +3,8 @@ package com.CanadaEats.group13.authentication.controller;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
+import com.CanadaEats.group13.authentication.factory.IRole;
+import com.CanadaEats.group13.authentication.factory.RoleFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -27,10 +28,12 @@ import com.CanadaEats.group13.utils.ApplicationConstants;
 public class UserController {
     IUserBusiness userService;
     private UserRoleStateManager userRoleStateManager;
+    RoleFactory roleFactory;
+
 
     public UserController() {
         this.userService = new UserBusiness(new UserRepository(DatabaseConnection.getInstance()));
-        userRoleStateManager = new UserRoleStateManager();
+        roleFactory = new RoleFactory();
     }
 
     @GetMapping
@@ -77,6 +80,7 @@ public class UserController {
         System.out.println("UserLoginResponseMoel " + userLoginResponseModel);
         if (userLoginResponseModel.getRoleId() != null && userLoginResponseModel.getUserName() != null
                 && userLoginResponseModel.getUserId() != null) {
+            System.out.println("Inside cookie");
             Cookie cookie1 = new Cookie(ApplicationConstants.COOKIE_USERNAME, userLoginResponseModel.getUserName());
             Cookie cookie2 = new Cookie(ApplicationConstants.COOKIE_ROLEID, userLoginResponseModel.getRoleId());
             Cookie cookie3 = new Cookie(ApplicationConstants.COOKIE_USERID, userLoginResponseModel.getUserId());
@@ -92,20 +96,28 @@ public class UserController {
             }
 
             if (userLoginResponseModel.getRoleId().equals(ApplicationConstants.ADMIN_ROLEID)) {
-                userRoleStateManager.setAdminRole();
-                userRoleStateManager.userRoleState(response);
+                IRole role = roleFactory.createRole(ApplicationConstants.ADMIN_ROLE);
+                role.getRoleType(response);
+                //userRoleStateManager.setA(HttpServletResponse responsedminRole();
+               // userRoleStateManager.userRoleState(response);
                 return "redirect:/adminuserhomepage";
             } else if (userLoginResponseModel.getRoleId().equals(ApplicationConstants.RESTAURANT_OWNER_ROLEID)) {
-                userRoleStateManager.setRestaurantOwnerRole();
-                userRoleStateManager.userRoleState(response);
+                IRole role = roleFactory.createRole(ApplicationConstants.ADMIN_ROLE);
+                role.getRoleType(response);
+//                userRoleStateManager.setRestaurantOwnerRole();
+//                userRoleStateManager.userRoleState(response);
                 return "redirect:/restaurantownerhomepage";
             } else if (userLoginResponseModel.getRoleId().equals(ApplicationConstants.CUSTOMER_ROLEID)) {
-                userRoleStateManager.setCustomerRole();
-                userRoleStateManager.userRoleState(response);
+                IRole role = roleFactory.createRole(ApplicationConstants.CUSTOMER_ROLE);
+                role.getRoleType(response);
+                //userRoleStateManager.setCustomerRole();
+                //userRoleStateManager.userRoleState(response);
                 return "redirect:/userHomePage";
             } else if (userLoginResponseModel.getRoleId().equals(ApplicationConstants.DELIVERY_PERSON_ROLEID)) {
-                userRoleStateManager.setDeliveryPersonRole();
-                userRoleStateManager.userRoleState(response);
+                IRole role = roleFactory.createRole(ApplicationConstants.DELIVERY_PERSON_ROLE);
+                role.getRoleType(response);
+                //userRoleStateManager.setDeliveryPersonRole();
+                //userRoleStateManager.userRoleState(response);
                 return "redirect:/userloginpage";
             }
         }

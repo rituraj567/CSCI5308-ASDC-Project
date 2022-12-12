@@ -15,8 +15,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Matchers.anyObject;
-import static org.mockito.Matchers.anyString;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.when;
 
 public class RestaurantOwnerBusinessTest {
@@ -58,7 +58,7 @@ public class RestaurantOwnerBusinessTest {
     final void addMenuSuccessTest(){
         MenuDto menuDto = new MenuDto();
         menuDto.setMenuName("Punjabi");
-        when(restaurantOwnerRepository.addMenu(anyObject())).thenReturn(true);
+        when(restaurantOwnerRepository.addMenu(any())).thenReturn(true);
 
         boolean result = restaurantOwnerBusiness.addMenu("d0ac2c3e-4713-4a21-8f65-4aec10cab89e", menuDto);
 
@@ -69,7 +69,7 @@ public class RestaurantOwnerBusinessTest {
     final void addMenuFailureTest(){
         MenuDto menuDto = new MenuDto();
         menuDto.setMenuName("Gujarati");
-        when(restaurantOwnerRepository.addMenu(anyObject())).thenReturn(false);
+        when(restaurantOwnerRepository.addMenu(any())).thenReturn(false);
 
         boolean result = restaurantOwnerBusiness.addMenu("d0ac2c3e-4713-4a21-8f65-4aec10cab89e", menuDto);
 
@@ -82,7 +82,7 @@ public class RestaurantOwnerBusinessTest {
         menuItemDto.setName("Roti");
         menuItemDto.setDescription("Best Roti");
         menuItemDto.setPrice(10);
-        when(restaurantOwnerRepository.addMenuItem(anyObject())).thenReturn(true);
+        when(restaurantOwnerRepository.addMenuItem(any())).thenReturn(true);
 
         boolean result = restaurantOwnerBusiness.addMenuItem("0e496f90-5566-42ce-b354-d1cedc73197e", menuItemDto);
 
@@ -95,7 +95,7 @@ public class RestaurantOwnerBusinessTest {
         menuItemDto.setName("Roti");
         menuItemDto.setDescription("Best Roti");
         menuItemDto.setPrice(10);
-        when(restaurantOwnerRepository.addMenuItem(anyObject())).thenReturn(false);
+        when(restaurantOwnerRepository.addMenuItem(any())).thenReturn(false);
 
         boolean result = restaurantOwnerBusiness.addMenuItem("0e496f90-5566-42ce-b354-d1cedc73197e", menuItemDto);
 
