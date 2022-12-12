@@ -128,4 +128,16 @@ public class CustomerController {
         return "customer/checkoutPage";
     }
 
+    @GetMapping("/payment")
+    public String makePayment(Model model){
+        int gradTotal=CustomerPageHelpers.getGrandTotal();
+        model.addAttribute("grandTotal",gradTotal);
+        return "payment/payment";
+    }
+
+    @GetMapping("/successPayment")
+    public String confirmPayment(Model model){
+        return "payment/successPayment";
+    }
+
 }
