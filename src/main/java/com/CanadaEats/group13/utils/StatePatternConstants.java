@@ -7,7 +7,6 @@ public class StatePatternConstants {
     private static final String ERROR = "ERROR";
     private static final String INSERT_SUCCESS = "Data inserted successfully";
     private static final String INSERT_ERROR = "Duplicate records error";
-    private static final String INSERT_FAILURE = "Insert Failed";
     private static final String UPDATE_SUCESS = "Update data success";
     private static final String UPDATE_FAILURE = "Update failed";
     private static final String DELETE_SUCCESS = "Delete Success";
