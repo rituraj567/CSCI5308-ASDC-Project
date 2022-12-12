@@ -27,15 +27,12 @@ public class RestaurantController {
     @GetMapping("/restaurants")
     public String displayRestaurants(Model model) {
         List<RestaurantDTO> restaurants = restaurantRepository.getAllRestaurants();
-
         model.addAttribute("restaurants", restaurants);
-
         return "/restaurants/restaurant";
     }
 
     @GetMapping("/admin/restaurants/newRestaurant")
     public String newRestuarantForm(Model model) {
-
         RestaurantDTO restaurantDTO = new RestaurantDTO();
         model.addAttribute("restaurant", restaurantDTO);
         return "restaurants/newRestuarant";
@@ -43,11 +40,8 @@ public class RestaurantController {
 
     @GetMapping("/admin/restaurants/{resturantId}/edit")
     public String editRestuarants(@PathVariable("resturantId") int restaurantId, Model model) {
-
         RestaurantDTO restaurantDTO = restaurantRepository.getRestaurantById(restaurantId);
-
         model.addAttribute("restaurant", restaurantDTO);
-
         return "restaurants/editRestaurant";
     }
 
@@ -73,9 +67,7 @@ public class RestaurantController {
 
     @PostMapping("/admin/restaurants/")
     public String createRestaurant(@ModelAttribute RestaurantDTO restaurantDTO) {
-
         restaurantRepository.postRestaurant(restaurantDTO);
-
         return "redirect:/restaurants";
     }
 
@@ -85,7 +77,6 @@ public class RestaurantController {
         model.addAttribute("restaurant", restaurantDTO);
         restaurantDTO.setId(restaurantId);
         restaurantRepository.updateRestuarant(restaurantDTO);
-
         return "redirect:/restaurants";
     }
 

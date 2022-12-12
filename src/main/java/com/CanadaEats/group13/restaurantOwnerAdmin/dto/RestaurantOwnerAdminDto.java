@@ -3,7 +3,7 @@ package com.CanadaEats.group13.restaurantOwnerAdmin.dto;
 import java.sql.Date;
 
 public class RestaurantOwnerAdminDto {
-    private int Id;
+    private int id;
     private String userId;
     private String firstName;
     private String lastName;
@@ -26,7 +26,7 @@ public class RestaurantOwnerAdminDto {
     }
 
     public RestaurantOwnerAdminDto(int id, String userId, String firstName, String lastName, String emailId, String userName, String password, String mobileNumber, String gender, Date birthDate, String address, String city, String province, String country, String postalCode, int status, String roleId) {
-        this.Id = id;
+        this.id = id;
         this.userId = userId;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -46,11 +46,11 @@ public class RestaurantOwnerAdminDto {
     }
 
     public int getId() {
-        return Id;
+        return id;
     }
 
     public void setId(int id) {
-        Id = id;
+        this.id = id;
     }
 
     public String getUserId() {

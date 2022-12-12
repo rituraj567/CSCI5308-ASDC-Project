@@ -20,24 +20,24 @@
     }
   </style>
   <body>
-    <div th:replace="restaurantOwnersAdmin/header :: navbar"></div>
-    <div class="container margin-container">
-      <div class="row col-md-8 offset-md-2">
-        <h2 th:text="${restaurantOwners.get(1).getFirstName()}"></h2>
-        <hr />
-<!--        <h4 th:text="${restaurantOwners.lastName}"></h4>-->
-<!--        <hr />-->
-<!--        <h4 th:text="${restaurantOwners.emailId}"></h4>-->
-<!--        <hr />-->
-<!--        <h4 th:text="${restaurantOwners.userName}"></h4>-->
-<!--        <hr />-->
-<!--        <h4 th:text="${restaurantOwners.country}"></h4>-->
-<!--        <hr />-->
-<!--        <h4 th:text="${restaurantOwners.postalCode}"></h4>-->
-<!--        <hr />-->
-<!--        <h4 th:text="${restaurantOwners.mobileNumber}"></h4>-->
-        <hr />
-      </div>
+  <div th:replace="restaurantOwnersAdmin/header :: navbar"></div>
+  <div class="container margin-container">
+    <div class="row col-md-8 offset-md-2">
+      <h2 th:text="${restaurantOwner.firstName}"></h2>
+      <hr />
+      <h4 th:text="${restaurantOwner.address}"></h4>
+      <hr />
+      <h4 th:text="${restaurantOwner.city}"></h4>
+      <hr />
+      <h4 th:text="${restaurantOwner.province}"></h4>
+      <hr />
+      <h4 th:text="${restaurantOwner.country}"></h4>
+      <hr />
+      <h4 th:text="${restaurantOwner.postalCode}"></h4>
+      <hr />
+      <h4 th:text="${restaurantOwner.mobileNumber}"></h4>
+      <hr />
     </div>
+  </div>
   </body>
 </html>

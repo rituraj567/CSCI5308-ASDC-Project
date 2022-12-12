@@ -154,7 +154,7 @@ public class RestaurantOwnerAdminRepository implements IRestaurantOwnerAdminRepo
     public void updateRestaurantOwner(RestaurantOwnerAdminDto restaurantOwnerAdminDto) {
         try{
             this.connection= databaseConnection.getDatabaseConnection();
-            String query = "update User SET FirstName=?, LastName=?, EmailId=?, UserName=?, Password=?, MobileNumber=?, Gender=?, Address=?, City=?, Province=?, Country=?, PostalCode=? where id=" +restaurantOwnerAdminDto.getId();
+            String query = "update User SET FirstName=?, LastName=?, EmailId=?, UserName=?, Password=?, MobileNumber=?, Gender=?,  Address=?, City=?, Province=?, Country=?, PostalCode=? where id=" +restaurantOwnerAdminDto.getId();
             PreparedStatement preparedStmt = connection.prepareStatement(query);
             preparedStmt.setString(1, restaurantOwnerAdminDto.getFirstName());
             preparedStmt.setString(2, restaurantOwnerAdminDto.getLastName());
@@ -162,11 +162,12 @@ public class RestaurantOwnerAdminRepository implements IRestaurantOwnerAdminRepo
             preparedStmt.setString(4, restaurantOwnerAdminDto.getUserName());
             preparedStmt.setString(5, restaurantOwnerAdminDto.getPassword());
             preparedStmt.setString(6, restaurantOwnerAdminDto.getMobileNumber());
-            preparedStmt.setString(7, restaurantOwnerAdminDto.getAddress());
-            preparedStmt.setString(8, restaurantOwnerAdminDto.getCity());
-            preparedStmt.setString(9, restaurantOwnerAdminDto.getProvince());
-            preparedStmt.setString(10, restaurantOwnerAdminDto.getCountry());
-            preparedStmt.setString(11,restaurantOwnerAdminDto.getPostalCode());
+            preparedStmt.setString(7,restaurantOwnerAdminDto.getGender());
+            preparedStmt.setString(8, restaurantOwnerAdminDto.getAddress());
+            preparedStmt.setString(9, restaurantOwnerAdminDto.getCity());
+            preparedStmt.setString(10, restaurantOwnerAdminDto.getProvince());
+            preparedStmt.setString(11, restaurantOwnerAdminDto.getCountry());
+            preparedStmt.setString(12,restaurantOwnerAdminDto.getPostalCode());
 
             preparedStmt.execute();
             connection.close();
