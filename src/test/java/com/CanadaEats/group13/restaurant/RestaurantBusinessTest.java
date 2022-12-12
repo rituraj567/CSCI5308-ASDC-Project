@@ -152,9 +152,8 @@ public class RestaurantBusinessTest {
 
         List<RestaurantDTO> restaurantDTOs = restaurantBusiness.searchRestaurants("Adda");
 
-        assertEquals(null, restaurantDTOs);
-        assertEquals(1, restaurantDTOs.size());
-        assertEquals("Passage to India", restaurantDTOs.get(0).getName());
+        assertEquals(0, restaurantDTOs.size());
+
     }
 
     @AfterEach

@@ -39,8 +39,22 @@ public class CustomerPageHelpersTest {
     @Test
     @DisplayName("getMenuItemsNull() test")
     public void getMenuItemsNull() {
-        assertEquals(null, menuItems.get(0).get(1));
-        assertEquals(null, menuItems.get(1));
+        MenuItemDto menuItemDto = menuItems.get(0).get(0);
+        menuItemDto.setDescription(null);
+        menuItemDto.setName(null);
+        assertEquals(null, menuItems.get(0).get(0).getDescription());
+        assertEquals(null, menuItems.get(0).get(0).getName());
+
+    }
+
+    @Test
+    @DisplayName("getMenuItemsEmpty() test")
+    public void getMenuItemsEmpty() {
+        MenuItemDto menuItemDto = menuItems.get(0).get(0);
+        menuItemDto.setDescription("");
+        menuItemDto.setName("");
+        assertEquals("", menuItems.get(0).get(0).getDescription());
+        assertEquals("", menuItems.get(0).get(0).getName());
 
     }
 
@@ -58,7 +72,7 @@ public class CustomerPageHelpersTest {
     @DisplayName("searchMenuItemsNoPresent() test")
     public void searchMenuItemsNoPresentTest() {
         List<List<MenuItemDto>> result = CustomerPageHelpers.searchMenuItems(menuItems, "Panner Tikka");
-        assertEquals(null, result.get(0));
+        assertEquals(0, result.get(0).size());
     }
 
     @Test
