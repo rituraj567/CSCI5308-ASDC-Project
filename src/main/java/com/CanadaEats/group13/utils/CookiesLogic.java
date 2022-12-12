@@ -1,4 +1,4 @@
-package com.CanadaEats.group13.authentication.business;
+package com.CanadaEats.group13.utils;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;

@@ -49,36 +49,4 @@ public class DatabaseConnection implements IDatabaseConnection {
 
     }
 
-    @Override
-    public void closeConnection() {
-
-        Connection connection = getDatabaseConnection();
-        try {
-            connection.close();
-        } catch (Exception e) {
-            System.out.println(e);
-        }
-
-    }
-
-    public void executeQuery(PreparedStatement statement) {
-        try {
-            statement.execute();
-        } catch (Exception e) {
-            System.out.println(e);
-        }
-
-    }
-
-    @Override
-    public void executeInsertQuery(PreparedStatement statement) {
-        executeQuery(statement);
-    }
-
-    @Override
-    public void executeUpdateQuery(PreparedStatement statement) {
-        executeQuery(statement);
-
-    }
-
 }

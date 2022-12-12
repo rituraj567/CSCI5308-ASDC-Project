@@ -1,13 +1,12 @@
-package com.CanadaEats.group13.restaurant.config;
+package com.CanadaEats.group13.utils;
 
-public class RestaurantConstants {
+public class StatePatternConstants {
 
     private static final String SUCCESS = "SUCCESS";
     private static final String FAILURE = "FAILURE";
     private static final String ERROR = "ERROR";
     private static final String INSERT_SUCCESS = "Data inserted successfully";
     private static final String INSERT_ERROR = "Duplicate records error";
-    private static final String INSERT_FAILURE = "Insert Failed";
     private static final String UPDATE_SUCESS = "Update data success";
     private static final String UPDATE_FAILURE = "Update failed";
     private static final String DELETE_SUCCESS = "Delete Success";
@@ -27,10 +26,6 @@ public class RestaurantConstants {
 
     public static String getInsertSuccess() {
         return INSERT_SUCCESS;
-    }
-
-    public static String getInsertFailure() {
-        return INSERT_FAILURE;
     }
 
     public static String getInsertError() {
