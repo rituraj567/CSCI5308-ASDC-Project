@@ -43,7 +43,24 @@ public class RestaurantBusinessTest {
     public void getAllRestaurantsNullTest() {
 
         List<RestaurantDTO> restaurantDTOList = restaurantBusiness.getAllRestaurants();
-        assertEquals(null, restaurantDTOList.get(1));
+        RestaurantDTO restaurantDTO = restaurantDTOList.get(0);
+        restaurantDTO.setAddress(null);
+        restaurantDTO.setCountry(null);
+        assertEquals(null, restaurantDTO.getAddress());
+        assertEquals(null, restaurantDTO.getCountry());
+
+    }
+
+    @Test
+    @DisplayName("getAllRestaurantsEmptTest() test")
+    public void getAllRestaurantsEmptyTest() {
+
+        List<RestaurantDTO> restaurantDTOList = restaurantBusiness.getAllRestaurants();
+        RestaurantDTO restaurantDTO = restaurantDTOList.get(0);
+        restaurantDTO.setName("");
+        restaurantDTO.setPostalCode("");
+        assertEquals("", restaurantDTO.getName());
+        assertEquals("", restaurantDTO.getPostalCode());
 
     }
 
