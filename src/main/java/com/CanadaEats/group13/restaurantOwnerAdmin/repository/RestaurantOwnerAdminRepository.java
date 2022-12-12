@@ -81,26 +81,25 @@ public class RestaurantOwnerAdminRepository implements IRestaurantOwnerAdminRepo
         try{
             List<RestaurantOwnerAdminDto> restaurantOwnerAdminDtoList = getAllRestaurantOwners();
             this.connection=databaseConnection.getDatabaseConnection();
-            String query = " insert into User (Id, UserId, FirstName, LastName, EmailId, UserName,Password,MobileNumber,Gender,BirthDate,Address,City,Province,Country,PostalCode,Status,Role_RoleId)"
-                    + " values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+            String query = " insert into User (UserId, FirstName, LastName, EmailId, UserName,Password,MobileNumber,Gender,BirthDate,Address,City,Province,Country,PostalCode,Status,Role_RoleId)"
+                    + " values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
             PreparedStatement preparedStmt = connection.prepareStatement(query);
-            preparedStmt.setInt(1, restaurantOwnerAdminDtoList.size() + 10000);
-            preparedStmt.setString(2, UUID.randomUUID().toString());
-            preparedStmt.setString(3, restaurantOwnerAdminDto.getFirstName());
-            preparedStmt.setString(4, restaurantOwnerAdminDto.getLastName());
-            preparedStmt.setString(5, restaurantOwnerAdminDto.getEmailId());
-            preparedStmt.setString(6, restaurantOwnerAdminDto.getUserName());
-            preparedStmt.setString(7, restaurantOwnerAdminDto.getPassword());
-            preparedStmt.setString(8, restaurantOwnerAdminDto.getMobileNumber());
-            preparedStmt.setString(9, restaurantOwnerAdminDto.getGender());
-            preparedStmt.setDate(10, new Date(2001,5,1));
-            preparedStmt.setString(11, restaurantOwnerAdminDto.getAddress());
-            preparedStmt.setString(12, restaurantOwnerAdminDto.getCity());
-            preparedStmt.setString(13, restaurantOwnerAdminDto.getProvince());
-            preparedStmt.setString(14, restaurantOwnerAdminDto.getCountry());
-            preparedStmt.setString(15, restaurantOwnerAdminDto.getPostalCode());
-            preparedStmt.setInt(16, restaurantOwnerAdminDto.getStatus());
-            preparedStmt.setString(17, ApplicationConstants.RESTAURANT_OWNER_ROLEID);
+            preparedStmt.setString(1, UUID.randomUUID().toString());
+            preparedStmt.setString(2, restaurantOwnerAdminDto.getFirstName());
+            preparedStmt.setString(3, restaurantOwnerAdminDto.getLastName());
+            preparedStmt.setString(4, restaurantOwnerAdminDto.getEmailId());
+            preparedStmt.setString(5, restaurantOwnerAdminDto.getUserName());
+            preparedStmt.setString(6, restaurantOwnerAdminDto.getPassword());
+            preparedStmt.setString(7, restaurantOwnerAdminDto.getMobileNumber());
+            preparedStmt.setString(8, restaurantOwnerAdminDto.getGender());
+            preparedStmt.setDate(9, new Date(2001,5,1));
+            preparedStmt.setString(10, restaurantOwnerAdminDto.getAddress());
+            preparedStmt.setString(11, restaurantOwnerAdminDto.getCity());
+            preparedStmt.setString(12, restaurantOwnerAdminDto.getProvince());
+            preparedStmt.setString(13, restaurantOwnerAdminDto.getCountry());
+            preparedStmt.setString(14, restaurantOwnerAdminDto.getPostalCode());
+            preparedStmt.setInt(15, restaurantOwnerAdminDto.getStatus());
+            preparedStmt.setString(16, ApplicationConstants.RESTAURANT_OWNER_ROLEID);
             preparedStmt.execute();
         }
         catch (Exception e){
