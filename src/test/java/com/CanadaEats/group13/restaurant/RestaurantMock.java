@@ -4,13 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import com.CanadaEats.group13.restaurant.business.DeleteErrorOperation;
-import com.CanadaEats.group13.restaurant.business.DeleteSuccessOperation;
 import com.CanadaEats.group13.restaurant.business.IRestaurantState;
-import com.CanadaEats.group13.restaurant.business.InsertErrorOperation;
-import com.CanadaEats.group13.restaurant.business.InsertSucessOperation;
-import com.CanadaEats.group13.restaurant.business.UpdateErrorOperation;
-import com.CanadaEats.group13.restaurant.business.UpdateSucessOperation;
+import com.CanadaEats.group13.restaurant.business.OperationsFactory;
 import com.CanadaEats.group13.restaurant.dto.RestaurantDTO;
 import com.CanadaEats.group13.restaurant.repository.IRestaurantRepository;
 
@@ -26,28 +21,28 @@ public class RestaurantMock implements IRestaurantRepository {
     public Map<String, String> postRestaurant(RestaurantDTO restaurantDTO) {
         IRestaurantState restaurantState;
         if (restaurantDTO.getRestaurantId() == "431") {
-            restaurantState = new InsertErrorOperation();
+            restaurantState = OperationsFactory.getInstance().createInsertErrorOperation();
             return restaurantState.setMessage();
         }
-        restaurantState = new InsertSucessOperation();
+        restaurantState = OperationsFactory.getInstance().createInsertSuccessOperation();
         return restaurantState.setMessage();
 
     }
 
     @Override
-    public RestaurantDTO getRestaurantById(int id) {
+    public RestaurantDTO getRestaurantById(String id) {
         List<RestaurantDTO> restaurants = getAllRestaurants();
-        return restaurants.get(id);
+        return restaurants.get(0);
     }
 
     @Override
     public Map<String, String> updateRestuarant(RestaurantDTO restaurantDTO) {
         IRestaurantState restaurantState;
         if (restaurantDTO.getRestaurantId() == "431") {
-            restaurantState = new UpdateSucessOperation();
+            restaurantState = OperationsFactory.getInstance().createUpdateSuccessOperation();
             return restaurantState.setMessage();
         }
-        restaurantState = new UpdateErrorOperation();
+        restaurantState = OperationsFactory.getInstance().createUpdateErrorOperation();
         return restaurantState.setMessage();
 
     }
@@ -56,11 +51,11 @@ public class RestaurantMock implements IRestaurantRepository {
     public Map<String, String> deleteRestaurant(int restaurantId) {
         IRestaurantState restaurantState;
         if (restaurantId == 1) {
-            restaurantState = new DeleteSuccessOperation();
+            restaurantState = OperationsFactory.getInstance().createDeleteSuccessOperation();
             return restaurantState.setMessage();
         }
 
-        restaurantState = new DeleteErrorOperation();
+        restaurantState = OperationsFactory.getInstance().createDeleteErrorOperation();
         return restaurantState.setMessage();
     }
 

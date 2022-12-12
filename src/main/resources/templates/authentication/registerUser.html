@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>User Registration</title>
   </head>
-  <div th:replace="authentication/header :: header"></div>
+  <div th:replace="common/header :: header"></div>
   <style>
     .margin-container {
       margin-top: 50px;
@@ -20,8 +20,8 @@
     }
   </style>
   <body>
-    <div th:replace="authentication/header :: navbar"></div>
-    <div class="container margin-container">
+    <div th:replace="common/header :: navbar"></div>
+    <div class="common margin-container">
       <div class="row col-md-8 offset-md-2">
         <form
           role="form"

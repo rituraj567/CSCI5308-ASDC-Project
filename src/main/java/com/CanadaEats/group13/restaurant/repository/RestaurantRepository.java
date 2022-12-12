@@ -1,15 +1,5 @@
 package com.CanadaEats.group13.restaurant.repository;
 
-import com.CanadaEats.group13.database.IDatabaseConnection;
-import com.CanadaEats.group13.restaurant.business.DeleteErrorOperation;
-import com.CanadaEats.group13.restaurant.business.DeleteSuccessOperation;
-import com.CanadaEats.group13.restaurant.business.IRestaurantState;
-import com.CanadaEats.group13.restaurant.business.InsertErrorOperation;
-import com.CanadaEats.group13.restaurant.business.InsertSucessOperation;
-import com.CanadaEats.group13.restaurant.business.UpdateErrorOperation;
-import com.CanadaEats.group13.restaurant.business.UpdateSucessOperation;
-import com.CanadaEats.group13.restaurant.dto.RestaurantDTO;
-
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -18,6 +8,13 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
+
+import com.CanadaEats.group13.database.IDatabaseConnection;
+import com.CanadaEats.group13.restaurant.business.IRestaurantState;
+import com.CanadaEats.group13.restaurant.business.InsertErrorOperation;
+import com.CanadaEats.group13.restaurant.business.InsertSucessOperation;
+import com.CanadaEats.group13.restaurant.business.OperationsFactory;
+import com.CanadaEats.group13.restaurant.dto.RestaurantDTO;
 
 public class RestaurantRepository implements IRestaurantRepository {
 
@@ -43,8 +40,9 @@ public class RestaurantRepository implements IRestaurantRepository {
                 String phone = restaurantResult.getString("PhoneNumber");
                 String status = restaurantResult.getString("Status");
                 String userId = restaurantResult.getString("User_UserId");
-                restaurantDTOList.add(new RestaurantDTO(id, restaurantId, name, address, city, province, country,
-                        postalCode, phone, status, userId));
+                restaurantDTOList
+                        .add(new RestaurantDTO(id, restaurantId, name, address, city, province, country,
+                                postalCode, phone, status, userId));
 
             }
 
@@ -62,7 +60,7 @@ public class RestaurantRepository implements IRestaurantRepository {
         try {
             connection = databaseConnection.getDatabaseConnection();
             Statement statement = connection.createStatement();
-            String restaurants = "select * from Restaurant";
+            String restaurants = "select * from Restaurant WHERE status=1";
             ResultSet restaurantResult = statement.executeQuery(restaurants);
 
             restaurantDTOList = getRestaurantResultSet(restaurantResult, restaurantDTOList);
@@ -85,15 +83,13 @@ public class RestaurantRepository implements IRestaurantRepository {
     public Map<String, String> postRestaurant(RestaurantDTO restaurantDTO) {
         Connection connection;
         try {
-            List<RestaurantDTO> restaurantsList = getAllRestaurants();
-            int size = restaurantsList.size();
 
             String query = " insert into Restaurant (Id, RestaurantId, Name, Address, City, Province,Country,PostalCode,PhoneNumber,Status,User_UserId)"
                     + " values (?, ?, ?, ?, ?,?,?,?,?,?,?)";
 
             connection = databaseConnection.getDatabaseConnection();
             PreparedStatement preparedStmt = connection.prepareStatement(query);
-            preparedStmt.setInt(1, size + 1);
+            preparedStmt.setObject(1, null);
             preparedStmt.setString(2, UUID.randomUUID().toString());
             preparedStmt.setString(3, restaurantDTO.getName());
             preparedStmt.setString(4, restaurantDTO.getAddress());
@@ -121,16 +117,17 @@ public class RestaurantRepository implements IRestaurantRepository {
     }
 
     @Override
-    public RestaurantDTO getRestaurantById(int id) {
+    public RestaurantDTO getRestaurantById(String id) {
         RestaurantDTO restaurantDTO = null;
         Connection connection;
         try {
             connection = databaseConnection.getDatabaseConnection();
             Statement statement = connection.createStatement();
-            String restaurants = "select * from Restaurant where id=" + id;
+            String restaurants = "select * from Restaurant where RestaurantId= '" + id + "'";
             ResultSet restaurantResult = statement.executeQuery(restaurants);
 
             while (restaurantResult.next()) {
+                int Id = Integer.parseInt(restaurantResult.getString("Id"));
                 String restaurantId = restaurantResult.getString("RestaurantId");
                 String name = restaurantResult.getString("Name");
                 String address = restaurantResult.getString("Address");
@@ -141,7 +138,7 @@ public class RestaurantRepository implements IRestaurantRepository {
                 String phone = restaurantResult.getString("PhoneNumber");
                 String status = restaurantResult.getString("Status");
                 String userId = restaurantResult.getString("User_UserId");
-                restaurantDTO = new RestaurantDTO(id, restaurantId, name, address, city, province, country, postalCode,
+                restaurantDTO = new RestaurantDTO(Id, restaurantId, name, address, city, province, country, postalCode,
                         phone, status, userId);
 
                 System.out.println(restaurantDTO.getName());
@@ -181,13 +178,13 @@ public class RestaurantRepository implements IRestaurantRepository {
 
             preparedStmt.execute();
             connection.close();
-            IRestaurantState restaurantState = new UpdateSucessOperation();
+            IRestaurantState restaurantState = OperationsFactory.getInstance().createUpdateSuccessOperation();
 
             return restaurantState.setMessage();
 
         } catch (Exception e) {
             System.out.println(e);
-            IRestaurantState restaurantState = new UpdateErrorOperation();
+            IRestaurantState restaurantState = OperationsFactory.getInstance().createUpdateErrorOperation();
 
             return restaurantState.setMessage();
         }
@@ -201,17 +198,17 @@ public class RestaurantRepository implements IRestaurantRepository {
         try {
             connection = databaseConnection.getDatabaseConnection();
 
-            String query = "DELETE FROM Restaurant where id=" + restaurantId;
+            String query = "UPDATE Restaurant SET status=0 where id=" + restaurantId;
 
             PreparedStatement preparedStmt = connection.prepareStatement(query);
 
             preparedStmt.execute();
-            IRestaurantState restaurantState = new DeleteSuccessOperation();
+            IRestaurantState restaurantState = OperationsFactory.getInstance().createDeleteSuccessOperation();
             return restaurantState.setMessage();
 
         } catch (Exception e) {
             System.out.println(e);
-            IRestaurantState restaurantState = new DeleteErrorOperation();
+            IRestaurantState restaurantState = OperationsFactory.getInstance().createDeleteErrorOperation();
             return restaurantState.setMessage();
         }
 
@@ -224,7 +221,7 @@ public class RestaurantRepository implements IRestaurantRepository {
         try {
             connection = databaseConnection.getDatabaseConnection();
 
-            String expression = "SELECT * FROM Restaurant WHERE Name LIKE '%" + query + "%'";
+            String expression = "SELECT * FROM Restaurant WHERE Name LIKE '%" + query + "%' and status=1";
             System.out.println(expression);
 
             Statement statement = connection.createStatement();

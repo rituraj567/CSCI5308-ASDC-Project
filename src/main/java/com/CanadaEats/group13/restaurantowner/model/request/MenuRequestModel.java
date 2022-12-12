@@ -1,10 +1,10 @@
 package com.CanadaEats.group13.restaurantowner.model.request;
 
 public class MenuRequestModel {
-    public String menuId;
-    public String name;
-    public int status;
-    public String restaurantId;
+    private String menuId;
+    private String name;
+    private int status;
+    private String restaurantId;
 
     public String getMenuId() {
         return menuId;

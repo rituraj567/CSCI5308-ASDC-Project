@@ -10,6 +10,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+import com.CanadaEats.group13.common.DTOFactory;
 import com.CanadaEats.group13.restaurant.business.IRestaurantBusiness;
 import com.CanadaEats.group13.restaurant.business.RestaurantBusiness;
 import com.CanadaEats.group13.restaurant.config.RestaurantConstants;
@@ -41,7 +42,7 @@ public class RestaurantBusinessTest {
     @DisplayName("insertSucessTest() test")
     public void insertSucessTest() {
 
-        RestaurantDTO restaurantDTO = new RestaurantDTO();
+        RestaurantDTO restaurantDTO = DTOFactory.getInstance().createRestaurantDTO();
         restaurantDTO.setRestaurantId("123");
 
         Map<String, String> map = restaurantBusiness.insertRestaurant(restaurantDTO);
@@ -54,7 +55,7 @@ public class RestaurantBusinessTest {
     @DisplayName("insertFailureTest() test")
     public void insertFailureDuplicatesTest() {
 
-        RestaurantDTO restaurantDTO = new RestaurantDTO();
+        RestaurantDTO restaurantDTO = DTOFactory.getInstance().createRestaurantDTO();
         restaurantDTO.setRestaurantId("431");
 
         Map<String, String> map = restaurantBusiness.insertRestaurant(restaurantDTO);
@@ -67,7 +68,7 @@ public class RestaurantBusinessTest {
     @DisplayName("updateSucessTest() test")
     public void updateSucessTest() {
 
-        RestaurantDTO restaurantDTO = new RestaurantDTO();
+        RestaurantDTO restaurantDTO = DTOFactory.getInstance().createRestaurantDTO();
         restaurantDTO.setRestaurantId("431");
 
         Map<String, String> map = restaurantBusiness.updateRestuarant(restaurantDTO);
@@ -80,7 +81,7 @@ public class RestaurantBusinessTest {
     @DisplayName("updateFailureTest() test")
     public void updateFailureTest() {
 
-        RestaurantDTO restaurantDTO = new RestaurantDTO();
+        RestaurantDTO restaurantDTO = DTOFactory.getInstance().createRestaurantDTO();
         restaurantDTO.setRestaurantId("123");
 
         Map<String, String> map = restaurantBusiness.updateRestuarant(restaurantDTO);
