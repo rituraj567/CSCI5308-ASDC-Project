@@ -1,19 +1,5 @@
 package com.CanadaEats.group13.restaurantowner.controller;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import javax.servlet.http.Cookie;
-import javax.servlet.http.HttpServletRequest;
-
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-
 import com.CanadaEats.group13.common.DTOFactory;
 import com.CanadaEats.group13.database.DatabaseConnection;
 import com.CanadaEats.group13.restaurantowner.business.IRestaurantOwnerBusiness;
@@ -24,6 +10,18 @@ import com.CanadaEats.group13.restaurantowner.dto.RestaurantOwnerDto;
 import com.CanadaEats.group13.restaurantowner.repository.RestaurantOwnerRepository;
 import com.CanadaEats.group13.utils.APIAccessAuthorization;
 import com.CanadaEats.group13.utils.ApplicationConstants;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 @Controller
 public class RestaurantOwnerController {
@@ -46,9 +44,9 @@ public class RestaurantOwnerController {
             Cookie loggedInUserRestaurantId = cookieMap.get(ApplicationConstants.COOKIE_RESTAURANTID);
             List<RestaurantOwnerDto> menus = restaurantOwnerBusiness.getAllMenus(loggedInUserRestaurantId.getValue());
             model.addAttribute("menus", menus);
-            return "restaurantowner/restaurantOwnerHomePage";
+            return ApplicationConstants.URL_RESTAURANTOWNER_RESTAURANTOWNERHOMEPAGE;
         }
-        return "redirect:/userloginpage";
+        return ApplicationConstants.URL_AUTHENTICATION_USERLOGINPAGE;
     }
 
     @GetMapping("/restaurantowner/newmenu")
@@ -57,9 +55,9 @@ public class RestaurantOwnerController {
         if (isAPIAccessible) {
             MenuDto menuDto = DTOFactory.getInstance().createMenuDto();
             model.addAttribute("menu", menuDto);
-            return "restaurantowner/newMenuPage";
+            return ApplicationConstants.URL_RESTAURANTOWNER_NEWMENUPAGE;
         }
-        return "redirect:/userloginpage";
+        return ApplicationConstants.URL_AUTHENTICATION_USERLOGINPAGE;
     }
 
     @PostMapping("/restaurantowner/addmenu")
@@ -74,12 +72,12 @@ public class RestaurantOwnerController {
             Cookie loggedInUserRestaurantId = cookieMap.get(ApplicationConstants.COOKIE_RESTAURANTID);
             boolean result = restaurantOwnerBusiness.addMenu(loggedInUserRestaurantId.getValue(), menuDto);
             if (result) {
-                return "redirect:/restaurantownerhomepage";
+                return ApplicationConstants.URL_RESTAURANTOWNER_RESTOWNERHOMEPAGE;
             } else {
-                return "restaurantowner/addMenuError";
+                return ApplicationConstants.URL_RESTAURANTOWNER_ADDMENUERROR;
             }
         }
-        return "redirect:/userloginpage";
+        return ApplicationConstants.URL_AUTHENTICATION_USERLOGINPAGE;
 
     }
 
@@ -90,24 +88,24 @@ public class RestaurantOwnerController {
             MenuItemDto menuItems = DTOFactory.getInstance().createMenuItemDto();
             model.addAttribute("menuitem", menuItems);
             model.addAttribute("menuId", menuId);
-            return "restaurantowner/newMenuItemPage";
+            return ApplicationConstants.URL_RESTAURANTOWNER_NEWMENUITEMPAGE;
         }
-        return "redirect:/userloginpage";
+        return ApplicationConstants.URL_AUTHENTICATION_USERLOGINPAGE;
     }
 
     @PostMapping("/restaurantowner/addmenuitem/{MenuId}")
     public String addMenuItem(@ModelAttribute MenuItemDto menuItemDto, @PathVariable("MenuId") String menuId,
-            HttpServletRequest request) {
+                              HttpServletRequest request) {
         boolean isAPIAccessible = APIAccessAuthorization.getInstance().getAPIAccess(request);
         if (isAPIAccessible) {
             boolean result = restaurantOwnerBusiness.addMenuItem(menuId, menuItemDto);
             if (result) {
-                return "redirect:/restaurantownerhomepage";
+                return ApplicationConstants.URL_RESTAURANTOWNER_RESTOWNERHOMEPAGE;
             } else {
-                return "restaurantowner/addMenuError";
+                return ApplicationConstants.URL_RESTAURANTOWNER_ADDMENUERROR;
             }
         }
-        return "redirect:/userloginpage";
+        return ApplicationConstants.URL_AUTHENTICATION_USERLOGINPAGE;
     }
 
     @GetMapping("/restaurantowner/menuitems/{MenuId}")
@@ -116,9 +114,9 @@ public class RestaurantOwnerController {
         if (isAPIAccessible) {
             List<MenuItemDto> menuItems = restaurantOwnerBusiness.getMenuItems(menuId);
             model.addAttribute("menuItems", menuItems);
-            return "restaurantowner/menuItems";
+            return ApplicationConstants.URL_RESTAURANTOWNER_MENUITEMS;
         }
-        return "redirect:/userloginpage";
+        return ApplicationConstants.URL_AUTHENTICATION_USERLOGINPAGE;
     }
 
     @GetMapping("/restaurantowner/menu/{MenuId}/delete")
@@ -127,11 +125,11 @@ public class RestaurantOwnerController {
         if (isAPIAccessible) {
             boolean result = restaurantOwnerBusiness.deleteMenu(menuId);
             if (result) {
-                return "redirect:/restaurantownerhomepage";
+                return ApplicationConstants.URL_RESTAURANTOWNER_RESTOWNERHOMEPAGE;
             } else {
-                return "restaurantowner/addMenuError";
+                return ApplicationConstants.URL_RESTAURANTOWNER_ADDMENUERROR;
             }
         }
-        return "redirect:/userloginpage";
+        return ApplicationConstants.URL_AUTHENTICATION_USERLOGINPAGE;
     }
 }
