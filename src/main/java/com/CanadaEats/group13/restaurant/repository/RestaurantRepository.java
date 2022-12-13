@@ -190,13 +190,13 @@ public class RestaurantRepository implements IRestaurantRepository {
     }
 
     @Override
-    public Map<String, String> deleteRestaurant(int restaurantId) {
+    public Map<String, String> deleteRestaurant(String restaurantId) {
         Connection connection;
 
         try {
             connection = databaseConnection.getDatabaseConnection();
 
-            String query = "UPDATE Restaurant SET status=0 where id=" + restaurantId;
+            String query = "UPDATE Restaurant SET status=0 where RestaurantId=+ '" + restaurantId + "'";
 
             PreparedStatement preparedStmt = connection.prepareStatement(query);
 

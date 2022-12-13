@@ -14,7 +14,7 @@ public interface IRestaurantBusiness {
 
     public Map<String, String> updateRestuarant(RestaurantDTO restaurantDTO);
 
-    public Map<String, String> deleteRestaurant(int restaurantId);
+    public Map<String, String> deleteRestaurant(String restaurantId);
 
     public List<RestaurantDTO> searchRestaurants(String query);
 }
