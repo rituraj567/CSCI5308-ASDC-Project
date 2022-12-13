@@ -33,6 +33,10 @@
         .margin-left {
             margin-left: 20px;
         }
+        
+        .col-sm{
+            margin-left: 0px;
+        }
 
     </style>
 </head>
@@ -40,52 +44,42 @@
 <body>
 <div th:replace="restaurantOwnersAdmin/header :: navbar"></div>
 
-<div  class="container margin-search">
-    <div class="row">
-        <div class="col-md-5">
-            <div class="form-group">
-                <form class="form-inline" th:action="@{/restaurantOwnersAdmin/search}">
-                    <div class="input-group">
-                        <input type="text" class="form-control" name="query" />
-                        <span class="input-group-btn">
-                          <button class="btn btn-primary margin-left" type="submit"> Search</button>
-                      </span>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
-</div>
 <br />
 
 <div class="container margin-container">
     <div class="row">
+        <div class="col-sm">
+            <li style="font-weight : 500">Name</li>
+        </div>
+        <div class="col-sm">
+            <li style="font-weight : 500">Email Address</li>
+        </div>
         <ul th:each="restaurantOwner,index : ${restaurantOwners}">
             <div class="row">
                 <div class="col-sm">
                     <li th:text="${restaurantOwner.getFirstName()}">Name</li>
                 </div>
                 <div class="col-sm">
-                    <li th:text="${restaurantOwner.getAddress()}">Address</li>
+                    <li th:text="${restaurantOwner.getEmailId()}">Address</li>
                 </div>
                 <div class="col-sm">
                     <a
                             class="btn btn-dark button-space"
-                            th:href="@{/admin/restaurantOwners/{UserId}/edit(UserId=${restaurantOwner.id})}"
+                            th:href="@{/admin/restaurantOwners/{userId}/edit(userId=${restaurantOwner.id})}"
                     >
                         Edit</a>
 
                     <a
                             type="button"
                             class="btn btn-danger button-space"
-                            th:href="@{/admin/restaurantOwners/{UserId}/delete(UserId=${restaurantOwner.id})}"
+                            th:href="@{/admin/restaurantOwners/{userId}/delete(userId=${restaurantOwner.id})}"
                     >
                         Delete
                     </a>
                     <a
                             type="button"
                             class="btn btn-info"
-                            th:href="@{/admin/restaurantOwners/{UserId}/view(UserId=${restaurantOwner.id})}"
+                            th:href="@{/admin/restaurantOwners/{userId}/view(userId=${restaurantOwner.id})}"
                     >
                         View
                     </a>

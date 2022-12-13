@@ -14,6 +14,6 @@ public class RestaurantOwnerAdminDtoTest {
 
     @BeforeEach
     public void testSetup(){
-        
+
     }
 }

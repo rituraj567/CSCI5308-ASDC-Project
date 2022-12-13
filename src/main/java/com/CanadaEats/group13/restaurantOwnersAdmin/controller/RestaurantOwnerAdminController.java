@@ -17,8 +17,8 @@ import java.util.List;
 public class RestaurantOwnerAdminController {
     IRestaurantOwnerAdminRepository restaurantOwnerAdminRepository;
 
-    public RestaurantOwnerAdminController(){
-        this.restaurantOwnerAdminRepository= new RestaurantOwnerAdminRepository(DatabaseConnection.getInstance());
+    public RestaurantOwnerAdminController() {
+        this.restaurantOwnerAdminRepository = new RestaurantOwnerAdminRepository(DatabaseConnection.getInstance());
     }
 
     @GetMapping("/restaurantOwners")
@@ -41,43 +41,43 @@ public class RestaurantOwnerAdminController {
         return "redirect:/restaurantOwners";
     }
 
-    @GetMapping("/admin/restaurantOwners/{UserId}/edit")
-    public String editRestaurantOwner(@PathVariable("UserId") int UserId, Model model) {
-        RestaurantOwnerAdminDto restaurantOwnerAdminDto = restaurantOwnerAdminRepository.getRestaurantOwner(UserId);
+    @GetMapping("/admin/restaurantOwners/{userId}/edit")
+    public String editRestaurantOwner(@PathVariable("userId") int userId, Model model) {
+        RestaurantOwnerAdminDto restaurantOwnerAdminDto = restaurantOwnerAdminRepository.getRestaurantOwner(userId);
         model.addAttribute("restaurantOwner", restaurantOwnerAdminDto);
         return "restaurantOwnersAdmin/editRestaurantOwner";
     }
 
-    @PostMapping("/admin/restaurantOwners/{UserId}")
-    public String updateRestaurantOwner(@PathVariable("UserId") int restaurantId,
-                                   @ModelAttribute("restaurantOwner") RestaurantOwnerAdminDto restaurantOwnerAdminDto, Model model) {
+    @PostMapping("/admin/restaurantOwners/{userId}")
+    public String updateRestaurantOwner(@PathVariable("userId") int userId,
+                                        @ModelAttribute("restaurantOwner") RestaurantOwnerAdminDto restaurantOwnerAdminDto, Model model) {
         model.addAttribute("restaurant", restaurantOwnerAdminDto);
-        restaurantOwnerAdminDto.setId(restaurantId);
+        restaurantOwnerAdminDto.setId(userId);
         restaurantOwnerAdminRepository.updateRestaurantOwner(restaurantOwnerAdminDto);
         return "redirect:/restaurantOwners";
     }
 
-    @GetMapping("/admin/restaurantOwners/{UserId}/delete")
-    public String deleteRestaurantOwner(@PathVariable("UserId") int UserId) {
-        restaurantOwnerAdminRepository.deleteRestaurantOwner(UserId);
+    @GetMapping("/admin/restaurantOwners/{userId}/delete")
+    public String deleteRestaurantOwner(@PathVariable("userId") int userId) {
+        restaurantOwnerAdminRepository.deleteRestaurantOwner(userId);
         return "redirect:/restaurantOwners";
     }
 
-    @GetMapping("/admin/restaurantOwners/{UserId}/view")
-    public String viewRestaurantOwner(@PathVariable("UserId") int UserId, Model model) {
-        RestaurantOwnerAdminDto restaurantOwnerAdminDto = restaurantOwnerAdminRepository.getRestaurantOwner(UserId);
+    @GetMapping("/admin/restaurantOwners/{userId}/view")
+    public String viewRestaurantOwner(@PathVariable("userId") int userId, Model model) {
+        RestaurantOwnerAdminDto restaurantOwnerAdminDto = restaurantOwnerAdminRepository.getRestaurantOwner(userId);
         model.addAttribute("restaurantOwner", restaurantOwnerAdminDto);
         return "restaurantOwnersAdmin/viewRestaurantOwnerAdmin";
     }
 
     @PostMapping("/bindRestaurantOwner")
-    public String updateFilters(@RequestBody RestaurantBindingDto restaurantBindingDto, HttpServletRequest request){
+    public String bindRestaurantOwner(@RequestBody RestaurantBindingDto restaurantBindingDto, HttpServletRequest request) {
         boolean isAPIAccessible = APIAccessAuthorization.getInstance().getAPIAccess(request);
-        if(isAPIAccessible) {
+        if (isAPIAccessible) {
             restaurantOwnerAdminRepository.bindRestaurantOwner(restaurantBindingDto);
-            return "redirect:/filters";
+            return "redirect:/restaurantOwners";
         }
-        return "redirect:/userloginpage";
+        return "redirect:/restaurantOwners";
     }
 
 }
