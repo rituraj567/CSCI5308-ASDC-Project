@@ -1,5 +1,19 @@
 package com.CanadaEats.group13.restaurantowner.controller;
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+
 import com.CanadaEats.group13.common.DTOFactory;
 import com.CanadaEats.group13.database.DatabaseConnection;
 import com.CanadaEats.group13.restaurantowner.business.IRestaurantOwnerBusiness;
@@ -10,25 +24,14 @@ import com.CanadaEats.group13.restaurantowner.dto.RestaurantOwnerDto;
 import com.CanadaEats.group13.restaurantowner.repository.RestaurantOwnerRepository;
 import com.CanadaEats.group13.utils.APIAccessAuthorization;
 import com.CanadaEats.group13.utils.ApplicationConstants;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-
-import javax.servlet.http.Cookie;
-import javax.servlet.http.HttpServletRequest;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 @Controller
 public class RestaurantOwnerController {
     IRestaurantOwnerBusiness restaurantOwnerBusiness;
 
     public RestaurantOwnerController() {
-        this.restaurantOwnerBusiness = new RestaurantOwnerBusiness(new RestaurantOwnerRepository(DatabaseConnection.getInstance()));
+        this.restaurantOwnerBusiness = new RestaurantOwnerBusiness(
+                new RestaurantOwnerRepository(DatabaseConnection.getInstance()));
     }
 
     @GetMapping("/restaurantownerhomepage")
@@ -93,7 +96,8 @@ public class RestaurantOwnerController {
     }
 
     @PostMapping("/restaurantowner/addmenuitem/{MenuId}")
-    public String addMenuItem(@ModelAttribute MenuItemDto menuItemDto, @PathVariable("MenuId") String menuId, HttpServletRequest request) {
+    public String addMenuItem(@ModelAttribute MenuItemDto menuItemDto, @PathVariable("MenuId") String menuId,
+            HttpServletRequest request) {
         boolean isAPIAccessible = APIAccessAuthorization.getInstance().getAPIAccess(request);
         if (isAPIAccessible) {
             boolean result = restaurantOwnerBusiness.addMenuItem(menuId, menuItemDto);
@@ -131,4 +135,3 @@ public class RestaurantOwnerController {
         return "redirect:/userloginpage";
     }
 }
-

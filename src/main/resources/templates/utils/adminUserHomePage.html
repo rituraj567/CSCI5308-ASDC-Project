@@ -1,58 +1,60 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head>
+  <head>
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Admin Home Page</title>
-</head>
-<div th:replace="utils/header :: header"></div>
-<style>
+  </head>
+  <div th:replace="utils/header :: header"></div>
+  <style>
     .margin-container {
-        margin-top: 50px;
+      margin-top: 50px;
     }
 
     .btn-flex {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        margin-top: 15px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-top: 15px;
     }
 
     .btn-group button {
-        float: left; /* Float the buttons side by side */
+      float: left; /* Float the buttons side by side */
     }
 
-    li, input {
-        display: inline-block;
+    li,
+    input {
+      display: inline-block;
     }
-
-</style>
-<body>
-<div th:replace="utils/header :: navbar"></div>
-<br/>
-<br/>
-<div class="col-sm btn-group" style="width:100%">
-    <a
-            class="btn btn-success button-space"
-            style="width:33.3%"
-            th:href="@{/restaurants}"
-    >
-        Restaurants</a>
-    <a
-            type="button"
-            class="btn btn-info"
-            style="width:33.3%"
-            th:href="@{/restaurantOwners}"
-    >
+  </style>
+  <body>
+    <div th:replace="utils/header :: navbar"></div>
+    <br />
+    <br />
+    <div class="col-sm btn-group" style="width: 100%">
+      <a
+        class="btn btn-success button-space"
+        style="width: 33.3%"
+        th:href="@{/restaurants}"
+      >
+        Restaurants</a
+      >
+      <a
+        type="button"
+        class="btn btn-info"
+        style="width: 33.3%"
+        th:href="@{/restaurantOwners}"
+      >
         Restaurant Owner
-    </a>
-    <a
-            class="btn btn-dark button-space"
-            style="width:33.3%"
-            th:href="@{/filters}"
-    >
-        Filters</a>
-</div>
-</body>
+      </a>
+      <a
+        class="btn btn-dark button-space"
+        style="width: 33.3%"
+        th:href="@{/filters}"
+      >
+        Filters</a
+      >
+    </div>
+  </body>
 </html>

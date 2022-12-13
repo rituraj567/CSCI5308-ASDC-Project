@@ -21,12 +21,14 @@ public class RestaurantOwnerAdminDto {
     private int status;
     private String roleId;
 
-    public RestaurantOwnerAdminDto(){
+    public RestaurantOwnerAdminDto() {
 
     }
 
-    public RestaurantOwnerAdminDto(int id,String userId, String firstName, String lastName, String emailId, String userName, String password, String mobileNumber, String gender, Date birthDate, String address, String city, String province, String country, String postalCode, int status, String roleId) {
-        this.id=id;
+    public RestaurantOwnerAdminDto(int id, String userId, String firstName, String lastName, String emailId,
+            String userName, String password, String mobileNumber, String gender, Date birthDate, String address,
+            String city, String province, String country, String postalCode, int status, String roleId) {
+        this.id = id;
         this.userId = userId;
         this.firstName = firstName;
         this.lastName = lastName;

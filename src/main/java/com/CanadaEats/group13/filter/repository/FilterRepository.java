@@ -1,16 +1,16 @@
 package com.CanadaEats.group13.filter.repository;
 
-import com.CanadaEats.group13.database.DatabaseConnection;
-import com.CanadaEats.group13.database.IDatabaseConnection;
-import com.CanadaEats.group13.filter.dto.FilterDto;
-import com.CanadaEats.group13.utils.ApplicationConstants;
-
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+
+import com.CanadaEats.group13.database.DatabaseConnection;
+import com.CanadaEats.group13.database.IDatabaseConnection;
+import com.CanadaEats.group13.filter.dto.FilterDto;
+import com.CanadaEats.group13.utils.ApplicationConstants;
 
 public class FilterRepository implements IFilterRepository {
     IDatabaseConnection databaseConnection;
@@ -35,7 +35,8 @@ public class FilterRepository implements IFilterRepository {
 
             while (filterResult.next()) {
                 String filterName = filterResult.getString(ApplicationConstants.FILTER_NAME_COLUMN);
-                int filterIsActive = Integer.parseInt(filterResult.getString(ApplicationConstants.FILTER_ISACTIVE_COLUMN));
+                int filterIsActive = Integer
+                        .parseInt(filterResult.getString(ApplicationConstants.FILTER_ISACTIVE_COLUMN));
                 filtersDtoList.add(new FilterDto(filterName, filterIsActive));
             }
         } catch (Exception ex) {
@@ -58,7 +59,8 @@ public class FilterRepository implements IFilterRepository {
             databaseConnection = DatabaseConnection.getInstance();
             connection = databaseConnection.getDatabaseConnection();
             String getfilters = "select * from Filter";
-            PreparedStatement prepStmt = databaseConnection.getDatabaseConnection().prepareStatement(getfilters, ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
+            PreparedStatement prepStmt = databaseConnection.getDatabaseConnection().prepareStatement(getfilters,
+                    ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
 
             filterResult = prepStmt.executeQuery(getfilters);
 

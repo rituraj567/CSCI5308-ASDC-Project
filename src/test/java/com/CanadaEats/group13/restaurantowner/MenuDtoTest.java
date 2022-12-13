@@ -1,10 +1,11 @@
 package com.CanadaEats.group13.restaurantowner;
 
-import com.CanadaEats.group13.restaurantowner.dto.MenuDto;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import com.CanadaEats.group13.restaurantowner.dto.MenuDto;
 
 public class MenuDtoTest {
     MenuDto menuDto;

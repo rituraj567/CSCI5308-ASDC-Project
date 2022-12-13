@@ -8,19 +8,17 @@ public class OrderDetialsDTO {
     private int quantity;
     private int total;
 
-    public OrderDetialsDTO()
-    {
+    public OrderDetialsDTO() {
 
     }
 
-    public OrderDetialsDTO(int id, String order_detial_id, String order_id,String menu_id,int quantity,int total)
-    {
-        this.id=id;
-        this.order_detial_id=order_detial_id;
-        this.order_id=order_id;
-        this.menu_id=menu_id;
-        this.quantity=quantity;
-        this.total=total;
+    public OrderDetialsDTO(int id, String order_detial_id, String order_id, String menu_id, int quantity, int total) {
+        this.id = id;
+        this.order_detial_id = order_detial_id;
+        this.order_id = order_id;
+        this.menu_id = menu_id;
+        this.quantity = quantity;
+        this.total = total;
     }
 
     public void setId(int id) {

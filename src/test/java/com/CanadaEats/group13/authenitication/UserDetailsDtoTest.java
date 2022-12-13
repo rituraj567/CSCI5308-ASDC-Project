@@ -1,12 +1,13 @@
 package com.CanadaEats.group13.authenitication;
 
-import com.CanadaEats.group13.authentication.dto.UserDetailsDto;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.sql.Date;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
+import com.CanadaEats.group13.authentication.dto.UserDetailsDto;
 
 public class UserDetailsDtoTest {
 
@@ -17,7 +18,9 @@ public class UserDetailsDtoTest {
     public void testSetup() {
         long millis = System.currentTimeMillis();
         date = new java.sql.Date(millis);
-        userDetailsDto = new UserDetailsDto(1, "9c7a3caa-9f3d-4f35-8ecc-7020c0a80174", "Arpit", "Ribadiya", "arpit@gmail.com", "arpit1234", "arpit1234", "1231231234", "Male", date, "1333 south park street", "Halifax", "NS", "Canada", "B3J2K9", 1, "0ab745f3-4d0b-472c-9050-986412813900");
+        userDetailsDto = new UserDetailsDto(1, "9c7a3caa-9f3d-4f35-8ecc-7020c0a80174", "Arpit", "Ribadiya",
+                "arpit@gmail.com", "arpit1234", "arpit1234", "1231231234", "Male", date, "1333 south park street",
+                "Halifax", "NS", "Canada", "B3J2K9", 1, "0ab745f3-4d0b-472c-9050-986412813900");
     }
 
     @Test
@@ -60,7 +63,6 @@ public class UserDetailsDtoTest {
         assertEquals("Male", userDetailsDto.getGender());
     }
 
-
     @Test
     public void getBirthDateTest() {
         assertEquals(date, userDetailsDto.getBirthDate());
@@ -80,7 +82,6 @@ public class UserDetailsDtoTest {
     public void getProvinceTest() {
         assertEquals("NS", userDetailsDto.getProvince());
     }
-
 
     @Test
     public void getCountryTest() {

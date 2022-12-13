@@ -1,24 +1,29 @@
 package com.CanadaEats.group13.restaurantowner;
 
-import com.CanadaEats.group13.common.DTOFactory;
-import com.CanadaEats.group13.restaurantowner.business.RestaurantOwnerBusiness;
-import com.CanadaEats.group13.restaurantowner.dto.MenuDto;
-import com.CanadaEats.group13.restaurantowner.dto.MenuItemDto;
-import com.CanadaEats.group13.restaurantowner.dto.RestaurantOwnerDto;
-import com.CanadaEats.group13.restaurantowner.repository.RestaurantOwnerRepository;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyString;
+import static org.mockito.Mockito.when;
+
+import java.util.ArrayList;
+import java.util.List;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.anyString;
-import static org.mockito.Mockito.when;
+import com.CanadaEats.group13.common.DTOFactory;
+import com.CanadaEats.group13.restaurantowner.business.RestaurantOwnerBusiness;
+import com.CanadaEats.group13.restaurantowner.dto.MenuDto;
+import com.CanadaEats.group13.restaurantowner.dto.MenuItemDto;
+import com.CanadaEats.group13.restaurantowner.dto.RestaurantOwnerDto;
+import com.CanadaEats.group13.restaurantowner.repository.RestaurantOwnerRepository;
 
 public class RestaurantOwnerBusinessTest {
     @InjectMocks
@@ -33,7 +38,7 @@ public class RestaurantOwnerBusinessTest {
     }
 
     @Test
-    final void getAllMenusSuccessTest(){
+    final void getAllMenusSuccessTest() {
         List<RestaurantOwnerDto> userResponse = prepareGetAllMenusData();
         when(restaurantOwnerRepository.getAllMenus(anyString())).thenReturn(userResponse);
 
@@ -45,7 +50,7 @@ public class RestaurantOwnerBusinessTest {
     }
 
     @Test
-    final void getAllMenusFailureTest(){
+    final void getAllMenusFailureTest() {
         List<RestaurantOwnerDto> userResponse = prepareGetAllMenusData();
         when(restaurantOwnerRepository.getAllMenus(anyString())).thenReturn(userResponse);
 
@@ -56,7 +61,7 @@ public class RestaurantOwnerBusinessTest {
     }
 
     @Test
-    final void addMenuSuccessTest(){
+    final void addMenuSuccessTest() {
         MenuDto menuDto = DTOFactory.getInstance().createMenuDto();
         menuDto.setMenuName("Punjabi");
         when(restaurantOwnerRepository.addMenu(any())).thenReturn(true);
@@ -67,7 +72,7 @@ public class RestaurantOwnerBusinessTest {
     }
 
     @Test
-    final void addMenuFailureTest(){
+    final void addMenuFailureTest() {
         MenuDto menuDto = DTOFactory.getInstance().createMenuDto();
         menuDto.setMenuName("Gujarati");
         when(restaurantOwnerRepository.addMenu(any())).thenReturn(false);
@@ -78,7 +83,7 @@ public class RestaurantOwnerBusinessTest {
     }
 
     @Test
-    final void addMenuItemSuccessTest(){
+    final void addMenuItemSuccessTest() {
         MenuItemDto menuItemDto = DTOFactory.getInstance().createMenuItemDto();
         menuItemDto.setName("Roti");
         menuItemDto.setDescription("Best Roti");
@@ -91,7 +96,7 @@ public class RestaurantOwnerBusinessTest {
     }
 
     @Test
-    final void addMenuItemFailureTest(){
+    final void addMenuItemFailureTest() {
         MenuItemDto menuItemDto = DTOFactory.getInstance().createMenuItemDto();
         menuItemDto.setName("Roti");
         menuItemDto.setDescription("Best Roti");
@@ -104,7 +109,7 @@ public class RestaurantOwnerBusinessTest {
     }
 
     @Test
-    final void getMenuItemsSuccessTest(){
+    final void getMenuItemsSuccessTest() {
         List<MenuItemDto> menuItemDtos = prepareGetAllMenuItemsData();
         when(restaurantOwnerRepository.getMenuItems(anyString())).thenReturn(menuItemDtos);
 
@@ -116,7 +121,7 @@ public class RestaurantOwnerBusinessTest {
     }
 
     @Test
-    final void getMenuItemsFailureTest(){
+    final void getMenuItemsFailureTest() {
         List<MenuItemDto> menuItemDtos = prepareGetAllMenuItemsData();
         when(restaurantOwnerRepository.getMenuItems(anyString())).thenReturn(menuItemDtos);
 
@@ -144,8 +149,7 @@ public class RestaurantOwnerBusinessTest {
         assertFalse(result);
     }
 
-    private List<RestaurantOwnerDto> prepareGetAllMenusData()
-    {
+    private List<RestaurantOwnerDto> prepareGetAllMenusData() {
         List<RestaurantOwnerDto> restaurantOwnerDtos = new ArrayList<>();
 
         RestaurantOwnerDto element1 = DTOFactory.getInstance().createRestaurantOwnerDto();
@@ -163,8 +167,7 @@ public class RestaurantOwnerBusinessTest {
         return restaurantOwnerDtos;
     }
 
-    private List<MenuItemDto> prepareGetAllMenuItemsData()
-    {
+    private List<MenuItemDto> prepareGetAllMenuItemsData() {
         List<MenuItemDto> menuItemDtos = new ArrayList<>();
 
         MenuItemDto element1 = DTOFactory.getInstance().createMenuItemDto();

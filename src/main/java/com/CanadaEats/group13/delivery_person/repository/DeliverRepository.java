@@ -1,15 +1,17 @@
 package com.CanadaEats.group13.delivery_person.repository;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.Statement;
+import java.util.ArrayList;
+
 import com.CanadaEats.group13.database.DatabaseConnection;
 import com.CanadaEats.group13.database.IDatabaseConnection;
 import com.CanadaEats.group13.order.dto.OrderDTO;
 import com.CanadaEats.group13.order.dto.OrderDisplayDTO;
 import com.CanadaEats.group13.order.repository.IOrderRepository;
 import com.CanadaEats.group13.utils.ApplicationConstants;
-import org.springframework.core.annotation.Order;
-
-import java.sql.*;
-import java.util.ArrayList;
 
 public class DeliverRepository implements IDeliverRepository {
 
@@ -19,7 +21,7 @@ public class DeliverRepository implements IDeliverRepository {
     ResultSet result;
     IOrderRepository iOrderRepository = new IOrderRepository();
 
-    public DeliverRepository(){
+    public DeliverRepository() {
 
     }
 
@@ -43,47 +45,46 @@ public class DeliverRepository implements IDeliverRepository {
         boolean changedPickup;
         String name2 = "\"" + orderId + "\"";
         String feedback;
-        String pickup="Picked Up";
-        String pickUp="\"" + pickup + "\"";
+        String pickup = "Picked Up";
+        String pickUp = "\"" + pickup + "\"";
         String changeStatus = "UPDATE Orders SET OrderStatusId =" + pickUp + " WHERE OrderId =" + name2;
         String status_check = " select OrderStatusId from Orders WHERE OrderStatusId =" + name2;
-        feedback = orderTableChange(changeStatus,status_check);
+        feedback = orderTableChange(changeStatus, status_check);
 
-            if (feedback.equals("Picked Up")) {
-                System.out.println(ApplicationConstants.ORDER_STATE_CHANGE_SUCCESS);
-                changedPickup= true;
-            } else {
-                System.out.println(ApplicationConstants.ORDER_STATE_CHANGE_ERROR);
-                changedPickup= false;
-            }
-            return changedPickup;
+        if (feedback.equals("Picked Up")) {
+            System.out.println(ApplicationConstants.ORDER_STATE_CHANGE_SUCCESS);
+            changedPickup = true;
+        } else {
+            System.out.println(ApplicationConstants.ORDER_STATE_CHANGE_ERROR);
+            changedPickup = false;
         }
+        return changedPickup;
+    }
+
     @Override
-    public boolean changeToDelivered(String orderId)
-    {
+    public boolean changeToDelivered(String orderId) {
         boolean changedDelivered;
         String name2 = "\"" + orderId + "\"";
         String feedback;
-        String deliver="Delivered";
-        String delivered="\"" + deliver + "\"";
+        String deliver = "Delivered";
+        String delivered = "\"" + deliver + "\"";
         String changeStatus = "UPDATE Orders SET OrderStatusId =" + delivered + " WHERE OrderId =" + name2;
         String status_check = " select OrderStatusId from Orders WHERE OrderStatusId =" + name2;
-        feedback = orderTableChange(changeStatus,status_check);
+        feedback = orderTableChange(changeStatus, status_check);
 
         if (feedback.equals("Delivered")) {
             System.out.println(ApplicationConstants.ORDER_STATE_CHANGE_SUCCESS);
-            changedDelivered= true;
+            changedDelivered = true;
         } else {
             System.out.println(ApplicationConstants.ORDER_STATE_CHANGE_ERROR);
-            changedDelivered= false;
+            changedDelivered = false;
         }
         return changedDelivered;
     }
 
-@Override
-    public String orderTableChange(String changes, String checker)
-    {
-        String result="";
+    @Override
+    public String orderTableChange(String changes, String checker) {
+        String result = "";
         try {
             databaseConnection = DatabaseConnection.getInstance();
             connection = databaseConnection.getDatabaseConnection();

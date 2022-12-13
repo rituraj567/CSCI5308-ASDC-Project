@@ -1,10 +1,11 @@
 package com.CanadaEats.group13.utils;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.MockitoAnnotations;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 public class PasswordEncoderDecoderTest {
     @BeforeEach
@@ -13,7 +14,7 @@ public class PasswordEncoderDecoderTest {
     }
 
     @Test
-    final void encryptSuccessTest(){
+    final void encryptSuccessTest() {
         String encryptString = "arpit1234";
         String actualDecrytedString = "ftMn4rFs2L4HCX3lKnir8Q==";
 
@@ -23,7 +24,7 @@ public class PasswordEncoderDecoderTest {
     }
 
     @Test
-    final void encryptFailureTest(){
+    final void encryptFailureTest() {
         String encryptString = "arpit1234";
         String wrongDecrytedString = "ftMn4rFs2L4HCX";
 
@@ -33,7 +34,7 @@ public class PasswordEncoderDecoderTest {
     }
 
     @Test
-    final void decryptSuccessTest(){
+    final void decryptSuccessTest() {
         String edecryptString = "ftMn4rFs2L4HCX3lKnir8Q==";
         String actualEecrytedString = "arpit1234";
 
@@ -43,7 +44,7 @@ public class PasswordEncoderDecoderTest {
     }
 
     @Test
-    final void decryptFailureTest(){
+    final void decryptFailureTest() {
         String edecryptString = "ftMn4rFs2L4HCX3lKnir8Q==";
         String wrongEecrytedString = "arpit";
 
