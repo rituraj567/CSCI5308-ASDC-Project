@@ -67,3 +67,4 @@ public class ApplicationConstants {
     public static final String RESTAURANT_STATUS = "Status";
     public static final String RESTAURANT_USER_ID = "User_UserId";
 }
+
