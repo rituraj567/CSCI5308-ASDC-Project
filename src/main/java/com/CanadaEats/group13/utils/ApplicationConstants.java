@@ -24,7 +24,7 @@ public class ApplicationConstants {
 
     public static final String MENUITEM_RESTAURANTID_COLUMN = "Restaurant_RestaurantId";
 
-
+    public static final String RESTAURANT_RESTAURANTID_COLUMN = "RestaurantId";
     public static final String RESTAURANT_RESTAURANTNAME_COLUMN = "RestaurantName";
 
     public static final String COOKIE_USERNAME = "username";
@@ -67,3 +67,4 @@ public class ApplicationConstants {
     public static final String RESTAURANT_STATUS = "Status";
     public static final String RESTAURANT_USER_ID = "User_UserId";
 }
+
