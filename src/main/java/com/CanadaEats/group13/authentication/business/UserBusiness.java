@@ -1,10 +1,10 @@
 package com.CanadaEats.group13.authentication.business;
 
+import com.CanadaEats.group13.authentication.dto.UserDetailsDto;
 import com.CanadaEats.group13.authentication.dto.UserLoginDto;
+import com.CanadaEats.group13.authentication.model.response.UserDetailsResponseModel;
 import com.CanadaEats.group13.authentication.model.response.UserLoginResponseModel;
 import com.CanadaEats.group13.authentication.repository.IUserRepository;
-import com.CanadaEats.group13.authentication.model.response.UserDetailsResponseModel;
-import com.CanadaEats.group13.authentication.dto.UserDetailsDto;
 import com.CanadaEats.group13.utils.ApplicationConstants;
 import com.CanadaEats.group13.utils.PasswordEncoderDecoder;
 
@@ -22,13 +22,11 @@ public class UserBusiness implements IUserBusiness {
     public UserDetailsResponseModel registerUser(UserDetailsDto userDto) {
         UserDetailsResponseModel userResponse = new UserDetailsResponseModel();
         boolean isValidUser = validateRegisterUser(userDto);
-        if(isValidUser){
-            try
-            {
+        if (isValidUser) {
+            try {
                 String encryptedPassword = PasswordEncoderDecoder.getInstance().encrypt(userDto.getPassword());
                 userDto.setPassword(encryptedPassword);
-            }
-            catch (Exception ex) {
+            } catch (Exception ex) {
                 System.out.println("Exception: In Password Encoding In User Registration");
             }
 
@@ -66,54 +64,32 @@ public class UserBusiness implements IUserBusiness {
         userRepository.updateUserProfile(userDetailsDto);
     }
 
-    public boolean validateRegisterUser(UserDetailsDto userDto)
-    {
+    public boolean validateRegisterUser(UserDetailsDto userDto) {
         boolean isValid = true;
-        if(userDto.getFirstName() == null || userDto.getFirstName().length() == 0)
-        {
+        if (userDto.getFirstName() == null || userDto.getFirstName().length() == 0) {
             isValid = false;
-        }
-        else if(userDto.getLastName() == null || userDto.getLastName().length() == 0)
-        {
+        } else if (userDto.getLastName() == null || userDto.getLastName().length() == 0) {
             isValid = false;
-        }
-        else if(userDto.getUserName() == null || userDto.getUserName().length() == 0)
-        {
+        } else if (userDto.getUserName() == null || userDto.getUserName().length() == 0) {
             isValid = false;
-        }
-        else if(userDto.getEmailId() == null || userDto.getEmailId().length() == 0)
-        {
+        } else if (userDto.getEmailId() == null || userDto.getEmailId().length() == 0) {
             isValid = false;
-        }
-        else if(userDto.getPassword() == null || userDto.getPassword().length() == 0)
-        {
+        } else if (userDto.getPassword() == null || userDto.getPassword().length() == 0) {
             isValid = false;
-        }
-        else if(userDto.getAddress() == null || userDto.getAddress().length() == 0)
-        {
+        } else if (userDto.getAddress() == null || userDto.getAddress().length() == 0) {
             isValid = false;
-        }
-        else if(userDto.getGender() == null || userDto.getGender().length() == 0)
-        {
+        } else if (userDto.getGender() == null || userDto.getGender().length() == 0) {
             isValid = false;
-        }
-        else if(userDto.getCity() == null || userDto.getCity().length() == 0)
-        {
+        } else if (userDto.getCity() == null || userDto.getCity().length() == 0) {
             isValid = false;
-        }
-        else if(userDto.getProvince() == null || userDto.getProvince().length() == 0)
-        {
+        } else if (userDto.getProvince() == null || userDto.getProvince().length() == 0) {
             isValid = false;
-        }
-        else if(userDto.getPostalCode() == null || userDto.getPostalCode().length() == 0)
-        {
+        } else if (userDto.getPostalCode() == null || userDto.getPostalCode().length() == 0) {
             isValid = false;
-        }
-        else if(userDto.getCountry() == null || userDto.getCountry().length() == 0)
-        {
+        } else if (userDto.getCountry() == null || userDto.getCountry().length() == 0) {
             isValid = false;
         }
 
-        return  isValid;
+        return isValid;
     }
 }
