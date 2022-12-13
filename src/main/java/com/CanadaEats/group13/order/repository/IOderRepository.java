@@ -9,7 +9,6 @@ import java.util.*;
 
 public interface IOderRepository {
     public ArrayList<OrderDTO> getOrders();
-//    public void enumallOrder(ArrayList<OrderDTO> orderArraylist);
     public ArrayList<OrderDetialsDTO> getOrderDetails();
     public void deleteOrder(OrderDTO orderDTO);
 
@@ -21,8 +20,6 @@ public interface IOderRepository {
     public String findDeliverPerson(String deliver);
 
     public ArrayList<OrderDisplayDTO> displayOrder (ArrayList<OrderDTO> orderDTO);
-
-//    public String pay();
 //
 //    public abstract class Payment{public abstract String paymentOption(String s);}
 

@@ -51,6 +51,9 @@ public class ApplicationConstants {
     public static final String CREDIT_CARD = "b340b7b1-465e-439a-9a06-a6ee7785b7fb";
     public static final String DEBIT_CARD = "7b655d6c-b4f8-4839-be8d-76e58ae9835b";
     public static final String CASH = "e1f1b8e7-1c25-4918-b4f2-5ec0811e43cc";
+    public static final String ORDER_STATE_CHANGE_SUCCESS = "The order status changed successfully";
+    public static final String ORDER_STATE_CHANGE_ERROR = "Sorry there's an error happened, please try again.";
+
 
     public static final String RESTAURANT_ID = "Id";
     public static final String RESTAURANT_UUID = "RestaurantId";

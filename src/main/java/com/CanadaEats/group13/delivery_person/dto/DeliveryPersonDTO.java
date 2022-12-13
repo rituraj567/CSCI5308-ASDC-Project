@@ -1,16 +1,36 @@
 package com.CanadaEats.group13.delivery_person.dto;
 
+import com.CanadaEats.group13.order.dto.OrderDisplayDTO;
 
-import com.CanadaEats.group13.authentication.dto.UserDetailsDto;
+import java.util.*;
 
-public class DeliveryPersonDTO extends UserDetailsDto {
+public class DeliveryPersonDTO {
+    private String name;
+    private ArrayList<OrderDisplayDTO> orderAssigned;
 
-    private String RoleId="5941532b-da1d-427a-85d0-18cb44bd2932";
-
-    @Override
-    public String getRoleId() {
-        return RoleId;
+    public DeliveryPersonDTO(){}
+    public DeliveryPersonDTO(String name, ArrayList<OrderDisplayDTO> orderAssigned)
+    {
+        this.name=name;
+        this.orderAssigned=orderAssigned;
     }
 
+    public String getName() {
+        return name;
+    }
+
+    public ArrayList<OrderDisplayDTO> getOrderAssigned() {
+        return orderAssigned;
+    }
+
+    public void setOrderAssigned(ArrayList<OrderDisplayDTO> orderAssigned) {
+        this.orderAssigned = orderAssigned;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
 }
+
+
 

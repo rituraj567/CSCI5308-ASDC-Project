@@ -140,9 +140,12 @@ public class IOrderRepository implements IOderRepository {
         {
             return "Credit Card";
         }
-        else
+        else if(payment.equals(ApplicationConstants.CASH))
         {
             return "Cash";
+        }
+        else {
+            return "Payment method invalid.";
         }
     }
 
