@@ -4,11 +4,8 @@ import com.CanadaEats.group13.database.IDatabaseConnection;
 import com.CanadaEats.group13.order.dto.OrderDTO;
 import com.CanadaEats.group13.order.dto.OrderDetialsDTO;
 import com.CanadaEats.group13.order.dto.OrderDisplayDTO;
-import com.CanadaEats.group13.order.dto.OrderStatusDTO;
-import com.CanadaEats.group13.utils.PasswordEncoderDecoder;
 import org.springframework.stereotype.Repository;
 import com.CanadaEats.group13.utils.ApplicationConstants;
-import sun.java2d.pipe.SpanShapeRenderer;
 
 import java.sql.*;
 import java.text.DateFormat;
@@ -30,7 +27,6 @@ public class IOrderRepository implements IOderRepository {
     @Override
     public ArrayList<OrderDTO> getOrders() {
         orderDTOArrayList = new ArrayList<OrderDTO>();
-
         try {
             databaseConnection = DatabaseConnection.getInstance();
             connection = databaseConnection.getDatabaseConnection();
@@ -78,7 +74,6 @@ public class IOrderRepository implements IOderRepository {
                 String MenuItemId = orderDetailResult.getString("MenuItemId");
                 int quantity = orderDetailResult.getInt("Quantity");
                 int total = orderDetailResult.getInt("Total_Amount");
-
                 orderDetialsDTOS.add(new OrderDetialsDTO(order_id, orderDetailId, orderId, MenuItemId, quantity, total));
             }
             connection.close();
@@ -132,16 +127,13 @@ public class IOrderRepository implements IOderRepository {
     @Override
     public String findPayment(String payment)
     {
-        if(payment.equals(ApplicationConstants.DEBIT_CARD))
-        {
+        if(payment.equals(ApplicationConstants.DEBIT_CARD)) {
             return "Debit Card";
         }
-        else if(payment.equals(ApplicationConstants.CREDIT_CARD))
-        {
+        else if(payment.equals(ApplicationConstants.CREDIT_CARD)) {
             return "Credit Card";
         }
-        else if(payment.equals(ApplicationConstants.CASH))
-        {
+        else if(payment.equals(ApplicationConstants.CASH)) {
             return "Cash";
         }
         else {
@@ -264,15 +256,15 @@ public class IOrderRepository implements IOderRepository {
         return orderDisplayDTOArrayList;
     }
 
-
-    public static void main(String args[]) throws SQLException
-    {
-
-        IOrderRepository hi = new IOrderRepository();
-
-        ArrayList<OrderDTO> hello = hi.getOrders();
-
-        System.out.println(hello.size());
-
-    }
+//
+//    public static void main(String args[]) throws SQLException
+//    {
+//
+//        IOrderRepository hi = new IOrderRepository();
+//
+//        ArrayList<OrderDTO> hello = hi.getOrders();
+//
+//        System.out.println(hello.size());
+//
+//    }
 }

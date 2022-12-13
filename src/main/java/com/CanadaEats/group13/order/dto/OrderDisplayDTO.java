@@ -15,7 +15,6 @@ public class OrderDisplayDTO {
     {
 
     }
-
     public OrderDisplayDTO(int id, int amount,String restaurant, String paymentOption,String customer,String address,String phone, String status, String deliver_person)
     {
         this.id=id;

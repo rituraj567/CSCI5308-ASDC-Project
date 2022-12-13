@@ -58,7 +58,6 @@ public class DeliverRepository implements IDeliverRepository {
             }
             return changedPickup;
         }
-
     @Override
     public boolean changeToDelivered(String orderId)
     {
@@ -90,7 +89,6 @@ public class DeliverRepository implements IDeliverRepository {
             connection = databaseConnection.getDatabaseConnection();
             PreparedStatement preparedStmt = connection.prepareStatement(changes);
             preparedStmt.execute();
-
             statement = connection.createStatement();
             ResultSet orderResult = statement.executeQuery(checker);
 
@@ -106,23 +104,4 @@ public class DeliverRepository implements IDeliverRepository {
         }
         return result;
     }
-
-    public static void main(String args[]) throws SQLException
-    {
-
-        DeliverRepository deliverRepository = new DeliverRepository();
-
-        String order_id= "109591b1-bee8-4a49-93ce-c420aaac68e3";
-
-        ArrayList<OrderDisplayDTO> oa = deliverRepository.orders_assigned(order_id);
-
-        for(OrderDisplayDTO i : oa)
-        {
-            System.out.println("Order ID: "+i.getId());
-            System.out.println(("Customer: "+i.getCustomer()));
-            System.out.println("Deliver Adress: "+i.getAddress());
-        }
-
-    }
-
 }

@@ -24,7 +24,6 @@ public class ApplicationConstants {
     public static final String MENUITEM_PRICE_COLUMN = "Price";
     public static final String MENUITEM_MENUID_COLUMN = "Menu_MenuId";
 
-
     public static final String RESTAURANT_RESTAURANTID_COLUMN = "RestaurantId";
     public static final String RESTAURANT_RESTAURANTNAME_COLUMN = "RestaurantName";
 
