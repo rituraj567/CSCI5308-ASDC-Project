@@ -109,4 +109,6 @@ public class ApplicationConstants {
 
     public static final String URL_RESTAURANTOWNER_DISPLAYFILTERS = "/filter/displayFilters";
     public static final String URL_RESTAURANTOWNER_FILTERS = "redirect:/filters";
+
+    public static final String URL_ORDERS = "/order/viewOrder";
 }
