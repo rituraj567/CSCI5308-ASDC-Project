@@ -122,7 +122,7 @@ public class OrderMock implements IOderRepository {
         fakeAdd.put("ABC","9023214321");
         fakeAdd.put("Mike","9028893322");
 
-        returnValue=fakePhone.get(userId);
+        returnValue=fakeAdd.get(userId);
 
         if(returnValue!=null)
         {
@@ -135,7 +135,11 @@ public class OrderMock implements IOderRepository {
         return returnValue;
     }
 
-    public String findDeliverPerson(String deliver);
+    public String findDeliverPerson(String deliver){
+        return "ji";
+    }
 
-    public ArrayList<OrderDisplayDTO> displayOrder(ArrayList<OrderDTO> orderDTO);
+    public ArrayList<OrderDisplayDTO> displayOrder(ArrayList<OrderDTO> orderDTO){
+        return null;
+    }
 }
