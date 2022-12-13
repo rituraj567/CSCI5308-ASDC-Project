@@ -18,7 +18,6 @@ public class RestaurantDTOTest {
     public void testSetup() {
         restaurantDTO = new RestaurantDTO(1, "431", "Passage to India", "Spring Garden", "Halifax",
                 "Nova Scotia", "Canada", "B3J 2KL", "123457890", "1", "0f0482eb-1a3a-4ada-88f5-b93e46971abc");
-
     }
 
     @Test

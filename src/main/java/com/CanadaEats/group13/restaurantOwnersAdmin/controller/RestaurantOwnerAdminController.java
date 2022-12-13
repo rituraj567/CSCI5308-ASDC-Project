@@ -1,18 +1,16 @@
-package com.CanadaEats.group13.restaurantOwnerAdmin.controller;
+package com.CanadaEats.group13.restaurantOwnersAdmin.controller;
 
 import com.CanadaEats.group13.database.DatabaseConnection;
-import com.CanadaEats.group13.restaurant.dto.RestaurantDTO;
-import com.CanadaEats.group13.restaurantOwnerAdmin.dto.RestaurantOwnerAdminDto;
-import com.CanadaEats.group13.restaurantOwnerAdmin.repository.IRestaurantOwnerAdminRepository;
-import com.CanadaEats.group13.restaurantOwnerAdmin.repository.RestaurantOwnerAdminRepository;
-import org.apache.catalina.User;
+import com.CanadaEats.group13.restaurantOwnersAdmin.dto.RestaurantBindingDto;
+import com.CanadaEats.group13.restaurantOwnersAdmin.dto.RestaurantOwnerAdminDto;
+import com.CanadaEats.group13.restaurantOwnersAdmin.repository.IRestaurantOwnerAdminRepository;
+import com.CanadaEats.group13.restaurantOwnersAdmin.repository.RestaurantOwnerAdminRepository;
+import com.CanadaEats.group13.utils.APIAccessAuthorization;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 @Controller
@@ -70,6 +68,16 @@ public class RestaurantOwnerAdminController {
         RestaurantOwnerAdminDto restaurantOwnerAdminDto = restaurantOwnerAdminRepository.getRestaurantOwner(UserId);
         model.addAttribute("restaurantOwner", restaurantOwnerAdminDto);
         return "restaurantOwnersAdmin/viewRestaurantOwnerAdmin";
+    }
+
+    @PostMapping("/bindRestaurantOwner")
+    public String updateFilters(@RequestBody RestaurantBindingDto restaurantBindingDto, HttpServletRequest request){
+        boolean isAPIAccessible = APIAccessAuthorization.getInstance().getAPIAccess(request);
+        if(isAPIAccessible) {
+            restaurantOwnerAdminRepository.bindRestaurantOwner(restaurantBindingDto);
+            return "redirect:/filters";
+        }
+        return "redirect:/userloginpage";
     }
 
 }

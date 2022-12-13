@@ -1,4 +1,4 @@
-package com.CanadaEats.group13.restaurantOwnerAdmin.dto;
+package com.CanadaEats.group13.restaurantOwnersAdmin.dto;
 
 import java.sql.Date;
 

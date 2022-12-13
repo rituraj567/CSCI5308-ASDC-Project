@@ -1,6 +1,7 @@
-package com.CanadaEats.group13.restaurantOwnerAdmin.repository;
+package com.CanadaEats.group13.restaurantOwnersAdmin.repository;
 
-import com.CanadaEats.group13.restaurantOwnerAdmin.dto.RestaurantOwnerAdminDto;
+import com.CanadaEats.group13.restaurantOwnersAdmin.dto.RestaurantBindingDto;
+import com.CanadaEats.group13.restaurantOwnersAdmin.dto.RestaurantOwnerAdminDto;
 
 import java.util.List;
 
@@ -11,4 +12,6 @@ public interface IRestaurantOwnerAdminRepository {
     public void updateRestaurantOwner(RestaurantOwnerAdminDto restaurantOwnerAdminDto);
     public void deleteRestaurantOwner(int RestaurantOwnerId);
     public List<RestaurantOwnerAdminDto> searchRestaurantOwner(String query);
+
+    void bindRestaurantOwner(RestaurantBindingDto restaurantBindingDto);
 }
