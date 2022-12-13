@@ -30,7 +30,6 @@ public class CustomerPageHelpers {
         }
         List<List<MenuItemDto>> menuItems = new ArrayList<>();
         for (RestaurantOwnerDto items : restaurantMenus) {
-            System.out.println(items.getMenuId());
             menuItems.add(restaurantOwnerBusiness.getMenuItems(items.getMenuId()));
         }
         return menuItems;
