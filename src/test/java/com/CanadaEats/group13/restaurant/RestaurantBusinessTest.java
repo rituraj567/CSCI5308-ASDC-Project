@@ -13,9 +13,9 @@ import org.junit.jupiter.api.Test;
 import com.CanadaEats.group13.common.DTOFactory;
 import com.CanadaEats.group13.restaurant.business.IRestaurantBusiness;
 import com.CanadaEats.group13.restaurant.business.RestaurantBusiness;
-import com.CanadaEats.group13.utils.StatePatternConstants;
 import com.CanadaEats.group13.restaurant.dto.RestaurantDTO;
 import com.CanadaEats.group13.restaurant.repository.IRestaurantRepository;
+import com.CanadaEats.group13.utils.StatePatternConstants;
 
 @DisplayName("Restaurant Business Test")
 public class RestaurantBusinessTest {
@@ -36,6 +36,32 @@ public class RestaurantBusinessTest {
         assertEquals(1, restaurantDTOList.size());
         assertEquals("Passage to India", restaurantDTOList.get(0).getName());
         assertEquals("431", restaurantDTOList.get(0).getRestaurantId());
+    }
+
+    @Test
+    @DisplayName("getAllRestaurantsNullTest() test")
+    public void getAllRestaurantsNullTest() {
+
+        List<RestaurantDTO> restaurantDTOList = restaurantBusiness.getAllRestaurants();
+        RestaurantDTO restaurantDTO = restaurantDTOList.get(0);
+        restaurantDTO.setAddress(null);
+        restaurantDTO.setCountry(null);
+        assertEquals(null, restaurantDTO.getAddress());
+        assertEquals(null, restaurantDTO.getCountry());
+
+    }
+
+    @Test
+    @DisplayName("getAllRestaurantsEmptTest() test")
+    public void getAllRestaurantsEmptyTest() {
+
+        List<RestaurantDTO> restaurantDTOList = restaurantBusiness.getAllRestaurants();
+        RestaurantDTO restaurantDTO = restaurantDTOList.get(0);
+        restaurantDTO.setName("");
+        restaurantDTO.setPostalCode("");
+        assertEquals("", restaurantDTO.getName());
+        assertEquals("", restaurantDTO.getPostalCode());
+
     }
 
     @Test
@@ -118,6 +144,16 @@ public class RestaurantBusinessTest {
 
         assertEquals(1, restaurantDTOs.size());
         assertEquals("Passage to India", restaurantDTOs.get(0).getName());
+    }
+
+    @Test
+    @DisplayName("searchNoPresentTest() test")
+    public void searchNoPresentTest() {
+
+        List<RestaurantDTO> restaurantDTOs = restaurantBusiness.searchRestaurants("Adda");
+
+        assertEquals(0, restaurantDTOs.size());
+
     }
 
     @AfterEach

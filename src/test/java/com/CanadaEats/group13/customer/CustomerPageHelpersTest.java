@@ -17,17 +17,19 @@ import com.CanadaEats.group13.restaurantowner.dto.MenuItemDto;
 public class CustomerPageHelpersTest {
 
     CustomerMock customerMock;
+    List<List<MenuItemDto>> menuItems;
 
     @BeforeEach
+
     public void setUp() {
         customerMock = new CustomerMock();
+        menuItems = customerMock.getMenuItems();
     }
 
     @Test
     @DisplayName("getMenuItems() test")
     public void getMenuItemsTest() {
 
-        List<List<MenuItemDto>> menuItems = customerMock.getMenuItems();
         assertEquals(1, menuItems.size());
         assertEquals("Miso Ramen", menuItems.get(0).get(0).getName());
         assertEquals("441", menuItems.get(0).get(0).getMenuId());
@@ -35,15 +37,42 @@ public class CustomerPageHelpersTest {
     }
 
     @Test
+    @DisplayName("getMenuItemsNull() test")
+    public void getMenuItemsNull() {
+        MenuItemDto menuItemDto = menuItems.get(0).get(0);
+        menuItemDto.setDescription(null);
+        menuItemDto.setName(null);
+        assertEquals(null, menuItems.get(0).get(0).getDescription());
+        assertEquals(null, menuItems.get(0).get(0).getName());
+
+    }
+
+    @Test
+    @DisplayName("getMenuItemsEmpty() test")
+    public void getMenuItemsEmpty() {
+        MenuItemDto menuItemDto = menuItems.get(0).get(0);
+        menuItemDto.setDescription("");
+        menuItemDto.setName("");
+        assertEquals("", menuItems.get(0).get(0).getDescription());
+        assertEquals("", menuItems.get(0).get(0).getName());
+
+    }
+
+    @Test
     @DisplayName("searchMenuItems() test")
     public void searchMenuItemsTest() {
-
-        List<List<MenuItemDto>> menuItems = customerMock.getMenuItems();
         List<List<MenuItemDto>> result = CustomerPageHelpers.searchMenuItems(menuItems, "Miso Ramen");
         assertEquals(1, result.size());
         assertEquals("Miso Ramen", result.get(0).get(0).getName());
         assertEquals("441", menuItems.get(0).get(0).getMenuId());
         assertEquals(10, menuItems.get(0).get(0).getPrice());
+    }
+
+    @Test
+    @DisplayName("searchMenuItemsNoPresent() test")
+    public void searchMenuItemsNoPresentTest() {
+        List<List<MenuItemDto>> result = CustomerPageHelpers.searchMenuItems(menuItems, "Panner Tikka");
+        assertEquals(0, result.get(0).size());
     }
 
     @Test

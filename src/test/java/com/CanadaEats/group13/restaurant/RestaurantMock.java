@@ -69,4 +69,15 @@ public class RestaurantMock implements IRestaurantRepository {
         }
         return restaurantDTOs;
     }
+
+    public RestaurantDTO getMockRestaurantDTO() {
+        RestaurantDTO restaurantDTO = new RestaurantDTO();
+        restaurantDTO.setId(2);
+        restaurantDTO.setName("Dominos");
+        restaurantDTO.setAddress("Spring Garden");
+        restaurantDTO.setCity("Halifax");
+        restaurantDTO.setProvince("Nova Scotia");
+        restaurantDTO.setCountry("Canada");
+        return restaurantDTO;
+    }
 }
