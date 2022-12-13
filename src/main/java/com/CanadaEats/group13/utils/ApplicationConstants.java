@@ -66,4 +66,14 @@ public class ApplicationConstants {
     public static final String RESTAURANT_STATUS = "Status";
     public static final String RESTAURANT_USER_ID = "User_UserId";
     public static final String ENCRYPTION_KEY = "ThisIsGroup13EncryptionKey";
+
+    public static final String URL_RESTAURANT_SUCCESS = "/restaurants/restaurant";
+    public static final String URL_RESTAURANT_FAILURE = "redirect:/userloginpage";
+    public static final String URL_RESTAURANT_CREATION = "restaurants/newRestuarant";
+
+    public static final String URL_RESTAURANT_EDIT_SUCCESS = "restaurants/editRestaurant";
+    public static final String URL_RESTAURANTS_DELETE_SUCCESS = "redirect:/restaurants";
+
+    public static final String URL_RESTAURANTS_VIEW_SUCCESS = "restaurants/viewRestaurant";
+
 }

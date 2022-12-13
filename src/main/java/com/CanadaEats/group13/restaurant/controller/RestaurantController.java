@@ -19,6 +19,7 @@ import com.CanadaEats.group13.restaurant.business.RestaurantBusiness;
 import com.CanadaEats.group13.restaurant.dto.RestaurantDTO;
 import com.CanadaEats.group13.restaurant.repository.RestaurantRepository;
 import com.CanadaEats.group13.utils.APIAccessAuthorization;
+import com.CanadaEats.group13.utils.ApplicationConstants;
 
 @Controller
 public class RestaurantController {
@@ -38,9 +39,9 @@ public class RestaurantController {
 
             model.addAttribute("restaurants", restaurants);
 
-            return "/restaurants/restaurant";
+            return ApplicationConstants.URL_RESTAURANT_SUCCESS;
         }
-        return "redirect:/userloginpage";
+        return ApplicationConstants.URL_RESTAURANT_FAILURE;
     }
 
     @GetMapping("/admin/restaurants/newRestaurant")
@@ -50,9 +51,9 @@ public class RestaurantController {
             RestaurantDTO restaurantDTO = DTOFactory.getInstance().createRestaurantDTO();
             model.addAttribute("restaurant", restaurantDTO);
 
-            return "restaurants/newRestuarant";
+            return ApplicationConstants.URL_RESTAURANT_CREATION;
         }
-        return "redirect:/userloginpage";
+        return ApplicationConstants.URL_RESTAURANT_FAILURE;
     }
 
     @GetMapping("/admin/restaurants/{resturantId}/edit")
@@ -64,9 +65,9 @@ public class RestaurantController {
 
             model.addAttribute("restaurant", restaurantDTO);
 
-            return "restaurants/editRestaurant";
+            return ApplicationConstants.URL_RESTAURANT_EDIT_SUCCESS;
         }
-        return "redirect:/userloginpage";
+        return ApplicationConstants.URL_RESTAURANT_FAILURE;
     }
 
     @GetMapping("/admin/restaurants/{restaurantId}/delete")
@@ -74,9 +75,9 @@ public class RestaurantController {
         boolean isAPIAccessible = APIAccessAuthorization.getInstance().getAPIAccess(request);
         if (isAPIAccessible) {
             restaurantBusiness.deleteRestaurant(restaurantId);
-            return "redirect:/restaurants";
+            return ApplicationConstants.URL_RESTAURANTS_DELETE_SUCCESS;
         }
-        return "redirect:/userloginpage";
+        return ApplicationConstants.URL_RESTAURANT_FAILURE;
     }
 
     @GetMapping("/admin/restaurants/{restaurantId}/view")
@@ -86,7 +87,7 @@ public class RestaurantController {
         if (isAPIAccessible) {
             RestaurantDTO restaurantDTO = restaurantBusiness.getRestaurantById(restaurantId);
             model.addAttribute("restaurant", restaurantDTO);
-            return "restaurants/viewRestaurant";
+            return ApplicationConstants.URL_RESTAURANTS_VIEW_SUCCESS;
         }
         return "redirect:/userloginpage";
     }
