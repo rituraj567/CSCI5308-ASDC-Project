@@ -118,7 +118,7 @@ public class UserController {
                 role.getRoleType(response);
                 //userRoleStateManager.setDeliveryPersonRole();
                 //userRoleStateManager.userRoleState(response);
-                return "redirect:/userloginpage";
+                return "redirect:/order";
             }
         }
         return "redirect:/userloginerrorpage";
