@@ -1,5 +1,6 @@
 package com.CanadaEats.group13.restaurantowner;
 
+import com.CanadaEats.group13.common.DTOFactory;
 import com.CanadaEats.group13.restaurantowner.business.RestaurantOwnerBusiness;
 import com.CanadaEats.group13.restaurantowner.dto.MenuDto;
 import com.CanadaEats.group13.restaurantowner.dto.MenuItemDto;
@@ -56,7 +57,7 @@ public class RestaurantOwnerBusinessTest {
 
     @Test
     final void addMenuSuccessTest(){
-        MenuDto menuDto = new MenuDto();
+        MenuDto menuDto = DTOFactory.getInstance().createMenuDto();
         menuDto.setMenuName("Punjabi");
         when(restaurantOwnerRepository.addMenu(any())).thenReturn(true);
 
@@ -67,7 +68,7 @@ public class RestaurantOwnerBusinessTest {
 
     @Test
     final void addMenuFailureTest(){
-        MenuDto menuDto = new MenuDto();
+        MenuDto menuDto = DTOFactory.getInstance().createMenuDto();
         menuDto.setMenuName("Gujarati");
         when(restaurantOwnerRepository.addMenu(any())).thenReturn(false);
 
@@ -78,7 +79,7 @@ public class RestaurantOwnerBusinessTest {
 
     @Test
     final void addMenuItemSuccessTest(){
-        MenuItemDto menuItemDto = new MenuItemDto();
+        MenuItemDto menuItemDto = DTOFactory.getInstance().createMenuItemDto();
         menuItemDto.setName("Roti");
         menuItemDto.setDescription("Best Roti");
         menuItemDto.setPrice(10);
@@ -91,7 +92,7 @@ public class RestaurantOwnerBusinessTest {
 
     @Test
     final void addMenuItemFailureTest(){
-        MenuItemDto menuItemDto = new MenuItemDto();
+        MenuItemDto menuItemDto = DTOFactory.getInstance().createMenuItemDto();
         menuItemDto.setName("Roti");
         menuItemDto.setDescription("Best Roti");
         menuItemDto.setPrice(10);
@@ -147,13 +148,13 @@ public class RestaurantOwnerBusinessTest {
     {
         List<RestaurantOwnerDto> restaurantOwnerDtos = new ArrayList<>();
 
-        RestaurantOwnerDto element1 = new RestaurantOwnerDto();
+        RestaurantOwnerDto element1 = DTOFactory.getInstance().createRestaurantOwnerDto();
         element1.setRestaurantName("Subway");
         element1.setRestaurantId("d0ac2c3e-4713-4a21-8f65-4aec10cab89e");
         element1.setName("Punjabi");
         restaurantOwnerDtos.add(element1);
 
-        RestaurantOwnerDto element2 = new RestaurantOwnerDto();
+        RestaurantOwnerDto element2 = DTOFactory.getInstance().createRestaurantOwnerDto();
         element2.setRestaurantName("Subway");
         element2.setRestaurantId("d0ac2c3e-4713-4a21-8f65-4aec10cab89e");
         element2.setName("Gujarati");
@@ -166,13 +167,13 @@ public class RestaurantOwnerBusinessTest {
     {
         List<MenuItemDto> menuItemDtos = new ArrayList<>();
 
-        MenuItemDto element1 = new MenuItemDto();
+        MenuItemDto element1 = DTOFactory.getInstance().createMenuItemDto();
         element1.setName("Roti");
         element1.setDescription("Best Roti");
         element1.setPrice(10);
         menuItemDtos.add(element1);
 
-        MenuItemDto element2 = new MenuItemDto();
+        MenuItemDto element2 = DTOFactory.getInstance().createMenuItemDto();
         element2.setName("Khichadi");
         element2.setDescription("Best Khichadi");
         element2.setPrice(15);

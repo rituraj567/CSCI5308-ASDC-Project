@@ -1,5 +1,6 @@
 package com.CanadaEats.group13.filter;
 
+import com.CanadaEats.group13.common.DTOFactory;
 import com.CanadaEats.group13.filter.business.FilterBusiness;
 import com.CanadaEats.group13.filter.dto.FilterDto;
 import com.CanadaEats.group13.filter.repository.FilterRepository;
@@ -78,22 +79,22 @@ public class FilterBusinessTest {
     {
         List<FilterDto> filterDtos = new ArrayList<>();
 
-        FilterDto filter1 = new FilterDto();
+        FilterDto filter1 = DTOFactory.getInstance().createFiltersDto();
         filter1.setFilterName("Price Low To High");
         filter1.setIsActive(1);
         filterDtos.add(filter1);
 
-        FilterDto filter2 = new FilterDto();
+        FilterDto filter2 = DTOFactory.getInstance().createFiltersDto();
         filter2.setFilterName("Price High To Low");
         filter2.setIsActive(1);
         filterDtos.add(filter2);
 
-        FilterDto filter3 = new FilterDto();
+        FilterDto filter3 = DTOFactory.getInstance().createFiltersDto();
         filter3.setFilterName("Ratings Low To High");
         filter3.setIsActive(0);
         filterDtos.add(filter3);
 
-        FilterDto filter4 = new FilterDto();
+        FilterDto filter4 = DTOFactory.getInstance().createFiltersDto();
         filter4.setFilterName("Ratings High To Low");
         filter4.setIsActive(1);
         filterDtos.add(filter4);
