@@ -1,10 +1,10 @@
-package com.CanadaEats.group13.restaurantOwnerAdmin.repository;
+package com.CanadaEats.group13.restaurantOwnersAdmin.repository;
 
-import com.CanadaEats.group13.database.DatabaseConnection;
 import com.CanadaEats.group13.database.IDatabaseConnection;
-import com.CanadaEats.group13.restaurant.dto.RestaurantDTO;
-import com.CanadaEats.group13.restaurantOwnerAdmin.dto.RestaurantOwnerAdminDto;
+import com.CanadaEats.group13.restaurantOwnersAdmin.dto.RestaurantBindingDto;
+import com.CanadaEats.group13.restaurantOwnersAdmin.dto.RestaurantOwnerAdminDto;
 import com.CanadaEats.group13.utils.ApplicationConstants;
+import com.CanadaEats.group13.utils.PasswordEncoderDecoder;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -89,7 +89,7 @@ public class RestaurantOwnerAdminRepository implements IRestaurantOwnerAdminRepo
             preparedStmt.setString(3, restaurantOwnerAdminDto.getLastName());
             preparedStmt.setString(4, restaurantOwnerAdminDto.getEmailId());
             preparedStmt.setString(5, restaurantOwnerAdminDto.getUserName());
-            preparedStmt.setString(6, restaurantOwnerAdminDto.getPassword());
+            preparedStmt.setString(6, PasswordEncoderDecoder.getInstance().encrypt(restaurantOwnerAdminDto.getPassword()));
             preparedStmt.setString(7, restaurantOwnerAdminDto.getMobileNumber());
             preparedStmt.setString(8, restaurantOwnerAdminDto.getGender());
             preparedStmt.setDate(9, new Date(2001,5,1));
@@ -193,4 +193,22 @@ public class RestaurantOwnerAdminRepository implements IRestaurantOwnerAdminRepo
     public List<RestaurantOwnerAdminDto> searchRestaurantOwner(String query) {
         return null;
     }
+
+    @Override
+    public void bindRestaurantOwner(RestaurantBindingDto restaurantBindingDto) {
+        try{
+            this.connection= databaseConnection.getDatabaseConnection();
+            String query = "update Restaurant SET User_UserId=? where RestaurantId=?";
+            PreparedStatement preparedStmt = connection.prepareStatement(query);
+            preparedStmt.setString(1, restaurantBindingDto.getRestaurantOwnerId());
+            preparedStmt.setString(2, restaurantBindingDto.getRestaurantId());
+
+            preparedStmt.execute();
+            connection.close();
+        }
+        catch (Exception e){
+            System.out.println(e + " " + e.getMessage());
+        }
+    }
+
 }
