@@ -3,50 +3,50 @@ package com.CanadaEats.group13.restaurantowner.dto;
 import java.io.Serializable;
 
 public class RestaurantOwnerDto implements Serializable {
-    private String MenuId;
-    private String Name;
-    private String RestaurantId;
-    private String RestaurantName;
+    private String menuId;
+    private String name;
+    private String restaurantId;
+    private String restaurantName;
 
     public RestaurantOwnerDto() {
     }
 
     public RestaurantOwnerDto(String menuId, String name, String restaurantId, String restaurantName) {
-        MenuId = menuId;
-        Name = name;
-        RestaurantId = restaurantId;
-        RestaurantName = restaurantName;
+        this.menuId = menuId;
+        this.name = name;
+        this.restaurantId = restaurantId;
+        this.restaurantName = restaurantName;
     }
 
     public String getRestaurantName() {
-        return RestaurantName;
+        return restaurantName;
     }
 
     public void setRestaurantName(String restaurantName) {
-        RestaurantName = restaurantName;
+        this.restaurantName = restaurantName;
     }
 
     public String getMenuId() {
-        return MenuId;
+        return menuId;
     }
 
     public void setMenuId(String menuId) {
-        MenuId = menuId;
+        this.menuId = menuId;
     }
 
     public String getName() {
-        return Name;
+        return name;
     }
 
     public void setName(String name) {
-        Name = name;
+        this.name = name;
     }
 
     public String getRestaurantId() {
-        return RestaurantId;
+        return restaurantId;
     }
 
     public void setRestaurantId(String restaurantId) {
-        RestaurantId = restaurantId;
+        this.restaurantId = restaurantId;
     }
 }

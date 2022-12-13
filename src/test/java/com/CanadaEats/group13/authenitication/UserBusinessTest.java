@@ -6,7 +6,6 @@ import com.CanadaEats.group13.authentication.dto.UserLoginDto;
 import com.CanadaEats.group13.authentication.model.response.UserDetailsResponseModel;
 import com.CanadaEats.group13.authentication.model.response.UserLoginResponseModel;
 import com.CanadaEats.group13.authentication.repository.UserRepository;
-
 import com.CanadaEats.group13.common.DTOFactory;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -22,7 +21,6 @@ public class UserBusinessTest {
 
     @InjectMocks
     UserBusiness userBusiness;
-
     @Mock
     UserRepository userRepository;
 
@@ -32,7 +30,7 @@ public class UserBusinessTest {
     }
 
     @Test
-    final void registerUserSuccessTest(){
+    final void registerUserSuccessTest() {
 
         UserDetailsDto userDetailsDto = prepareRegisterValidationData();
         UserDetailsResponseModel userDetailsResponseModel = prepareRegisterData();
@@ -45,7 +43,7 @@ public class UserBusinessTest {
     }
 
     @Test
-    final void registerUserFailureTest(){
+    final void registerUserFailureTest() {
         UserDetailsDto userDetailsDto = DTOFactory.getInstance().createUserDetailsDto();
         userDetailsDto.setPassword("arpit1234");
         UserDetailsResponseModel userDetailsResponseModel = prepareRegisterData();
@@ -58,7 +56,7 @@ public class UserBusinessTest {
     }
 
     @Test
-    final void loginUserSuccessTest(){
+    final void loginUserSuccessTest() {
         UserLoginDto userLoginDto = DTOFactory.getInstance().createUserLoginDto();
         userLoginDto.setUserName("arpit1234");
         userLoginDto.setPassword("arpit1234");
@@ -72,7 +70,7 @@ public class UserBusinessTest {
     }
 
     @Test
-    final void loginUserFailureTest(){
+    final void loginUserFailureTest() {
 
         UserLoginDto userLoginDto = DTOFactory.getInstance().createUserLoginDto();
         userLoginDto.setUserName("arpit1234");
@@ -87,7 +85,7 @@ public class UserBusinessTest {
     }
 
     @Test
-    final void validateRegisterUserSuccessTest(){
+    final void validateRegisterUserSuccessTest() {
         UserDetailsResponseModel userDetailsResponseModel = new UserDetailsResponseModel();
         userDetailsResponseModel.setFirstName("Arpit");
         UserDetailsDto userDetailsDto = prepareRegisterValidationData();
@@ -99,7 +97,7 @@ public class UserBusinessTest {
     }
 
     @Test
-    final void validateRegisterUserFirstNameFailureTest(){
+    final void validateRegisterUserFirstNameFailureTest() {
         UserDetailsDto userDetailsDto = prepareRegisterValidationData();
         userDetailsDto.setFirstName("");
 
@@ -109,7 +107,7 @@ public class UserBusinessTest {
     }
 
     @Test
-    final void validateRegisterUserUserNameFailureTest(){
+    final void validateRegisterUserUserNameFailureTest() {
         UserDetailsDto userDetailsDto = prepareRegisterValidationData();
         userDetailsDto.setUserName("");
 
@@ -119,7 +117,7 @@ public class UserBusinessTest {
     }
 
     @Test
-    final void validateRegisterUserCityFailureTest(){
+    final void validateRegisterUserCityFailureTest() {
         UserDetailsDto userDetailsDto = prepareRegisterValidationData();
         userDetailsDto.setCity("");
 
@@ -129,7 +127,7 @@ public class UserBusinessTest {
     }
 
     @Test
-    final void validateRegisterUserCountryFailureTest(){
+    final void validateRegisterUserCountryFailureTest() {
         UserDetailsDto userDetailsDto = prepareRegisterValidationData();
         userDetailsDto.setCountry("");
 
@@ -138,7 +136,7 @@ public class UserBusinessTest {
         assertEquals(null, result.getCountry());
     }
 
-    private UserDetailsResponseModel prepareRegisterData(){
+    private UserDetailsResponseModel prepareRegisterData() {
         UserDetailsResponseModel userDetailsResponseModel = new UserDetailsResponseModel();
         userDetailsResponseModel.setFirstName("Arpit");
         userDetailsResponseModel.setLastName("Ribadiya");
@@ -149,7 +147,7 @@ public class UserBusinessTest {
         return userDetailsResponseModel;
     }
 
-    private UserLoginResponseModel prepareLoginData(){
+    private UserLoginResponseModel prepareLoginData() {
         UserLoginResponseModel userLoginResponseModel = new UserLoginResponseModel();
         userLoginResponseModel.setUserId("9c7a3caa-9f3d-4f35-8ecc-7020c0a80177");
         userLoginResponseModel.setUserName("arpit1234");
@@ -157,7 +155,7 @@ public class UserBusinessTest {
         return userLoginResponseModel;
     }
 
-    private UserDetailsDto prepareRegisterValidationData(){
+    private UserDetailsDto prepareRegisterValidationData() {
         UserDetailsDto userDetailsDto = DTOFactory.getInstance().createUserDetailsDto();
         userDetailsDto.setFirstName("Arpit");
         userDetailsDto.setLastName("Ribadiya");

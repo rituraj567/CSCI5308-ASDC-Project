@@ -1,6 +1,5 @@
 package com.CanadaEats.group13.authenitication;
 
-import com.CanadaEats.group13.authentication.dto.UserLoginDto;
 import com.CanadaEats.group13.authentication.model.response.UserLoginResponseModel;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

@@ -66,5 +66,6 @@ public class ApplicationConstants {
     public static final String RESTAURANT_PHONE_NUMBER = "PhoneNumber";
     public static final String RESTAURANT_STATUS = "Status";
     public static final String RESTAURANT_USER_ID = "User_UserId";
+    public static final String ENCRYPTION_KEY = "ThisIsGroup13EncryptionKey";
 }
 

@@ -11,6 +11,7 @@ import com.CanadaEats.group13.authentication.model.response.UserLoginResponseMod
 import com.CanadaEats.group13.authentication.repository.UserRepository;
 import com.CanadaEats.group13.common.DTOFactory;
 import com.CanadaEats.group13.database.DatabaseConnection;
+import com.CanadaEats.group13.utils.APIAccessAuthorization;
 import com.CanadaEats.group13.utils.ApplicationConstants;
 import com.CanadaEats.group13.utils.CookiesLogic;
 import org.springframework.stereotype.Controller;
@@ -32,7 +33,7 @@ public class UserController {
 
     public UserController() {
         this.userService = new UserBusiness(new UserRepository(DatabaseConnection.getInstance()));
-        this.roleFactory = new RoleFactory();
+        roleFactory = new RoleFactory();
     }
 
     @GetMapping
@@ -74,7 +75,10 @@ public class UserController {
     @PostMapping("/login")
     public String loginUser(@ModelAttribute UserLoginDto userLoginDto, HttpServletResponse response) {
         UserLoginResponseModel userLoginResponseModel = userService.loginUser(userLoginDto);
-        if (userLoginResponseModel.getRoleId() != null && userLoginResponseModel.getUserName() != null && userLoginResponseModel.getUserId() != null) {
+        System.out.println("UserLoginResponseMoel " + userLoginResponseModel);
+        if (userLoginResponseModel.getRoleId() != null && userLoginResponseModel.getUserName() != null
+                && userLoginResponseModel.getUserId() != null) {
+            System.out.println("Inside cookie");
             Cookie cookie1 = new Cookie(ApplicationConstants.COOKIE_USERNAME, userLoginResponseModel.getUserName());
             Cookie cookie2 = new Cookie(ApplicationConstants.COOKIE_ROLEID, userLoginResponseModel.getRoleId());
             Cookie cookie3 = new Cookie(ApplicationConstants.COOKIE_USERID, userLoginResponseModel.getUserId());
@@ -84,7 +88,8 @@ public class UserController {
             response.addCookie(cookie3);
 
             if (userLoginResponseModel.getRestaurantId() != null) {
-                Cookie cookie4 = new Cookie(ApplicationConstants.COOKIE_RESTAURANTID, userLoginResponseModel.getRestaurantId());
+                Cookie cookie4 = new Cookie(ApplicationConstants.COOKIE_RESTAURANTID,
+                        userLoginResponseModel.getRestaurantId());
                 response.addCookie(cookie4);
             }
 
@@ -146,9 +151,19 @@ public class UserController {
     }
 
     @PostMapping("/users/{userId}")
-    public String updateProfile(@PathVariable("userId") String userId, @ModelAttribute("restaurant") UserDetailsDto userDetailsDto, Model model) {
+    public String updateProfile(@PathVariable("userId") String userId,
+                                @ModelAttribute("restaurant") UserDetailsDto userDetailsDto, Model model) {
         model.addAttribute("user", userDetailsDto);
         userService.updateUserProfile(userDetailsDto);
         return "redirect:/viewProfile";
+    }
+
+    @GetMapping("/adminuserhomepage")
+    public String adminUserHomePage(HttpServletRequest request) {
+        boolean isAPIAccessible = APIAccessAuthorization.getInstance().getAPIAccess(request);
+        if (isAPIAccessible) {
+            return "utils/adminuserhomepage";
+        }
+        return "redirect:/userloginerrorpage";
     }
 }

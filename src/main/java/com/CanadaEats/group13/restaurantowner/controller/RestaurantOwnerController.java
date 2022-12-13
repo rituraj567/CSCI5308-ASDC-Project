@@ -2,7 +2,6 @@ package com.CanadaEats.group13.restaurantowner.controller;
 
 import com.CanadaEats.group13.common.DTOFactory;
 import com.CanadaEats.group13.database.DatabaseConnection;
-import com.CanadaEats.group13.restaurant.dto.RestaurantDTO;
 import com.CanadaEats.group13.restaurantowner.business.IRestaurantOwnerBusiness;
 import com.CanadaEats.group13.restaurantowner.business.RestaurantOwnerBusiness;
 import com.CanadaEats.group13.restaurantowner.dto.MenuDto;
@@ -27,16 +26,15 @@ import java.util.Map;
 @Controller
 public class RestaurantOwnerController {
     IRestaurantOwnerBusiness restaurantOwnerBusiness;
-    public RestaurantOwnerController()
-    {
+
+    public RestaurantOwnerController() {
         this.restaurantOwnerBusiness = new RestaurantOwnerBusiness(new RestaurantOwnerRepository(DatabaseConnection.getInstance()));
     }
 
     @GetMapping("/restaurantownerhomepage")
-    public String getRestaurantOwnerHomePage(Model model, HttpServletRequest request){
+    public String getRestaurantOwnerHomePage(Model model, HttpServletRequest request) {
         boolean isAPIAccessible = APIAccessAuthorization.getInstance().getAPIAccess(request);
-        if(isAPIAccessible)
-        {
+        if (isAPIAccessible) {
             Cookie[] cookies = request.getCookies();
             Map<String, Cookie> cookieMap = new HashMap<>();
             for (Cookie cookie : cookies) {
@@ -53,7 +51,7 @@ public class RestaurantOwnerController {
     @GetMapping("/restaurantowner/newmenu")
     public String addNewMenuPage(Model model, HttpServletRequest request) {
         boolean isAPIAccessible = APIAccessAuthorization.getInstance().getAPIAccess(request);
-        if(isAPIAccessible) {
+        if (isAPIAccessible) {
             MenuDto menuDto = DTOFactory.getInstance().createMenuDto();
             model.addAttribute("menu", menuDto);
             return "restaurantowner/newMenuPage";
@@ -64,7 +62,7 @@ public class RestaurantOwnerController {
     @PostMapping("/restaurantowner/addmenu")
     public String addMenu(@ModelAttribute MenuDto menuDto, HttpServletRequest request) {
         boolean isAPIAccessible = APIAccessAuthorization.getInstance().getAPIAccess(request);
-        if(isAPIAccessible) {
+        if (isAPIAccessible) {
             Cookie[] cookies = request.getCookies();
             Map<String, Cookie> cookieMap = new HashMap<>();
             for (Cookie cookie : cookies) {
@@ -72,10 +70,9 @@ public class RestaurantOwnerController {
             }
             Cookie loggedInUserRestaurantId = cookieMap.get(ApplicationConstants.COOKIE_RESTAURANTID);
             boolean result = restaurantOwnerBusiness.addMenu(loggedInUserRestaurantId.getValue(), menuDto);
-            if(result){
+            if (result) {
                 return "redirect:/restaurantownerhomepage";
-            }
-            else{
+            } else {
                 return "restaurantowner/addMenuError";
             }
         }
@@ -86,7 +83,7 @@ public class RestaurantOwnerController {
     @GetMapping("/restaurantowner/newmenuitem/{MenuId}")
     public String addNewMenuItemPage(@PathVariable("MenuId") String menuId, Model model, HttpServletRequest request) {
         boolean isAPIAccessible = APIAccessAuthorization.getInstance().getAPIAccess(request);
-        if(isAPIAccessible) {
+        if (isAPIAccessible) {
             MenuItemDto menuItems = DTOFactory.getInstance().createMenuItemDto();
             model.addAttribute("menuitem", menuItems);
             model.addAttribute("menuId", menuId);
@@ -96,14 +93,13 @@ public class RestaurantOwnerController {
     }
 
     @PostMapping("/restaurantowner/addmenuitem/{MenuId}")
-    public String addMenuItem(@ModelAttribute MenuItemDto menuItemDto, @PathVariable("MenuId") String menuId ,HttpServletRequest request) {
+    public String addMenuItem(@ModelAttribute MenuItemDto menuItemDto, @PathVariable("MenuId") String menuId, HttpServletRequest request) {
         boolean isAPIAccessible = APIAccessAuthorization.getInstance().getAPIAccess(request);
-        if(isAPIAccessible) {
+        if (isAPIAccessible) {
             boolean result = restaurantOwnerBusiness.addMenuItem(menuId, menuItemDto);
-            if(result){
+            if (result) {
                 return "redirect:/restaurantownerhomepage";
-            }
-            else{
+            } else {
                 return "restaurantowner/addMenuError";
             }
         }
@@ -113,7 +109,7 @@ public class RestaurantOwnerController {
     @GetMapping("/restaurantowner/menuitems/{MenuId}")
     public String getMenuItems(@PathVariable("MenuId") String menuId, Model model, HttpServletRequest request) {
         boolean isAPIAccessible = APIAccessAuthorization.getInstance().getAPIAccess(request);
-        if(isAPIAccessible) {
+        if (isAPIAccessible) {
             List<MenuItemDto> menuItems = restaurantOwnerBusiness.getMenuItems(menuId);
             model.addAttribute("menuItems", menuItems);
             return "restaurantowner/menuItems";
@@ -124,12 +120,11 @@ public class RestaurantOwnerController {
     @GetMapping("/restaurantowner/menu/{MenuId}/delete")
     public String deleteMenu(@PathVariable("MenuId") String menuId, HttpServletRequest request) {
         boolean isAPIAccessible = APIAccessAuthorization.getInstance().getAPIAccess(request);
-        if(isAPIAccessible) {
+        if (isAPIAccessible) {
             boolean result = restaurantOwnerBusiness.deleteMenu(menuId);
-            if(result){
+            if (result) {
                 return "redirect:/restaurantownerhomepage";
-            }
-            else{
+            } else {
                 return "restaurantowner/addMenuError";
             }
         }
