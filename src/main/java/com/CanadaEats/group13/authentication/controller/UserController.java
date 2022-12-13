@@ -5,6 +5,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import com.CanadaEats.group13.authentication.factory.IRole;
 import com.CanadaEats.group13.authentication.factory.RoleFactory;
+import com.CanadaEats.group13.common.DTOFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -43,7 +44,7 @@ public class UserController {
 
     @GetMapping("/userregistrationpage")
     public String userRegistrationErrorPage(Model model, HttpServletRequest request) {
-        UserDetailsDto userDetailsDto = new UserDetailsDto();
+        UserDetailsDto userDetailsDto = DTOFactory.getInstance().createUserDetailsDto();
         model.addAttribute("userregistration", userDetailsDto);
         return "authentication/registerUser";
     }
@@ -68,7 +69,7 @@ public class UserController {
 
     @GetMapping("/userloginpage")
     public String userLoginForm(Model model, HttpServletRequest request) {
-        UserLoginDto userLoginDto = new UserLoginDto();
+        UserLoginDto userLoginDto = DTOFactory.getInstance().createUserLoginDto();
         model.addAttribute("userlogin", userLoginDto);
         return "authentication/loginUser";
     }

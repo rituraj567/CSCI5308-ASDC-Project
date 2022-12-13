@@ -1,5 +1,6 @@
 package com.CanadaEats.group13.restaurantowner.controller;
 
+import com.CanadaEats.group13.common.DTOFactory;
 import com.CanadaEats.group13.database.DatabaseConnection;
 import com.CanadaEats.group13.restaurant.dto.RestaurantDTO;
 import com.CanadaEats.group13.restaurantowner.business.IRestaurantOwnerBusiness;
@@ -53,7 +54,7 @@ public class RestaurantOwnerController {
     public String addNewMenuPage(Model model, HttpServletRequest request) {
         boolean isAPIAccessible = APIAccessAuthorization.getInstance().getAPIAccess(request);
         if(isAPIAccessible) {
-            MenuDto menuDto = new MenuDto();
+            MenuDto menuDto = DTOFactory.getInstance().createMenuDto();
             model.addAttribute("menu", menuDto);
             return "restaurantowner/newMenuPage";
         }
@@ -86,7 +87,7 @@ public class RestaurantOwnerController {
     public String addNewMenuItemPage(@PathVariable("MenuId") String menuId, Model model, HttpServletRequest request) {
         boolean isAPIAccessible = APIAccessAuthorization.getInstance().getAPIAccess(request);
         if(isAPIAccessible) {
-            MenuItemDto menuItems = new MenuItemDto();
+            MenuItemDto menuItems = DTOFactory.getInstance().createMenuItemDto();
             model.addAttribute("menuitem", menuItems);
             model.addAttribute("menuId", menuId);
             return "restaurantowner/newMenuItemPage";

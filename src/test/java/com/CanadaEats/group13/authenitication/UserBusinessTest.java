@@ -7,6 +7,7 @@ import com.CanadaEats.group13.authentication.model.response.UserDetailsResponseM
 import com.CanadaEats.group13.authentication.model.response.UserLoginResponseModel;
 import com.CanadaEats.group13.authentication.repository.UserRepository;
 
+import com.CanadaEats.group13.common.DTOFactory;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
@@ -45,7 +46,7 @@ public class UserBusinessTest {
 
     @Test
     final void registerUserFailureTest(){
-        UserDetailsDto userDetailsDto = new UserDetailsDto();
+        UserDetailsDto userDetailsDto = DTOFactory.getInstance().createUserDetailsDto();
         userDetailsDto.setPassword("arpit1234");
         UserDetailsResponseModel userDetailsResponseModel = prepareRegisterData();
         when(userRepository.registerUser(any())).thenReturn(userDetailsResponseModel);
@@ -58,7 +59,7 @@ public class UserBusinessTest {
 
     @Test
     final void loginUserSuccessTest(){
-        UserLoginDto userLoginDto = new UserLoginDto();
+        UserLoginDto userLoginDto = DTOFactory.getInstance().createUserLoginDto();
         userLoginDto.setUserName("arpit1234");
         userLoginDto.setPassword("arpit1234");
         UserLoginResponseModel userLoginResponseModel = prepareLoginData();
@@ -73,7 +74,7 @@ public class UserBusinessTest {
     @Test
     final void loginUserFailureTest(){
 
-        UserLoginDto userLoginDto = new UserLoginDto();
+        UserLoginDto userLoginDto = DTOFactory.getInstance().createUserLoginDto();
         userLoginDto.setUserName("arpit1234");
         userLoginDto.setPassword("arpit1234");
         UserLoginResponseModel userLoginResponseModel = prepareLoginData();
@@ -157,7 +158,7 @@ public class UserBusinessTest {
     }
 
     private UserDetailsDto prepareRegisterValidationData(){
-        UserDetailsDto userDetailsDto = new UserDetailsDto();
+        UserDetailsDto userDetailsDto = DTOFactory.getInstance().createUserDetailsDto();
         userDetailsDto.setFirstName("Arpit");
         userDetailsDto.setLastName("Ribadiya");
         userDetailsDto.setUserName("arpit1234");
