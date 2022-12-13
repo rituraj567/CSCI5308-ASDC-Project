@@ -83,6 +83,21 @@ public class ApplicationConstants {
     public static final String URL_AUTHENTICATION_ADMINHOMEPAGE = "utils/adminuserhomepage";
     public static final String URL_AUTHENTICATION_USERREGISTRATIONERRORPAGE = "redirect:/userregistrationerrorpage";
 
+    public static final String URL_RESTAURANT_SUCCESS = "/restaurants/restaurant";
+    public static final String URL_RESTAURANT_CREATION = "restaurants/newRestuarant";
+
+    public static final String URL_RESTAURANT_EDIT_SUCCESS = "restaurants/editRestaurant";
+    public static final String URL_RESTAURANTS_DELETE_SUCCESS = "redirect:/restaurants";
+
+    public static final String URL_RESTAURANTS_VIEW_SUCCESS = "restaurants/viewRestaurant";
+    public static final String URL_RESTAURANTS_SEARCH_SUCCESS = "restaurants/restaurant";
+    public static final String URL_RESTAURANT_POST_CREATION = "redirect:/restaurants";
+
+    public static final String URL_RESTAURANT_UPDATE_POST_RESTAURANT = "redirect:/restaurants";
+    public static final String URL_RESTAURANT_CUSTOMER_HOME_PAGE = "customer/customerHomePage";
+    public static final String URL_RESTAURANT_RESTAURANT_DISPLAY = "customer/restaurantDisplayPage";
+    public static final String URL_RESTAURANT_CHECKOUT = "customer/checkoutPage";
+
     public static final String URL_FILTER_DISPLAYFILTERS = "/filter/displayFilters";
     public static final String URL_FILTER_FILTERS = "redirect:/filters";
     public static final String URL_RESTAURANTOWNER_RESTAURANTOWNERHOMEPAGE = "restaurantowner/restaurantOwnerHomePage";
@@ -94,4 +109,6 @@ public class ApplicationConstants {
 
     public static final String URL_RESTAURANTOWNER_DISPLAYFILTERS = "/filter/displayFilters";
     public static final String URL_RESTAURANTOWNER_FILTERS = "redirect:/filters";
+
+    public static final String URL_ORDERS = "/order/viewOrder";
 }

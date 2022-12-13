@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import com.CanadaEats.group13.order.dto.OrderDTO;
 import com.CanadaEats.group13.order.dto.OrderDisplayDTO;
 import com.CanadaEats.group13.order.repository.IOrderRepository;
+import com.CanadaEats.group13.utils.ApplicationConstants;
 
 @Controller
 public class OrderController {
@@ -28,6 +29,6 @@ public class OrderController {
 
         System.out.println(orderDisplay.size());
         model.addAttribute("orders", orderDisplay);
-        return "/order/viewOrder";
+        return ApplicationConstants.URL_ORDERS;
     }
 }

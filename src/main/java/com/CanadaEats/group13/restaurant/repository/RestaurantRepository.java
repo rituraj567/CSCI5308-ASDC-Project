@@ -76,7 +76,6 @@ public class RestaurantRepository implements IRestaurantRepository {
             restaurantResult.close();
         } catch (Exception e) {
             System.out.println(e);
-            System.out.println(e.getMessage());
         }
 
         return restaurantDTOList;
@@ -138,9 +137,6 @@ public class RestaurantRepository implements IRestaurantRepository {
 
             while (restaurantResult.next()) {
                 restaurantDTO = getRestaurantDTO(restaurantResult);
-
-                System.out.println(restaurantDTO.getName());
-
             }
 
             connection.close();
@@ -148,7 +144,6 @@ public class RestaurantRepository implements IRestaurantRepository {
             restaurantResult.close();
         } catch (Exception e) {
             System.out.println(e);
-            System.out.println(e.getMessage());
         }
 
         return restaurantDTO;
