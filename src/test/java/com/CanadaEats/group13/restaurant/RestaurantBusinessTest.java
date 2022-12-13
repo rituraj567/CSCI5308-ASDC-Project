@@ -120,7 +120,7 @@ public class RestaurantBusinessTest {
     @DisplayName("deleteSucessTest() test")
     public void deleteSucessTest() {
 
-        Map<String, String> map = restaurantBusiness.deleteRestaurant(1);
+        Map<String, String> map = restaurantBusiness.deleteRestaurant("431");
 
         assertEquals(StatePatternConstants.getSuccessMessage(), map.keySet().toArray()[0]);
         assertEquals(StatePatternConstants.getDeleteSuccess(), map.values().toArray()[0]);
@@ -130,7 +130,7 @@ public class RestaurantBusinessTest {
     @DisplayName("deleteFailureTest() test")
     public void deleteFailureTest() {
 
-        Map<String, String> map = restaurantBusiness.deleteRestaurant(2);
+        Map<String, String> map = restaurantBusiness.deleteRestaurant("200");
 
         assertEquals(StatePatternConstants.getErrorMessage(), map.keySet().toArray()[0]);
         assertEquals(StatePatternConstants.getDeleteFailure(), map.values().toArray()[0]);

@@ -48,9 +48,9 @@ public class RestaurantMock implements IRestaurantRepository {
     }
 
     @Override
-    public Map<String, String> deleteRestaurant(int restaurantId) {
+    public Map<String, String> deleteRestaurant(String restaurantId) {
         IRestaurantState restaurantState;
-        if (restaurantId == 1) {
+        if (restaurantId.equals("431")) {
             restaurantState = OperationsFactory.getInstance().createDeleteSuccessOperation();
             return restaurantState.setMessage();
         }
