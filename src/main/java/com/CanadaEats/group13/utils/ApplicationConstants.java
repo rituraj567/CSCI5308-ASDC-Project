@@ -107,8 +107,13 @@ public class ApplicationConstants {
     public static final String URL_RESTAURANTOWNER_NEWMENUITEMPAGE = "restaurantowner/newMenuItemPage";
     public static final String URL_RESTAURANTOWNER_MENUITEMS = "restaurantowner/menuItems";
 
-    public static final String URL_RESTAURANTOWNER_DISPLAYFILTERS = "/filter/displayFilters";
-    public static final String URL_RESTAURANTOWNER_FILTERS = "redirect:/filters";
+    public static final String URL_RESTAURANTOWNERADMIN_HOMEPAGE = "restaurantOwnersAdmin/restaurantOwnerAdmin";
+    public static final String URL_RESTAURANTOWNERADMIN_NEW = "restaurantOwnersAdmin/newRestaurantOwnerAdmin";
+    public static final String URL_RESTAURANTOWNERADMIN_EDIT = "restaurantOwnersAdmin/editRestaurantOwner";
+    public static final String URL_RESTAURANTOWNERADMIN_POST_SUCCESS = "redirect:/restaurantOwners";
+    public static final String URL_RESTAURANTOWNERADMIN_DELETE_SUCCESS = "redirect:/restaurantOwners";
+    public static final String URL_RESTAURANTOWNERADMIN_VIEW = "restaurantOwnersAdmin/viewRestaurantOwnerAdmin";
 
+    public static final String URL_RESTAURANTOWNERADMIN_BIND = "redirect:/restaurantOwners";
     public static final String URL_ORDERS = "/order/viewOrder";
 }

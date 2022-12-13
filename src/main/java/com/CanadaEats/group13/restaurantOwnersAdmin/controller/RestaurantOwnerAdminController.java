@@ -1,23 +1,18 @@
 package com.CanadaEats.group13.restaurantOwnersAdmin.controller;
 
-import java.util.List;
-
-import javax.servlet.http.HttpServletRequest;
-
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-
 import com.CanadaEats.group13.database.DatabaseConnection;
 import com.CanadaEats.group13.restaurantOwnersAdmin.dto.RestaurantBindingDto;
 import com.CanadaEats.group13.restaurantOwnersAdmin.dto.RestaurantOwnerAdminDto;
 import com.CanadaEats.group13.restaurantOwnersAdmin.repository.IRestaurantOwnerAdminRepository;
 import com.CanadaEats.group13.restaurantOwnersAdmin.repository.RestaurantOwnerAdminRepository;
 import com.CanadaEats.group13.utils.APIAccessAuthorization;
+import com.CanadaEats.group13.utils.ApplicationConstants;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.*;
+
+import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 
 @Controller
 public class RestaurantOwnerAdminController {
@@ -31,27 +26,27 @@ public class RestaurantOwnerAdminController {
     public String displayRestaurantOwners(Model model) {
         List<RestaurantOwnerAdminDto> restaurantOwners = restaurantOwnerAdminRepository.getAllRestaurantOwners();
         model.addAttribute("restaurantOwners", restaurantOwners);
-        return "restaurantOwnersAdmin/restaurantOwnerAdmin";
+        return ApplicationConstants.URL_RESTAURANTOWNERADMIN_HOMEPAGE;
     }
 
     @GetMapping("/admin/restaurantsOwnerAdmin/newRestaurantOwnerAdmin")
     public String newRestaurantOwnerForm(Model model) {
         RestaurantOwnerAdminDto restaurantOwnerAdminDto = new RestaurantOwnerAdminDto();
         model.addAttribute("restaurantOwner", restaurantOwnerAdminDto);
-        return "restaurantOwnersAdmin/newRestaurantOwnerAdmin";
+        return ApplicationConstants.URL_RESTAURANTOWNERADMIN_NEW;
     }
 
     @PostMapping("/admin/restaurantsOwnerAdmin/")
     public String createRestaurantOwner(@ModelAttribute RestaurantOwnerAdminDto restaurantOwnerAdminDto) {
         restaurantOwnerAdminRepository.postRestaurantOwnerAdmin(restaurantOwnerAdminDto);
-        return "redirect:/restaurantOwners";
+        return ApplicationConstants.URL_RESTAURANTOWNERADMIN_POST_SUCCESS;
     }
 
     @GetMapping("/admin/restaurantOwners/{userId}/edit")
     public String editRestaurantOwner(@PathVariable("userId") int userId, Model model) {
         RestaurantOwnerAdminDto restaurantOwnerAdminDto = restaurantOwnerAdminRepository.getRestaurantOwner(userId);
         model.addAttribute("restaurantOwner", restaurantOwnerAdminDto);
-        return "restaurantOwnersAdmin/editRestaurantOwner";
+        return ApplicationConstants.URL_RESTAURANTOWNERADMIN_EDIT;
     }
 
     @PostMapping("/admin/restaurantOwners/{userId}")
@@ -60,20 +55,20 @@ public class RestaurantOwnerAdminController {
         model.addAttribute("restaurant", restaurantOwnerAdminDto);
         restaurantOwnerAdminDto.setId(userId);
         restaurantOwnerAdminRepository.updateRestaurantOwner(restaurantOwnerAdminDto);
-        return "redirect:/restaurantOwners";
+        return ApplicationConstants.URL_RESTAURANTOWNERADMIN_POST_SUCCESS;
     }
 
     @GetMapping("/admin/restaurantOwners/{userId}/delete")
     public String deleteRestaurantOwner(@PathVariable("userId") int userId) {
         restaurantOwnerAdminRepository.deleteRestaurantOwner(userId);
-        return "redirect:/restaurantOwners";
+        return ApplicationConstants.URL_RESTAURANTOWNERADMIN_DELETE_SUCCESS;
     }
 
     @GetMapping("/admin/restaurantOwners/{userId}/view")
     public String viewRestaurantOwner(@PathVariable("userId") int userId, Model model) {
         RestaurantOwnerAdminDto restaurantOwnerAdminDto = restaurantOwnerAdminRepository.getRestaurantOwner(userId);
         model.addAttribute("restaurantOwner", restaurantOwnerAdminDto);
-        return "restaurantOwnersAdmin/viewRestaurantOwnerAdmin";
+        return ApplicationConstants.URL_RESTAURANTOWNERADMIN_VIEW;
     }
 
     @PostMapping("/bindRestaurantOwner")
@@ -81,9 +76,9 @@ public class RestaurantOwnerAdminController {
         boolean isAPIAccessible = APIAccessAuthorization.getInstance().getAPIAccess(request);
         if (isAPIAccessible) {
             restaurantOwnerAdminRepository.bindRestaurantOwner(restaurantBindingDto);
-            return "redirect:/restaurantOwners";
+            return ApplicationConstants.URL_RESTAURANTOWNERADMIN_BIND;
         }
-        return "redirect:/restaurantOwners";
+        return ApplicationConstants.URL_AUTHENTICATION_USERLOGINPAGE;
     }
 
 }
