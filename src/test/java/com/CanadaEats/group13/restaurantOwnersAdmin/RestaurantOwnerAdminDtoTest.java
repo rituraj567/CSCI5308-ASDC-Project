@@ -11,11 +11,7 @@ public class RestaurantOwnerAdminDtoTest {
     public RestaurantOwnerAdminDto restaurantOwnerAdminDto = null;
 
     @BeforeEach
-<<<<<<< HEAD
     public void testSetup(){
-=======
-    public void testSetup() {
->>>>>>> 7082b0846ae8e597ff08b47f4b66fce6340b2684
 
     }
 }
