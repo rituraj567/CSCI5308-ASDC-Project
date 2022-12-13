@@ -4,7 +4,7 @@ import java.io.Serializable;
 import java.sql.Date;
 
 public class UserDetailsDto implements Serializable {
-    private int Id;
+    private int id;
     private String userId;
     private String firstName;
     private String lastName;
@@ -26,7 +26,7 @@ public class UserDetailsDto implements Serializable {
     }
 
     public UserDetailsDto(int id, String userId, String firstName, String lastName, String emailId, String userName, String password, String mobileNumber, String gender, Date birthDate, String address, String city, String province, String country, String postalCode, int status, String roleId) {
-        Id = id;
+        id = id;
         this.userId = userId;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -46,11 +46,11 @@ public class UserDetailsDto implements Serializable {
     }
 
     public int getId() {
-        return Id;
+        return id;
     }
 
     public void setId(int id) {
-        Id = id;
+        id = id;
     }
 
     public String getUserId() {

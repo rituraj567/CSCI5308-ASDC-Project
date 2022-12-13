@@ -1,13 +1,14 @@
 package com.CanadaEats.group13.authentication.repository;
 
+import com.CanadaEats.group13.authentication.dto.UserDetailsDto;
+import com.CanadaEats.group13.common.DTOFactory;
+
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import com.CanadaEats.group13.authentication.dto.UserDetailsDto;
-
 public class UserDataRetriever {
     public UserDetailsDto getUsersDTOFromResultSet(ResultSet resultSet) throws SQLException {
-        UserDetailsDto userDetailsDto = new UserDetailsDto();
+        UserDetailsDto userDetailsDto = DTOFactory.getInstance().createUserDetailsDto();
 
         while (resultSet.next()) {
             userDetailsDto.setId(Integer.parseInt(resultSet.getString("Id")));
@@ -28,7 +29,6 @@ public class UserDataRetriever {
             userDetailsDto.setStatus(resultSet.getInt("Status"));
             userDetailsDto.setRoleId(resultSet.getString("Role_RoleId"));
         }
-        System.out.println(userDetailsDto.getCity());
 
         return userDetailsDto;
     }

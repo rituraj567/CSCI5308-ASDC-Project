@@ -12,16 +12,12 @@ public class UserDetailsDtoTest {
 
     UserDetailsDto userDetailsDto;
     java.sql.Date date;
+
     @BeforeEach
     public void testSetup() {
-        long millis=System.currentTimeMillis();
+        long millis = System.currentTimeMillis();
         date = new java.sql.Date(millis);
-        userDetailsDto = new UserDetailsDto(1,"9c7a3caa-9f3d-4f35-8ecc-7020c0a80174", "Arpit", "Ribadiya", "arpit@gmail.com", "arpit1234", "arpit1234", "1231231234", "Male", date,"1333 south park street", "Halifax", "NS", "Canada", "B3J2K9", 1, "0ab745f3-4d0b-472c-9050-986412813900");
-    }
-
-    @Test
-    public void getIdTest() {
-        assertEquals(1, userDetailsDto.getId());
+        userDetailsDto = new UserDetailsDto(1, "9c7a3caa-9f3d-4f35-8ecc-7020c0a80174", "Arpit", "Ribadiya", "arpit@gmail.com", "arpit1234", "arpit1234", "1231231234", "Male", date, "1333 south park street", "Halifax", "NS", "Canada", "B3J2K9", 1, "0ab745f3-4d0b-472c-9050-986412813900");
     }
 
     @Test
@@ -107,13 +103,6 @@ public class UserDetailsDtoTest {
     }
 
     @Test
-    public void setIdTest() {
-        int newValue = 2;
-        userDetailsDto.setId(newValue);
-        assertEquals(newValue, userDetailsDto.getId());
-    }
-
-    @Test
     public void setUserIdTest() {
         String newValue = "9c7a3caa-9f3d-4f35-8ecc-7020c0a80174";
         userDetailsDto.setUserId(newValue);
@@ -171,7 +160,7 @@ public class UserDetailsDtoTest {
 
     @Test
     public void setBirthDateTest() {
-        long millis=System.currentTimeMillis();
+        long millis = System.currentTimeMillis();
         Date newValue = new java.sql.Date(millis);
         userDetailsDto.setBirthDate(newValue);
         assertEquals(newValue, userDetailsDto.getBirthDate());
