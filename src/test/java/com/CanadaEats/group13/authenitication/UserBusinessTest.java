@@ -1,5 +1,17 @@
 package com.CanadaEats.group13.authenitication;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.when;
+
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
+
 import com.CanadaEats.group13.authentication.business.UserBusiness;
 import com.CanadaEats.group13.authentication.dto.UserDetailsDto;
 import com.CanadaEats.group13.authentication.dto.UserLoginDto;
@@ -7,15 +19,6 @@ import com.CanadaEats.group13.authentication.model.response.UserDetailsResponseM
 import com.CanadaEats.group13.authentication.model.response.UserLoginResponseModel;
 import com.CanadaEats.group13.authentication.repository.UserRepository;
 import com.CanadaEats.group13.common.DTOFactory;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
-
-import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.when;
 
 public class UserBusinessTest {
 

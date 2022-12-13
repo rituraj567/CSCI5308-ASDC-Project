@@ -1,12 +1,13 @@
 package com.CanadaEats.group13.utils;
 
-import org.apache.tomcat.util.codec.binary.Base64;
+import java.security.spec.KeySpec;
 
 import javax.crypto.Cipher;
 import javax.crypto.SecretKey;
 import javax.crypto.SecretKeyFactory;
 import javax.crypto.spec.DESedeKeySpec;
-import java.security.spec.KeySpec;
+
+import org.apache.tomcat.util.codec.binary.Base64;
 
 public class PasswordEncoderDecoder {
 
@@ -54,7 +55,7 @@ public class PasswordEncoderDecoder {
         }
         return encryptedString;
     }
-    
+
     public String decrypt(String encryptedString) {
         String decryptedText = null;
         try {

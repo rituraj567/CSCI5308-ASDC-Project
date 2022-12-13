@@ -1,18 +1,19 @@
 package com.CanadaEats.group13.delivery_person.dto;
 
-import com.CanadaEats.group13.order.dto.OrderDisplayDTO;
+import java.util.ArrayList;
 
-import java.util.*;
+import com.CanadaEats.group13.order.dto.OrderDisplayDTO;
 
 public class DeliveryPersonDTO {
     private String name;
     private ArrayList<OrderDisplayDTO> orderAssigned;
 
-    public DeliveryPersonDTO(){}
-    public DeliveryPersonDTO(String name, ArrayList<OrderDisplayDTO> orderAssigned)
-    {
-        this.name=name;
-        this.orderAssigned=orderAssigned;
+    public DeliveryPersonDTO() {
+    }
+
+    public DeliveryPersonDTO(String name, ArrayList<OrderDisplayDTO> orderAssigned) {
+        this.name = name;
+        this.orderAssigned = orderAssigned;
     }
 
     public String getName() {
@@ -31,6 +32,3 @@ public class DeliveryPersonDTO {
         this.name = name;
     }
 }
-
-
-

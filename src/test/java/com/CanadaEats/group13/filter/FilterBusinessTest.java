@@ -1,21 +1,24 @@
 package com.CanadaEats.group13.filter;
 
-import com.CanadaEats.group13.common.DTOFactory;
-import com.CanadaEats.group13.filter.business.FilterBusiness;
-import com.CanadaEats.group13.filter.dto.FilterDto;
-import com.CanadaEats.group13.filter.repository.FilterRepository;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.when;
+
+import java.util.ArrayList;
+import java.util.List;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.when;
+import com.CanadaEats.group13.common.DTOFactory;
+import com.CanadaEats.group13.filter.business.FilterBusiness;
+import com.CanadaEats.group13.filter.dto.FilterDto;
+import com.CanadaEats.group13.filter.repository.FilterRepository;
 
 public class FilterBusinessTest {
     @InjectMocks
@@ -30,7 +33,7 @@ public class FilterBusinessTest {
     }
 
     @Test
-    final void getAllFilterSuccessTest(){
+    final void getAllFilterSuccessTest() {
         List<FilterDto> filterResponse = prepareFilterData();
         when(filterRepository.getAllFilters()).thenReturn(filterResponse);
 
@@ -42,7 +45,7 @@ public class FilterBusinessTest {
     }
 
     @Test
-    final void getAllFilterFailureTest(){
+    final void getAllFilterFailureTest() {
         List<FilterDto> filterResponse = prepareFilterData();
         when(filterRepository.getAllFilters()).thenReturn(filterResponse);
 
@@ -53,7 +56,7 @@ public class FilterBusinessTest {
     }
 
     @Test
-    final void updateFiltersSuccessTest(){
+    final void updateFiltersSuccessTest() {
         List<FilterDto> filterResponse = prepareFilterData();
         when(filterRepository.updateFilters(any())).thenReturn(filterResponse);
 
@@ -65,7 +68,7 @@ public class FilterBusinessTest {
     }
 
     @Test
-    final void updateFiltersFailureTest(){
+    final void updateFiltersFailureTest() {
         List<FilterDto> filterResponse = prepareFilterData();
         when(filterRepository.updateFilters(any())).thenReturn(filterResponse);
 
@@ -75,8 +78,7 @@ public class FilterBusinessTest {
         assertNotEquals(filterResponse.get(1).getIsActive(), result.get(2).getIsActive());
     }
 
-    private List<FilterDto> prepareFilterData()
-    {
+    private List<FilterDto> prepareFilterData() {
         List<FilterDto> filterDtos = new ArrayList<>();
 
         FilterDto filter1 = DTOFactory.getInstance().createFiltersDto();

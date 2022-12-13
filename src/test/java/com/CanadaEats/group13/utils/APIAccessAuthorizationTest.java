@@ -1,12 +1,12 @@
 package com.CanadaEats.group13.utils;
 
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-import org.mockito.MockitoAnnotations;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import javax.servlet.http.HttpServletRequest;
 
-import static org.junit.jupiter.api.Assertions.*;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.mockito.MockitoAnnotations;
 
 public class APIAccessAuthorizationTest {
     @BeforeEach
@@ -15,7 +15,7 @@ public class APIAccessAuthorizationTest {
     }
 
     @Test
-    final void getAPIAccessSuccessTest(){
+    final void getAPIAccessSuccessTest() {
         HttpServletRequest request = new TestHttpServletRequest();
         boolean result = APIAccessAuthorization.getInstance().getAPIAccess(request);
 

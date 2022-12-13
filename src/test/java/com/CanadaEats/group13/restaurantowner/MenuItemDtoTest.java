@@ -1,17 +1,19 @@
 package com.CanadaEats.group13.restaurantowner;
 
-import com.CanadaEats.group13.restaurantowner.dto.MenuItemDto;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import com.CanadaEats.group13.restaurantowner.dto.MenuItemDto;
 
 public class MenuItemDtoTest {
     MenuItemDto menuItemDto;
 
     @BeforeEach
     public void testSetup() {
-        menuItemDto = new MenuItemDto("0e496f90-5566-42ce-b354-d1cedc73197d", "99496f90-5566-42ce-b354-d1cedc73197d", "Paratha", "Best Paratha", 50);
+        menuItemDto = new MenuItemDto("0e496f90-5566-42ce-b354-d1cedc73197d", "99496f90-5566-42ce-b354-d1cedc73197d",
+                "Paratha", "Best Paratha", 50);
     }
 
     @Test
@@ -20,10 +22,14 @@ public class MenuItemDtoTest {
     }
 
     @Test
-    public void getMeuItemIdTest() { assertEquals("99496f90-5566-42ce-b354-d1cedc73197d", menuItemDto.getMenuItemId()); }
+    public void getMeuItemIdTest() {
+        assertEquals("99496f90-5566-42ce-b354-d1cedc73197d", menuItemDto.getMenuItemId());
+    }
 
     @Test
-    public void getNameTest() { assertEquals("Paratha", menuItemDto.getName());}
+    public void getNameTest() {
+        assertEquals("Paratha", menuItemDto.getName());
+    }
 
     @Test
     public void getDescriptionTest() {

@@ -1,10 +1,10 @@
 package com.CanadaEats.group13.authentication.repository;
 
-import com.CanadaEats.group13.authentication.dto.UserDetailsDto;
-import com.CanadaEats.group13.common.DTOFactory;
-
 import java.sql.ResultSet;
 import java.sql.SQLException;
+
+import com.CanadaEats.group13.authentication.dto.UserDetailsDto;
+import com.CanadaEats.group13.common.DTOFactory;
 
 public class UserDataRetriever {
     public UserDetailsDto getUsersDTOFromResultSet(ResultSet resultSet) throws SQLException {

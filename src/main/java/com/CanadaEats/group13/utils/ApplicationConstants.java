@@ -54,7 +54,6 @@ public class ApplicationConstants {
     public static final String ORDER_STATE_CHANGE_SUCCESS = "The order status changed successfully";
     public static final String ORDER_STATE_CHANGE_ERROR = "Sorry there's an error happened, please try again.";
 
-
     public static final String RESTAURANT_ID = "Id";
     public static final String RESTAURANT_UUID = "RestaurantId";
     public static final String RESTAURANT_NAME = "Name";
@@ -68,4 +67,3 @@ public class ApplicationConstants {
     public static final String RESTAURANT_USER_ID = "User_UserId";
     public static final String ENCRYPTION_KEY = "ThisIsGroup13EncryptionKey";
 }
-

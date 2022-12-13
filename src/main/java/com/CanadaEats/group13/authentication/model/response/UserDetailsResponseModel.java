@@ -1,6 +1,5 @@
 package com.CanadaEats.group13.authentication.model.response;
 
-
 import java.sql.Date;
 
 public class UserDetailsResponseModel {

@@ -1,17 +1,19 @@
 package com.CanadaEats.group13.authenitication;
 
-import com.CanadaEats.group13.authentication.model.response.UserLoginResponseModel;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import com.CanadaEats.group13.authentication.model.response.UserLoginResponseModel;
 
 public class UserLoginResponseModelTest {
     UserLoginResponseModel userLoginResponseModel;
 
     @BeforeEach
     public void testSetup() {
-        userLoginResponseModel = new UserLoginResponseModel("arpit1234", "0ab745f3-4d0b-472c-9050-986412813900", "9c7a3caa-9f3d-4f35-8ecc-7020c0a80174", "d0ac2c3e-4713-4a21-8f65-4aec10cab89d");
+        userLoginResponseModel = new UserLoginResponseModel("arpit1234", "0ab745f3-4d0b-472c-9050-986412813900",
+                "9c7a3caa-9f3d-4f35-8ecc-7020c0a80174", "d0ac2c3e-4713-4a21-8f65-4aec10cab89d");
     }
 
     @Test
