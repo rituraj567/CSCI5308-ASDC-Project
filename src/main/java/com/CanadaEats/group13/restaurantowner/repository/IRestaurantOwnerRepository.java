@@ -9,8 +9,16 @@ import java.util.List;
 
 public interface IRestaurantOwnerRepository {
     List<RestaurantOwnerDto> getAllMenus(String restaurantId);
+
     boolean addMenu(MenuRequestModel menuRequestModel);
+
     boolean addMenuItem(MenuItemRequestModel menuItemRequestModel);
+
     List<MenuItemDto> getMenuItems(String menuId);
+
     boolean deleteMenu(String menuId);
+
+    MenuItemDto getMenuItem(String menuItemId);
+
+    MenuRequestModel getMenu(String menuId);
 }

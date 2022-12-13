@@ -16,15 +16,15 @@ public class ApplicationConstants {
     public static final String MENU_MENUID_COLUMN = "MenuId";
     public static final String MENU_MENUNAME_COLUMN = "Name";
 
-
-
     public static final String MENUITEM_MENUITEMID_COLUMN = "MenuItemId";
     public static final String MENUITEM_NAME_COLUMN = "Name";
     public static final String MENUITEM_DESCRIPTION_COLUMN = "Description";
     public static final String MENUITEM_PRICE_COLUMN = "Price";
     public static final String MENUITEM_MENUID_COLUMN = "Menu_MenuId";
 
-    public static final String RESTAURANT_RESTAURANTID_COLUMN = "RestaurantId";
+    public static final String MENUITEM_RESTAURANTID_COLUMN = "Restaurant_RestaurantId";
+
+
     public static final String RESTAURANT_RESTAURANTNAME_COLUMN = "RestaurantName";
 
     public static final String COOKIE_USERNAME = "username";
@@ -45,7 +45,6 @@ public class ApplicationConstants {
     public static final int COOKIE_MAX_AGE = 0;
     public static final String COOKIE_ROOT_PATH = "/";
 
-
     public static final String WAITING_FOR_PICKUP = "cdf30aeb-c730-418a-abcb-be5ce19c3ee3";
     public static final String EN_ROUTE = "423d5d1e-aa47-4607-801b-1395509175db";
     public static final String DELIVERED = "79fe57ed-2fc0-49f0-9df7-eb2560ed723a";
@@ -56,5 +55,15 @@ public class ApplicationConstants {
     public static final String ORDER_STATE_CHANGE_ERROR = "Sorry there's an error happened, please try again.";
 
 
+    public static final String RESTAURANT_ID = "Id";
+    public static final String RESTAURANT_UUID = "RestaurantId";
+    public static final String RESTAURANT_NAME = "Name";
+    public static final String RESTAURANT_ADDRESS = "Address";
+    public static final String RESTAURANT_CITY = "City";
+    public static final String RESTAURANT_PROVINCE = "Province";
+    public static final String RESTAURANT_COUNTRY = "Province";
+    public static final String RESTAURANT_POSTAL_CODE = "PostalCode";
+    public static final String RESTAURANT_PHONE_NUMBER = "PhoneNumber";
+    public static final String RESTAURANT_STATUS = "Status";
+    public static final String RESTAURANT_USER_ID = "User_UserId";
 }
-

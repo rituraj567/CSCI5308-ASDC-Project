@@ -74,7 +74,7 @@
             <div class="card-body">
               <a
                 class="card-block stretched-link text-decoration-none"
-                th:href="@{/restaurant/{restaurantId}/display(restaurantId=${restaurant.id})}
+                th:href="@{/restaurant/{restaurantId}/display(restaurantId=${restaurant.getRestaurantId()})}
               "
               >
                 <p th:text="${restaurant.getName()}"></p>

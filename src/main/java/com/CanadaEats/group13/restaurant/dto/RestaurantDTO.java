@@ -14,11 +14,12 @@ public class RestaurantDTO {
     private String status;
     private String userId;
 
-    public RestaurantDTO(){
-        
+    public RestaurantDTO() {
+
     }
 
-    public RestaurantDTO(int id, String restaurantId, String name, String address, String city, String province, String country, String postalCode, String phoneNumber, String status, String userId) {
+    public RestaurantDTO(int id, String restaurantId, String name, String address, String city, String province,
+            String country, String postalCode, String phoneNumber, String status, String userId) {
         this.id = id;
         this.restaurantId = restaurantId;
         this.name = name;
@@ -90,10 +91,6 @@ public class RestaurantDTO {
 
     public String getPhoneNumber() {
         return phoneNumber;
-    }
-
-    public void setPhoneNumber(String phoneNumber) {
-        this.phoneNumber = phoneNumber;
     }
 
     public String getAddress() {

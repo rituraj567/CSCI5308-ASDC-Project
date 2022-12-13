@@ -26,7 +26,6 @@ public class DatabaseConnection implements IDatabaseConnection {
 
         try {
             Properties databaseProperties = new Properties();
-
             FileInputStream inputStream = new FileInputStream("./src/main/resources/application.properties");
             databaseProperties.load(inputStream);
             String jdbcPackage = databaseProperties.getProperty("JDBCDriver");
@@ -47,38 +46,6 @@ public class DatabaseConnection implements IDatabaseConnection {
         }
 
         return connection;
-
-    }
-
-    @Override
-    public void closeConnection() {
-
-        Connection connection = getDatabaseConnection();
-        try {
-            connection.close();
-        } catch (Exception e) {
-            System.out.println(e);
-        }
-
-    }
-
-    public void executeQuery(PreparedStatement statement) {
-        try {
-            statement.execute();
-        } catch (Exception e) {
-            System.out.println(e);
-        }
-
-    }
-
-    @Override
-    public void executeInsertQuery(PreparedStatement statement) {
-        executeQuery(statement);
-    }
-
-    @Override
-    public void executeUpdateQuery(PreparedStatement statement) {
-        executeQuery(statement);
 
     }
 

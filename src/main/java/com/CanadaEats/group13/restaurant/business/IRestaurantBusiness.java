@@ -10,7 +10,7 @@ public interface IRestaurantBusiness {
 
     public Map<String, String> insertRestaurant(RestaurantDTO restaurantDTO);
 
-    public RestaurantDTO getRestaurantById(int id);
+    public RestaurantDTO getRestaurantById(String id);
 
     public Map<String, String> updateRestuarant(RestaurantDTO restaurantDTO);
 

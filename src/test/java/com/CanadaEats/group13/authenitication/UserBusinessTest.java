@@ -14,7 +14,7 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Matchers.anyObject;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 
 public class UserBusinessTest {
@@ -33,10 +33,9 @@ public class UserBusinessTest {
     @Test
     final void registerUserSuccessTest(){
 
-        UserDetailsDto userDetailsDto = new UserDetailsDto();
-        userDetailsDto.setPassword("arpit1234");
+        UserDetailsDto userDetailsDto = prepareRegisterValidationData();
         UserDetailsResponseModel userDetailsResponseModel = prepareRegisterData();
-        when(userRepository.registerUser(anyObject())).thenReturn(userDetailsResponseModel);
+        when(userRepository.registerUser(any())).thenReturn(userDetailsResponseModel);
 
         UserDetailsResponseModel result = userBusiness.registerUser(userDetailsDto);
 
@@ -49,7 +48,7 @@ public class UserBusinessTest {
         UserDetailsDto userDetailsDto = new UserDetailsDto();
         userDetailsDto.setPassword("arpit1234");
         UserDetailsResponseModel userDetailsResponseModel = prepareRegisterData();
-        when(userRepository.registerUser(anyObject())).thenReturn(userDetailsResponseModel);
+        when(userRepository.registerUser(any())).thenReturn(userDetailsResponseModel);
 
         UserDetailsResponseModel result = userBusiness.registerUser(userDetailsDto);
 
@@ -63,7 +62,7 @@ public class UserBusinessTest {
         userLoginDto.setUserName("arpit1234");
         userLoginDto.setPassword("arpit1234");
         UserLoginResponseModel userLoginResponseModel = prepareLoginData();
-        when(userRepository.loginUser(anyObject())).thenReturn(userLoginResponseModel);
+        when(userRepository.loginUser(any())).thenReturn(userLoginResponseModel);
 
         UserLoginResponseModel result = userBusiness.loginUser(userLoginDto);
 
@@ -78,12 +77,64 @@ public class UserBusinessTest {
         userLoginDto.setUserName("arpit1234");
         userLoginDto.setPassword("arpit1234");
         UserLoginResponseModel userLoginResponseModel = prepareLoginData();
-        when(userRepository.loginUser(anyObject())).thenReturn(userLoginResponseModel);
+        when(userRepository.loginUser(any())).thenReturn(userLoginResponseModel);
 
         UserLoginResponseModel result = userBusiness.loginUser(userLoginDto);
 
         assertNotNull(result);
         assertNotEquals("arpit", result.getUserName());
+    }
+
+    @Test
+    final void validateRegisterUserSuccessTest(){
+        UserDetailsResponseModel userDetailsResponseModel = new UserDetailsResponseModel();
+        userDetailsResponseModel.setFirstName("Arpit");
+        UserDetailsDto userDetailsDto = prepareRegisterValidationData();
+        when(userRepository.registerUser(any())).thenReturn(userDetailsResponseModel);
+
+        UserDetailsResponseModel result = userBusiness.registerUser(userDetailsDto);
+        assertNotNull(result);
+        assertEquals("Arpit", result.getFirstName());
+    }
+
+    @Test
+    final void validateRegisterUserFirstNameFailureTest(){
+        UserDetailsDto userDetailsDto = prepareRegisterValidationData();
+        userDetailsDto.setFirstName("");
+
+        UserDetailsResponseModel result = userBusiness.registerUser(userDetailsDto);
+        assertNotNull(result);
+        assertEquals(null, result.getFirstName());
+    }
+
+    @Test
+    final void validateRegisterUserUserNameFailureTest(){
+        UserDetailsDto userDetailsDto = prepareRegisterValidationData();
+        userDetailsDto.setUserName("");
+
+        UserDetailsResponseModel result = userBusiness.registerUser(userDetailsDto);
+        assertNotNull(result);
+        assertEquals(null, result.getUserName());
+    }
+
+    @Test
+    final void validateRegisterUserCityFailureTest(){
+        UserDetailsDto userDetailsDto = prepareRegisterValidationData();
+        userDetailsDto.setCity("");
+
+        UserDetailsResponseModel result = userBusiness.registerUser(userDetailsDto);
+        assertNotNull(result);
+        assertEquals(null, result.getCity());
+    }
+
+    @Test
+    final void validateRegisterUserCountryFailureTest(){
+        UserDetailsDto userDetailsDto = prepareRegisterValidationData();
+        userDetailsDto.setCountry("");
+
+        UserDetailsResponseModel result = userBusiness.registerUser(userDetailsDto);
+        assertNotNull(result);
+        assertEquals(null, result.getCountry());
     }
 
     private UserDetailsResponseModel prepareRegisterData(){
@@ -105,4 +156,20 @@ public class UserBusinessTest {
         return userLoginResponseModel;
     }
 
+    private UserDetailsDto prepareRegisterValidationData(){
+        UserDetailsDto userDetailsDto = new UserDetailsDto();
+        userDetailsDto.setFirstName("Arpit");
+        userDetailsDto.setLastName("Ribadiya");
+        userDetailsDto.setUserName("arpit1234");
+        userDetailsDto.setEmailId("arpit@gmail.com");
+        userDetailsDto.setPassword("arpit1234");
+        userDetailsDto.setAddress("1333 south park street");
+        userDetailsDto.setGender("Male");
+        userDetailsDto.setCity("Halifax");
+        userDetailsDto.setProvince("NS");
+        userDetailsDto.setPostalCode("B3J2K9");
+        userDetailsDto.setCountry("Canada");
+
+        return userDetailsDto;
+    }
 }

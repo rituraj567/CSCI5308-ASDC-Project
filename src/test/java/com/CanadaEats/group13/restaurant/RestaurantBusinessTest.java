@@ -13,9 +13,9 @@ import org.junit.jupiter.api.Test;
 import com.CanadaEats.group13.common.DTOFactory;
 import com.CanadaEats.group13.restaurant.business.IRestaurantBusiness;
 import com.CanadaEats.group13.restaurant.business.RestaurantBusiness;
-import com.CanadaEats.group13.restaurant.config.RestaurantConstants;
 import com.CanadaEats.group13.restaurant.dto.RestaurantDTO;
 import com.CanadaEats.group13.restaurant.repository.IRestaurantRepository;
+import com.CanadaEats.group13.utils.StatePatternConstants;
 
 @DisplayName("Restaurant Business Test")
 public class RestaurantBusinessTest {
@@ -39,6 +39,32 @@ public class RestaurantBusinessTest {
     }
 
     @Test
+    @DisplayName("getAllRestaurantsNullTest() test")
+    public void getAllRestaurantsNullTest() {
+
+        List<RestaurantDTO> restaurantDTOList = restaurantBusiness.getAllRestaurants();
+        RestaurantDTO restaurantDTO = restaurantDTOList.get(0);
+        restaurantDTO.setAddress(null);
+        restaurantDTO.setCountry(null);
+        assertEquals(null, restaurantDTO.getAddress());
+        assertEquals(null, restaurantDTO.getCountry());
+
+    }
+
+    @Test
+    @DisplayName("getAllRestaurantsEmptTest() test")
+    public void getAllRestaurantsEmptyTest() {
+
+        List<RestaurantDTO> restaurantDTOList = restaurantBusiness.getAllRestaurants();
+        RestaurantDTO restaurantDTO = restaurantDTOList.get(0);
+        restaurantDTO.setName("");
+        restaurantDTO.setPostalCode("");
+        assertEquals("", restaurantDTO.getName());
+        assertEquals("", restaurantDTO.getPostalCode());
+
+    }
+
+    @Test
     @DisplayName("insertSucessTest() test")
     public void insertSucessTest() {
 
@@ -47,8 +73,8 @@ public class RestaurantBusinessTest {
 
         Map<String, String> map = restaurantBusiness.insertRestaurant(restaurantDTO);
 
-        assertEquals(RestaurantConstants.getSuccessMessage(), map.keySet().toArray()[0]);
-        assertEquals(RestaurantConstants.getInsertSuccess(), map.values().toArray()[0]);
+        assertEquals(StatePatternConstants.getSuccessMessage(), map.keySet().toArray()[0]);
+        assertEquals(StatePatternConstants.getInsertSuccess(), map.values().toArray()[0]);
     }
 
     @Test
@@ -60,8 +86,8 @@ public class RestaurantBusinessTest {
 
         Map<String, String> map = restaurantBusiness.insertRestaurant(restaurantDTO);
 
-        assertEquals(RestaurantConstants.getErrorMessage(), map.keySet().toArray()[0]);
-        assertEquals(RestaurantConstants.getInsertError(), map.values().toArray()[0]);
+        assertEquals(StatePatternConstants.getErrorMessage(), map.keySet().toArray()[0]);
+        assertEquals(StatePatternConstants.getInsertError(), map.values().toArray()[0]);
     }
 
     @Test
@@ -73,8 +99,8 @@ public class RestaurantBusinessTest {
 
         Map<String, String> map = restaurantBusiness.updateRestuarant(restaurantDTO);
 
-        assertEquals(RestaurantConstants.getSuccessMessage(), map.keySet().toArray()[0]);
-        assertEquals(RestaurantConstants.getUpdateSuccess(), map.values().toArray()[0]);
+        assertEquals(StatePatternConstants.getSuccessMessage(), map.keySet().toArray()[0]);
+        assertEquals(StatePatternConstants.getUpdateSuccess(), map.values().toArray()[0]);
     }
 
     @Test
@@ -86,8 +112,8 @@ public class RestaurantBusinessTest {
 
         Map<String, String> map = restaurantBusiness.updateRestuarant(restaurantDTO);
 
-        assertEquals(RestaurantConstants.getErrorMessage(), map.keySet().toArray()[0]);
-        assertEquals(RestaurantConstants.getUpdateFailure(), map.values().toArray()[0]);
+        assertEquals(StatePatternConstants.getErrorMessage(), map.keySet().toArray()[0]);
+        assertEquals(StatePatternConstants.getUpdateFailure(), map.values().toArray()[0]);
     }
 
     @Test
@@ -96,8 +122,8 @@ public class RestaurantBusinessTest {
 
         Map<String, String> map = restaurantBusiness.deleteRestaurant(1);
 
-        assertEquals(RestaurantConstants.getSuccessMessage(), map.keySet().toArray()[0]);
-        assertEquals(RestaurantConstants.getDeleteSuccess(), map.values().toArray()[0]);
+        assertEquals(StatePatternConstants.getSuccessMessage(), map.keySet().toArray()[0]);
+        assertEquals(StatePatternConstants.getDeleteSuccess(), map.values().toArray()[0]);
     }
 
     @Test
@@ -106,8 +132,8 @@ public class RestaurantBusinessTest {
 
         Map<String, String> map = restaurantBusiness.deleteRestaurant(2);
 
-        assertEquals(RestaurantConstants.getErrorMessage(), map.keySet().toArray()[0]);
-        assertEquals(RestaurantConstants.getDeleteFailure(), map.values().toArray()[0]);
+        assertEquals(StatePatternConstants.getErrorMessage(), map.keySet().toArray()[0]);
+        assertEquals(StatePatternConstants.getDeleteFailure(), map.values().toArray()[0]);
     }
 
     @Test
@@ -118,6 +144,16 @@ public class RestaurantBusinessTest {
 
         assertEquals(1, restaurantDTOs.size());
         assertEquals("Passage to India", restaurantDTOs.get(0).getName());
+    }
+
+    @Test
+    @DisplayName("searchNoPresentTest() test")
+    public void searchNoPresentTest() {
+
+        List<RestaurantDTO> restaurantDTOs = restaurantBusiness.searchRestaurants("Adda");
+
+        assertEquals(0, restaurantDTOs.size());
+
     }
 
     @AfterEach
