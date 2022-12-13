@@ -82,4 +82,16 @@ public class ApplicationConstants {
     public static final String URL_AUTHENTICATION_VIEWPROFILE = "redirect:/viewProfile";
     public static final String URL_AUTHENTICATION_ADMINHOMEPAGE = "utils/adminuserhomepage";
     public static final String URL_AUTHENTICATION_USERREGISTRATIONERRORPAGE = "redirect:/userregistrationerrorpage";
+
+    public static final String URL_FILTER_DISPLAYFILTERS = "/filter/displayFilters";
+    public static final String URL_FILTER_FILTERS = "redirect:/filters";
+    public static final String URL_RESTAURANTOWNER_RESTAURANTOWNERHOMEPAGE = "restaurantowner/restaurantOwnerHomePage";
+    public static final String URL_RESTAURANTOWNER_NEWMENUPAGE = "restaurantowner/newMenuPage";
+    public static final String URL_RESTAURANTOWNER_RESTOWNERHOMEPAGE = "redirect:/restaurantownerhomepage";
+    public static final String URL_RESTAURANTOWNER_ADDMENUERROR = "restaurantowner/addMenuError";
+    public static final String URL_RESTAURANTOWNER_NEWMENUITEMPAGE = "restaurantowner/newMenuItemPage";
+    public static final String URL_RESTAURANTOWNER_MENUITEMS = "restaurantowner/menuItems";
+
+    public static final String URL_RESTAURANTOWNER_DISPLAYFILTERS = "/filter/displayFilters";
+    public static final String URL_RESTAURANTOWNER_FILTERS = "redirect:/filters";
 }
