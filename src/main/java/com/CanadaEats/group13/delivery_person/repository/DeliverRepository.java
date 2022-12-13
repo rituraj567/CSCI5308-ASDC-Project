@@ -12,6 +12,7 @@ import com.CanadaEats.group13.order.dto.OrderDTO;
 import com.CanadaEats.group13.order.dto.OrderDisplayDTO;
 import com.CanadaEats.group13.order.repository.IOrderRepository;
 import com.CanadaEats.group13.utils.ApplicationConstants;
+import sun.jvm.hotspot.debugger.windbg.DLL;
 
 public class DeliverRepository implements IDeliverRepository {
 
@@ -105,4 +106,18 @@ public class DeliverRepository implements IDeliverRepository {
         }
         return result;
     }
+
+//    public static void main(String args[])
+//    {
+//        DeliverRepository deliver= new DeliverRepository();
+//
+//        ArrayList<OrderDisplayDTO> od = deliver.orders_assigned("109591b1-bee8-4a49-93ce-c420aaac68e3");
+//
+//        for(OrderDisplayDTO i : od)
+//        {
+//            System.out.println("Id: "+i.getId());
+//            System.out.println("Restaurant: "+i.getRestaurant());
+//        }
+//    }
+
 }

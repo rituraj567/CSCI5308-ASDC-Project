@@ -14,7 +14,6 @@ import org.springframework.stereotype.Repository;
 import com.CanadaEats.group13.database.DatabaseConnection;
 import com.CanadaEats.group13.database.IDatabaseConnection;
 import com.CanadaEats.group13.order.dto.OrderDTO;
-import com.CanadaEats.group13.order.dto.OrderDetialsDTO;
 import com.CanadaEats.group13.order.dto.OrderDisplayDTO;
 import com.CanadaEats.group13.utils.ApplicationConstants;
 
@@ -61,36 +60,6 @@ public class IOrderRepository implements IOderRepository {
             throw new RuntimeException(e);
         }
         return orderDTOArrayList;
-    }
-
-    @Override
-    public ArrayList<OrderDetialsDTO> getOrderDetails() {
-        ArrayList<OrderDetialsDTO> orderDetialsDTOS = new ArrayList<OrderDetialsDTO>();
-        try {
-            databaseConnection = DatabaseConnection.getInstance();
-            connection = databaseConnection.getDatabaseConnection();
-            Statement statement = connection.createStatement();
-            String orders = " select * from OrderDetail";
-            ResultSet orderDetailResult = statement.executeQuery(orders);
-
-            while (orderDetailResult.next()) {
-                int order_id = orderDetailResult.getInt("Id");
-                String orderDetailId = orderDetailResult.getString("OrderDetailId");
-                String orderId = orderDetailResult.getString("OrderId");
-                String MenuItemId = orderDetailResult.getString("MenuItemId");
-                int quantity = orderDetailResult.getInt("Quantity");
-                int total = orderDetailResult.getInt("Total_Amount");
-                orderDetialsDTOS
-                        .add(new OrderDetialsDTO(order_id, orderDetailId, orderId, MenuItemId, quantity, total));
-            }
-            connection.close();
-            statement.close();
-            orderDetailResult.close();
-
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
-        return orderDetialsDTOS;
     }
 
     @Override

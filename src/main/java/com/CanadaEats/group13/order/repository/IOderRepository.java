@@ -3,13 +3,10 @@ package com.CanadaEats.group13.order.repository;
 import java.util.ArrayList;
 
 import com.CanadaEats.group13.order.dto.OrderDTO;
-import com.CanadaEats.group13.order.dto.OrderDetialsDTO;
 import com.CanadaEats.group13.order.dto.OrderDisplayDTO;
 
 public interface IOderRepository {
     public ArrayList<OrderDTO> getOrders();
-
-    public ArrayList<OrderDetialsDTO> getOrderDetails();
 
     public void deleteOrder(OrderDTO orderDTO);
 
@@ -27,8 +24,5 @@ public interface IOderRepository {
 
     public ArrayList<OrderDisplayDTO> displayOrder(ArrayList<OrderDTO> orderDTO);
 
-    //
-    // public abstract class Payment{public abstract String paymentOption(String
-    // s);}
 
 }
