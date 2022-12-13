@@ -1,6 +1,5 @@
 package com.CanadaEats.group13.restaurantowner;
 
-import com.CanadaEats.group13.filter.dto.FilterDto;
 import com.CanadaEats.group13.restaurantowner.dto.MenuDto;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -34,7 +33,7 @@ public class MenuDtoTest {
 
     @Test
     public void setMenuNameTest() {
-        String newValue =  "Gujarati";
+        String newValue = "Gujarati";
         menuDto.setMenuName(newValue);
         assertEquals(newValue, menuDto.getMenuName());
     }

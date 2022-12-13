@@ -4,6 +4,14 @@ public class FilterDto {
     private String filterName;
     private int isActive;
 
+    public FilterDto() {
+    }
+
+    public FilterDto(String filterName, int isActive) {
+        this.filterName = filterName;
+        this.isActive = isActive;
+    }
+
     public String getFilterName() {
         return filterName;
     }
@@ -17,14 +25,6 @@ public class FilterDto {
     }
 
     public void setIsActive(int isActive) {
-        this.isActive = isActive;
-    }
-
-    public FilterDto() {
-    }
-
-    public FilterDto(String filterName, int isActive) {
-        this.filterName = filterName;
         this.isActive = isActive;
     }
 }

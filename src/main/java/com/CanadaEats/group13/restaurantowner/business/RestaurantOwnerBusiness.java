@@ -17,24 +17,19 @@ public class RestaurantOwnerBusiness implements IRestaurantOwnerBusiness {
 
     IRestaurantOwnerRepository userRepository;
 
-    public RestaurantOwnerBusiness(IRestaurantOwnerRepository userRepository)
-    {
-       this.userRepository = userRepository;
+    public RestaurantOwnerBusiness(IRestaurantOwnerRepository userRepository) {
+        this.userRepository = userRepository;
     }
 
     @Override
-    public List<RestaurantOwnerDto> getAllMenus(String restaurantId){
+    public List<RestaurantOwnerDto> getAllMenus(String restaurantId) {
         List<RestaurantOwnerDto> userResponse = new ArrayList<>();
 
-        try
-        {
+        try {
             userResponse = userRepository.getAllMenus(restaurantId);
-        }
-        catch (Exception ex)
-        {
+        } catch (Exception ex) {
             System.out.println("Exception: getAllMenus in RestaurantOwnerBusiness");
         }
-
 
         return userResponse;
     }
@@ -71,13 +66,13 @@ public class RestaurantOwnerBusiness implements IRestaurantOwnerBusiness {
 
     @Override
     public List<MenuItemDto> getMenuItems(String menuId) {
-        List<MenuItemDto> menuItemDtos  = userRepository.getMenuItems(menuId);
-        return  menuItemDtos;
+        List<MenuItemDto> menuItemDtos = userRepository.getMenuItems(menuId);
+        return menuItemDtos;
     }
 
     @Override
     public boolean deleteMenu(String menuId) {
-        boolean result  = userRepository.deleteMenu(menuId);
+        boolean result = userRepository.deleteMenu(menuId);
         return result;
     }
 }

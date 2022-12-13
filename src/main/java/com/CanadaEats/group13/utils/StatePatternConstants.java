@@ -1,7 +1,6 @@
 package com.CanadaEats.group13.utils;
 
 public class StatePatternConstants {
-
     private static final String SUCCESS = "SUCCESS";
     private static final String FAILURE = "FAILURE";
     private static final String ERROR = "ERROR";

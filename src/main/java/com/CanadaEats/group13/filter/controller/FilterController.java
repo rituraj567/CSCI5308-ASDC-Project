@@ -9,7 +9,6 @@ import com.CanadaEats.group13.utils.APIAccessAuthorization;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
@@ -21,15 +20,14 @@ public class FilterController {
 
     IFilterBusiness filterBusiness;
 
-    public FilterController(){
+    public FilterController() {
         this.filterBusiness = new FilterBusiness(new FilterRepository(DatabaseConnection.getInstance()));
     }
 
     @GetMapping("/filters")
     public String getAllFilters(Model model, HttpServletRequest request) {
         boolean isAPIAccessible = APIAccessAuthorization.getInstance().getAPIAccess(request);
-        if(isAPIAccessible)
-        {
+        if (isAPIAccessible) {
             List<FilterDto> filters = filterBusiness.getAllFilters();
             model.addAttribute("filters", filters);
             return "/filter/displayFilters";
@@ -38,9 +36,9 @@ public class FilterController {
     }
 
     @PostMapping("/updatefilters")
-    public String updateFilters(@RequestBody List<FilterDto> filterDto, HttpServletRequest request){
+    public String updateFilters(@RequestBody List<FilterDto> filterDto, HttpServletRequest request) {
         boolean isAPIAccessible = APIAccessAuthorization.getInstance().getAPIAccess(request);
-        if(isAPIAccessible) {
+        if (isAPIAccessible) {
             filterBusiness.updateFilters(filterDto);
             return "redirect:/filters";
         }

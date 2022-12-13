@@ -1,6 +1,5 @@
 package com.CanadaEats.group13.filter;
 
-import com.CanadaEats.group13.authentication.dto.UserLoginDto;
 import com.CanadaEats.group13.filter.dto.FilterDto;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

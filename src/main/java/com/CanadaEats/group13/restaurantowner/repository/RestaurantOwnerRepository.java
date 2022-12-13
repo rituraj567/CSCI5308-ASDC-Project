@@ -1,18 +1,18 @@
 package com.CanadaEats.group13.restaurantowner.repository;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.Statement;
-import java.util.ArrayList;
-import java.util.List;
-
 import com.CanadaEats.group13.database.IDatabaseConnection;
 import com.CanadaEats.group13.restaurantowner.dto.MenuItemDto;
 import com.CanadaEats.group13.restaurantowner.dto.RestaurantOwnerDto;
 import com.CanadaEats.group13.restaurantowner.model.request.MenuItemRequestModel;
 import com.CanadaEats.group13.restaurantowner.model.request.MenuRequestModel;
 import com.CanadaEats.group13.utils.ApplicationConstants;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 
 public class RestaurantOwnerRepository implements IRestaurantOwnerRepository {
 
@@ -39,10 +39,8 @@ public class RestaurantOwnerRepository implements IRestaurantOwnerRepository {
                     RestaurantOwnerDto restaurantOwnerDto = new RestaurantOwnerDto();
                     restaurantOwnerDto.setMenuId(result.getString(ApplicationConstants.MENU_MENUID_COLUMN));
                     restaurantOwnerDto.setName(result.getString(ApplicationConstants.MENU_MENUNAME_COLUMN));
-                    restaurantOwnerDto
-                            .setRestaurantId(result.getString(ApplicationConstants.RESTAURANT_RESTAURANTID_COLUMN));
-                    restaurantOwnerDto
-                            .setRestaurantName(result.getString(ApplicationConstants.RESTAURANT_RESTAURANTNAME_COLUMN));
+                    restaurantOwnerDto.setRestaurantId(result.getString(ApplicationConstants.RESTAURANT_RESTAURANTID_COLUMN));
+                    restaurantOwnerDto.setRestaurantName(result.getString(ApplicationConstants.RESTAURANT_RESTAURANTNAME_COLUMN));
                     response.add(restaurantOwnerDto);
                 }
             } catch (Exception ex) {
@@ -56,8 +54,7 @@ public class RestaurantOwnerRepository implements IRestaurantOwnerRepository {
                 statement.close();
                 result.close();
             } catch (Exception ex) {
-                System.out.println(
-                        "Exception : RestaurantOwnerRepository - Closing database connection in getAllMenus()");
+                System.out.println("Exception : RestaurantOwnerRepository - Closing database connection in getAllMenus()");
             }
         }
         return response;
@@ -83,12 +80,7 @@ public class RestaurantOwnerRepository implements IRestaurantOwnerRepository {
 
                 if (count > 0) {
                     menuAdded = true;
-                    System.out.println("Success : RestaurantOwnerRepository - addMenu()");
-                } else {
-                    System.out.println("Failure : RestaurantOwnerRepository - addMenu()");
                 }
-            } else {
-                System.out.println("Failure : Already Menu Present with this Name");
             }
         } catch (Exception ex) {
             System.out.println("Exception : RestaurantOwnerRepository - addMenu()");
@@ -128,12 +120,7 @@ public class RestaurantOwnerRepository implements IRestaurantOwnerRepository {
 
                 if (count > 0) {
                     menuItemAdded = true;
-                    System.out.println("Success : RestaurantOwnerRepository - addMenuItem()");
-                } else {
-                    System.out.println("Failure : RestaurantOwnerRepository - addMenuItem()");
                 }
-            } else {
-                System.out.println("Failure : Already MenuItem Present with this Name");
             }
 
         } catch (Exception ex) {
@@ -211,8 +198,7 @@ public class RestaurantOwnerRepository implements IRestaurantOwnerRepository {
                 connection.close();
             } catch (Exception ex) {
                 menuDeleted = false;
-                System.out
-                        .println("Exception : RestaurantOwnerRepository - Closing database connection in deleteMenu()");
+                System.out.println("Exception : RestaurantOwnerRepository - Closing database connection in deleteMenu()");
             }
         }
         return menuDeleted;
@@ -234,8 +220,7 @@ public class RestaurantOwnerRepository implements IRestaurantOwnerRepository {
                     menuItemDto.setMenuItemId(result.getString(ApplicationConstants.MENUITEM_MENUITEMID_COLUMN));
                     menuItemDto.setName(result.getString(ApplicationConstants.MENUITEM_NAME_COLUMN));
                     menuItemDto.setDescription(result.getString(ApplicationConstants.MENUITEM_DESCRIPTION_COLUMN));
-                    menuItemDto
-                            .setPrice(Integer.parseInt(result.getString(ApplicationConstants.MENUITEM_PRICE_COLUMN)));
+                    menuItemDto.setPrice(Integer.parseInt(result.getString(ApplicationConstants.MENUITEM_PRICE_COLUMN)));
                     menuItemDto.setMenuId(result.getString(ApplicationConstants.MENUITEM_MENUID_COLUMN));
                 }
             } catch (Exception ex) {
@@ -249,8 +234,7 @@ public class RestaurantOwnerRepository implements IRestaurantOwnerRepository {
                 statement.close();
                 result.close();
             } catch (Exception ex) {
-                System.out.println(
-                        "Exception : RestaurantOwnerRepository - Closing database connection in getMenuItems()");
+                System.out.println("Exception : RestaurantOwnerRepository - Closing database connection in getMenuItems()");
             }
         }
         return menuItemDto;
@@ -269,15 +253,12 @@ public class RestaurantOwnerRepository implements IRestaurantOwnerRepository {
             try {
                 while (result.next()) {
                     menuRequestModel = new MenuRequestModel();
-                    menuRequestModel
-                            .setRestaurantId(result.getString(ApplicationConstants.MENUITEM_RESTAURANTID_COLUMN));
+                    menuRequestModel.setRestaurantId(result.getString(ApplicationConstants.MENUITEM_RESTAURANTID_COLUMN));
                     menuRequestModel.setName(result.getString(ApplicationConstants.MENU_MENUNAME_COLUMN));
-
                 }
             } catch (Exception ex) {
                 System.out.println(ex);
             }
-            System.out.println("Name" + menuRequestModel.getName());
         } catch (Exception ex) {
             System.out.println(ex);
         } finally {
@@ -286,8 +267,7 @@ public class RestaurantOwnerRepository implements IRestaurantOwnerRepository {
                 statement.close();
                 result.close();
             } catch (Exception ex) {
-                System.out.println(
-                        "Exception : RestaurantOwnerRepository - Closing database connection in getMenuItems()");
+                System.out.println("Exception : RestaurantOwnerRepository - Closing database connection in getMenuItems()");
             }
         }
         return menuRequestModel;

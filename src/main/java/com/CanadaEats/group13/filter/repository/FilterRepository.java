@@ -18,9 +18,10 @@ public class FilterRepository implements IFilterRepository {
     Statement statement;
     ResultSet filterResult;
 
-    public FilterRepository(IDatabaseConnection databaseConnection){
+    public FilterRepository(IDatabaseConnection databaseConnection) {
         this.databaseConnection = databaseConnection;
     }
+
     @Override
     public List<FilterDto> getAllFilters() {
         List<FilterDto> filtersDtoList = new ArrayList<>();
@@ -37,34 +38,22 @@ public class FilterRepository implements IFilterRepository {
                 int filterIsActive = Integer.parseInt(filterResult.getString(ApplicationConstants.FILTER_ISACTIVE_COLUMN));
                 filtersDtoList.add(new FilterDto(filterName, filterIsActive));
             }
-
-            System.out.println("Filters: ");
-            for (FilterDto filter : filtersDtoList) {
-                System.out.println(filter.getFilterName() + filter.getIsActive());
-            }
-        }
-        catch (Exception ex)
-        {
-            System.out.println("Exception : FilterRepository - getAllFilters()");
+        } catch (Exception ex) {
             System.out.println(ex);
             System.out.println(ex.getMessage());
-        }
-        finally
-        {
-            try{
+        } finally {
+            try {
                 connection.close();
                 statement.close();
                 filterResult.close();
-            }
-            catch (Exception ex){
+            } catch (Exception ex) {
                 System.out.println("Exception : FilerRepository - Closing database connection in getAllFilters()");
             }
         }
         return filtersDtoList;
     }
 
-    public List<FilterDto> updateFilters(List<FilterDto> filterDtos)
-    {
+    public List<FilterDto> updateFilters(List<FilterDto> filterDtos) {
         try {
             databaseConnection = DatabaseConnection.getInstance();
             connection = databaseConnection.getDatabaseConnection();
@@ -73,8 +62,7 @@ public class FilterRepository implements IFilterRepository {
 
             filterResult = prepStmt.executeQuery(getfilters);
 
-            while (filterResult.next())
-            {
+            while (filterResult.next()) {
                 String currFilterName = filterResult.getString(ApplicationConstants.FILTER_NAME_COLUMN);
                 FilterDto currFilter = filterDtos.stream()
                         .filter(x -> currFilterName.equals(x.getFilterName()))
@@ -83,22 +71,18 @@ public class FilterRepository implements IFilterRepository {
                 String filterName = currFilter.getFilterName();
                 int isActive = currFilter.getIsActive();
 
-                filterResult.updateString("Name", filterName);
-                filterResult.updateInt("IsActive", isActive);
+                filterResult.updateString(ApplicationConstants.FILTER_NAME_COLUMN, filterName);
+                filterResult.updateInt(ApplicationConstants.FILTER_ISACTIVE_COLUMN, isActive);
                 filterResult.updateRow();
             }
-        }
-        catch (Exception ex)
-        {
+        } catch (Exception ex) {
             System.out.println("Exception : FilterRepository - updateFilters()");
             System.out.println(ex.getMessage());
-        }
-        finally{
-            try{
+        } finally {
+            try {
                 connection.close();
                 filterResult.close();
-            }
-            catch (Exception ex){
+            } catch (Exception ex) {
                 System.out.println("Exception : FilerRepository - Closing database connection in updateFilters()");
             }
         }
