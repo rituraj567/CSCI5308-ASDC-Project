@@ -16,7 +16,5 @@ public interface IRestaurantOwnerAdminRepository {
 
     public void deleteRestaurantOwner(int RestaurantOwnerId);
 
-    public List<RestaurantOwnerAdminDto> searchRestaurantOwner(String query);
-
     void bindRestaurantOwner(RestaurantBindingDto restaurantBindingDto);
 }

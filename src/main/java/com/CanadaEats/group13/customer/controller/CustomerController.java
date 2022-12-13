@@ -29,6 +29,8 @@ import com.CanadaEats.group13.restaurantowner.dto.MenuItemDto;
 import com.CanadaEats.group13.restaurantowner.model.request.MenuRequestModel;
 import com.CanadaEats.group13.restaurantowner.repository.IRestaurantOwnerRepository;
 import com.CanadaEats.group13.restaurantowner.repository.RestaurantOwnerRepository;
+import com.CanadaEats.group13.utils.APIAccessAuthorization;
+import com.CanadaEats.group13.utils.ApplicationConstants;
 
 @Controller
 public class CustomerController {
@@ -48,72 +50,88 @@ public class CustomerController {
 
     @GetMapping("/userHomePage")
     public String displayHomePage(Model model, HttpServletRequest request) {
+        boolean isAPIAccessible = APIAccessAuthorization.getInstance().getAPIAccess(request);
+        if (isAPIAccessible) {
+            List<RestaurantDTO> restaurantDTOList = restaurantBusiness.getAllRestaurants();
+            model.addAttribute("restaurants", restaurantDTOList);
 
-        List<RestaurantDTO> restaurantDTOList = restaurantBusiness.getAllRestaurants();
-        model.addAttribute("restaurants", restaurantDTOList);
-
-        return "customer/customerHomePage";
-
+            return ApplicationConstants.URL_RESTAURANT_CUSTOMER_HOME_PAGE;
+        }
+        return ApplicationConstants.URL_AUTHENTICATION_USERLOGINPAGE;
     }
 
     @GetMapping("/customer/restaurants/search")
-    public String searchRestaurants(@RequestParam("query") String query, Model model) {
-        List<RestaurantDTO> restaurantDTOList = restaurantBusiness.searchRestaurants(query);
-        model.addAttribute("restaurants", restaurantDTOList);
+    public String searchRestaurants(@RequestParam("query") String query, Model model, HttpServletRequest request) {
+        boolean isAPIAccessible = APIAccessAuthorization.getInstance().getAPIAccess(request);
+        if (isAPIAccessible) {
+            List<RestaurantDTO> restaurantDTOList = restaurantBusiness.searchRestaurants(query);
+            model.addAttribute("restaurants", restaurantDTOList);
 
-        return "customer/customerHomePage";
+            return ApplicationConstants.URL_RESTAURANT_CUSTOMER_HOME_PAGE;
+        }
+        return ApplicationConstants.URL_AUTHENTICATION_USERLOGINPAGE;
     }
 
     @GetMapping("/restaurant/{restaurantId}/display")
     public String showRestaurant(@PathVariable("restaurantId") String restaurantId, Model model,
-            RedirectAttributes redirectAttrs) {
+            RedirectAttributes redirectAttrs, HttpServletRequest request) {
+        boolean isAPIAccessible = APIAccessAuthorization.getInstance().getAPIAccess(request);
+        if (isAPIAccessible) {
+            RestaurantDTO restaurantDTO = restaurantBusiness.getRestaurantById(restaurantId);
+            String id = restaurantDTO.getRestaurantId();
+            model.addAttribute("restaurant", restaurantDTO);
 
-        RestaurantDTO restaurantDTO = restaurantBusiness.getRestaurantById(restaurantId);
-        String id = restaurantDTO.getRestaurantId();
-        model.addAttribute("restaurant", restaurantDTO);
+            List<List<MenuItemDto>> menuItems = CustomerPageHelpers.getMenuItems(id);
+            model.addAttribute("menuItems", menuItems);
+            return ApplicationConstants.URL_RESTAURANT_RESTAURANT_DISPLAY;
+        }
+        return ApplicationConstants.URL_AUTHENTICATION_USERLOGINPAGE;
 
-        List<List<MenuItemDto>> menuItems = CustomerPageHelpers.getMenuItems(id);
-        model.addAttribute("menuItems", menuItems);
-
-        return "customer/restaurantDisplayPage";
     }
 
     @GetMapping("/customer/menuItems/{restaurantId}/{id}/search")
     public String searchMenuItems(@PathVariable("restaurantId") String restaurantId, @PathVariable("id") int id,
-            @RequestParam("query") String query, Model model) {
+            @RequestParam("query") String query, Model model, HttpServletRequest request) {
+        boolean isAPIAccessible = APIAccessAuthorization.getInstance().getAPIAccess(request);
+        if (isAPIAccessible) {
+            RestaurantDTO restaurantDTO = restaurantBusiness.getRestaurantById(restaurantId);
 
-        RestaurantDTO restaurantDTO = restaurantBusiness.getRestaurantById(restaurantId);
+            model.addAttribute("restaurant", restaurantDTO);
 
-        model.addAttribute("restaurant", restaurantDTO);
+            List<List<MenuItemDto>> menuItemsResult = CustomerPageHelpers.getMenuItems(restaurantId);
+            List<List<MenuItemDto>> menuItems = CustomerPageHelpers.searchMenuItems(menuItemsResult, query);
 
-        List<List<MenuItemDto>> menuItemsResult = CustomerPageHelpers.getMenuItems(restaurantId);
-        List<List<MenuItemDto>> menuItems = CustomerPageHelpers.searchMenuItems(menuItemsResult, query);
+            model.addAttribute("menuItems", menuItems);
 
-        model.addAttribute("menuItems", menuItems);
-
-        return "customer/restaurantDisplayPage";
+            return ApplicationConstants.URL_RESTAURANT_RESTAURANT_DISPLAY;
+        }
+        return ApplicationConstants.URL_AUTHENTICATION_USERLOGINPAGE;
     }
 
     @GetMapping("/addtocart/{menuId}/{menuItemId}/")
     public String addItemsToCart(@PathVariable("menuId") String menuId, @PathVariable("menuItemId") String menuItemId,
-            Model model, RedirectAttributes redirectAttrs) {
+            Model model, RedirectAttributes redirectAttrs, HttpServletRequest request) {
 
-        MenuItemDto menuItemDto = repository.getMenuItem(menuItemId);
-        Map<String, int[]> cartItems = CustomerPageHelpers.addItemsToCart(menuItemDto);
+        boolean isAPIAccessible = APIAccessAuthorization.getInstance().getAPIAccess(request);
+        if (isAPIAccessible) {
+            MenuItemDto menuItemDto = repository.getMenuItem(menuItemId);
+            Map<String, int[]> cartItems = CustomerPageHelpers.addItemsToCart(menuItemDto);
 
-        model.addAttribute("cartItems", cartItems);
+            model.addAttribute("cartItems", cartItems);
 
-        MenuRequestModel menuRequestModel = repository.getMenu(menuId);
-        String restaurantId = menuRequestModel.getRestaurantId();
+            MenuRequestModel menuRequestModel = repository.getMenu(menuId);
+            String restaurantId = menuRequestModel.getRestaurantId();
 
-        RestaurantDTO restaurantDTO = restaurantBusiness.getRestaurantById(restaurantId);
-        String id = restaurantDTO.getRestaurantId();
-        model.addAttribute("restaurant", restaurantDTO);
+            RestaurantDTO restaurantDTO = restaurantBusiness.getRestaurantById(restaurantId);
+            String id = restaurantDTO.getRestaurantId();
+            model.addAttribute("restaurant", restaurantDTO);
 
-        List<List<MenuItemDto>> menuItems = CustomerPageHelpers.getMenuItems(id);
-        model.addAttribute("menuItems", menuItems);
+            List<List<MenuItemDto>> menuItems = CustomerPageHelpers.getMenuItems(id);
+            model.addAttribute("menuItems", menuItems);
 
-        return "customer/restaurantDisplayPage";
+            return ApplicationConstants.URL_RESTAURANT_RESTAURANT_DISPLAY;
+        }
+        return ApplicationConstants.URL_AUTHENTICATION_USERLOGINPAGE;
     }
 
     @GetMapping("/checkout/")
@@ -125,7 +143,7 @@ public class CustomerController {
         List<String> keys = new ArrayList<>(cartItems.keySet());
         model.addAttribute("keys", keys);
         model.addAttribute("cartList", cartlist);
-        return "customer/checkoutPage";
+        return ApplicationConstants.URL_RESTAURANT_CHECKOUT;
     }
 
     @GetMapping("/payment")

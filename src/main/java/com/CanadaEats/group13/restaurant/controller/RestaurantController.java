@@ -41,7 +41,7 @@ public class RestaurantController {
 
             return ApplicationConstants.URL_RESTAURANT_SUCCESS;
         }
-        return ApplicationConstants.URL_RESTAURANT_FAILURE;
+        return ApplicationConstants.URL_AUTHENTICATION_USERLOGINPAGE;
     }
 
     @GetMapping("/admin/restaurants/newRestaurant")
@@ -53,7 +53,7 @@ public class RestaurantController {
 
             return ApplicationConstants.URL_RESTAURANT_CREATION;
         }
-        return ApplicationConstants.URL_RESTAURANT_FAILURE;
+        return ApplicationConstants.URL_AUTHENTICATION_USERLOGINPAGE;
     }
 
     @GetMapping("/admin/restaurants/{resturantId}/edit")
@@ -67,7 +67,7 @@ public class RestaurantController {
 
             return ApplicationConstants.URL_RESTAURANT_EDIT_SUCCESS;
         }
-        return ApplicationConstants.URL_RESTAURANT_FAILURE;
+        return ApplicationConstants.URL_AUTHENTICATION_USERLOGINPAGE;
     }
 
     @GetMapping("/admin/restaurants/{restaurantId}/delete")
@@ -77,7 +77,7 @@ public class RestaurantController {
             restaurantBusiness.deleteRestaurant(restaurantId);
             return ApplicationConstants.URL_RESTAURANTS_DELETE_SUCCESS;
         }
-        return ApplicationConstants.URL_RESTAURANT_FAILURE;
+        return ApplicationConstants.URL_AUTHENTICATION_USERLOGINPAGE;
     }
 
     @GetMapping("/admin/restaurants/{restaurantId}/view")
@@ -89,7 +89,7 @@ public class RestaurantController {
             model.addAttribute("restaurant", restaurantDTO);
             return ApplicationConstants.URL_RESTAURANTS_VIEW_SUCCESS;
         }
-        return "redirect:/userloginpage";
+        return ApplicationConstants.URL_AUTHENTICATION_USERLOGINPAGE;
     }
 
     @GetMapping("/restaurants/search")
@@ -98,9 +98,9 @@ public class RestaurantController {
         if (isAPIAccessible) {
             List<RestaurantDTO> restaurantDTOList = restaurantBusiness.searchRestaurants(query);
             model.addAttribute("restaurants", restaurantDTOList);
-            return "restaurants/restaurant";
+            return ApplicationConstants.URL_RESTAURANTS_SEARCH_SUCCESS;
         }
-        return "redirect:/userloginpage";
+        return ApplicationConstants.URL_AUTHENTICATION_USERLOGINPAGE;
     }
 
     @PostMapping("/admin/restaurants/")
@@ -108,7 +108,7 @@ public class RestaurantController {
 
         restaurantBusiness.insertRestaurant(restaurantDTO);
 
-        return "redirect:/restaurants";
+        return ApplicationConstants.URL_RESTAURANT_POST_CREATION;
     }
 
     @PostMapping("/admin/restaurants/{restaurantId}")
@@ -118,7 +118,7 @@ public class RestaurantController {
         restaurantDTO.setId(restaurantId);
         restaurantBusiness.updateRestuarant(restaurantDTO);
 
-        return "redirect:/restaurants";
+        return ApplicationConstants.URL_RESTAURANT_POST_CREATION;
     }
 
 }
