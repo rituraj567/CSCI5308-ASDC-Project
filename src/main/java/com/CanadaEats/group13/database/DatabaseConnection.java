@@ -3,7 +3,6 @@ package com.CanadaEats.group13.database;
 import java.io.FileInputStream;
 import java.sql.Connection;
 import java.sql.DriverManager;
-import java.sql.PreparedStatement;
 import java.util.Properties;
 
 public class DatabaseConnection implements IDatabaseConnection {

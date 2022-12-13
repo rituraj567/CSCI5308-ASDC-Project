@@ -1,12 +1,11 @@
 package com.CanadaEats.group13.authentication.factory;
 
 public class RoleFactory {
-    public IRole createRole(String roleName){
-        if(roleName == null || roleName.isEmpty())
-        {
+    public IRole createRole(String roleName) {
+        if (roleName == null || roleName.isEmpty()) {
             return null;
         }
-        switch(roleName){
+        switch (roleName) {
             case "Admin":
                 return new AdminRole();
             case "Customer":

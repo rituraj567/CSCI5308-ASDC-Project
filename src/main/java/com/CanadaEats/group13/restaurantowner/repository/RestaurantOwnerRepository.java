@@ -83,12 +83,7 @@ public class RestaurantOwnerRepository implements IRestaurantOwnerRepository {
 
                 if (count > 0) {
                     menuAdded = true;
-                    System.out.println("Success : RestaurantOwnerRepository - addMenu()");
-                } else {
-                    System.out.println("Failure : RestaurantOwnerRepository - addMenu()");
                 }
-            } else {
-                System.out.println("Failure : Already Menu Present with this Name");
             }
         } catch (Exception ex) {
             System.out.println("Exception : RestaurantOwnerRepository - addMenu()");
@@ -128,12 +123,7 @@ public class RestaurantOwnerRepository implements IRestaurantOwnerRepository {
 
                 if (count > 0) {
                     menuItemAdded = true;
-                    System.out.println("Success : RestaurantOwnerRepository - addMenuItem()");
-                } else {
-                    System.out.println("Failure : RestaurantOwnerRepository - addMenuItem()");
                 }
-            } else {
-                System.out.println("Failure : Already MenuItem Present with this Name");
             }
 
         } catch (Exception ex) {
@@ -272,12 +262,10 @@ public class RestaurantOwnerRepository implements IRestaurantOwnerRepository {
                     menuRequestModel
                             .setRestaurantId(result.getString(ApplicationConstants.MENUITEM_RESTAURANTID_COLUMN));
                     menuRequestModel.setName(result.getString(ApplicationConstants.MENU_MENUNAME_COLUMN));
-
                 }
             } catch (Exception ex) {
                 System.out.println(ex);
             }
-            System.out.println("Name" + menuRequestModel.getName());
         } catch (Exception ex) {
             System.out.println(ex);
         } finally {

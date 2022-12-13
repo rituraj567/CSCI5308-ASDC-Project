@@ -25,7 +25,9 @@ public class UserDetailsDto implements Serializable {
     public UserDetailsDto() {
     }
 
-    public UserDetailsDto(int id, String userId, String firstName, String lastName, String emailId, String userName, String password, String mobileNumber, String gender, Date birthDate, String address, String city, String province, String country, String postalCode, int status, String roleId) {
+    public UserDetailsDto(int id, String userId, String firstName, String lastName, String emailId, String userName,
+            String password, String mobileNumber, String gender, Date birthDate, String address, String city,
+            String province, String country, String postalCode, int status, String roleId) {
         id = id;
         this.userId = userId;
         this.firstName = firstName;

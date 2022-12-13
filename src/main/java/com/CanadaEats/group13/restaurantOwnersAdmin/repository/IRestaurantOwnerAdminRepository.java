@@ -1,9 +1,9 @@
 package com.CanadaEats.group13.restaurantOwnersAdmin.repository;
 
+import java.util.List;
+
 import com.CanadaEats.group13.restaurantOwnersAdmin.dto.RestaurantBindingDto;
 import com.CanadaEats.group13.restaurantOwnersAdmin.dto.RestaurantOwnerAdminDto;
-
-import java.util.List;
 
 public interface IRestaurantOwnerAdminRepository {
     public List<RestaurantOwnerAdminDto> getAllRestaurantOwners();

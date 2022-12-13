@@ -1,19 +1,21 @@
 package com.CanadaEats.group13.restaurantOwnersAdmin;
-import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import com.CanadaEats.group13.restaurantOwnersAdmin.dto.RestaurantOwnerAdminDto;
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
+
+import com.CanadaEats.group13.restaurantOwnersAdmin.dto.RestaurantOwnerAdminDto;
 
 @DisplayName("Restaurant DTO class tests")
 public class RestaurantOwnerAdminDtoTest {
 
-    public RestaurantOwnerAdminDto restaurantOwnerAdminDto=null;
+    public RestaurantOwnerAdminDto restaurantOwnerAdminDto = null;
 
     @BeforeEach
+<<<<<<< HEAD
     public void testSetup(){
+=======
+    public void testSetup() {
+>>>>>>> 7082b0846ae8e597ff08b47f4b66fce6340b2684
 
     }
 }

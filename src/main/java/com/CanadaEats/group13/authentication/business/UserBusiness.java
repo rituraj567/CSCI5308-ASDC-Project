@@ -1,5 +1,7 @@
 package com.CanadaEats.group13.authentication.business;
 
+import java.util.UUID;
+
 import com.CanadaEats.group13.authentication.dto.UserDetailsDto;
 import com.CanadaEats.group13.authentication.dto.UserLoginDto;
 import com.CanadaEats.group13.authentication.model.response.UserDetailsResponseModel;
@@ -7,8 +9,6 @@ import com.CanadaEats.group13.authentication.model.response.UserLoginResponseMod
 import com.CanadaEats.group13.authentication.repository.IUserRepository;
 import com.CanadaEats.group13.utils.ApplicationConstants;
 import com.CanadaEats.group13.utils.PasswordEncoderDecoder;
-
-import java.util.UUID;
 
 public class UserBusiness implements IUserBusiness {
 

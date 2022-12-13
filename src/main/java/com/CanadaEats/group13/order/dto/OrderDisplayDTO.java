@@ -11,21 +11,21 @@ public class OrderDisplayDTO {
     private String status;
     private String deliver_person;
 
-    public OrderDisplayDTO()
-    {
+    public OrderDisplayDTO() {
 
     }
-    public OrderDisplayDTO(int id, int amount,String restaurant, String paymentOption,String customer,String address,String phone, String status, String deliver_person)
-    {
-        this.id=id;
-        this.amount=amount;
-        this.restaurant=restaurant;
-        this.paymentOption=paymentOption;
-        this.customer=customer;
-        this.address=address;
-        this.phone=phone;
-        this.status=status;
-        this.deliver_person=deliver_person;
+
+    public OrderDisplayDTO(int id, int amount, String restaurant, String paymentOption, String customer, String address,
+            String phone, String status, String deliver_person) {
+        this.id = id;
+        this.amount = amount;
+        this.restaurant = restaurant;
+        this.paymentOption = paymentOption;
+        this.customer = customer;
+        this.address = address;
+        this.phone = phone;
+        this.status = status;
+        this.deliver_person = deliver_person;
     }
 
     public int getId() {

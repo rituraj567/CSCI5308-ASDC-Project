@@ -1,11 +1,11 @@
 package com.CanadaEats.group13.authenitication;
 
-import com.CanadaEats.group13.authentication.dto.UserDetailsDto;
-import com.CanadaEats.group13.authentication.dto.UserLoginDto;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import com.CanadaEats.group13.authentication.dto.UserLoginDto;
 
 public class UserLoginDtoTest {
     UserLoginDto userLoginDto;

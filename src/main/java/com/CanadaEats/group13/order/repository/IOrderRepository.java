@@ -1,17 +1,22 @@
 package com.CanadaEats.group13.order.repository;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.Statement;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+
+import org.springframework.stereotype.Repository;
+
 import com.CanadaEats.group13.database.DatabaseConnection;
 import com.CanadaEats.group13.database.IDatabaseConnection;
 import com.CanadaEats.group13.order.dto.OrderDTO;
 import com.CanadaEats.group13.order.dto.OrderDetialsDTO;
 import com.CanadaEats.group13.order.dto.OrderDisplayDTO;
-import org.springframework.stereotype.Repository;
 import com.CanadaEats.group13.utils.ApplicationConstants;
-
-import java.sql.*;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.*;
-import java.util.Date;
 
 @Repository
 public class IOrderRepository implements IOderRepository {
@@ -37,7 +42,7 @@ public class IOrderRepository implements IOderRepository {
                 int id = orderResult.getInt("Id");
                 String order_id = orderResult.getString("OrderId");
                 String user_id = orderResult.getString("UserId");
-                String restarunt= findRestaurant(orderResult.getString("RestaurantId"));
+                String restarunt = findRestaurant(orderResult.getString("RestaurantId"));
                 String delivery_id = orderResult.getString("DeliveryPersonId");
                 int total = orderResult.getInt("Total_Amount");
                 String status = orderResult.getString("OrderStatusId");
@@ -45,7 +50,8 @@ public class IOrderRepository implements IOderRepository {
                 Date date = orderResult.getDate("Date_of_order");
                 DateFormat date_form = new SimpleDateFormat("yyyy-mm-dd");
                 String str_date = date_form.format(date);
-                orderDTOArrayList.add(new OrderDTO(id, order_id, user_id, restarunt, delivery_id, total, status, payment, str_date));
+                orderDTOArrayList.add(
+                        new OrderDTO(id, order_id, user_id, restarunt, delivery_id, total, status, payment, str_date));
             }
             connection.close();
             statement.close();
@@ -74,7 +80,8 @@ public class IOrderRepository implements IOderRepository {
                 String MenuItemId = orderDetailResult.getString("MenuItemId");
                 int quantity = orderDetailResult.getInt("Quantity");
                 int total = orderDetailResult.getInt("Total_Amount");
-                orderDetialsDTOS.add(new OrderDetialsDTO(order_id, orderDetailId, orderId, MenuItemId, quantity, total));
+                orderDetialsDTOS
+                        .add(new OrderDetialsDTO(order_id, orderDetailId, orderId, MenuItemId, quantity, total));
             }
             connection.close();
             statement.close();
@@ -103,62 +110,58 @@ public class IOrderRepository implements IOderRepository {
     }
 
     @Override
-    public String findRestaurant(String restaurant){
-        String name="";
+    public String findRestaurant(String restaurant) {
+        String name = "";
         try {
             databaseConnection = DatabaseConnection.getInstance();
             connection = databaseConnection.getDatabaseConnection();
-            Statement statement= connection.createStatement();
-            String name2 = "\""+restaurant+"\"";
+            Statement statement = connection.createStatement();
+            String name2 = "\"" + restaurant + "\"";
             String finder = " select Name from Restaurant where RestaurantId =" + "" + name2;
             ResultSet orderDetailResult = statement.executeQuery(finder);
-             while(orderDetailResult.next()){
-                 name = orderDetailResult.getString("Name");
-             }
+            while (orderDetailResult.next()) {
+                name = orderDetailResult.getString("Name");
+            }
             connection.close();
             statement.close();
             orderDetailResult.close();
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
-    return name;
+        return name;
     }
 
     @Override
-    public String findPayment(String payment)
-    {
-        if(payment.equals(ApplicationConstants.DEBIT_CARD)) {
+    public String findPayment(String payment) {
+        if (payment.equals(ApplicationConstants.DEBIT_CARD)) {
             return "Debit Card";
-        }
-        else if(payment.equals(ApplicationConstants.CREDIT_CARD)) {
+        } else if (payment.equals(ApplicationConstants.CREDIT_CARD)) {
             return "Credit Card";
-        }
-        else if(payment.equals(ApplicationConstants.CASH)) {
+        } else if (payment.equals(ApplicationConstants.CASH)) {
             return "Cash";
-        }
-        else {
+        } else {
             return "Payment method invalid.";
         }
     }
 
     @Override
-    public String findCustomer(String customer){
-        String fullname="";
-        String firstName="";
-        String lastName="";
+    public String findCustomer(String customer) {
+        String fullname = "";
+        String firstName = "";
+        String lastName = "";
         try {
             databaseConnection = DatabaseConnection.getInstance();
             connection = databaseConnection.getDatabaseConnection();
-            Statement statement= connection.createStatement();
-            String name2 = "\""+customer+"\"";
+            Statement statement = connection.createStatement();
+            String name2 = "\"" + customer + "\"";
             String finder = " select FirstName,LastName from User where UserId =" + "" + name2;
             System.out.println(finder);
             ResultSet orderDetailResult = statement.executeQuery(finder);
-            while(orderDetailResult.next()){
+            while (orderDetailResult.next()) {
                 firstName = orderDetailResult.getString("FirstName");
-                lastName= orderDetailResult.getString("LastName");
+                lastName = orderDetailResult.getString("LastName");
             }
-           fullname= firstName+lastName;
+            fullname = firstName + lastName;
             connection.close();
             statement.close();
             orderDetailResult.close();
@@ -167,18 +170,19 @@ public class IOrderRepository implements IOderRepository {
         }
         return fullname;
     }
+
     @Override
-    public String findPhone(String phone){
-        String phonenum="";
+    public String findPhone(String phone) {
+        String phonenum = "";
         try {
             databaseConnection = DatabaseConnection.getInstance();
             connection = databaseConnection.getDatabaseConnection();
-            Statement statement= connection.createStatement();
-            String name2 = "\""+phone+"\"";
+            Statement statement = connection.createStatement();
+            String name2 = "\"" + phone + "\"";
             String finder = " select MobileNumber from User where UserId =" + "" + name2;
             System.out.println(finder);
             ResultSet orderDetailResult = statement.executeQuery(finder);
-            while(orderDetailResult.next()){
+            while (orderDetailResult.next()) {
                 phonenum = orderDetailResult.getString("MobileNumber");
             }
             connection.close();
@@ -190,17 +194,17 @@ public class IOrderRepository implements IOderRepository {
         return phonenum;
     }
 
-    public String findDeliverPerson(String deliver){
-        String deliverPerson="";
+    public String findDeliverPerson(String deliver) {
+        String deliverPerson = "";
         try {
             databaseConnection = DatabaseConnection.getInstance();
             connection = databaseConnection.getDatabaseConnection();
-            Statement statement= connection.createStatement();
-            String name2 = "\""+deliver+"\"";
+            Statement statement = connection.createStatement();
+            String name2 = "\"" + deliver + "\"";
             String finder = " select Firstname from User where UserId =" + "" + name2;
             System.out.println(finder);
             ResultSet orderDetailResult = statement.executeQuery(finder);
-            while(orderDetailResult.next()){
+            while (orderDetailResult.next()) {
                 deliverPerson = orderDetailResult.getString("FirstName");
             }
             connection.close();
@@ -212,17 +216,18 @@ public class IOrderRepository implements IOderRepository {
         return deliverPerson;
 
     }
+
     @Override
-    public String findDeliverAdd(String address){
-        String deliverAdd="";
+    public String findDeliverAdd(String address) {
+        String deliverAdd = "";
         try {
             databaseConnection = DatabaseConnection.getInstance();
             connection = databaseConnection.getDatabaseConnection();
-            Statement statement= connection.createStatement();
-            String name2 = "\""+address+"\"";
+            Statement statement = connection.createStatement();
+            String name2 = "\"" + address + "\"";
             String finder = " select Address from User where UserId =" + "" + name2;
             ResultSet orderDetailResult = statement.executeQuery(finder);
-            while(orderDetailResult.next()){
+            while (orderDetailResult.next()) {
                 deliverAdd = orderDetailResult.getString("Address");
             }
             connection.close();
@@ -235,36 +240,35 @@ public class IOrderRepository implements IOderRepository {
     }
 
     @Override
-    public ArrayList<OrderDisplayDTO> displayOrder (ArrayList<OrderDTO> orderDTOArrayList)
-    {
-        ArrayList<OrderDisplayDTO> orderDisplayDTOArrayList= new ArrayList<OrderDisplayDTO>();
+    public ArrayList<OrderDisplayDTO> displayOrder(ArrayList<OrderDTO> orderDTOArrayList) {
+        ArrayList<OrderDisplayDTO> orderDisplayDTOArrayList = new ArrayList<OrderDisplayDTO>();
 
-        for(int i=0; i<orderDTOArrayList.size(); i++)
-        {
-            int id= orderDTOArrayList.get(i).getId();
+        for (int i = 0; i < orderDTOArrayList.size(); i++) {
+            int id = orderDTOArrayList.get(i).getId();
             int amount = orderDTOArrayList.get(i).getAmount();
-            String restaurant= orderDTOArrayList.get(i).getRestaurant_id();
-            String payment= orderDTOArrayList.get(i).getPayment_options();
+            String restaurant = orderDTOArrayList.get(i).getRestaurant_id();
+            String payment = orderDTOArrayList.get(i).getPayment_options();
             String customer = findCustomer(orderDTOArrayList.get(i).getUser_id());
             String address = findDeliverAdd(orderDTOArrayList.get(i).getUser_id());
             String phone = findPhone(orderDTOArrayList.get(i).getUser_id());
             String status = orderDTOArrayList.get(i).getStatus();
-            String deliverPerson= findDeliverPerson(orderDTOArrayList.get(i).getDelivery_id());
+            String deliverPerson = findDeliverPerson(orderDTOArrayList.get(i).getDelivery_id());
 
-            orderDisplayDTOArrayList.add(new OrderDisplayDTO(id,amount,restaurant,payment,customer,address,phone,status,deliverPerson));
+            orderDisplayDTOArrayList.add(new OrderDisplayDTO(id, amount, restaurant, payment, customer, address, phone,
+                    status, deliverPerson));
         }
         return orderDisplayDTOArrayList;
     }
 
-//
-//    public static void main(String args[]) throws SQLException
-//    {
-//
-//        IOrderRepository hi = new IOrderRepository();
-//
-//        ArrayList<OrderDTO> hello = hi.getOrders();
-//
-//        System.out.println(hello.size());
-//
-//    }
+    //
+    // public static void main(String args[]) throws SQLException
+    // {
+    //
+    // IOrderRepository hi = new IOrderRepository();
+    //
+    // ArrayList<OrderDTO> hello = hi.getOrders();
+    //
+    // System.out.println(hello.size());
+    //
+    // }
 }

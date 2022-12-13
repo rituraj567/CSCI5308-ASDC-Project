@@ -7,7 +7,7 @@ public class APIAccessAuthorization {
 
     private static APIAccessAuthorization apiAccessAuthorization;
 
-    private APIAccessAuthorization(){
+    private APIAccessAuthorization() {
     }
 
     public static APIAccessAuthorization getInstance() {
@@ -17,9 +17,9 @@ public class APIAccessAuthorization {
         return apiAccessAuthorization;
     }
 
-    public boolean getAPIAccess(HttpServletRequest request){
+    public boolean getAPIAccess(HttpServletRequest request) {
         Cookie[] cookies = request.getCookies();
-        if(cookies == null){
+        if (cookies == null) {
             return false;
         }
         return true;

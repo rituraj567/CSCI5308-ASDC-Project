@@ -1,15 +1,19 @@
 package com.CanadaEats.group13.restaurantOwnersAdmin.repository;
 
+import java.sql.Connection;
+import java.sql.Date;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.UUID;
+
 import com.CanadaEats.group13.database.IDatabaseConnection;
 import com.CanadaEats.group13.restaurantOwnersAdmin.dto.RestaurantBindingDto;
 import com.CanadaEats.group13.restaurantOwnersAdmin.dto.RestaurantOwnerAdminDto;
 import com.CanadaEats.group13.utils.ApplicationConstants;
 import com.CanadaEats.group13.utils.PasswordEncoderDecoder;
-
-import java.sql.*;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.UUID;
 
 public class RestaurantOwnerAdminRepository implements IRestaurantOwnerAdminRepository {
     IDatabaseConnection databaseConnection;
@@ -79,7 +83,8 @@ public class RestaurantOwnerAdminRepository implements IRestaurantOwnerAdminRepo
             preparedStmt.setString(3, restaurantOwnerAdminDto.getLastName());
             preparedStmt.setString(4, restaurantOwnerAdminDto.getEmailId());
             preparedStmt.setString(5, restaurantOwnerAdminDto.getUserName());
-            preparedStmt.setString(6, PasswordEncoderDecoder.getInstance().encrypt(restaurantOwnerAdminDto.getPassword()));
+            preparedStmt.setString(6,
+                    PasswordEncoderDecoder.getInstance().encrypt(restaurantOwnerAdminDto.getPassword()));
             preparedStmt.setString(7, restaurantOwnerAdminDto.getMobileNumber());
             preparedStmt.setString(8, restaurantOwnerAdminDto.getGender());
             preparedStmt.setDate(9, new Date(2001, 5, 1));

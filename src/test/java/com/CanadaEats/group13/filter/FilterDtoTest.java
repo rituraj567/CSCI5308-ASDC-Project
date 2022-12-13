@@ -1,11 +1,11 @@
 package com.CanadaEats.group13.filter;
 
-import com.CanadaEats.group13.authentication.dto.UserLoginDto;
-import com.CanadaEats.group13.filter.dto.FilterDto;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import com.CanadaEats.group13.filter.dto.FilterDto;
 
 public class FilterDtoTest {
     FilterDto filterDto;

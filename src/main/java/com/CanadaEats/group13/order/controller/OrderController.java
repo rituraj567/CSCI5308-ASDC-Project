@@ -1,21 +1,21 @@
 package com.CanadaEats.group13.order.controller;
 
-import com.CanadaEats.group13.order.dto.OrderDTO;
-import com.CanadaEats.group13.order.dto.OrderDisplayDTO;
-import com.CanadaEats.group13.order.repository.IOrderRepository;
+import java.util.ArrayList;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
-import java.util.*;
+import com.CanadaEats.group13.order.dto.OrderDTO;
+import com.CanadaEats.group13.order.dto.OrderDisplayDTO;
+import com.CanadaEats.group13.order.repository.IOrderRepository;
 
 @Controller
 public class OrderController {
 
     IOrderRepository iOrderRepository = new IOrderRepository();
 
-    public OrderController()
-    {
+    public OrderController() {
 
     }
 
