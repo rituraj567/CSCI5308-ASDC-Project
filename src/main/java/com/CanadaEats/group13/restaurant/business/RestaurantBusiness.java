@@ -40,7 +40,7 @@ public class RestaurantBusiness implements IRestaurantBusiness {
     }
 
     @Override
-    public Map<String, String> deleteRestaurant(int restaurantId) {
+    public Map<String, String> deleteRestaurant(String restaurantId) {
         return repository.deleteRestaurant(restaurantId);
 
     }
