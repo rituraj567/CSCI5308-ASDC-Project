@@ -61,7 +61,7 @@
                     <a
                                 type="button"
                                 class="btn btn-info"
-                                th:href="@{/delivery/{orderId}/2/(orderId=${order.getId()})}"
+                                th:href="@{/delivery/{orderId}/{orderStatus}/(orderId=${order.getOrder_id()},orderStatus=${2})}"
                         >
                             Picked Up
                         </a>
@@ -69,7 +69,7 @@
                         <a
                                 type="button"
                                 class="btn btn-primary mt-lg-2"
-                                th:href="@{/delivery/{orderId}/3/(orderId=${order.getId()})}"
+                                th:href="@{/delivery/{orderId}/{orderStatus}/(orderId=${order.getOrder_id()},orderStatus=${3})}"
                         >
                             Delivered
                         </a>
@@ -80,3 +80,5 @@
         <hr />
     </div>
 </div>
+</body>
+</html>

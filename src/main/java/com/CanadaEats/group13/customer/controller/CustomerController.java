@@ -1,28 +1,19 @@
 package com.CanadaEats.group13.customer.controller;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import javax.servlet.http.HttpServletRequest;
-
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-
 import com.CanadaEats.group13.authentication.business.IUserBusiness;
 import com.CanadaEats.group13.authentication.business.UserBusiness;
 import com.CanadaEats.group13.authentication.repository.UserRepository;
+import com.CanadaEats.group13.common.DTOFactory;
 import com.CanadaEats.group13.customer.business.CustomerPageHelpers;
+import com.CanadaEats.group13.customer.dto.RatingDto;
+import com.CanadaEats.group13.customer.repository.CustomerRepository;
+import com.CanadaEats.group13.customer.repository.ICustomerRepository;
 import com.CanadaEats.group13.database.DatabaseConnection;
 import com.CanadaEats.group13.restaurant.business.IRestaurantBusiness;
 import com.CanadaEats.group13.restaurant.business.RestaurantBusiness;
 import com.CanadaEats.group13.restaurant.dto.RestaurantDTO;
 import com.CanadaEats.group13.restaurant.repository.RestaurantRepository;
+import com.CanadaEats.group13.restaurantOwnersAdmin.repository.IRestaurantOwnerAdminRepository;
 import com.CanadaEats.group13.restaurantowner.business.IRestaurantOwnerBusiness;
 import com.CanadaEats.group13.restaurantowner.business.RestaurantOwnerBusiness;
 import com.CanadaEats.group13.restaurantowner.dto.MenuItemDto;
@@ -31,6 +22,17 @@ import com.CanadaEats.group13.restaurantowner.repository.IRestaurantOwnerReposit
 import com.CanadaEats.group13.restaurantowner.repository.RestaurantOwnerRepository;
 import com.CanadaEats.group13.utils.APIAccessAuthorization;
 import com.CanadaEats.group13.utils.ApplicationConstants;
+import com.CanadaEats.group13.utils.CookiesLogic;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+import javax.servlet.http.HttpServletRequest;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 @Controller
 public class CustomerController {
@@ -39,6 +41,8 @@ public class CustomerController {
     IRestaurantBusiness restaurantBusiness;
     IRestaurantOwnerBusiness restaurantOwnerBusiness;
     IRestaurantOwnerRepository repository;
+    IRestaurantOwnerAdminRepository restaurantOwnerAdminRepository;
+    ICustomerRepository customerRepository;
 
     public CustomerController() {
         this.userBusiness = new UserBusiness(new UserRepository(DatabaseConnection.getInstance()));
@@ -46,6 +50,7 @@ public class CustomerController {
         this.restaurantOwnerBusiness = new RestaurantOwnerBusiness(
                 new RestaurantOwnerRepository(DatabaseConnection.getInstance()));
         this.repository = new RestaurantOwnerRepository(DatabaseConnection.getInstance());
+        this.customerRepository = new CustomerRepository(DatabaseConnection.getInstance());
     }
 
     @GetMapping("/userHomePage")
@@ -74,7 +79,7 @@ public class CustomerController {
 
     @GetMapping("/restaurant/{restaurantId}/display")
     public String showRestaurant(@PathVariable("restaurantId") String restaurantId, Model model,
-            RedirectAttributes redirectAttrs, HttpServletRequest request) {
+                                 RedirectAttributes redirectAttrs, HttpServletRequest request) {
         boolean isAPIAccessible = APIAccessAuthorization.getInstance().getAPIAccess(request);
         if (isAPIAccessible) {
             RestaurantDTO restaurantDTO = restaurantBusiness.getRestaurantById(restaurantId);
@@ -91,7 +96,7 @@ public class CustomerController {
 
     @GetMapping("/customer/menuItems/{restaurantId}/{id}/search")
     public String searchMenuItems(@PathVariable("restaurantId") String restaurantId, @PathVariable("id") int id,
-            @RequestParam("query") String query, Model model, HttpServletRequest request) {
+                                  @RequestParam("query") String query, Model model, HttpServletRequest request) {
         boolean isAPIAccessible = APIAccessAuthorization.getInstance().getAPIAccess(request);
         if (isAPIAccessible) {
             RestaurantDTO restaurantDTO = restaurantBusiness.getRestaurantById(restaurantId);
@@ -110,7 +115,7 @@ public class CustomerController {
 
     @GetMapping("/addtocart/{menuId}/{menuItemId}/")
     public String addItemsToCart(@PathVariable("menuId") String menuId, @PathVariable("menuItemId") String menuItemId,
-            Model model, RedirectAttributes redirectAttrs, HttpServletRequest request) {
+                                 Model model, RedirectAttributes redirectAttrs, HttpServletRequest request) {
 
         boolean isAPIAccessible = APIAccessAuthorization.getInstance().getAPIAccess(request);
         if (isAPIAccessible) {
@@ -158,4 +163,21 @@ public class CustomerController {
         return "payment/successPayment";
     }
 
+    @GetMapping("/createfeedbackpage/{restaurantid}")
+    public String createFeedBack(@PathVariable("restaurantid") String restaurantId, Model model,
+                                 HttpServletRequest request) {
+        RatingDto userDetailsDto = DTOFactory.getInstance().createRatingDto();
+        model.addAttribute("userrating", userDetailsDto);
+        model.addAttribute("restaurantid", restaurantId);
+        return "customer/userRatingPage";
+    }
+
+    @PostMapping("/addfeedback/{restaurantid}")
+    public String addFeedBack(@PathVariable("restaurantid") String restaurantId, @ModelAttribute RatingDto ratingDto, HttpServletRequest request) {
+        String userId = CookiesLogic.extractCookie(request, ApplicationConstants.COOKIE_USERID);
+        ratingDto.setRestaurantId(restaurantId);
+        ratingDto.setUserId(userId);
+        customerRepository.addFeedBack(ratingDto);
+        return "redirect:/userHomePage";
+    }
 }
