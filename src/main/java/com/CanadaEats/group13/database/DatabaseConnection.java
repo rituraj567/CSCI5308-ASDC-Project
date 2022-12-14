@@ -1,11 +1,11 @@
 package com.CanadaEats.group13.database;
 
-import com.CanadaEats.group13.utils.ApplicationConstants;
-
 import java.io.FileInputStream;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.util.Properties;
+
+import com.CanadaEats.group13.utils.ApplicationConstants;
 
 public class DatabaseConnection implements IDatabaseConnection {
     private static DatabaseConnection databaseConnection = null;

@@ -1,5 +1,16 @@
 package com.CanadaEats.group13.authentication.controller;
 
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+
 import com.CanadaEats.group13.authentication.business.IUserBusiness;
 import com.CanadaEats.group13.authentication.business.UserBusiness;
 import com.CanadaEats.group13.authentication.dto.UserDetailsDto;
@@ -14,16 +25,6 @@ import com.CanadaEats.group13.database.DatabaseConnection;
 import com.CanadaEats.group13.utils.APIAccessAuthorization;
 import com.CanadaEats.group13.utils.ApplicationConstants;
 import com.CanadaEats.group13.utils.CookiesLogic;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-
-import javax.servlet.http.Cookie;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
 @Controller
 public class UserController {
@@ -144,7 +145,7 @@ public class UserController {
 
     @PostMapping("/users/{userId}")
     public String updateProfile(@PathVariable("userId") String userId,
-                                @ModelAttribute("restaurant") UserDetailsDto userDetailsDto, Model model) {
+            @ModelAttribute("restaurant") UserDetailsDto userDetailsDto, Model model) {
         model.addAttribute("user", userDetailsDto);
         userService.updateUserProfile(userDetailsDto);
         return ApplicationConstants.URL_AUTHENTICATION_VIEWPROFILE;

@@ -1,5 +1,14 @@
 package com.CanadaEats.group13.order.controller;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+
 import com.CanadaEats.group13.authentication.business.IUserBusiness;
 import com.CanadaEats.group13.authentication.business.UserBusiness;
 import com.CanadaEats.group13.authentication.dto.UserDetailsDto;
@@ -11,13 +20,6 @@ import com.CanadaEats.group13.order.repository.OrderRepository;
 import com.CanadaEats.group13.utils.APIAccessAuthorization;
 import com.CanadaEats.group13.utils.ApplicationConstants;
 import com.CanadaEats.group13.utils.CookiesLogic;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-
-import javax.servlet.http.HttpServletRequest;
-import java.util.ArrayList;
-import java.util.List;
 
 @Controller
 public class OrderController {

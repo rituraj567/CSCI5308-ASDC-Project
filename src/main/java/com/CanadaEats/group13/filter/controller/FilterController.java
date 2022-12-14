@@ -1,5 +1,15 @@
 package com.CanadaEats.group13.filter.controller;
 
+import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+
 import com.CanadaEats.group13.database.DatabaseConnection;
 import com.CanadaEats.group13.filter.business.FilterBusiness;
 import com.CanadaEats.group13.filter.business.IFilterBusiness;
@@ -7,14 +17,6 @@ import com.CanadaEats.group13.filter.dto.FilterDto;
 import com.CanadaEats.group13.filter.repository.FilterRepository;
 import com.CanadaEats.group13.utils.APIAccessAuthorization;
 import com.CanadaEats.group13.utils.ApplicationConstants;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-
-import javax.servlet.http.HttpServletRequest;
-import java.util.List;
 
 @Controller
 public class FilterController {

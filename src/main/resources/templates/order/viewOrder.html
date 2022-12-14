@@ -5,12 +5,12 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Orders</title>
-      <link
-              crossorigin="anonymous"
-              href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
-              integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
-              rel="stylesheet"
-      />
+    <link
+      crossorigin="anonymous"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+      integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+      rel="stylesheet"
+    />
 
     <style>
       header {
@@ -20,31 +20,31 @@
       }
 
       .grid-container {
-          display: grid;
-          grid-template-columns: 1fr 1fr;
-          margin-top: 30px;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        margin-top: 30px;
       }
       ul {
-          list-style-type: none;
+        list-style-type: none;
       }
 
       li {
-          display: inline-block;
+        display: inline-block;
       }
 
       .card {
-          margin-bottom: 20px;
+        margin-bottom: 20px;
       }
 
-      .margin-right{
-          margin-right: 10px;
+      .margin-right {
+        margin-right: 10px;
       }
     </style>
   </head>
 
   <div th:replace="common/loginHeader :: header"></div>
   <body>
-  <div th:replace="common/loginHeader:: navbar"></div>
+    <div th:replace="common/loginHeader:: navbar"></div>
     <header>
       <h3>Orders</h3>
     </header>
@@ -53,46 +53,51 @@
       <div class="row col-md-8 offset-md-2">
         <div class="grid-container">
           <div class="card margin-right" th:each="order, index : ${orders}">
-              <div class="card-body">
+            <div class="card-body">
               <a
-                      class="card-block stretched-link text-decoration-none"
-
-                      th:href="@{/orders/{orderId}/(orderId=${order.id})}
+                class="card-block stretched-link text-decoration-none"
+                th:href="@{/orders/{orderId}/(orderId=${order.id})}
               "
               >
+                <p>
+                  <span>Order No:</span>
+                  <span th:text="${order.getId()}">Id</span>
+                </p>
 
-                  <p><span>Order No:</span> <span th:text="${order.getId()}">Id</span></p>
+                <p>
+                  <span>Restaurant Name:</span
+                  ><span th:text="${order.getRestaurant()}">Resaurant</span>
+                </p>
 
-                  <p><span>Restaurant Name:</span><span th:text="${order.getRestaurant()}">Resaurant</span></p>
+                <p>
+                  <span>Customer Name:</span>
+                  <span th:text="${order.getCustomer()}">Customer</span>
+                </p>
 
+                <p>
+                  <span>Delivery Address:</span
+                  ><span th:text="${order.getAddress()}">Deliver Adress</span>
+                </p>
 
-                  <p><span>Customer Name:</span> <span th:text="${order.getCustomer()}">Customer</span></p>
+                <br />
+                <span>Customer Phone No:</span
+                ><span th:text="${order.getPhone()}">Phone</span>
 
-                  <p> <span>Delivery Address:</span><span th:text="${order.getAddress()}">Deliver Adress</span></p>
+                <br />
+                <span>Order Amount:</span
+                ><span th:text="${order.getAmount()}">Amount</span>
 
+                <br />
+                <span>Payment Option:</span
+                ><span th:text="${order.getPaymentOption()}">Payment</span>
 
-                  <br/>
-                  <span>Customer Phone No:</span><span th:text="${order.getPhone()}">Phone</span>
+                <br />
+                <span>Order Status:</span>
+                <span th:text="${order.getStatus()}">Status</span>
 
-
-
-                  <br/>
-                  <span>Order Amount:</span><span th:text="${order.getAmount()}">Amount</span>
-
-
-
-
-                  <br/>
-                  <span>Payment Option:</span><span th:text="${order.getPaymentOption()}">Payment</span>
-
-
-                  <br/>
-                  <span>Order Status:</span> <span th:text="${order.getStatus()}">Status</span>
-
-
-                  <br/>
-                  <span>Delivery Person Name:</span><span th:text="${order.getDeliver_person()}">Deliver</span>
-
+                <br />
+                <span>Delivery Person Name:</span
+                ><span th:text="${order.getDeliver_person()}">Deliver</span>
               </a>
             </div>
           </div>

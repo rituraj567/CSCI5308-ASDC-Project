@@ -1,5 +1,12 @@
 package com.CanadaEats.group13.authentication.repository;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.Statement;
+
+import org.springframework.beans.BeanUtils;
+
 import com.CanadaEats.group13.authentication.dto.UserDetailsDto;
 import com.CanadaEats.group13.authentication.dto.UserLoginDto;
 import com.CanadaEats.group13.authentication.model.response.UserDetailsResponseModel;
@@ -7,12 +14,6 @@ import com.CanadaEats.group13.authentication.model.response.UserLoginResponseMod
 import com.CanadaEats.group13.database.IDatabaseConnection;
 import com.CanadaEats.group13.utils.ApplicationConstants;
 import com.CanadaEats.group13.utils.PasswordEncoderDecoder;
-import org.springframework.beans.BeanUtils;
-
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.Statement;
 
 public class UserRepository implements IUserRepository {
 
@@ -90,7 +91,8 @@ public class UserRepository implements IUserRepository {
                             .decrypt(userResult.getString(ApplicationConstants.USER_PASSWORD_COLUMN));
                     if (decryptedPassword.equals(userLoginDto.getPassword())) {
                         userLoginResponseModel.setRoleId(userResult.getString(ApplicationConstants.USER_ROLEID_COLUMN));
-                        userLoginResponseModel.setUserName(userResult.getString(ApplicationConstants.USER_USERNAME_COLUMN));
+                        userLoginResponseModel
+                                .setUserName(userResult.getString(ApplicationConstants.USER_USERNAME_COLUMN));
                         userLoginResponseModel.setUserId(userResult.getString(ApplicationConstants.USER_USERID_COLUMN));
                         String loggedInUserRoleId = userResult.getString(ApplicationConstants.USER_ROLEID_COLUMN);
                         String loggedInUserUserId = userResult.getString(ApplicationConstants.USER_USERID_COLUMN);

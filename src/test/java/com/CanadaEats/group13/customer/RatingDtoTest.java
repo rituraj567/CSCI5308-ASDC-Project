@@ -1,17 +1,19 @@
 package com.CanadaEats.group13.customer;
 
-import com.CanadaEats.group13.customer.dto.RatingDto;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import com.CanadaEats.group13.customer.dto.RatingDto;
 
 public class RatingDtoTest {
     RatingDto ratingDto;
 
     @BeforeEach
     public void testSetup() {
-        ratingDto = new RatingDto("d0ac2c3e-4713-4a21-8f65-4aec10cab89d", "9c7a3caa-9f3d-4f35-8ecc-7020c0a80174", 10, "Best Restaurant");
+        ratingDto = new RatingDto("d0ac2c3e-4713-4a21-8f65-4aec10cab89d", "9c7a3caa-9f3d-4f35-8ecc-7020c0a80174", 10,
+                "Best Restaurant");
     }
 
     @Test

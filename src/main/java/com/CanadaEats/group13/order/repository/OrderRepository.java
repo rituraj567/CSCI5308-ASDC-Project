@@ -1,12 +1,5 @@
 package com.CanadaEats.group13.order.repository;
 
-import com.CanadaEats.group13.database.DatabaseConnection;
-import com.CanadaEats.group13.database.IDatabaseConnection;
-import com.CanadaEats.group13.order.dto.OrderDTO;
-import com.CanadaEats.group13.order.dto.OrderDisplayDTO;
-import com.CanadaEats.group13.utils.ApplicationConstants;
-import org.springframework.stereotype.Repository;
-
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
@@ -14,6 +7,14 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+
+import org.springframework.stereotype.Repository;
+
+import com.CanadaEats.group13.database.DatabaseConnection;
+import com.CanadaEats.group13.database.IDatabaseConnection;
+import com.CanadaEats.group13.order.dto.OrderDTO;
+import com.CanadaEats.group13.order.dto.OrderDisplayDTO;
+import com.CanadaEats.group13.utils.ApplicationConstants;
 
 @Repository
 public class OrderRepository implements IOderRepository {
@@ -59,7 +60,6 @@ public class OrderRepository implements IOderRepository {
         }
         return orderDTOArrayList;
     }
-
 
     @Override
     public String findRestaurant(String restaurant) {

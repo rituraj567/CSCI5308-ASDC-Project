@@ -1,12 +1,12 @@
 package com.CanadaEats.group13.customer.repository;
 
-import com.CanadaEats.group13.customer.dto.RatingDto;
-import com.CanadaEats.group13.database.IDatabaseConnection;
-import com.CanadaEats.group13.utils.ApplicationConstants;
-
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.util.UUID;
+
+import com.CanadaEats.group13.customer.dto.RatingDto;
+import com.CanadaEats.group13.database.IDatabaseConnection;
+import com.CanadaEats.group13.utils.ApplicationConstants;
 
 public class CustomerRepository implements ICustomerRepository {
     IDatabaseConnection databaseConnection;

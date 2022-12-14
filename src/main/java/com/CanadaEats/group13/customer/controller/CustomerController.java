@@ -73,7 +73,9 @@ public class CustomerController {
     }
 
     @GetMapping("/restaurant/{restaurantId}/display")
-    public String showRestaurant(@PathVariable("restaurantId") String restaurantId, Model model, HttpServletRequest request) {
+    public String showRestaurant(@PathVariable("restaurantId") String restaurantId, Model model,
+            
+            HttpServletRequest request) {
         boolean isAPIAccessible = APIAccessAuthorization.getInstance().getAPIAccess(request);
         if (isAPIAccessible) {
             RestaurantDTO restaurantDTO = restaurantBusiness.getRestaurantById(restaurantId);
@@ -89,8 +91,8 @@ public class CustomerController {
     }
 
     @GetMapping("/customer/menuItems/{restaurantId}/{id}/search")
-    public String searchMenuItems(@PathVariable("restaurantId") String restaurantId, @PathVariable("id") int id,
-                                  @RequestParam("query") String query, Model model, HttpServletRequest request) {
+            @PathVariable("restaurantId") String restaurantId, @PathVariable("id") int id,
+            @RequestParam("query") String query, Model model, HttpServletRequest request) {
         boolean isAPIAccessible = APIAccessAuthorization.getInstance().getAPIAccess(request);
         if (isAPIAccessible) {
             RestaurantDTO restaurantDTO = restaurantBusiness.getRestaurantById(restaurantId);
@@ -108,8 +110,8 @@ public class CustomerController {
     }
 
     @GetMapping("/addtocart/{menuId}/{menuItemId}/")
-    public String addItemsToCart(@PathVariable("menuId") String menuId, @PathVariable("menuItemId") String menuItemId,
-                                 Model model, HttpServletRequest request) {
+            @PathVariable("menuId") String menuId, @PathVariable("menuItemId") String menuItemId,
+            Model model, HttpServletRequest request) {
 
         boolean isAPIAccessible = APIAccessAuthorization.getInstance().getAPIAccess(request);
         if (isAPIAccessible) {
@@ -169,8 +171,8 @@ public class CustomerController {
     }
 
     @GetMapping("/createfeedbackpage/{restaurantid}")
-    public String createFeedBack(@PathVariable("restaurantid") String restaurantId, Model model,
-                                 HttpServletRequest request) {
+            @PathVariable("restaurantid") String restaurantId, Model model,
+            HttpServletRequest request) {
         boolean isAPIAccessible = APIAccessAuthorization.getInstance().getAPIAccess(request);
         if (isAPIAccessible) {
             RatingDto userDetailsDto = DTOFactory.getInstance().createRatingDto();
@@ -182,7 +184,9 @@ public class CustomerController {
     }
 
     @PostMapping("/addfeedback/{restaurantid}")
-    public String addFeedBack(@PathVariable("restaurantid") String restaurantId, @ModelAttribute RatingDto ratingDto, HttpServletRequest request) {
+            
+    public String addFeedBack(@PathVariable("restaurantid") String restaurantId, @ModelAttribute RatingDto ratingDto,
+            HttpServletRequest request) {
         boolean isAPIAccessible = APIAccessAuthorization.getInstance().getAPIAccess(request);
         if (isAPIAccessible) {
             String userId = CookiesLogic.extractCookie(request, ApplicationConstants.COOKIE_USERID);

@@ -1,14 +1,15 @@
 package com.CanadaEats.group13.restaurantOwnersAdmin;
 
-import com.CanadaEats.group13.restaurantOwnersAdmin.dto.RestaurantOwnerAdminDto;
-import com.CanadaEats.group13.utils.ApplicationConstants;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
+import java.sql.Date;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-import java.sql.Date;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import com.CanadaEats.group13.restaurantOwnersAdmin.dto.RestaurantOwnerAdminDto;
+import com.CanadaEats.group13.utils.ApplicationConstants;
 
 @DisplayName("Restaurant_Owner_Admin DTO class tests")
 public class RestaurantOwnerAdminDtoTest {
@@ -254,6 +255,3 @@ public class RestaurantOwnerAdminDtoTest {
     }
 
 }
-
-
-

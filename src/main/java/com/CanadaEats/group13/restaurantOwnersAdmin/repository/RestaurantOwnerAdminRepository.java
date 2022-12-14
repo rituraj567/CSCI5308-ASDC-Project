@@ -1,15 +1,19 @@
 package com.CanadaEats.group13.restaurantOwnersAdmin.repository;
 
+import java.sql.Connection;
+import java.sql.Date;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.UUID;
+
 import com.CanadaEats.group13.database.IDatabaseConnection;
 import com.CanadaEats.group13.restaurantOwnersAdmin.dto.RestaurantBindingDto;
 import com.CanadaEats.group13.restaurantOwnersAdmin.dto.RestaurantOwnerAdminDto;
 import com.CanadaEats.group13.utils.ApplicationConstants;
 import com.CanadaEats.group13.utils.PasswordEncoderDecoder;
-
-import java.sql.*;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.UUID;
 
 public class RestaurantOwnerAdminRepository implements IRestaurantOwnerAdminRepository {
     IDatabaseConnection databaseConnection;
@@ -20,7 +24,7 @@ public class RestaurantOwnerAdminRepository implements IRestaurantOwnerAdminRepo
     }
 
     public List<RestaurantOwnerAdminDto> getRestaurantOwnerResultSet(ResultSet restaurantOwnerResultSet,
-                                                                     List<RestaurantOwnerAdminDto> restaurantOwnerAdminDtoList) {
+            List<RestaurantOwnerAdminDto> restaurantOwnerAdminDtoList) {
         try {
             while (restaurantOwnerResultSet.next()) {
                 int id = Integer.parseInt(restaurantOwnerResultSet.getString(ApplicationConstants.USER_ID_COLUMN));
@@ -38,9 +42,12 @@ public class RestaurantOwnerAdminRepository implements IRestaurantOwnerAdminRepo
                 String province = restaurantOwnerResultSet.getString(ApplicationConstants.USER_PROVINCE_COLUMN);
                 String country = restaurantOwnerResultSet.getString(ApplicationConstants.USER_COUNTRY_COLUMN);
                 String postalCode = restaurantOwnerResultSet.getString(ApplicationConstants.RESTAURANT_POSTAL_CODE);
-                int status = Integer.parseInt(restaurantOwnerResultSet.getString(ApplicationConstants.USER_STATUS_COLUMN));
+                int status = Integer
+                        .parseInt(restaurantOwnerResultSet.getString(ApplicationConstants.USER_STATUS_COLUMN));
                 String roleId = restaurantOwnerResultSet.getString(ApplicationConstants.USER_ROLE_ROLEID_COLUMN);
-                restaurantOwnerAdminDtoList.add(new RestaurantOwnerAdminDto(id, userId, firstName, lastName, emailId, userName, password, mobileNumber, gender, birthDate, address, city, province, country, postalCode, status, roleId));
+                restaurantOwnerAdminDtoList.add(new RestaurantOwnerAdminDto(id, userId, firstName, lastName, emailId,
+                        userName, password, mobileNumber, gender, birthDate, address, city, province, country,
+                        postalCode, status, roleId));
             }
 
         } catch (Exception e) {
@@ -55,9 +62,11 @@ public class RestaurantOwnerAdminRepository implements IRestaurantOwnerAdminRepo
         try {
             this.connection = databaseConnection.getDatabaseConnection();
             Statement statement = this.connection.createStatement();
-            String getAllRestaurantOwnersQuery = "SELECT * FROM User WHERE Role_RoleId=" + "\"" + ApplicationConstants.RESTAURANT_OWNER_ROLEID + "\"";
+            String getAllRestaurantOwnersQuery = "SELECT * FROM User WHERE Role_RoleId=" + "\""
+                    + ApplicationConstants.RESTAURANT_OWNER_ROLEID + "\"";
             ResultSet restaurantOwnersResult = statement.executeQuery(getAllRestaurantOwnersQuery);
-            restaurantOwnerAdminDtoList = getRestaurantOwnerResultSet(restaurantOwnersResult, restaurantOwnerAdminDtoList);
+            restaurantOwnerAdminDtoList = getRestaurantOwnerResultSet(restaurantOwnersResult,
+                    restaurantOwnerAdminDtoList);
             this.connection.close();
             statement.close();
             restaurantOwnersResult.close();
@@ -122,9 +131,12 @@ public class RestaurantOwnerAdminRepository implements IRestaurantOwnerAdminRepo
                 String province = restaurantOwnerResultSet.getString(ApplicationConstants.USER_PROVINCE_COLUMN);
                 String country = restaurantOwnerResultSet.getString(ApplicationConstants.USER_COUNTRY_COLUMN);
                 String postalCode = restaurantOwnerResultSet.getString(ApplicationConstants.USER_POSTALCODE_COLUMN);
-                int status = Integer.parseInt(restaurantOwnerResultSet.getString(ApplicationConstants.USER_STATUS_COLUMN));
+                int status = Integer
+                        .parseInt(restaurantOwnerResultSet.getString(ApplicationConstants.USER_STATUS_COLUMN));
                 String roleId = restaurantOwnerResultSet.getString(ApplicationConstants.USER_ROLE_ROLEID_COLUMN);
-                restaurantOwnerAdminDto = new RestaurantOwnerAdminDto(id, userId, firstName, lastName, emailId, userName, password, mobileNumber, gender, birthDate, address, city, province, country, postalCode, status, roleId);
+                restaurantOwnerAdminDto = new RestaurantOwnerAdminDto(id, userId, firstName, lastName, emailId,
+                        userName, password, mobileNumber, gender, birthDate, address, city, province, country,
+                        postalCode, status, roleId);
             }
             connection.close();
             statement.close();
@@ -139,7 +151,8 @@ public class RestaurantOwnerAdminRepository implements IRestaurantOwnerAdminRepo
     public void updateRestaurantOwner(RestaurantOwnerAdminDto restaurantOwnerAdminDto) {
         try {
             this.connection = databaseConnection.getDatabaseConnection();
-            String query = "UPDATE User SET FirstName=?, LastName=?, EmailId=?, UserName=?, MobileNumber=?, Gender=?,  Address=?, City=?, Province=?, Country=?, PostalCode=?,status=? WHERE id=" + restaurantOwnerAdminDto.getId();
+            String query = "UPDATE User SET FirstName=?, LastName=?, EmailId=?, UserName=?, MobileNumber=?, Gender=?,  Address=?, City=?, Province=?, Country=?, PostalCode=?,status=? WHERE id="
+                    + restaurantOwnerAdminDto.getId();
             PreparedStatement preparedStmt = connection.prepareStatement(query);
             preparedStmt.setString(1, restaurantOwnerAdminDto.getFirstName());
             preparedStmt.setString(2, restaurantOwnerAdminDto.getLastName());

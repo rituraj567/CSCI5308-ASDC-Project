@@ -1,13 +1,13 @@
 package com.CanadaEats.group13.delivery_person.repository;
 
-import com.CanadaEats.group13.database.DatabaseConnection;
-import com.CanadaEats.group13.database.IDatabaseConnection;
-import com.CanadaEats.group13.utils.ApplicationConstants;
-
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
+
+import com.CanadaEats.group13.database.DatabaseConnection;
+import com.CanadaEats.group13.database.IDatabaseConnection;
+import com.CanadaEats.group13.utils.ApplicationConstants;
 
 public class DeliverRepository implements IDeliverRepository {
 

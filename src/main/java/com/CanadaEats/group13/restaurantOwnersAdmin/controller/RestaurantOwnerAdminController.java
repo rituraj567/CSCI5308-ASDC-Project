@@ -1,5 +1,17 @@
 package com.CanadaEats.group13.restaurantOwnersAdmin.controller;
 
+import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+
 import com.CanadaEats.group13.database.DatabaseConnection;
 import com.CanadaEats.group13.restaurantOwnersAdmin.dto.RestaurantBindingDto;
 import com.CanadaEats.group13.restaurantOwnersAdmin.dto.RestaurantOwnerAdminDto;
@@ -7,12 +19,6 @@ import com.CanadaEats.group13.restaurantOwnersAdmin.repository.IRestaurantOwnerA
 import com.CanadaEats.group13.restaurantOwnersAdmin.repository.RestaurantOwnerAdminRepository;
 import com.CanadaEats.group13.utils.APIAccessAuthorization;
 import com.CanadaEats.group13.utils.ApplicationConstants;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
-
-import javax.servlet.http.HttpServletRequest;
-import java.util.List;
 
 @Controller
 public class RestaurantOwnerAdminController {
@@ -45,7 +51,8 @@ public class RestaurantOwnerAdminController {
     }
 
     @PostMapping("/admin/restaurantsOwnerAdmin/")
-    public String createRestaurantOwner(@ModelAttribute RestaurantOwnerAdminDto restaurantOwnerAdminDto, HttpServletRequest request) {
+    public String createRestaurantOwner(@ModelAttribute RestaurantOwnerAdminDto restaurantOwnerAdminDto,
+            HttpServletRequest request) {
         boolean isAPIAccessible = APIAccessAuthorization.getInstance().getAPIAccess(request);
         if (isAPIAccessible) {
             restaurantOwnerAdminRepository.postRestaurantOwnerAdmin(restaurantOwnerAdminDto);
@@ -67,7 +74,8 @@ public class RestaurantOwnerAdminController {
 
     @PostMapping("/admin/restaurantOwners/{userId}")
     public String updateRestaurantOwner(@PathVariable("userId") int userId,
-                                        @ModelAttribute("restaurantOwner") RestaurantOwnerAdminDto restaurantOwnerAdminDto, Model model, HttpServletRequest request) {
+            @ModelAttribute("restaurantOwner") RestaurantOwnerAdminDto restaurantOwnerAdminDto, Model model,
+            HttpServletRequest request) {
         boolean isAPIAccessible = APIAccessAuthorization.getInstance().getAPIAccess(request);
         if (isAPIAccessible) {
             model.addAttribute("restaurant", restaurantOwnerAdminDto);
@@ -100,7 +108,8 @@ public class RestaurantOwnerAdminController {
     }
 
     @PostMapping("/bindRestaurantOwner")
-    public String bindRestaurantOwner(@RequestBody RestaurantBindingDto restaurantBindingDto, HttpServletRequest request) {
+    public String bindRestaurantOwner(@RequestBody RestaurantBindingDto restaurantBindingDto,
+            HttpServletRequest request) {
         boolean isAPIAccessible = APIAccessAuthorization.getInstance().getAPIAccess(request);
         if (isAPIAccessible) {
             restaurantOwnerAdminRepository.bindRestaurantOwner(restaurantBindingDto);

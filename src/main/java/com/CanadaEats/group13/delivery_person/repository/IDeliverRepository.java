@@ -1,9 +1,5 @@
 package com.CanadaEats.group13.delivery_person.repository;
 
-import java.util.ArrayList;
-
-import com.CanadaEats.group13.order.dto.OrderDisplayDTO;
-
 public interface IDeliverRepository {
     public boolean changeToDelivered(String orderId);
 
