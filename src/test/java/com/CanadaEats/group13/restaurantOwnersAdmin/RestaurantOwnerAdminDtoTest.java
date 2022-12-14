@@ -153,7 +153,7 @@ public class RestaurantOwnerAdminDtoTest {
     @DisplayName("setEmailIdTest() test")
     public void setEmailIdTest() {
         String newValue = "hello@dal.ca";
-        restaurantOwnerAdminDto.setUserId(newValue);
+        restaurantOwnerAdminDto.setEmailId(newValue);
         assertEquals(newValue, restaurantOwnerAdminDto.getEmailId());
     }
 
@@ -161,7 +161,7 @@ public class RestaurantOwnerAdminDtoTest {
     @DisplayName("setUserNameTest() test")
     public void setUserNameTest() {
         String newValue = "hello123";
-        restaurantOwnerAdminDto.setUserId(newValue);
+        restaurantOwnerAdminDto.setUserName(newValue);
         assertEquals(newValue, restaurantOwnerAdminDto.getUserName());
     }
 
@@ -169,7 +169,7 @@ public class RestaurantOwnerAdminDtoTest {
     @DisplayName("setPasswordTest() test")
     public void setPasswordTest() {
         String newValue = "hello123";
-        restaurantOwnerAdminDto.setUserId(newValue);
+        restaurantOwnerAdminDto.setPassword(newValue);
         assertEquals(newValue, restaurantOwnerAdminDto.getPassword());
     }
 
@@ -177,7 +177,7 @@ public class RestaurantOwnerAdminDtoTest {
     @DisplayName("setMobileNumber() test")
     public void setMobileNumber() {
         String newValue = "7897897897";
-        restaurantOwnerAdminDto.setUserId(newValue);
+        restaurantOwnerAdminDto.setMobileNumber(newValue);
         assertEquals(newValue, restaurantOwnerAdminDto.getMobileNumber());
     }
 
@@ -185,7 +185,7 @@ public class RestaurantOwnerAdminDtoTest {
     @DisplayName("setGenderTest() test")
     public void setGenderTest() {
         String newValue = "female";
-        restaurantOwnerAdminDto.setUserId(newValue);
+        restaurantOwnerAdminDto.setGender(newValue);
         assertEquals(newValue, restaurantOwnerAdminDto.getGender());
     }
 
