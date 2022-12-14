@@ -1,17 +1,17 @@
 package com.CanadaEats.group13.delivery_person.repository;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.Statement;
-import java.util.ArrayList;
-
 import com.CanadaEats.group13.database.DatabaseConnection;
 import com.CanadaEats.group13.database.IDatabaseConnection;
 import com.CanadaEats.group13.order.dto.OrderDTO;
 import com.CanadaEats.group13.order.dto.OrderDisplayDTO;
 import com.CanadaEats.group13.order.repository.IOrderRepository;
 import com.CanadaEats.group13.utils.ApplicationConstants;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.Statement;
+import java.util.ArrayList;
 
 public class DeliverRepository implements IDeliverRepository {
 
@@ -23,6 +23,10 @@ public class DeliverRepository implements IDeliverRepository {
 
     public DeliverRepository() {
 
+    }
+
+    public DeliverRepository(IDatabaseConnection databaseConnection) {
+        this.databaseConnection = databaseConnection;
     }
 
     @Override
