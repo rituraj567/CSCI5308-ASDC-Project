@@ -25,23 +25,9 @@ public class DeliverRepository implements IDeliverRepository {
 
     }
 
+
     public DeliverRepository(IDatabaseConnection databaseConnection) {
         this.databaseConnection = databaseConnection;
-    }
-
-    @Override
-    public ArrayList<OrderDisplayDTO> orders_assigned(String deliverId) {
-
-        ArrayList<OrderDTO> orders = iOrderRepository.getOrders();
-        ArrayList<OrderDTO> finalOrders = new ArrayList<OrderDTO>();
-        ArrayList<OrderDisplayDTO> results;
-        for (OrderDTO i : orders) {
-            if (i.getDelivery_id().equals(deliverId)) {
-                finalOrders.add(i);
-            }
-        }
-        results = iOrderRepository.displayOrder(finalOrders);
-        return results;
     }
 
     @Override

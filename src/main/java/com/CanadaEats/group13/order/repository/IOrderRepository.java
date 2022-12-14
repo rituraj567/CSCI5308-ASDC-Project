@@ -1,9 +1,6 @@
 package com.CanadaEats.group13.order.repository;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.Statement;
+import java.sql.*;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -228,16 +225,4 @@ public class IOrderRepository implements IOderRepository {
         }
         return orderDisplayDTOArrayList;
     }
-
-    //
-    // public static void main(String args[]) throws SQLException
-    // {
-    //
-    // IOrderRepository hi = new IOrderRepository();
-    //
-    // ArrayList<OrderDTO> hello = hi.getOrders();
-    //
-    // System.out.println(hello.size());
-    //
-    // }
 }

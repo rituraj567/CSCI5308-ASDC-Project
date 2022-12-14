@@ -10,11 +10,12 @@ import java.util.HashMap;
 public class OrderMock implements IOderRepository {
 
     ArrayList<OrderDTO> orderDTOS = new ArrayList<>();
+    MockDBs mockDBs = new MockDBs();
+    ArrayList<OrderDisplayDTO> orderDisplayDTOS = new ArrayList<>();
 
     public ArrayList<OrderDTO> getOrders()
     {
-        orderDTOS.add(new OrderDTO(1,"ie912","Diwen","McDonald","Manil",31,"Pending","Debit Card","2022-12-03"));
-        orderDTOS.add(new OrderDTO(2,"ie913","ABC","McDonald","Manil",62,"Pending","Credit Card","2022-12-03"));
+        orderDTOS = mockDBs.fakeOrder();
         return orderDTOS;
     }
 
@@ -31,10 +32,7 @@ public class OrderMock implements IOderRepository {
 
     public String findRestaurant(String resatarunt){
         String returnValue="";
-        ArrayList<String> fakeRestaurant = new ArrayList<>();
-        fakeRestaurant.add("FIVE GUYS");
-        fakeRestaurant.add("McDonald");
-        fakeRestaurant.add("Red Cusine");
+        ArrayList<String> fakeRestaurant = mockDBs.fakeRestaurant();
 
         for(int i=0; i<fakeRestaurant.size();i++)
         {
@@ -53,11 +51,7 @@ public class OrderMock implements IOderRepository {
     public String findPayment(String payment)
     {
         String returnValue="";
-        ArrayList<String> fakePayment = new ArrayList<>();
-        fakePayment.add("Credit Card");
-        fakePayment.add("Debit Card");
-        fakePayment.add("Cash");
-
+        ArrayList<String> fakePayment = mockDBs.fakePaymentOption();
         for(int i=0; i<fakePayment.size();i++)
         {
             if(fakePayment.get(i).equals(payment))
@@ -74,10 +68,7 @@ public class OrderMock implements IOderRepository {
     public String findCustomer(String customer){
 
         String returnValue="";
-        ArrayList<String> fakeCustomer = new ArrayList<>();
-        fakeCustomer.add("ABC");
-        fakeCustomer.add("Diwen");
-        fakeCustomer.add("Mike");
+        ArrayList<String> fakeCustomer = mockDBs.fakeCustomer();
 
         for(int i=0; i<fakeCustomer.size();i++)
         {
@@ -93,16 +84,11 @@ public class OrderMock implements IOderRepository {
         return returnValue;
     }
 
-
     public String findPhone(String userId){
         String returnValue="";
 
-        HashMap<String,String> fakePhone=new HashMap<>();
-        fakePhone.put("Diwen","9021231234");
-        fakePhone.put("ABC","9023214321");
-        fakePhone.put("Mike","9028893322");
+        HashMap<String,String> fakePhone=mockDBs.fakePhoneNumber();
         returnValue=fakePhone.get(userId);
-
         if(returnValue!=null)
         {
             return returnValue;
@@ -110,18 +96,12 @@ public class OrderMock implements IOderRepository {
         else {
             returnValue = "User Id not Valid";
         }
-
         return returnValue;
     }
 
     public String findDeliverAdd(String userId){
         String returnValue="";
-
-        HashMap<String,String> fakeAdd=new HashMap<>();
-        fakeAdd.put("Diwen","");
-        fakeAdd.put("ABC","9023214321");
-        fakeAdd.put("Mike","9028893322");
-
+        HashMap<String,String> fakeAdd=mockDBs.fakeDeliverAdress();
         returnValue=fakeAdd.get(userId);
 
         if(returnValue!=null)
