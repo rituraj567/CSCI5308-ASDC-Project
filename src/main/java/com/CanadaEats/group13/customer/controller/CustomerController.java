@@ -13,7 +13,6 @@ import com.CanadaEats.group13.restaurant.business.IRestaurantBusiness;
 import com.CanadaEats.group13.restaurant.business.RestaurantBusiness;
 import com.CanadaEats.group13.restaurant.dto.RestaurantDTO;
 import com.CanadaEats.group13.restaurant.repository.RestaurantRepository;
-import com.CanadaEats.group13.restaurantOwnersAdmin.repository.IRestaurantOwnerAdminRepository;
 import com.CanadaEats.group13.restaurantowner.business.IRestaurantOwnerBusiness;
 import com.CanadaEats.group13.restaurantowner.business.RestaurantOwnerBusiness;
 import com.CanadaEats.group13.restaurantowner.dto.MenuItemDto;
@@ -26,7 +25,6 @@ import com.CanadaEats.group13.utils.CookiesLogic;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
@@ -41,7 +39,6 @@ public class CustomerController {
     IRestaurantBusiness restaurantBusiness;
     IRestaurantOwnerBusiness restaurantOwnerBusiness;
     IRestaurantOwnerRepository repository;
-    IRestaurantOwnerAdminRepository restaurantOwnerAdminRepository;
     ICustomerRepository customerRepository;
 
     public CustomerController() {
@@ -59,7 +56,6 @@ public class CustomerController {
         if (isAPIAccessible) {
             List<RestaurantDTO> restaurantDTOList = restaurantBusiness.getAllRestaurants();
             model.addAttribute("restaurants", restaurantDTOList);
-
             return ApplicationConstants.URL_RESTAURANT_CUSTOMER_HOME_PAGE;
         }
         return ApplicationConstants.URL_AUTHENTICATION_USERLOGINPAGE;
@@ -71,15 +67,13 @@ public class CustomerController {
         if (isAPIAccessible) {
             List<RestaurantDTO> restaurantDTOList = restaurantBusiness.searchRestaurants(query);
             model.addAttribute("restaurants", restaurantDTOList);
-
             return ApplicationConstants.URL_RESTAURANT_CUSTOMER_HOME_PAGE;
         }
         return ApplicationConstants.URL_AUTHENTICATION_USERLOGINPAGE;
     }
 
     @GetMapping("/restaurant/{restaurantId}/display")
-    public String showRestaurant(@PathVariable("restaurantId") String restaurantId, Model model,
-                                 RedirectAttributes redirectAttrs, HttpServletRequest request) {
+    public String showRestaurant(@PathVariable("restaurantId") String restaurantId, Model model, HttpServletRequest request) {
         boolean isAPIAccessible = APIAccessAuthorization.getInstance().getAPIAccess(request);
         if (isAPIAccessible) {
             RestaurantDTO restaurantDTO = restaurantBusiness.getRestaurantById(restaurantId);
@@ -115,7 +109,7 @@ public class CustomerController {
 
     @GetMapping("/addtocart/{menuId}/{menuItemId}/")
     public String addItemsToCart(@PathVariable("menuId") String menuId, @PathVariable("menuItemId") String menuItemId,
-                                 Model model, RedirectAttributes redirectAttrs, HttpServletRequest request) {
+                                 Model model, HttpServletRequest request) {
 
         boolean isAPIAccessible = APIAccessAuthorization.getInstance().getAPIAccess(request);
         if (isAPIAccessible) {
@@ -140,44 +134,63 @@ public class CustomerController {
     }
 
     @GetMapping("/checkout/")
-    public String checkoutCart(Model model) {
-
-        HashMap<String, int[]> cartItems = CustomerPageHelpers.getCartItems();
-        model.addAttribute("cartItems", cartItems);
-        List<int[]> cartlist = new ArrayList<int[]>(cartItems.values());
-        List<String> keys = new ArrayList<>(cartItems.keySet());
-        model.addAttribute("keys", keys);
-        model.addAttribute("cartList", cartlist);
-        return ApplicationConstants.URL_RESTAURANT_CHECKOUT;
+    public String checkoutCart(Model model, HttpServletRequest request) {
+        boolean isAPIAccessible = APIAccessAuthorization.getInstance().getAPIAccess(request);
+        if (isAPIAccessible) {
+            HashMap<String, int[]> cartItems = CustomerPageHelpers.getCartItems();
+            model.addAttribute("cartItems", cartItems);
+            List<int[]> cartlist = new ArrayList<int[]>(cartItems.values());
+            List<String> keys = new ArrayList<>(cartItems.keySet());
+            model.addAttribute("keys", keys);
+            model.addAttribute("cartList", cartlist);
+            return ApplicationConstants.URL_RESTAURANT_CHECKOUT;
+        }
+        return ApplicationConstants.URL_AUTHENTICATION_USERLOGINPAGE;
     }
 
     @GetMapping("/payment")
-    public String makePayment(Model model) {
-        int gradTotal = CustomerPageHelpers.getGrandTotal();
-        model.addAttribute("grandTotal", gradTotal);
-        return "payment/payment";
+    public String makePayment(Model model, HttpServletRequest request) {
+        boolean isAPIAccessible = APIAccessAuthorization.getInstance().getAPIAccess(request);
+        if (isAPIAccessible) {
+            int gradTotal = CustomerPageHelpers.getGrandTotal();
+            model.addAttribute("grandTotal", gradTotal);
+            return ApplicationConstants.URL_CUSTOMER_PAYMENT_PAYMENT;
+        }
+        return ApplicationConstants.URL_AUTHENTICATION_USERLOGINPAGE;
     }
 
     @GetMapping("/successPayment")
-    public String confirmPayment(Model model) {
-        return "payment/successPayment";
+    public String confirmPayment(Model model, HttpServletRequest request) {
+        boolean isAPIAccessible = APIAccessAuthorization.getInstance().getAPIAccess(request);
+        if (isAPIAccessible) {
+            return ApplicationConstants.URL_CUSTOMER_PAYMENT_SUCCESSPAYMENT;
+        }
+        return ApplicationConstants.URL_AUTHENTICATION_USERLOGINPAGE;
     }
 
     @GetMapping("/createfeedbackpage/{restaurantid}")
     public String createFeedBack(@PathVariable("restaurantid") String restaurantId, Model model,
                                  HttpServletRequest request) {
-        RatingDto userDetailsDto = DTOFactory.getInstance().createRatingDto();
-        model.addAttribute("userrating", userDetailsDto);
-        model.addAttribute("restaurantid", restaurantId);
-        return "customer/userRatingPage";
+        boolean isAPIAccessible = APIAccessAuthorization.getInstance().getAPIAccess(request);
+        if (isAPIAccessible) {
+            RatingDto userDetailsDto = DTOFactory.getInstance().createRatingDto();
+            model.addAttribute("userrating", userDetailsDto);
+            model.addAttribute("restaurantid", restaurantId);
+            return ApplicationConstants.URL_CUSTOMER_USERRATING;
+        }
+        return ApplicationConstants.URL_AUTHENTICATION_USERLOGINPAGE;
     }
 
     @PostMapping("/addfeedback/{restaurantid}")
     public String addFeedBack(@PathVariable("restaurantid") String restaurantId, @ModelAttribute RatingDto ratingDto, HttpServletRequest request) {
-        String userId = CookiesLogic.extractCookie(request, ApplicationConstants.COOKIE_USERID);
-        ratingDto.setRestaurantId(restaurantId);
-        ratingDto.setUserId(userId);
-        customerRepository.addFeedBack(ratingDto);
-        return "redirect:/userHomePage";
+        boolean isAPIAccessible = APIAccessAuthorization.getInstance().getAPIAccess(request);
+        if (isAPIAccessible) {
+            String userId = CookiesLogic.extractCookie(request, ApplicationConstants.COOKIE_USERID);
+            ratingDto.setRestaurantId(restaurantId);
+            ratingDto.setUserId(userId);
+            customerRepository.addFeedBack(ratingDto);
+            return ApplicationConstants.URL_AUTHENTICATION_USERHOMEPAGE;
+        }
+        return ApplicationConstants.URL_AUTHENTICATION_USERLOGINPAGE;
     }
 }

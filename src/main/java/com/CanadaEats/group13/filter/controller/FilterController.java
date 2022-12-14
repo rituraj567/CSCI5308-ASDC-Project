@@ -33,7 +33,7 @@ public class FilterController {
             model.addAttribute("filters", filters);
             return ApplicationConstants.URL_FILTER_DISPLAYFILTERS;
         }
-        return "redirect:/userloginpage";
+        return ApplicationConstants.URL_AUTHENTICATION_USERLOGINPAGE;
     }
 
     @PostMapping("/updatefilters")

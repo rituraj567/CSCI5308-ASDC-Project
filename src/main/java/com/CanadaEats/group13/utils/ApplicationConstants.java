@@ -106,6 +106,36 @@ public class ApplicationConstants {
     public static final String URL_RESTAURANTOWNERADMIN_POST_SUCCESS = "redirect:/restaurantOwners";
     public static final String URL_RESTAURANTOWNERADMIN_DELETE_SUCCESS = "redirect:/restaurantOwners";
     public static final String URL_RESTAURANTOWNERADMIN_VIEW = "restaurantOwnersAdmin/viewRestaurantOwnerAdmin";
-
     public static final String URL_RESTAURANTOWNERADMIN_BIND = "redirect:/restaurantOwners";
+    public static final String USER_ID_COLUMN = "Id";
+    public static final String USER_FIRSTNAME_COLUMN = "FirstName";
+    public static final String USER_LASTNAME_COLUMN = "LastName";
+    public static final String USER_EMAILID_COLUMN = "EmailId";
+    public static final String USER_GENDER_COLUMN = "Gender";
+    public static final String USER_BIRTHDATE_COLUMN = "BirthDate";
+    public static final String USER_ADDRESS_COLUMN = "Address";
+    public static final String USER_CITY_COLUMN = "City";
+    public static final String USER_PROVINCE_COLUMN = "Province";
+    public static final String USER_COUNTRY_COLUMN = "Country";
+    public static final String USER_POSTALCODE_COLUMN = "PostalCode";
+    public static final String USER_STATUS_COLUMN = "Status";
+    public static final String USER_ROLE_ROLEID_COLUMN = "Role_RoleId";
+    public static final String USER_MOBILENUMBER_COLUMN = "MobileNumber";
+    public static final String PROPERTY_PATH = "./src/main/resources/application.properties";
+    public static final String JDBC_DRIVER = "JDBCDriver";
+    public static final String DATASOURCE_URL = "spring.datasource.url";
+    public static final String SPRING_USERNAME = "spring.username";
+    public static final String DATASOURCE_PASSWORD = "spring.datasource.password";
+    public static final int ORDER_STATUS_PENDING = 2;
+    public static final String URL_CUSTOMER_PAYMENT_PAYMENT = "payment/payment";
+    public static final String URL_CUSTOMER_PAYMENT_SUCCESSPAYMENT = "payment/successPayment";
+    public static final String URL_CUSTOMER_USERRATING = "customer/userRatingPage";
+    public static final String URL_CUSTOMER_ORDERPAGE = "order/orderPage";
+    public static final String URL_CUSTOMER_ORDER = "redirect:/order";
+    public static final String ORDER_PICKED_UP = "Picked Up";
+    public static final String ORDER_DELIVERED = "Delivered";
+    public static final String ORDER_ORDERSTATUSID = "OrderStatusId";
+    public static final String URL_ORDER_VIEWORDER = "/order/viewOrder";
+
+
 }

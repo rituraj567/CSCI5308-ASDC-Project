@@ -17,7 +17,6 @@ import java.sql.Statement;
 public class UserRepository implements IUserRepository {
 
     IDatabaseConnection databaseConnection;
-    // DatabaseConnection databaseConnection;
     Connection connection;
     Statement statement;
     ResultSet userResult;
@@ -29,7 +28,6 @@ public class UserRepository implements IUserRepository {
     public UserDetailsResponseModel registerUser(UserDetailsDto userDetails) {
         UserDetailsResponseModel userResponse = new UserDetailsResponseModel();
         try {
-            // databaseConnection = DatabaseConnection.getInstance();
             connection = databaseConnection.getDatabaseConnection();
             statement = connection.createStatement();
             String getUser = "select * from User where UserName = '" + userDetails.getUserName() + "' and Status = 1";
@@ -81,23 +79,18 @@ public class UserRepository implements IUserRepository {
         UserLoginResponseModel userLoginResponseModel = new UserLoginResponseModel();
 
         try {
-            // databaseConnection = DatabaseConnection.getInstance();
             connection = databaseConnection.getDatabaseConnection();
             statement = connection.createStatement();
             String getUser = "select * from User where UserName = '" + userLoginDto.getUserName() + "' and Status = 1";
             userResult = statement.executeQuery(getUser);
 
-            if (userResult.next() == false) {
-                System.out.println("username not found");
-            } else {
+            if (userResult.next()) {
                 try {
-
                     String decryptedPassword = PasswordEncoderDecoder.getInstance()
                             .decrypt(userResult.getString(ApplicationConstants.USER_PASSWORD_COLUMN));
                     if (decryptedPassword.equals(userLoginDto.getPassword())) {
                         userLoginResponseModel.setRoleId(userResult.getString(ApplicationConstants.USER_ROLEID_COLUMN));
-                        userLoginResponseModel
-                                .setUserName(userResult.getString(ApplicationConstants.USER_USERNAME_COLUMN));
+                        userLoginResponseModel.setUserName(userResult.getString(ApplicationConstants.USER_USERNAME_COLUMN));
                         userLoginResponseModel.setUserId(userResult.getString(ApplicationConstants.USER_USERID_COLUMN));
                         String loggedInUserRoleId = userResult.getString(ApplicationConstants.USER_ROLEID_COLUMN);
                         String loggedInUserUserId = userResult.getString(ApplicationConstants.USER_USERID_COLUMN);
@@ -153,23 +146,23 @@ public class UserRepository implements IUserRepository {
 
         try {
             while (resultSet.next()) {
-                userDetailsDto.setId(Integer.parseInt(resultSet.getString("Id")));
-                userDetailsDto.setUserId(resultSet.getString("UserId"));
-                userDetailsDto.setFirstName(resultSet.getString("FirstName"));
-                userDetailsDto.setLastName(resultSet.getString("LastName"));
-                userDetailsDto.setEmailId(resultSet.getString("EmailId"));
-                userDetailsDto.setUserName(resultSet.getString("UserName"));
-                userDetailsDto.setPassword(resultSet.getString("Password"));
-                userDetailsDto.setGender(resultSet.getString("Gender"));
+                userDetailsDto.setId(Integer.parseInt(resultSet.getString(ApplicationConstants.USER_ID_COLUMN)));
+                userDetailsDto.setUserId(resultSet.getString(ApplicationConstants.USER_USERID_COLUMN));
+                userDetailsDto.setFirstName(resultSet.getString(ApplicationConstants.USER_FIRSTNAME_COLUMN));
+                userDetailsDto.setLastName(resultSet.getString(ApplicationConstants.USER_LASTNAME_COLUMN));
+                userDetailsDto.setEmailId(resultSet.getString(ApplicationConstants.USER_EMAILID_COLUMN));
+                userDetailsDto.setUserName(resultSet.getString(ApplicationConstants.USER_USERNAME_COLUMN));
+                userDetailsDto.setPassword(resultSet.getString(ApplicationConstants.USER_PASSWORD_COLUMN));
+                userDetailsDto.setGender(resultSet.getString(ApplicationConstants.USER_GENDER_COLUMN));
 
-                userDetailsDto.setBirthDate(resultSet.getDate("BirthDate"));
-                userDetailsDto.setAddress(resultSet.getString("Address"));
-                userDetailsDto.setCity(resultSet.getString("City"));
-                userDetailsDto.setProvince(resultSet.getString("Province"));
-                userDetailsDto.setCountry(resultSet.getString("Country"));
-                userDetailsDto.setPostalCode(resultSet.getString("PostalCode"));
-                userDetailsDto.setStatus(resultSet.getInt("Status"));
-                userDetailsDto.setRoleId(resultSet.getString("Role_RoleId"));
+                userDetailsDto.setBirthDate(resultSet.getDate(ApplicationConstants.USER_BIRTHDATE_COLUMN));
+                userDetailsDto.setAddress(resultSet.getString(ApplicationConstants.USER_ADDRESS_COLUMN));
+                userDetailsDto.setCity(resultSet.getString(ApplicationConstants.USER_CITY_COLUMN));
+                userDetailsDto.setProvince(resultSet.getString(ApplicationConstants.USER_PROVINCE_COLUMN));
+                userDetailsDto.setCountry(resultSet.getString(ApplicationConstants.USER_COUNTRY_COLUMN));
+                userDetailsDto.setPostalCode(resultSet.getString(ApplicationConstants.USER_POSTALCODE_COLUMN));
+                userDetailsDto.setStatus(resultSet.getInt(ApplicationConstants.USER_STATUS_COLUMN));
+                userDetailsDto.setRoleId(resultSet.getString(ApplicationConstants.USER_ROLE_ROLEID_COLUMN));
             }
         } catch (Exception e) {
             System.out.println(e);

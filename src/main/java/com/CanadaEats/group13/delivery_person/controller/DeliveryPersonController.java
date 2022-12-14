@@ -5,12 +5,14 @@ import com.CanadaEats.group13.delivery_person.business.DeliverPersonBusiness;
 import com.CanadaEats.group13.delivery_person.business.IDeliveryPersonBusiness;
 import com.CanadaEats.group13.delivery_person.repository.DeliverRepository;
 import com.CanadaEats.group13.order.dto.OrderDTO;
+import com.CanadaEats.group13.utils.APIAccessAuthorization;
+import com.CanadaEats.group13.utils.ApplicationConstants;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
-import java.sql.SQLException;
+import javax.servlet.http.HttpServletRequest;
 
 @Controller
 public class DeliveryPersonController {
@@ -21,16 +23,23 @@ public class DeliveryPersonController {
     }
 
     @GetMapping("/orders/{orderId}")
-    public String showOrders(Model model, @PathVariable("orderId") int orderId) {
-        OrderDTO orderDisplayDTO = deliveryPersonBusiness.displayOrders(orderId);
-        model.addAttribute("order", orderDisplayDTO);
-
-        return "order/orderPage";
+    public String showOrders(Model model, @PathVariable("orderId") int orderId, HttpServletRequest request) {
+        boolean isAPIAccessible = APIAccessAuthorization.getInstance().getAPIAccess(request);
+        if (isAPIAccessible) {
+            OrderDTO orderDisplayDTO = deliveryPersonBusiness.displayOrders(orderId);
+            model.addAttribute("order", orderDisplayDTO);
+            return ApplicationConstants.URL_CUSTOMER_ORDERPAGE;
+        }
+        return ApplicationConstants.URL_AUTHENTICATION_USERLOGINPAGE;
     }
 
     @GetMapping("/delivery/{orderId}/{orderStatus}/")
-    public String updateOrderStatus(@PathVariable("orderId") String orderId, @PathVariable("orderStatus") int orderStatus) throws SQLException {
-        deliveryPersonBusiness.updateOrderStatus(orderId, orderStatus);
-        return "redirect:/order";
+    public String updateOrderStatus(@PathVariable("orderId") String orderId, @PathVariable("orderStatus") int orderStatus, HttpServletRequest request) {
+        boolean isAPIAccessible = APIAccessAuthorization.getInstance().getAPIAccess(request);
+        if (isAPIAccessible) {
+            deliveryPersonBusiness.updateOrderStatus(orderId, orderStatus);
+            return ApplicationConstants.URL_CUSTOMER_ORDER;
+        }
+        return ApplicationConstants.URL_AUTHENTICATION_USERLOGINPAGE;
     }
 }
