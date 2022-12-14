@@ -225,20 +225,4 @@ public class IOrderRepository implements IOderRepository {
         }
         return orderDisplayDTOArrayList;
     }
-
-
-     public static void main(String args[]) throws SQLException
-     {
-
-     IOrderRepository hi = new IOrderRepository();
-
-     ArrayList<OrderDTO> hello = hi.getOrders();
-
-
-     for(OrderDTO i : hello)
-     {
-         System.out.println("Id: "+i.getId());
-     }
-
-     }
 }

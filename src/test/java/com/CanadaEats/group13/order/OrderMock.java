@@ -11,11 +11,11 @@ public class OrderMock implements IOderRepository {
 
     ArrayList<OrderDTO> orderDTOS = new ArrayList<>();
     MockDBs mockDBs = new MockDBs();
+    ArrayList<OrderDisplayDTO> orderDisplayDTOS = new ArrayList<>();
 
     public ArrayList<OrderDTO> getOrders()
     {
-        orderDTOS.add(new OrderDTO(1,"ie912","Diwen","McDonald","Manil",31,"Pending","Debit Card","2022-12-03"));
-        orderDTOS.add(new OrderDTO(2,"ie913","ABC","McDonald","Manil",62,"Pending","Credit Card","2022-12-03"));
+        orderDTOS = mockDBs.fakeOrder();
         return orderDTOS;
     }
 
@@ -101,7 +101,6 @@ public class OrderMock implements IOderRepository {
 
     public String findDeliverAdd(String userId){
         String returnValue="";
-
         HashMap<String,String> fakeAdd=mockDBs.fakeDeliverAdress();
         returnValue=fakeAdd.get(userId);
 

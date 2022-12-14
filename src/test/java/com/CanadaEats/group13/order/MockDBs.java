@@ -1,5 +1,8 @@
 package com.CanadaEats.group13.order;
 
+import com.CanadaEats.group13.order.dto.OrderDTO;
+import com.CanadaEats.group13.utils.ApplicationConstants;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -8,6 +11,13 @@ public class MockDBs {
     public MockDBs(){
 
     }
+public ArrayList<OrderDTO> fakeOrder(){
+        ArrayList<OrderDTO> returnArray = new ArrayList<>();
+        returnArray.add(new OrderDTO(1,"ie912","Diwen","McDonald","irc421",31,"Pending", ApplicationConstants.CREDIT_CARD,"2022-12-03"));
+        returnArray.add(new OrderDTO(2,"ie913","ABC","McDonald","irc421",62,"Pending",ApplicationConstants.DEBIT_CARD,"2022-12-03"));
+
+        return returnArray;
+}
 
 public ArrayList<String> fakeRestaurant()
 {
@@ -56,7 +66,13 @@ public HashMap<String,String> fakeDeliverAdress(){
     return fakeAdd;
 }
 
+    public HashMap<String,String> fakeDeliverPerson(){
+        HashMap<String,String> fakeDeliver=new HashMap<>();
+        fakeDeliver.put("def123","John");
+        fakeDeliver.put("irc421","Manil");
+        fakeDeliver.put("mqo","Diwen");
 
-
+        return fakeDeliver;
+    }
 
 }
