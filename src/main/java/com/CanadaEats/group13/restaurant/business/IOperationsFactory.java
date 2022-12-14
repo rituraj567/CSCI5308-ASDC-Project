@@ -7,8 +7,6 @@ public interface IOperationsFactory {
 
     public IRestaurantState createInsertErrorOperation();
 
-    public IRestaurantState createInsertFailureOperation();
-
     public IRestaurantState createInsertSuccessOperation();
 
     public IRestaurantState createUpdateErrorOperation();

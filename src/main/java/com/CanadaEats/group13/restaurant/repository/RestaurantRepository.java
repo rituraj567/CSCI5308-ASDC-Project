@@ -21,7 +21,6 @@ import com.CanadaEats.group13.utils.ApplicationConstants;
 public class RestaurantRepository implements IRestaurantRepository {
 
     IDatabaseConnection databaseConnection;
-    Connection connection;
 
     public RestaurantRepository(IDatabaseConnection databaseConnection) {
         this.databaseConnection = databaseConnection;
