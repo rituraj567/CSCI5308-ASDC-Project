@@ -34,7 +34,16 @@
 </head>
     <div th:replace="common/loginHeader :: navbar"></div>
     <div class="container margin-container">
+      <a
+      type="button"
+      class="btn btn-primary mt-lg-2"
+      th:href="@{/createfeedbackpage/{restaurantid}/(restaurantid=${restaurant.getId()})}"
+>
+ Add reviews
+</a>
       <div class="grid-container">
+
+     
 
        <span>Name:</span> <p th:text="${restaurant.getName()}"></p>
        <span>Address</span> <p th:text="${restaurant.getAddress()}"></p>
