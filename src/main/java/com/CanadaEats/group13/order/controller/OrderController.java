@@ -39,26 +39,25 @@ public class OrderController {
         ArrayList<OrderDisplayDTO> orderDisplay = iOrderRepository.displayOrder(order);
 
         String userId = CookiesLogic.extractCookie(request, ApplicationConstants.COOKIE_USERID);
-        System.out.println("1"+ userId);
         UserDetailsDto userDetailsDto = userService.getUserDetails(userId);
         model.addAttribute("user", userDetailsDto);
 
-        System.out.println(orderDisplay.size());
-
-        System.out.println(userDetailsDto.getFirstName());
-
+        List<OrderDisplayDTO> ordersDeliver = new ArrayList<>();
+        List<OrderDisplayDTO> ordersAdmin = new ArrayList<>();
         List<OrderDisplayDTO> orders = new ArrayList<>();
+
         for(OrderDisplayDTO orderDisplayDTO: orderDisplay){
-            System.out.println(orderDisplayDTO.getDeliver_person());
+            System.out.println("Deliver first name: "+orderDisplayDTO.getDeliver_person());
             if(orderDisplayDTO.getDeliver_person().equals(userDetailsDto.getFirstName())){
-                orders.add(orderDisplayDTO);
+                ordersDeliver.add(orderDisplayDTO);
+                orders=ordersDeliver;
+            }
+            else {
+                ordersAdmin.add(orderDisplayDTO);
+                orders=ordersAdmin;
             }
         }
-
-
         model.addAttribute("orders", orders);
-
-
         return "/order/viewOrder";
     }
 }
