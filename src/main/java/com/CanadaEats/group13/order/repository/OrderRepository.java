@@ -36,16 +36,16 @@ public class OrderRepository implements IOderRepository {
             String orders = " select * from Orders";
             ResultSet orderResult = statement.executeQuery(orders);
             while (orderResult.next()) {
-                int id = orderResult.getInt("Id");
-                String order_id = orderResult.getString("OrderId");
-                String user_id = orderResult.getString("UserId");
-                String restarunt = findRestaurant(orderResult.getString("RestaurantId"));
-                String delivery_id = orderResult.getString("DeliveryPersonId");
-                int total = orderResult.getInt("Total_Amount");
-                String status = orderResult.getString("OrderStatusId");
-                String payment = findPayment(orderResult.getString("PaymentOptionId"));
-                Date date = orderResult.getDate("Date_of_order");
-                DateFormat date_form = new SimpleDateFormat("yyyy-mm-dd");
+                int id = orderResult.getInt(ApplicationConstants.ORDER_ID);
+                String order_id = orderResult.getString(ApplicationConstants.ORDER_ORDER_ID);
+                String user_id = orderResult.getString(ApplicationConstants.ORDER_USER_ID);
+                String restarunt = findRestaurant(ApplicationConstants.ORDER_RESTUARANT_ID);
+                String delivery_id = orderResult.getString(ApplicationConstants.ORDER_DELIVERY_PERSON_ID);
+                int total = orderResult.getInt(ApplicationConstants.ORDER_TOTAL_AMOUNT_ID);
+                String status = orderResult.getString(ApplicationConstants.ORDER_STATUS_ID);
+                String payment = findPayment(orderResult.getString(ApplicationConstants.ORDER_PAYMENT_OPTION_ID));
+                Date date = orderResult.getDate(ApplicationConstants.DATE_OF_ORDER);
+                DateFormat date_form = new SimpleDateFormat(ApplicationConstants.DATE_FORMAT);
                 String str_date = date_form.format(date);
                 orderDTOArrayList.add(
                         new OrderDTO(id, order_id, user_id, restarunt, delivery_id, total, status, payment, str_date));
