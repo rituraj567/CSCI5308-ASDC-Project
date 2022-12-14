@@ -43,10 +43,13 @@
     </style>
 </head>
 
+<div th:replace="common/loginHeader :: header"></div>
 <body>
+<div th:replace="common/loginHeader:: navbar"></div>
 <header>
     <h3>Orders</h3>
 </header>
+
 
 <div class="container margin-container">
     <div class="row col-md-8 offset-md-2">
@@ -58,14 +61,15 @@
 
                     <span>Order Status:</span> <span th:text="${order.getStatus()}">Status</span>
 <br/>
-                    <a
+                    <div th:if="${order.getStatus().equals('Pending')}">
+
+                        <a
                                 type="button"
                                 class="btn btn-info"
                                 th:href="@{/delivery/{orderId}/{orderStatus}/(orderId=${order.getOrder_id()},orderStatus=${2})}"
                         >
                             Picked Up
                         </a>
-<br/>
                         <a
                                 type="button"
                                 class="btn btn-primary mt-lg-2"
@@ -74,6 +78,19 @@
                             Delivered
                         </a>
                     </div>
+
+                    <div th:if="${order.getStatus().equals('Picked Up')}">
+                        <a
+                                type="button"
+                                class="btn btn-primary mt-lg-2"
+                                th:href="@{/delivery/{orderId}/{orderStatus}/(orderId=${order.getOrder_id()},orderStatus=${3})}"
+                        >
+                            Delivered
+                        </a>
+                    </div>
+
+
+                </div>
                 </div>
             </div>
         </div>
