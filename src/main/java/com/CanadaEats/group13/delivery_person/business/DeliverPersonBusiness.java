@@ -21,7 +21,6 @@ public class DeliverPersonBusiness implements IDeliveryPersonBusiness {
 
 
         for (OrderDTO displayDTO : orders) {
-            System.out.println("3" + displayDTO.getId());
             if (displayDTO.getId() == orderId) {
                 orderDisplayDTO = displayDTO;
             }
@@ -34,10 +33,8 @@ public class DeliverPersonBusiness implements IDeliveryPersonBusiness {
         if (orderStatus == 2) {
             System.out.println(orderId);
             deliverRepository.changeToPickedUp(orderId);
-            System.out.println("pickedup");
         } else {
             deliverRepository.changeToDelivered(orderId);
-            System.out.println("delivered");
         }
     }
 }
