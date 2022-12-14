@@ -108,4 +108,15 @@ public class ApplicationConstants {
     public static final String URL_RESTAURANTOWNERADMIN_VIEW = "restaurantOwnersAdmin/viewRestaurantOwnerAdmin";
 
     public static final String URL_RESTAURANTOWNERADMIN_BIND = "redirect:/restaurantOwners";
+    public static final String ORDER_ID =     "Id";
+    public static final String ORDER_ORDER_ID =     "OrderId";
+    public static final String ORDER_USER_ID =     "UserId";
+    public static final String ORDER_RESTUARANT_ID =     "RestaurantId";
+    public static final String ORDER_DELIVERY_PERSON_ID =     "DeliveryPersonId";
+    public static final String ORDER_TOTAL_AMOUNT_ID =     "Total_Amount";
+    public static final String ORDER_STATUS_ID =     "OrderStatusId";
+    public static final String ORDER_PAYMENT_OPTION_ID =     "PaymentOptionId";
+    public static final String DATE_OF_ORDER =     "Date_of_order";
+    public static final String DATE_FORMAT =     "yyyy-mm-dd";
+
 }
