@@ -8,8 +8,6 @@ import com.CanadaEats.group13.order.dto.OrderDisplayDTO;
 public interface IOderRepository {
     public ArrayList<OrderDTO> getOrders();
 
-    public void deleteOrder(OrderDTO orderDTO);
-
     public String findRestaurant(String resatarunt);
 
     public String findPayment(String payment);
@@ -23,6 +21,5 @@ public interface IOderRepository {
     public String findDeliverPerson(String deliver);
 
     public ArrayList<OrderDisplayDTO> displayOrder(ArrayList<OrderDTO> orderDTO);
-
 
 }

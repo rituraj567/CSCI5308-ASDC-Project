@@ -27,7 +27,6 @@ public class DeliveryPersonController {
         List<OrderDTO> orders = new IOrderRepository().getOrders();
         OrderDTO orderDisplayDTO = null;
 
-
         for (OrderDTO displayDTO : orders) {
             System.out.println("3" + displayDTO.getId());
             if (displayDTO.getId() == orderId) {
