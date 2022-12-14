@@ -33,28 +33,16 @@
 </style>
 </head>
     <div th:replace="common/loginHeader :: navbar"></div>
-    <div class="container margin-container">
-<<<<<<< Updated upstream
-      <a
-      type="button"
-      class="btn btn-primary mt-lg-2"
-      th:href="@{/createfeedbackpage/{restaurantid}/(restaurantid=${restaurant.getId()})}"
->
- Add reviews
-</a>
-=======
+     <div class="container margin-container"></div>
         <a
-                type="button"
-                class="btn btn-primary mt-lg-2"
-                th:href="@{/createfeedbackpage/{restaurantid}/(restaurantid=${restaurant.getRestaurantId()})}"
+          type="button"
+          class="btn btn-primary mt-lg-2"
+          th:href="@{/createfeedbackpage/{restaurantid}/(restaurantid=${restaurant.getRestaurantId()})}"
         >
-
-            Add reviews
+        Add reviews
         </a>
->>>>>>> Stashed changes
       <div class="grid-container">
 
-     
 
        <span>Name:</span> <p th:text="${restaurant.getName()}"></p>
        <span>Address</span> <p th:text="${restaurant.getAddress()}"></p>
