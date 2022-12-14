@@ -37,7 +37,6 @@ public class OrderController {
         String roleId = CookiesLogic.extractCookie(request, ApplicationConstants.COOKIE_ROLEID);
         String userId = CookiesLogic.extractCookie(request, ApplicationConstants.COOKIE_USERID);
 
-        System.out.println("1" + userId);
 
         UserDetailsDto userDetailsDto = userService.getUserDetails(userId);
         model.addAttribute("user", userDetailsDto);
@@ -51,8 +50,6 @@ public class OrderController {
         } else {
 
             for (OrderDisplayDTO orderDisplayDTO : orderDisplay) {
-                System.out.println("Deliver first name: " + orderDisplayDTO.getDeliver_person());
-                System.out.println("userDetailsDto.getFirstName" + userDetailsDto.getFirstName());
                 if (orderDisplayDTO.getDeliver_person().equals(userDetailsDto.getFirstName())) {
                     ordersDeliver.add(orderDisplayDTO);
                 }

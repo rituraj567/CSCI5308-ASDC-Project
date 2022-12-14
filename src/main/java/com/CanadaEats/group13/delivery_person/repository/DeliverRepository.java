@@ -3,7 +3,6 @@ package com.CanadaEats.group13.delivery_person.repository;
 import com.CanadaEats.group13.database.DatabaseConnection;
 import com.CanadaEats.group13.database.IDatabaseConnection;
 import com.CanadaEats.group13.order.repository.OrderRepository;
-import com.CanadaEats.group13.utils.ApplicationConstants;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -39,10 +38,8 @@ public class DeliverRepository implements IDeliverRepository {
         feedback = orderTableChange(changeStatus, status_check);
 
         if (feedback.equals("Picked Up")) {
-            System.out.println(ApplicationConstants.ORDER_STATE_CHANGE_SUCCESS);
             changedPickup = true;
         } else {
-            System.out.println(ApplicationConstants.ORDER_STATE_CHANGE_ERROR);
             changedPickup = false;
         }
         return changedPickup;
@@ -60,10 +57,8 @@ public class DeliverRepository implements IDeliverRepository {
         feedback = orderTableChange(changeStatus, status_check);
 
         if (feedback.equals("Delivered")) {
-            System.out.println(ApplicationConstants.ORDER_STATE_CHANGE_SUCCESS);
             changedDelivered = true;
         } else {
-            System.out.println(ApplicationConstants.ORDER_STATE_CHANGE_ERROR);
             changedDelivered = false;
         }
         return changedDelivered;

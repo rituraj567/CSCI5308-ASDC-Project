@@ -1,12 +1,5 @@
 package com.CanadaEats.group13.authentication.repository;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.Statement;
-
-import org.springframework.beans.BeanUtils;
-
 import com.CanadaEats.group13.authentication.dto.UserDetailsDto;
 import com.CanadaEats.group13.authentication.dto.UserLoginDto;
 import com.CanadaEats.group13.authentication.model.response.UserDetailsResponseModel;
@@ -14,6 +7,12 @@ import com.CanadaEats.group13.authentication.model.response.UserLoginResponseMod
 import com.CanadaEats.group13.database.IDatabaseConnection;
 import com.CanadaEats.group13.utils.ApplicationConstants;
 import com.CanadaEats.group13.utils.PasswordEncoderDecoder;
+import org.springframework.beans.BeanUtils;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.Statement;
 
 public class UserRepository implements IUserRepository {
 
@@ -59,14 +58,8 @@ public class UserRepository implements IUserRepository {
 
                 if (result > 0) {
                     BeanUtils.copyProperties(userDetails, userResponse);
-                    System.out.println("Success : UserRepository - registerUser()");
-                } else {
-                    System.out.println("Failure : UserRepository - registerUser()");
                 }
-            } else {
-                System.out.println("Failure : Already User Present with this UserName");
             }
-
         } catch (Exception ex) {
             System.out.println("Exception : UserRepository - registerUser()");
             System.out.println(ex);
@@ -93,19 +86,15 @@ public class UserRepository implements IUserRepository {
             statement = connection.createStatement();
             String getUser = "select * from User where UserName = '" + userLoginDto.getUserName() + "' and Status = 1";
             userResult = statement.executeQuery(getUser);
-            System.out.println("SIZE:- " + userResult.getFetchSize());
 
             if (userResult.next() == false) {
                 System.out.println("username not found");
             } else {
                 try {
-                    System.out.println("Got username successfully from Database");
 
                     String decryptedPassword = PasswordEncoderDecoder.getInstance()
                             .decrypt(userResult.getString(ApplicationConstants.USER_PASSWORD_COLUMN));
-                    System.out.println("UserPassword: " + userLoginDto.getPassword());
                     if (decryptedPassword.equals(userLoginDto.getPassword())) {
-                        System.out.println("Got username and password successfully from Database");
                         userLoginResponseModel.setRoleId(userResult.getString(ApplicationConstants.USER_ROLEID_COLUMN));
                         userLoginResponseModel
                                 .setUserName(userResult.getString(ApplicationConstants.USER_USERNAME_COLUMN));
@@ -122,7 +111,6 @@ public class UserRepository implements IUserRepository {
                         }
                         return userLoginResponseModel;
                     } else {
-                        System.out.println("Password not matched");
                         return userLoginResponseModel;
                     }
                 } catch (Exception ex) {
@@ -186,7 +174,6 @@ public class UserRepository implements IUserRepository {
         } catch (Exception e) {
             System.out.println(e);
         }
-        System.out.println(userDetailsDto.getCity());
 
         return userDetailsDto;
     }
