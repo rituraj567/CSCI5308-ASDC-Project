@@ -1,17 +1,5 @@
 package com.CanadaEats.group13.restaurant.controller;
 
-import java.util.List;
-
-import javax.servlet.http.HttpServletRequest;
-
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-
 import com.CanadaEats.group13.common.DTOFactory;
 import com.CanadaEats.group13.database.DatabaseConnection;
 import com.CanadaEats.group13.restaurant.business.IRestaurantBusiness;
@@ -20,6 +8,12 @@ import com.CanadaEats.group13.restaurant.dto.RestaurantDTO;
 import com.CanadaEats.group13.restaurant.repository.RestaurantRepository;
 import com.CanadaEats.group13.utils.APIAccessAuthorization;
 import com.CanadaEats.group13.utils.ApplicationConstants;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.*;
+
+import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 
 @Controller
 public class RestaurantController {
@@ -58,7 +52,7 @@ public class RestaurantController {
 
     @GetMapping("/admin/restaurants/{resturantId}/edit")
     public String editRestuarants(@PathVariable("resturantId") String restaurantId, Model model,
-            HttpServletRequest request) {
+                                  HttpServletRequest request) {
         boolean isAPIAccessible = APIAccessAuthorization.getInstance().getAPIAccess(request);
         if (isAPIAccessible) {
             RestaurantDTO restaurantDTO = restaurantBusiness.getRestaurantById(restaurantId);
@@ -82,7 +76,7 @@ public class RestaurantController {
 
     @GetMapping("/admin/restaurants/{restaurantId}/view")
     public String viewRestaurant(@PathVariable("restaurantId") String restaurantId, Model model,
-            HttpServletRequest request) {
+                                 HttpServletRequest request) {
         boolean isAPIAccessible = APIAccessAuthorization.getInstance().getAPIAccess(request);
         if (isAPIAccessible) {
             RestaurantDTO restaurantDTO = restaurantBusiness.getRestaurantById(restaurantId);
@@ -104,21 +98,28 @@ public class RestaurantController {
     }
 
     @PostMapping("/admin/restaurants/")
-    public String createRestaurant(@ModelAttribute RestaurantDTO restaurantDTO) {
+    public String createRestaurant(@ModelAttribute RestaurantDTO restaurantDTO, HttpServletRequest request) {
+        boolean isAPIAccessible = APIAccessAuthorization.getInstance().getAPIAccess(request);
+        if (isAPIAccessible) {
+            restaurantBusiness.insertRestaurant(restaurantDTO);
 
-        restaurantBusiness.insertRestaurant(restaurantDTO);
-
-        return ApplicationConstants.URL_RESTAURANT_POST_CREATION;
+            return ApplicationConstants.URL_RESTAURANT_POST_CREATION;
+        }
+        return ApplicationConstants.URL_AUTHENTICATION_USERLOGINPAGE;
     }
 
     @PostMapping("/admin/restaurants/{restaurantId}")
     public String updateRestaurant(@PathVariable("restaurantId") int restaurantId,
-            @ModelAttribute("restaurant") RestaurantDTO restaurantDTO, Model model) {
-        model.addAttribute("restaurant", restaurantDTO);
-        restaurantDTO.setId(restaurantId);
-        restaurantBusiness.updateRestuarant(restaurantDTO);
+                                   @ModelAttribute("restaurant") RestaurantDTO restaurantDTO, Model model, HttpServletRequest request) {
+        boolean isAPIAccessible = APIAccessAuthorization.getInstance().getAPIAccess(request);
+        if (isAPIAccessible) {
+            model.addAttribute("restaurant", restaurantDTO);
+            restaurantDTO.setId(restaurantId);
+            restaurantBusiness.updateRestuarant(restaurantDTO);
 
-        return ApplicationConstants.URL_RESTAURANT_POST_CREATION;
+            return ApplicationConstants.URL_RESTAURANT_POST_CREATION;
+        }
+        return ApplicationConstants.URL_AUTHENTICATION_USERLOGINPAGE;
     }
 
 }

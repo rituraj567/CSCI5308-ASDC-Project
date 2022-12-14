@@ -8,6 +8,7 @@ import com.CanadaEats.group13.database.DatabaseConnection;
 import com.CanadaEats.group13.order.dto.OrderDTO;
 import com.CanadaEats.group13.order.dto.OrderDisplayDTO;
 import com.CanadaEats.group13.order.repository.OrderRepository;
+import com.CanadaEats.group13.utils.APIAccessAuthorization;
 import com.CanadaEats.group13.utils.ApplicationConstants;
 import com.CanadaEats.group13.utils.CookiesLogic;
 import org.springframework.stereotype.Controller;
@@ -31,37 +32,36 @@ public class OrderController {
 
     @GetMapping("/order")
     public String displayOrders(Model model, HttpServletRequest request) {
-        ArrayList<OrderDTO> order = orderRepository.getOrders();
-        ArrayList<OrderDisplayDTO> orderDisplay = orderRepository.displayOrder(order);
+        boolean isAPIAccessible = APIAccessAuthorization.getInstance().getAPIAccess(request);
+        if (isAPIAccessible) {
+            ArrayList<OrderDTO> order = orderRepository.getOrders();
+            ArrayList<OrderDisplayDTO> orderDisplay = orderRepository.displayOrder(order);
 
-        String roleId = CookiesLogic.extractCookie(request, ApplicationConstants.COOKIE_ROLEID);
-        String userId = CookiesLogic.extractCookie(request, ApplicationConstants.COOKIE_USERID);
+            String roleId = CookiesLogic.extractCookie(request, ApplicationConstants.COOKIE_ROLEID);
+            String userId = CookiesLogic.extractCookie(request, ApplicationConstants.COOKIE_USERID);
 
+            UserDetailsDto userDetailsDto = userService.getUserDetails(userId);
+            model.addAttribute("user", userDetailsDto);
 
-        UserDetailsDto userDetailsDto = userService.getUserDetails(userId);
-        model.addAttribute("user", userDetailsDto);
+            List<OrderDisplayDTO> ordersDeliver = new ArrayList<>();
+            List<OrderDisplayDTO> orders = new ArrayList<>();
 
-        List<OrderDisplayDTO> ordersDeliver = new ArrayList<>();
-        List<OrderDisplayDTO> orders = new ArrayList<>();
+            if (roleId.equals(ApplicationConstants.ADMIN_ROLEID)) {
+                model.addAttribute("orders", orderDisplay);
+                return ApplicationConstants.URL_ORDER_VIEWORDER;
+            } else {
 
-        if (roleId.equals(ApplicationConstants.ADMIN_ROLEID)) {
-            model.addAttribute("orders", orderDisplay);
-            return "/order/viewOrder";
-        } else {
-
-            for (OrderDisplayDTO orderDisplayDTO : orderDisplay) {
-                if (orderDisplayDTO.getDeliver_person().equals(userDetailsDto.getFirstName())) {
-                    ordersDeliver.add(orderDisplayDTO);
+                for (OrderDisplayDTO orderDisplayDTO : orderDisplay) {
+                    if (orderDisplayDTO.getDeliver_person().equals(userDetailsDto.getFirstName())) {
+                        ordersDeliver.add(orderDisplayDTO);
+                    }
                 }
-
+                orders = ordersDeliver;
             }
-            orders = ordersDeliver;
 
+            model.addAttribute("orders", orders);
+            return ApplicationConstants.URL_ORDER_VIEWORDER;
         }
-
-        model.addAttribute("orders", orders);
-        return "/order/viewOrder";
+        return ApplicationConstants.URL_AUTHENTICATION_USERLOGINERRORPAGE;
     }
-
-
 }

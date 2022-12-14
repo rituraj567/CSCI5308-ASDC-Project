@@ -23,52 +23,80 @@ public class RestaurantOwnerAdminController {
     }
 
     @GetMapping("/restaurantOwners")
-    public String displayRestaurantOwners(Model model) {
-        List<RestaurantOwnerAdminDto> restaurantOwners = restaurantOwnerAdminRepository.getAllRestaurantOwners();
-        model.addAttribute("restaurantOwners", restaurantOwners);
-        return ApplicationConstants.URL_RESTAURANTOWNERADMIN_HOMEPAGE;
+    public String displayRestaurantOwners(Model model, HttpServletRequest request) {
+        boolean isAPIAccessible = APIAccessAuthorization.getInstance().getAPIAccess(request);
+        if (isAPIAccessible) {
+            List<RestaurantOwnerAdminDto> restaurantOwners = restaurantOwnerAdminRepository.getAllRestaurantOwners();
+            model.addAttribute("restaurantOwners", restaurantOwners);
+            return ApplicationConstants.URL_RESTAURANTOWNERADMIN_HOMEPAGE;
+        }
+        return ApplicationConstants.URL_AUTHENTICATION_USERLOGINPAGE;
     }
 
     @GetMapping("/admin/restaurantsOwnerAdmin/newRestaurantOwnerAdmin")
-    public String newRestaurantOwnerForm(Model model) {
-        RestaurantOwnerAdminDto restaurantOwnerAdminDto = new RestaurantOwnerAdminDto();
-        model.addAttribute("restaurantOwner", restaurantOwnerAdminDto);
-        return ApplicationConstants.URL_RESTAURANTOWNERADMIN_NEW;
+    public String newRestaurantOwnerForm(Model model, HttpServletRequest request) {
+        boolean isAPIAccessible = APIAccessAuthorization.getInstance().getAPIAccess(request);
+        if (isAPIAccessible) {
+            RestaurantOwnerAdminDto restaurantOwnerAdminDto = new RestaurantOwnerAdminDto();
+            model.addAttribute("restaurantOwner", restaurantOwnerAdminDto);
+            return ApplicationConstants.URL_RESTAURANTOWNERADMIN_NEW;
+        }
+        return ApplicationConstants.URL_AUTHENTICATION_USERLOGINPAGE;
     }
 
     @PostMapping("/admin/restaurantsOwnerAdmin/")
-    public String createRestaurantOwner(@ModelAttribute RestaurantOwnerAdminDto restaurantOwnerAdminDto) {
-        restaurantOwnerAdminRepository.postRestaurantOwnerAdmin(restaurantOwnerAdminDto);
-        return ApplicationConstants.URL_RESTAURANTOWNERADMIN_POST_SUCCESS;
+    public String createRestaurantOwner(@ModelAttribute RestaurantOwnerAdminDto restaurantOwnerAdminDto, HttpServletRequest request) {
+        boolean isAPIAccessible = APIAccessAuthorization.getInstance().getAPIAccess(request);
+        if (isAPIAccessible) {
+            restaurantOwnerAdminRepository.postRestaurantOwnerAdmin(restaurantOwnerAdminDto);
+            return ApplicationConstants.URL_RESTAURANTOWNERADMIN_POST_SUCCESS;
+        }
+        return ApplicationConstants.URL_AUTHENTICATION_USERLOGINPAGE;
     }
 
     @GetMapping("/admin/restaurantOwners/{userId}/edit")
-    public String editRestaurantOwner(@PathVariable("userId") int userId, Model model) {
-        RestaurantOwnerAdminDto restaurantOwnerAdminDto = restaurantOwnerAdminRepository.getRestaurantOwner(userId);
-        model.addAttribute("restaurantOwner", restaurantOwnerAdminDto);
-        return ApplicationConstants.URL_RESTAURANTOWNERADMIN_EDIT;
+    public String editRestaurantOwner(@PathVariable("userId") int userId, Model model, HttpServletRequest request) {
+        boolean isAPIAccessible = APIAccessAuthorization.getInstance().getAPIAccess(request);
+        if (isAPIAccessible) {
+            RestaurantOwnerAdminDto restaurantOwnerAdminDto = restaurantOwnerAdminRepository.getRestaurantOwner(userId);
+            model.addAttribute("restaurantOwner", restaurantOwnerAdminDto);
+            return ApplicationConstants.URL_RESTAURANTOWNERADMIN_EDIT;
+        }
+        return ApplicationConstants.URL_AUTHENTICATION_USERLOGINPAGE;
     }
 
     @PostMapping("/admin/restaurantOwners/{userId}")
     public String updateRestaurantOwner(@PathVariable("userId") int userId,
-                                        @ModelAttribute("restaurantOwner") RestaurantOwnerAdminDto restaurantOwnerAdminDto, Model model) {
-        model.addAttribute("restaurant", restaurantOwnerAdminDto);
-        restaurantOwnerAdminDto.setId(userId);
-        restaurantOwnerAdminRepository.updateRestaurantOwner(restaurantOwnerAdminDto);
-        return ApplicationConstants.URL_RESTAURANTOWNERADMIN_POST_SUCCESS;
+                                        @ModelAttribute("restaurantOwner") RestaurantOwnerAdminDto restaurantOwnerAdminDto, Model model, HttpServletRequest request) {
+        boolean isAPIAccessible = APIAccessAuthorization.getInstance().getAPIAccess(request);
+        if (isAPIAccessible) {
+            model.addAttribute("restaurant", restaurantOwnerAdminDto);
+            restaurantOwnerAdminDto.setId(userId);
+            restaurantOwnerAdminRepository.updateRestaurantOwner(restaurantOwnerAdminDto);
+            return ApplicationConstants.URL_RESTAURANTOWNERADMIN_POST_SUCCESS;
+        }
+        return ApplicationConstants.URL_AUTHENTICATION_USERLOGINPAGE;
     }
 
     @GetMapping("/admin/restaurantOwners/{userId}/delete")
-    public String deleteRestaurantOwner(@PathVariable("userId") int userId) {
-        restaurantOwnerAdminRepository.deleteRestaurantOwner(userId);
-        return ApplicationConstants.URL_RESTAURANTOWNERADMIN_DELETE_SUCCESS;
+    public String deleteRestaurantOwner(@PathVariable("userId") int userId, HttpServletRequest request) {
+        boolean isAPIAccessible = APIAccessAuthorization.getInstance().getAPIAccess(request);
+        if (isAPIAccessible) {
+            restaurantOwnerAdminRepository.deleteRestaurantOwner(userId);
+            return ApplicationConstants.URL_RESTAURANTOWNERADMIN_DELETE_SUCCESS;
+        }
+        return ApplicationConstants.URL_AUTHENTICATION_USERLOGINPAGE;
     }
 
     @GetMapping("/admin/restaurantOwners/{userId}/view")
-    public String viewRestaurantOwner(@PathVariable("userId") int userId, Model model) {
-        RestaurantOwnerAdminDto restaurantOwnerAdminDto = restaurantOwnerAdminRepository.getRestaurantOwner(userId);
-        model.addAttribute("restaurantOwner", restaurantOwnerAdminDto);
-        return ApplicationConstants.URL_RESTAURANTOWNERADMIN_VIEW;
+    public String viewRestaurantOwner(@PathVariable("userId") int userId, Model model, HttpServletRequest request) {
+        boolean isAPIAccessible = APIAccessAuthorization.getInstance().getAPIAccess(request);
+        if (isAPIAccessible) {
+            RestaurantOwnerAdminDto restaurantOwnerAdminDto = restaurantOwnerAdminRepository.getRestaurantOwner(userId);
+            model.addAttribute("restaurantOwner", restaurantOwnerAdminDto);
+            return ApplicationConstants.URL_RESTAURANTOWNERADMIN_VIEW;
+        }
+        return ApplicationConstants.URL_AUTHENTICATION_USERLOGINPAGE;
     }
 
     @PostMapping("/bindRestaurantOwner")
