@@ -24,6 +24,7 @@ public class DeliveryPersonController {
     public String showOrders(Model model, @PathVariable("orderId") int orderId) {
         OrderDTO orderDisplayDTO = deliveryPersonBusiness.displayOrders(orderId);
         model.addAttribute("order", orderDisplayDTO);
+
         return "order/orderPage";
     }
 

@@ -10,8 +10,7 @@ import java.util.HashMap;
 public class OrderMock implements IOderRepository {
 
     ArrayList<OrderDTO> orderDTOS = new ArrayList<>();
-    MockDBs mockDBs = new MockDBs();
-    ArrayList<OrderDisplayDTO> orderDisplayDTOS = new ArrayList<>();
+    OrderMockDBs mockDBs = new OrderMockDBs();
 
     public ArrayList<OrderDTO> getOrders()
     {
@@ -32,18 +31,15 @@ public class OrderMock implements IOderRepository {
 
     public String findRestaurant(String resatarunt){
         String returnValue="";
-        ArrayList<String> fakeRestaurant = mockDBs.fakeRestaurant();
+        HashMap<String,String> fakeResrt=mockDBs.fakeRestaurant();
+        returnValue=fakeResrt.get(resatarunt);
 
-        for(int i=0; i<fakeRestaurant.size();i++)
+        if(returnValue!=null)
         {
-            if(fakeRestaurant.get(i).equals(resatarunt))
-            {
-                returnValue=fakeRestaurant.get(i);
-            }
-            else
-            {
-                returnValue= "Cannot find restaurant";
-            }
+            return returnValue;
+        }
+        else {
+            returnValue = "User Id not Valid";
         }
         return returnValue;
     }
@@ -51,35 +47,29 @@ public class OrderMock implements IOderRepository {
     public String findPayment(String payment)
     {
         String returnValue="";
-        ArrayList<String> fakePayment = mockDBs.fakePaymentOption();
-        for(int i=0; i<fakePayment.size();i++)
+        HashMap<String,String> fakePay=mockDBs.fakePaymentOption();
+        returnValue=fakePay.get(payment);
+
+        if(returnValue!=null)
         {
-            if(fakePayment.get(i).equals(payment))
-            {
-                returnValue=fakePayment.get(i);
-            }
-            else
-            {
-                returnValue= "Invalid payment option";
-            }
+            return returnValue;
+        }
+        else {
+            returnValue = "User Id not Valid";
         }
         return returnValue;
     }
     public String findCustomer(String customer){
-
         String returnValue="";
-        ArrayList<String> fakeCustomer = mockDBs.fakeCustomer();
+        HashMap<String,String> fakeCustomer=mockDBs.fakeCustomer();
+        returnValue=fakeCustomer.get(customer);
 
-        for(int i=0; i<fakeCustomer.size();i++)
+        if(returnValue!=null)
         {
-            if(fakeCustomer.get(i).equals(customer))
-            {
-                returnValue=fakeCustomer.get(i);
-            }
-            else
-            {
-                returnValue= "Cannot find customer";
-            }
+            return returnValue;
+        }
+        else {
+            returnValue = "User Id not Valid";
         }
         return returnValue;
     }
@@ -116,10 +106,38 @@ public class OrderMock implements IOderRepository {
     }
 
     public String findDeliverPerson(String deliver){
-        return "ji";
+        String returnValue="";
+        HashMap<String,String> fakeDeliverPerson=mockDBs.fakeDeliverPerson();
+        returnValue=fakeDeliverPerson.get(deliver);
+
+        if(returnValue!=null)
+        {
+            return returnValue;
+        }
+        else {
+            returnValue = "User Id not Valid";
+        }
+
+        return returnValue;
     }
 
-    public ArrayList<OrderDisplayDTO> displayOrder(ArrayList<OrderDTO> orderDTO){
-        return null;
+    public ArrayList<OrderDisplayDTO> displayOrder(ArrayList<OrderDTO> orderDTOS){
+        ArrayList<OrderDisplayDTO> orderDisplayDTOArrayList = new ArrayList<OrderDisplayDTO>();
+
+        for (int i = 0; i < orderDTOS .size(); i++) {
+            int id = orderDTOS .get(i).getId();
+            int amount = orderDTOS .get(i).getAmount();
+            String restaurant = findRestaurant(orderDTOS.get(i).getRestaurant_id());
+            String payment = findPayment(orderDTOS.get(i).getPayment_options());
+            String customer = findCustomer(orderDTOS.get(i).getUser_id());
+            String address = findDeliverAdd(orderDTOS.get(i).getUser_id());
+            String phone = findPhone(orderDTOS.get(i).getUser_id());
+            String status = orderDTOS.get(i).getStatus();
+            String deliverPerson = findDeliverPerson(orderDTOS.get(i).getDelivery_id());
+
+            orderDisplayDTOArrayList.add(new OrderDisplayDTO(id, amount, restaurant, payment, customer, address, phone,
+                    status, deliverPerson));
+        }
+        return orderDisplayDTOArrayList;
     }
 }

@@ -2,7 +2,7 @@ package com.CanadaEats.group13.delivery_person.business;
 
 import com.CanadaEats.group13.delivery_person.repository.IDeliverRepository;
 import com.CanadaEats.group13.order.dto.OrderDTO;
-import com.CanadaEats.group13.order.repository.IOrderRepository;
+import com.CanadaEats.group13.order.repository.OrderRepository;
 
 import java.util.List;
 
@@ -16,7 +16,7 @@ public class DeliverPersonBusiness implements IDeliveryPersonBusiness {
 
     @Override
     public OrderDTO displayOrders(int orderId) {
-        List<OrderDTO> orders = new IOrderRepository().getOrders();
+        List<OrderDTO> orders = new OrderRepository().getOrders();
         OrderDTO orderDisplayDTO = null;
 
 

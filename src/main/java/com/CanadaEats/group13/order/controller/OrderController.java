@@ -7,7 +7,7 @@ import com.CanadaEats.group13.authentication.repository.UserRepository;
 import com.CanadaEats.group13.database.DatabaseConnection;
 import com.CanadaEats.group13.order.dto.OrderDTO;
 import com.CanadaEats.group13.order.dto.OrderDisplayDTO;
-import com.CanadaEats.group13.order.repository.IOrderRepository;
+import com.CanadaEats.group13.order.repository.OrderRepository;
 import com.CanadaEats.group13.utils.ApplicationConstants;
 import com.CanadaEats.group13.utils.CookiesLogic;
 import org.springframework.stereotype.Controller;
@@ -21,7 +21,7 @@ import java.util.List;
 @Controller
 public class OrderController {
 
-    IOrderRepository iOrderRepository = new IOrderRepository();
+    OrderRepository orderRepository = new OrderRepository();
     IUserBusiness userService;
 
     public OrderController() {
@@ -31,8 +31,8 @@ public class OrderController {
 
     @GetMapping("/order")
     public String displayOrders(Model model, HttpServletRequest request) {
-        ArrayList<OrderDTO> order = iOrderRepository.getOrders();
-        ArrayList<OrderDisplayDTO> orderDisplay = iOrderRepository.displayOrder(order);
+        ArrayList<OrderDTO> order = orderRepository.getOrders();
+        ArrayList<OrderDisplayDTO> orderDisplay = orderRepository.displayOrder(order);
 
         String roleId = CookiesLogic.extractCookie(request, ApplicationConstants.COOKIE_ROLEID);
         String userId = CookiesLogic.extractCookie(request, ApplicationConstants.COOKIE_USERID);
@@ -65,8 +65,6 @@ public class OrderController {
         model.addAttribute("orders", orders);
         return "/order/viewOrder";
     }
-
-
 
 
 }

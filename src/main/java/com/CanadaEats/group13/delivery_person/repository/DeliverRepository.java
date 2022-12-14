@@ -2,16 +2,13 @@ package com.CanadaEats.group13.delivery_person.repository;
 
 import com.CanadaEats.group13.database.DatabaseConnection;
 import com.CanadaEats.group13.database.IDatabaseConnection;
-import com.CanadaEats.group13.order.dto.OrderDTO;
-import com.CanadaEats.group13.order.dto.OrderDisplayDTO;
-import com.CanadaEats.group13.order.repository.IOrderRepository;
+import com.CanadaEats.group13.order.repository.OrderRepository;
 import com.CanadaEats.group13.utils.ApplicationConstants;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
-import java.util.ArrayList;
 
 public class DeliverRepository implements IDeliverRepository {
 
@@ -19,7 +16,7 @@ public class DeliverRepository implements IDeliverRepository {
     Connection connection;
     Statement statement;
     ResultSet result;
-    IOrderRepository iOrderRepository = new IOrderRepository();
+    OrderRepository orderRepository = new OrderRepository();
 
     public DeliverRepository() {
 
@@ -95,19 +92,5 @@ public class DeliverRepository implements IDeliverRepository {
         }
         return result;
     }
-
-    // public static void main(String args[])
-    // {
-    // DeliverRepository deliver= new DeliverRepository();
-    //
-    // ArrayList<OrderDisplayDTO> od =
-    // deliver.orders_assigned("109591b1-bee8-4a49-93ce-c420aaac68e3");
-    //
-    // for(OrderDisplayDTO i : od)
-    // {
-    // System.out.println("Id: "+i.getId());
-    // System.out.println("Restaurant: "+i.getRestaurant());
-    // }
-    // }
 
 }

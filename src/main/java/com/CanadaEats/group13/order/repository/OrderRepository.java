@@ -15,13 +15,13 @@ import com.CanadaEats.group13.order.dto.OrderDisplayDTO;
 import com.CanadaEats.group13.utils.ApplicationConstants;
 
 @Repository
-public class IOrderRepository implements IOderRepository {
+public class OrderRepository implements IOderRepository {
 
     IDatabaseConnection databaseConnection;
     Connection connection;
     ArrayList<OrderDTO> orderDTOArrayList;
 
-    public IOrderRepository() {
+    public OrderRepository() {
 
     }
 
@@ -59,21 +59,6 @@ public class IOrderRepository implements IOderRepository {
         return orderDTOArrayList;
     }
 
-    @Override
-    public void deleteOrder(OrderDTO orderDTO) {
-        try {
-            databaseConnection = DatabaseConnection.getInstance();
-            connection = databaseConnection.getDatabaseConnection();
-            String delete = " DELETE FROM Orders where Id =" + orderDTO.getId();
-            String deleteDetials = " DELETE FROM OrderDetail where Id =" + orderDTO.getId();
-            PreparedStatement preparedStmt = connection.prepareStatement(delete);
-            PreparedStatement preparedStmt2 = connection.prepareStatement(deleteDetials);
-            preparedStmt.execute();
-            preparedStmt2.execute();
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
-    }
 
     @Override
     public String findRestaurant(String restaurant) {
