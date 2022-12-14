@@ -3,6 +3,7 @@ package com.CanadaEats.group13.delivery_person.business;
 import com.CanadaEats.group13.delivery_person.repository.IDeliverRepository;
 import com.CanadaEats.group13.order.dto.OrderDTO;
 import com.CanadaEats.group13.order.repository.OrderRepository;
+import com.CanadaEats.group13.utils.ApplicationConstants;
 
 import java.util.List;
 
@@ -19,7 +20,6 @@ public class DeliverPersonBusiness implements IDeliveryPersonBusiness {
         List<OrderDTO> orders = new OrderRepository().getOrders();
         OrderDTO orderDisplayDTO = null;
 
-
         for (OrderDTO displayDTO : orders) {
             if (displayDTO.getId() == orderId) {
                 orderDisplayDTO = displayDTO;
@@ -30,8 +30,7 @@ public class DeliverPersonBusiness implements IDeliveryPersonBusiness {
 
     @Override
     public void updateOrderStatus(String orderId, int orderStatus) {
-        if (orderStatus == 2) {
-            System.out.println(orderId);
+        if (orderStatus == ApplicationConstants.ORDER_STATUS_PENDING) {
             deliverRepository.changeToPickedUp(orderId);
         } else {
             deliverRepository.changeToDelivered(orderId);

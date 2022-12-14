@@ -23,23 +23,23 @@ public class RestaurantOwnerAdminRepository implements IRestaurantOwnerAdminRepo
                                                                      List<RestaurantOwnerAdminDto> restaurantOwnerAdminDtoList) {
         try {
             while (restaurantOwnerResultSet.next()) {
-                int id = Integer.parseInt(restaurantOwnerResultSet.getString("Id"));
+                int id = Integer.parseInt(restaurantOwnerResultSet.getString(ApplicationConstants.USER_ID_COLUMN));
                 String userId = UUID.randomUUID().toString();
-                String firstName = restaurantOwnerResultSet.getString("FirstName");
-                String lastName = restaurantOwnerResultSet.getString("LastName");
-                String emailId = restaurantOwnerResultSet.getString("EmailId");
-                String userName = restaurantOwnerResultSet.getString("UserName");
-                String password = restaurantOwnerResultSet.getString("Password");
-                String mobileNumber = restaurantOwnerResultSet.getString("MobileNumber");
-                String gender = restaurantOwnerResultSet.getString("Gender");
-                Date birthDate = restaurantOwnerResultSet.getDate("BirthDate");
-                String address = restaurantOwnerResultSet.getString("Address");
-                String city = restaurantOwnerResultSet.getString("City");
-                String province = restaurantOwnerResultSet.getString("Province");
-                String country = restaurantOwnerResultSet.getString("Country");
-                String postalCode = restaurantOwnerResultSet.getString("PostalCode");
-                int status = Integer.parseInt(restaurantOwnerResultSet.getString("Status"));
-                String roleId = restaurantOwnerResultSet.getString("Role_RoleId");
+                String firstName = restaurantOwnerResultSet.getString(ApplicationConstants.USER_FIRSTNAME_COLUMN);
+                String lastName = restaurantOwnerResultSet.getString(ApplicationConstants.USER_LASTNAME_COLUMN);
+                String emailId = restaurantOwnerResultSet.getString(ApplicationConstants.USER_EMAILID_COLUMN);
+                String userName = restaurantOwnerResultSet.getString(ApplicationConstants.USER_USERNAME_COLUMN);
+                String password = restaurantOwnerResultSet.getString(ApplicationConstants.USER_PASSWORD_COLUMN);
+                String mobileNumber = restaurantOwnerResultSet.getString(ApplicationConstants.USER_MOBILENUMBER_COLUMN);
+                String gender = restaurantOwnerResultSet.getString(ApplicationConstants.USER_GENDER_COLUMN);
+                Date birthDate = restaurantOwnerResultSet.getDate(ApplicationConstants.USER_BIRTHDATE_COLUMN);
+                String address = restaurantOwnerResultSet.getString(ApplicationConstants.USER_ADDRESS_COLUMN);
+                String city = restaurantOwnerResultSet.getString(ApplicationConstants.USER_CITY_COLUMN);
+                String province = restaurantOwnerResultSet.getString(ApplicationConstants.USER_PROVINCE_COLUMN);
+                String country = restaurantOwnerResultSet.getString(ApplicationConstants.USER_COUNTRY_COLUMN);
+                String postalCode = restaurantOwnerResultSet.getString(ApplicationConstants.RESTAURANT_POSTAL_CODE);
+                int status = Integer.parseInt(restaurantOwnerResultSet.getString(ApplicationConstants.USER_STATUS_COLUMN));
+                String roleId = restaurantOwnerResultSet.getString(ApplicationConstants.USER_ROLE_ROLEID_COLUMN);
                 restaurantOwnerAdminDtoList.add(new RestaurantOwnerAdminDto(id, userId, firstName, lastName, emailId, userName, password, mobileNumber, gender, birthDate, address, city, province, country, postalCode, status, roleId));
             }
 
@@ -108,22 +108,22 @@ public class RestaurantOwnerAdminRepository implements IRestaurantOwnerAdminRepo
             ResultSet restaurantOwnerResultSet = statement.executeQuery(restaurantOwner);
 
             while (restaurantOwnerResultSet.next()) {
-                String userId = restaurantOwnerResultSet.getString("UserId");
-                String firstName = restaurantOwnerResultSet.getString("FirstName");
-                String lastName = restaurantOwnerResultSet.getString("LastName");
-                String emailId = restaurantOwnerResultSet.getString("EmailId");
-                String userName = restaurantOwnerResultSet.getString("UserName");
-                String password = restaurantOwnerResultSet.getString("Password");
-                String mobileNumber = restaurantOwnerResultSet.getString("MobileNumber");
-                String gender = restaurantOwnerResultSet.getString("Gender");
-                Date birthDate = restaurantOwnerResultSet.getDate("BirthDate");
-                String address = restaurantOwnerResultSet.getString("Address");
-                String city = restaurantOwnerResultSet.getString("City");
-                String province = restaurantOwnerResultSet.getString("Province");
-                String country = restaurantOwnerResultSet.getString("Country");
-                String postalCode = restaurantOwnerResultSet.getString("PostalCode");
-                int status = Integer.parseInt(restaurantOwnerResultSet.getString("Status"));
-                String roleId = restaurantOwnerResultSet.getString("Role_RoleId");
+                String userId = restaurantOwnerResultSet.getString(ApplicationConstants.USER_USERID_COLUMN);
+                String firstName = restaurantOwnerResultSet.getString(ApplicationConstants.USER_FIRSTNAME_COLUMN);
+                String lastName = restaurantOwnerResultSet.getString(ApplicationConstants.USER_LASTNAME_COLUMN);
+                String emailId = restaurantOwnerResultSet.getString(ApplicationConstants.USER_EMAILID_COLUMN);
+                String userName = restaurantOwnerResultSet.getString(ApplicationConstants.USER_USERNAME_COLUMN);
+                String password = restaurantOwnerResultSet.getString(ApplicationConstants.USER_PASSWORD_COLUMN);
+                String mobileNumber = restaurantOwnerResultSet.getString(ApplicationConstants.USER_MOBILENUMBER_COLUMN);
+                String gender = restaurantOwnerResultSet.getString(ApplicationConstants.USER_GENDER_COLUMN);
+                Date birthDate = restaurantOwnerResultSet.getDate(ApplicationConstants.USER_BIRTHDATE_COLUMN);
+                String address = restaurantOwnerResultSet.getString(ApplicationConstants.USER_ADDRESS_COLUMN);
+                String city = restaurantOwnerResultSet.getString(ApplicationConstants.USER_CITY_COLUMN);
+                String province = restaurantOwnerResultSet.getString(ApplicationConstants.USER_PROVINCE_COLUMN);
+                String country = restaurantOwnerResultSet.getString(ApplicationConstants.USER_COUNTRY_COLUMN);
+                String postalCode = restaurantOwnerResultSet.getString(ApplicationConstants.USER_POSTALCODE_COLUMN);
+                int status = Integer.parseInt(restaurantOwnerResultSet.getString(ApplicationConstants.USER_STATUS_COLUMN));
+                String roleId = restaurantOwnerResultSet.getString(ApplicationConstants.USER_ROLE_ROLEID_COLUMN);
                 restaurantOwnerAdminDto = new RestaurantOwnerAdminDto(id, userId, firstName, lastName, emailId, userName, password, mobileNumber, gender, birthDate, address, city, province, country, postalCode, status, roleId);
             }
             connection.close();

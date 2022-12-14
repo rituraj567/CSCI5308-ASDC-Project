@@ -2,7 +2,7 @@ package com.CanadaEats.group13.delivery_person.repository;
 
 import com.CanadaEats.group13.database.DatabaseConnection;
 import com.CanadaEats.group13.database.IDatabaseConnection;
-import com.CanadaEats.group13.order.repository.OrderRepository;
+import com.CanadaEats.group13.utils.ApplicationConstants;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -14,13 +14,6 @@ public class DeliverRepository implements IDeliverRepository {
     IDatabaseConnection databaseConnection;
     Connection connection;
     Statement statement;
-    ResultSet result;
-    OrderRepository orderRepository = new OrderRepository();
-
-    public DeliverRepository() {
-
-    }
-
 
     public DeliverRepository(IDatabaseConnection databaseConnection) {
         this.databaseConnection = databaseConnection;
@@ -37,7 +30,7 @@ public class DeliverRepository implements IDeliverRepository {
         String status_check = " select OrderStatusId from Orders WHERE OrderStatusId =" + name2;
         feedback = orderTableChange(changeStatus, status_check);
 
-        if (feedback.equals("Picked Up")) {
+        if (feedback.equals(ApplicationConstants.ORDER_PICKED_UP)) {
             changedPickup = true;
         } else {
             changedPickup = false;
@@ -56,7 +49,7 @@ public class DeliverRepository implements IDeliverRepository {
         String status_check = " select OrderStatusId from Orders WHERE OrderStatusId =" + name2;
         feedback = orderTableChange(changeStatus, status_check);
 
-        if (feedback.equals("Delivered")) {
+        if (feedback.equals(ApplicationConstants.ORDER_DELIVERED)) {
             changedDelivered = true;
         } else {
             changedDelivered = false;
@@ -76,7 +69,7 @@ public class DeliverRepository implements IDeliverRepository {
             ResultSet orderResult = statement.executeQuery(checker);
 
             while (orderResult.next()) {
-                result = orderResult.getString("OrderStatusId");
+                result = orderResult.getString(ApplicationConstants.ORDER_ORDERSTATUSID);
             }
             connection.close();
             statement.close();

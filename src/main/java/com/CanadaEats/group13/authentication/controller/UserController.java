@@ -35,11 +35,6 @@ public class UserController {
         roleFactory = new RoleFactory();
     }
 
-    @GetMapping
-    public String getUser() {
-        return "get user";
-    }
-
     @GetMapping("/userregistrationpage")
     public String userRegistrationErrorPage(Model model) {
         UserDetailsDto userDetailsDto = DTOFactory.getInstance().createUserDetailsDto();

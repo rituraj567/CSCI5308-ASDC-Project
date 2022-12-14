@@ -1,13 +1,15 @@
 package com.CanadaEats.group13.database;
 
+import com.CanadaEats.group13.utils.ApplicationConstants;
+
 import java.io.FileInputStream;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.util.Properties;
 
 public class DatabaseConnection implements IDatabaseConnection {
-    private Connection connection = null;
     private static DatabaseConnection databaseConnection = null;
+    private Connection connection = null;
 
     private DatabaseConnection() {
 
@@ -25,12 +27,12 @@ public class DatabaseConnection implements IDatabaseConnection {
 
         try {
             Properties databaseProperties = new Properties();
-            FileInputStream inputStream = new FileInputStream("./src/main/resources/application.properties");
+            FileInputStream inputStream = new FileInputStream(ApplicationConstants.PROPERTY_PATH);
             databaseProperties.load(inputStream);
-            String jdbcPackage = databaseProperties.getProperty("JDBCDriver");
-            String url = databaseProperties.getProperty("spring.datasource.url");
-            String username = databaseProperties.getProperty("spring.username");
-            String password = databaseProperties.getProperty("spring.datasource.password");
+            String jdbcPackage = databaseProperties.getProperty(ApplicationConstants.JDBC_DRIVER);
+            String url = databaseProperties.getProperty(ApplicationConstants.DATASOURCE_URL);
+            String username = databaseProperties.getProperty(ApplicationConstants.SPRING_USERNAME);
+            String password = databaseProperties.getProperty(ApplicationConstants.DATASOURCE_PASSWORD);
             Class.forName(
                     jdbcPackage);
             connection = DriverManager.getConnection(
