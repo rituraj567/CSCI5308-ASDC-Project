@@ -74,7 +74,6 @@ public class CustomerController {
 
     @GetMapping("/restaurant/{restaurantId}/display")
     public String showRestaurant(@PathVariable("restaurantId") String restaurantId, Model model,
-            
             HttpServletRequest request) {
         boolean isAPIAccessible = APIAccessAuthorization.getInstance().getAPIAccess(request);
         if (isAPIAccessible) {
@@ -91,7 +90,7 @@ public class CustomerController {
     }
 
     @GetMapping("/customer/menuItems/{restaurantId}/{id}/search")
-            @PathVariable("restaurantId") String restaurantId, @PathVariable("id") int id,
+    public String searchMenuItems(@PathVariable("restaurantId") String restaurantId, @PathVariable("id") int id,
             @RequestParam("query") String query, Model model, HttpServletRequest request) {
         boolean isAPIAccessible = APIAccessAuthorization.getInstance().getAPIAccess(request);
         if (isAPIAccessible) {
@@ -110,7 +109,7 @@ public class CustomerController {
     }
 
     @GetMapping("/addtocart/{menuId}/{menuItemId}/")
-            @PathVariable("menuId") String menuId, @PathVariable("menuItemId") String menuItemId,
+    public String addItemsToCart(@PathVariable("menuId") String menuId, @PathVariable("menuItemId") String menuItemId,
             Model model, HttpServletRequest request) {
 
         boolean isAPIAccessible = APIAccessAuthorization.getInstance().getAPIAccess(request);
@@ -171,7 +170,7 @@ public class CustomerController {
     }
 
     @GetMapping("/createfeedbackpage/{restaurantid}")
-            @PathVariable("restaurantid") String restaurantId, Model model,
+    public String createFeedBack(@PathVariable("restaurantid") String restaurantId, Model model,
             HttpServletRequest request) {
         boolean isAPIAccessible = APIAccessAuthorization.getInstance().getAPIAccess(request);
         if (isAPIAccessible) {
@@ -184,7 +183,6 @@ public class CustomerController {
     }
 
     @PostMapping("/addfeedback/{restaurantid}")
-            
     public String addFeedBack(@PathVariable("restaurantid") String restaurantId, @ModelAttribute RatingDto ratingDto,
             HttpServletRequest request) {
         boolean isAPIAccessible = APIAccessAuthorization.getInstance().getAPIAccess(request);
