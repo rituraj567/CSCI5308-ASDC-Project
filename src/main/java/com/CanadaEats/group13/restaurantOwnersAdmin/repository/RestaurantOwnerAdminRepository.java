@@ -1,19 +1,15 @@
 package com.CanadaEats.group13.restaurantOwnersAdmin.repository;
 
-import java.sql.Connection;
-import java.sql.Date;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.Statement;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.UUID;
-
 import com.CanadaEats.group13.database.IDatabaseConnection;
 import com.CanadaEats.group13.restaurantOwnersAdmin.dto.RestaurantBindingDto;
 import com.CanadaEats.group13.restaurantOwnersAdmin.dto.RestaurantOwnerAdminDto;
 import com.CanadaEats.group13.utils.ApplicationConstants;
 import com.CanadaEats.group13.utils.PasswordEncoderDecoder;
+
+import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.UUID;
 
 public class RestaurantOwnerAdminRepository implements IRestaurantOwnerAdminRepository {
     IDatabaseConnection databaseConnection;
@@ -143,21 +139,20 @@ public class RestaurantOwnerAdminRepository implements IRestaurantOwnerAdminRepo
     public void updateRestaurantOwner(RestaurantOwnerAdminDto restaurantOwnerAdminDto) {
         try {
             this.connection = databaseConnection.getDatabaseConnection();
-            String query = "UPDATE User SET FirstName=?, LastName=?, EmailId=?, UserName=?, Password=?, MobileNumber=?, Gender=?,  Address=?, City=?, Province=?, Country=?, PostalCode=?,status=? WHERE id=" + restaurantOwnerAdminDto.getId();
+            String query = "UPDATE User SET FirstName=?, LastName=?, EmailId=?, UserName=?, MobileNumber=?, Gender=?,  Address=?, City=?, Province=?, Country=?, PostalCode=?,status=? WHERE id=" + restaurantOwnerAdminDto.getId();
             PreparedStatement preparedStmt = connection.prepareStatement(query);
             preparedStmt.setString(1, restaurantOwnerAdminDto.getFirstName());
             preparedStmt.setString(2, restaurantOwnerAdminDto.getLastName());
             preparedStmt.setString(3, restaurantOwnerAdminDto.getEmailId());
             preparedStmt.setString(4, restaurantOwnerAdminDto.getUserName());
-            preparedStmt.setString(5, restaurantOwnerAdminDto.getPassword());
-            preparedStmt.setString(6, restaurantOwnerAdminDto.getMobileNumber());
-            preparedStmt.setString(7, restaurantOwnerAdminDto.getGender());
-            preparedStmt.setString(8, restaurantOwnerAdminDto.getAddress());
-            preparedStmt.setString(9, restaurantOwnerAdminDto.getCity());
-            preparedStmt.setString(10, restaurantOwnerAdminDto.getProvince());
-            preparedStmt.setString(11, restaurantOwnerAdminDto.getCountry());
-            preparedStmt.setString(12, restaurantOwnerAdminDto.getPostalCode());
-            preparedStmt.setInt(13, ApplicationConstants.ACTIVE_STATUS);
+            preparedStmt.setString(5, restaurantOwnerAdminDto.getMobileNumber());
+            preparedStmt.setString(6, restaurantOwnerAdminDto.getGender());
+            preparedStmt.setString(7, restaurantOwnerAdminDto.getAddress());
+            preparedStmt.setString(8, restaurantOwnerAdminDto.getCity());
+            preparedStmt.setString(9, restaurantOwnerAdminDto.getProvince());
+            preparedStmt.setString(10, restaurantOwnerAdminDto.getCountry());
+            preparedStmt.setString(11, restaurantOwnerAdminDto.getPostalCode());
+            preparedStmt.setInt(12, ApplicationConstants.ACTIVE_STATUS);
             preparedStmt.execute();
             connection.close();
         } catch (Exception e) {

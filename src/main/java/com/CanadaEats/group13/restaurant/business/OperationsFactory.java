@@ -33,12 +33,6 @@ public class OperationsFactory implements IOperationsFactory {
     }
 
     @Override
-    public IRestaurantState createInsertFailureOperation() {
-
-        return new InsertFailureOperation();
-    }
-
-    @Override
     public IRestaurantState createInsertSuccessOperation() {
 
         return new InsertSucessOperation();

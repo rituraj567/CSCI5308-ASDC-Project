@@ -6,7 +6,6 @@ public class ApplicationConstants {
     public static final String CUSTOMER_ROLEID = "407b779e-dc99-4607-83e9-6f3a1716b3ca";
     public static final String DELIVERY_PERSON_ROLEID = "5941532b-da1d-427a-85d0-18cb44bd2932";
     public static final int ACTIVE_STATUS = 1;
-    public static final int DEACTIVE_STATUS = 0;
     public static final String FILTER_NAME_COLUMN = "Name";
     public static final String FILTER_ISACTIVE_COLUMN = "IsActive";
     public static final String USER_PASSWORD_COLUMN = "Password";
@@ -44,10 +43,6 @@ public class ApplicationConstants {
     public static final String COOKIE_EMPTY_STRING = "";
     public static final int COOKIE_MAX_AGE = 0;
     public static final String COOKIE_ROOT_PATH = "/";
-
-    public static final String WAITING_FOR_PICKUP = "cdf30aeb-c730-418a-abcb-be5ce19c3ee3";
-    public static final String EN_ROUTE = "423d5d1e-aa47-4607-801b-1395509175db";
-    public static final String DELIVERED = "79fe57ed-2fc0-49f0-9df7-eb2560ed723a";
     public static final String CREDIT_CARD = "b340b7b1-465e-439a-9a06-a6ee7785b7fb";
     public static final String DEBIT_CARD = "7b655d6c-b4f8-4839-be8d-76e58ae9835b";
     public static final String CASH = "e1f1b8e7-1c25-4918-b4f2-5ec0811e43cc";
@@ -92,8 +87,6 @@ public class ApplicationConstants {
     public static final String URL_RESTAURANTS_VIEW_SUCCESS = "restaurants/viewRestaurant";
     public static final String URL_RESTAURANTS_SEARCH_SUCCESS = "restaurants/restaurant";
     public static final String URL_RESTAURANT_POST_CREATION = "redirect:/restaurants";
-
-    public static final String URL_RESTAURANT_UPDATE_POST_RESTAURANT = "redirect:/restaurants";
     public static final String URL_RESTAURANT_CUSTOMER_HOME_PAGE = "customer/customerHomePage";
     public static final String URL_RESTAURANT_RESTAURANT_DISPLAY = "customer/restaurantDisplayPage";
     public static final String URL_RESTAURANT_CHECKOUT = "customer/checkoutPage";
@@ -115,5 +108,4 @@ public class ApplicationConstants {
     public static final String URL_RESTAURANTOWNERADMIN_VIEW = "restaurantOwnersAdmin/viewRestaurantOwnerAdmin";
 
     public static final String URL_RESTAURANTOWNERADMIN_BIND = "redirect:/restaurantOwners";
-    public static final String URL_ORDERS = "/order/viewOrder";
 }

@@ -228,7 +228,7 @@ public class UserRepository implements IUserRepository {
         try {
             connection = databaseConnection.getDatabaseConnection();
 
-            String query = "update User SET  UserId=?, FirstName=?, LastName=?, EmailId=?, UserName=?, Password=?, MobileNumber=?, Gender=?, BirthDate=?, Address=?, City=?, Province=?, Country=?, PostalCode=?  where UserId= '"
+            String query = "update User SET  UserId=?, FirstName=?, LastName=?, EmailId=?, UserName=?,  MobileNumber=?, Gender=?, BirthDate=?, Address=?, City=?, Province=?, Country=?, PostalCode=?  where UserId= '"
                     + userDetails.getUserId() + "'";
 
             PreparedStatement prepStat = connection.prepareStatement(query);
@@ -238,15 +238,14 @@ public class UserRepository implements IUserRepository {
             prepStat.setString(3, userDetails.getLastName());
             prepStat.setString(4, userDetails.getEmailId());
             prepStat.setString(5, userDetails.getUserName());
-            prepStat.setString(6, userDetails.getPassword());
-            prepStat.setString(7, userDetails.getMobileNumber());
-            prepStat.setString(8, userDetails.getGender());
-            prepStat.setDate(9, userDetails.getBirthDate());
-            prepStat.setString(10, userDetails.getAddress());
-            prepStat.setString(11, userDetails.getCity());
-            prepStat.setString(12, userDetails.getProvince());
-            prepStat.setString(13, userDetails.getCountry());
-            prepStat.setString(14, userDetails.getPostalCode());
+            prepStat.setString(6, userDetails.getMobileNumber());
+            prepStat.setString(7, userDetails.getGender());
+            prepStat.setDate(8, userDetails.getBirthDate());
+            prepStat.setString(9, userDetails.getAddress());
+            prepStat.setString(10, userDetails.getCity());
+            prepStat.setString(11, userDetails.getProvince());
+            prepStat.setString(12, userDetails.getCountry());
+            prepStat.setString(13, userDetails.getPostalCode());
 
             prepStat.executeUpdate();
 

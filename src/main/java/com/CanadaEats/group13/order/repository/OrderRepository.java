@@ -15,13 +15,13 @@ import com.CanadaEats.group13.order.dto.OrderDisplayDTO;
 import com.CanadaEats.group13.utils.ApplicationConstants;
 
 @Repository
-public class IOrderRepository implements IOderRepository {
+public class OrderRepository implements IOderRepository {
 
     IDatabaseConnection databaseConnection;
     Connection connection;
     ArrayList<OrderDTO> orderDTOArrayList;
 
-    public IOrderRepository() {
+    public OrderRepository() {
 
     }
 

@@ -2,7 +2,6 @@ package com.CanadaEats.group13.utils;
 
 public class StatePatternConstants {
     private static final String SUCCESS = "SUCCESS";
-    private static final String FAILURE = "FAILURE";
     private static final String ERROR = "ERROR";
     private static final String INSERT_SUCCESS = "Data inserted successfully";
     private static final String INSERT_ERROR = "Duplicate records error";
@@ -13,10 +12,6 @@ public class StatePatternConstants {
 
     public static String getSuccessMessage() {
         return SUCCESS;
-    }
-
-    public static String getFailureMessage() {
-        return FAILURE;
     }
 
     public static String getErrorMessage() {
