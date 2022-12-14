@@ -51,6 +51,6 @@ public class DeliveryPersonController {
             System.out.println("delivered");
         }
 
-        return "order/orderPage";
+        return "redirect:/order";
     }
 }
