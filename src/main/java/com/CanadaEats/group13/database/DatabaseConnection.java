@@ -28,9 +28,7 @@ public class DatabaseConnection implements IDatabaseConnection {
             FileInputStream inputStream = new FileInputStream("./src/main/resources/application.properties");
             databaseProperties.load(inputStream);
             String jdbcPackage = databaseProperties.getProperty("JDBCDriver");
-            System.out.println(jdbcPackage);
             String url = databaseProperties.getProperty("spring.datasource.url");
-            System.out.println(url);
             String username = databaseProperties.getProperty("spring.username");
             String password = databaseProperties.getProperty("spring.datasource.password");
             Class.forName(
@@ -41,7 +39,6 @@ public class DatabaseConnection implements IDatabaseConnection {
 
         } catch (Exception e) {
             e.printStackTrace();
-            System.out.println(e.getMessage());
         }
 
         return connection;

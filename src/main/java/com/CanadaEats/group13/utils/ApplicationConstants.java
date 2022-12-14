@@ -66,4 +66,54 @@ public class ApplicationConstants {
     public static final String RESTAURANT_STATUS = "Status";
     public static final String RESTAURANT_USER_ID = "User_UserId";
     public static final String ENCRYPTION_KEY = "ThisIsGroup13EncryptionKey";
+
+    public static final String URL_AUTHENTICATION_REGISTERUSER = "authentication/registerUser";
+    public static final String URL_AUTHENTICATION_USERLOGINPAGE = "redirect:/userloginpage";
+    public static final String URL_AUTHENTICATION_REGISTERUSERERROR = "authentication/registerUserError";
+    public static final String URL_AUTHENTICATION_LOGINUSER = "authentication/loginUser";
+    public static final String URL_AUTHENTICATION_ADMINUSERHOMEPAGE = "redirect:/adminuserhomepage";
+    public static final String URL_AUTHENTICATION_RESTAURANTOWNERHOMEPAGE = "redirect:/restaurantownerhomepage";
+    public static final String URL_AUTHENTICATION_USERHOMEPAGE = "redirect:/userHomePage";
+    public static final String URL_AUTHENTICATION_ORDER = "redirect:/order";
+    public static final String URL_AUTHENTICATION_USERLOGINERRORPAGE = "redirect:/userloginerrorpage";
+    public static final String URL_AUTHENTICATION_LOGINUSERERROR = "authentication/loginUserError";
+    public static final String URL_AUTHENTICATION_USERVIEWPROFILE = "common/userViewProfile";
+    public static final String URL_AUTHENTICATION_EDITPROFILE = "common/editProfile";
+    public static final String URL_AUTHENTICATION_VIEWPROFILE = "redirect:/viewProfile";
+    public static final String URL_AUTHENTICATION_ADMINHOMEPAGE = "utils/adminuserhomepage";
+    public static final String URL_AUTHENTICATION_USERREGISTRATIONERRORPAGE = "redirect:/userregistrationerrorpage";
+
+    public static final String URL_RESTAURANT_SUCCESS = "/restaurants/restaurant";
+    public static final String URL_RESTAURANT_CREATION = "restaurants/newRestuarant";
+
+    public static final String URL_RESTAURANT_EDIT_SUCCESS = "restaurants/editRestaurant";
+    public static final String URL_RESTAURANTS_DELETE_SUCCESS = "redirect:/restaurants";
+
+    public static final String URL_RESTAURANTS_VIEW_SUCCESS = "restaurants/viewRestaurant";
+    public static final String URL_RESTAURANTS_SEARCH_SUCCESS = "restaurants/restaurant";
+    public static final String URL_RESTAURANT_POST_CREATION = "redirect:/restaurants";
+
+    public static final String URL_RESTAURANT_UPDATE_POST_RESTAURANT = "redirect:/restaurants";
+    public static final String URL_RESTAURANT_CUSTOMER_HOME_PAGE = "customer/customerHomePage";
+    public static final String URL_RESTAURANT_RESTAURANT_DISPLAY = "customer/restaurantDisplayPage";
+    public static final String URL_RESTAURANT_CHECKOUT = "customer/checkoutPage";
+
+    public static final String URL_FILTER_DISPLAYFILTERS = "/filter/displayFilters";
+    public static final String URL_FILTER_FILTERS = "redirect:/filters";
+    public static final String URL_RESTAURANTOWNER_RESTAURANTOWNERHOMEPAGE = "restaurantowner/restaurantOwnerHomePage";
+    public static final String URL_RESTAURANTOWNER_NEWMENUPAGE = "restaurantowner/newMenuPage";
+    public static final String URL_RESTAURANTOWNER_RESTOWNERHOMEPAGE = "redirect:/restaurantownerhomepage";
+    public static final String URL_RESTAURANTOWNER_ADDMENUERROR = "restaurantowner/addMenuError";
+    public static final String URL_RESTAURANTOWNER_NEWMENUITEMPAGE = "restaurantowner/newMenuItemPage";
+    public static final String URL_RESTAURANTOWNER_MENUITEMS = "restaurantowner/menuItems";
+
+    public static final String URL_RESTAURANTOWNERADMIN_HOMEPAGE = "restaurantOwnersAdmin/restaurantOwnerAdmin";
+    public static final String URL_RESTAURANTOWNERADMIN_NEW = "restaurantOwnersAdmin/newRestaurantOwnerAdmin";
+    public static final String URL_RESTAURANTOWNERADMIN_EDIT = "restaurantOwnersAdmin/editRestaurantOwner";
+    public static final String URL_RESTAURANTOWNERADMIN_POST_SUCCESS = "redirect:/restaurantOwners";
+    public static final String URL_RESTAURANTOWNERADMIN_DELETE_SUCCESS = "redirect:/restaurantOwners";
+    public static final String URL_RESTAURANTOWNERADMIN_VIEW = "restaurantOwnersAdmin/viewRestaurantOwnerAdmin";
+
+    public static final String URL_RESTAURANTOWNERADMIN_BIND = "redirect:/restaurantOwners";
+    public static final String URL_ORDERS = "/order/viewOrder";
 }

@@ -76,7 +76,6 @@ public class RestaurantRepository implements IRestaurantRepository {
             restaurantResult.close();
         } catch (Exception e) {
             System.out.println(e);
-            System.out.println(e.getMessage());
         }
 
         return restaurantDTOList;
@@ -87,8 +86,8 @@ public class RestaurantRepository implements IRestaurantRepository {
         Connection connection = null;
         try {
 
-            String query = " insert into Restaurant (Id, RestaurantId, Name, Address, City, Province,Country,PostalCode,PhoneNumber,Status,User_UserId)"
-                    + " values (?, ?, ?, ?, ?,?,?,?,?,?,?)";
+            String query = " insert into Restaurant (Id, RestaurantId, Name, Address, City, Province,Country,PostalCode,PhoneNumber,Status)"
+                    + " values (?, ?, ?, ?, ?,?,?,?,?,?)";
 
             connection = databaseConnection.getDatabaseConnection();
             PreparedStatement preparedStmt = connection.prepareStatement(query);
@@ -102,8 +101,6 @@ public class RestaurantRepository implements IRestaurantRepository {
             preparedStmt.setString(8, restaurantDTO.getPostalCode());
             preparedStmt.setString(9, restaurantDTO.getPhoneNumber());
             preparedStmt.setInt(10, ApplicationConstants.ACTIVE_STATUS);
-            preparedStmt.setString(11, ApplicationConstants.RESTAURANT_OWNER_ROLEID);
-
             preparedStmt.execute();
 
             IRestaurantState restaurantState = new InsertSucessOperation();
@@ -138,9 +135,6 @@ public class RestaurantRepository implements IRestaurantRepository {
 
             while (restaurantResult.next()) {
                 restaurantDTO = getRestaurantDTO(restaurantResult);
-
-                System.out.println(restaurantDTO.getName());
-
             }
 
             connection.close();
@@ -148,7 +142,6 @@ public class RestaurantRepository implements IRestaurantRepository {
             restaurantResult.close();
         } catch (Exception e) {
             System.out.println(e);
-            System.out.println(e.getMessage());
         }
 
         return restaurantDTO;

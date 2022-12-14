@@ -45,16 +45,16 @@ public class UserController {
     public String userRegistrationErrorPage(Model model) {
         UserDetailsDto userDetailsDto = DTOFactory.getInstance().createUserDetailsDto();
         model.addAttribute("userregistration", userDetailsDto);
-        return "authentication/registerUser";
+        return ApplicationConstants.URL_AUTHENTICATION_REGISTERUSER;
     }
 
     @PostMapping("/register")
     public String registerUser(@ModelAttribute UserDetailsDto userDetailsDto) {
         UserDetailsResponseModel userResponse = userService.registerUser(userDetailsDto);
         if (userResponse.getUserId() == null) {
-            return "redirect:/userregistrationerrorpage";
+            return ApplicationConstants.URL_AUTHENTICATION_USERREGISTRATIONERRORPAGE;
         } else {
-            return "redirect:/userloginpage";
+            return ApplicationConstants.URL_AUTHENTICATION_USERLOGINPAGE;
         }
     }
 
@@ -62,14 +62,14 @@ public class UserController {
     public String userRegistrationForm(Model model) {
         String errorMessage = "Some error occured, Please, try again";
         model.addAttribute("errorMessageRegistration", errorMessage);
-        return "authentication/registerUserError";
+        return ApplicationConstants.URL_AUTHENTICATION_REGISTERUSERERROR;
     }
 
     @GetMapping("/userloginpage")
     public String userLoginForm(Model model) {
         UserLoginDto userLoginDto = DTOFactory.getInstance().createUserLoginDto();
         model.addAttribute("userlogin", userLoginDto);
-        return "authentication/loginUser";
+        return ApplicationConstants.URL_AUTHENTICATION_LOGINUSER;
     }
 
     @PostMapping("/login")
@@ -96,29 +96,29 @@ public class UserController {
             if (userLoginResponseModel.getRoleId().equals(ApplicationConstants.ADMIN_ROLEID)) {
                 IRole role = roleFactory.createRole(ApplicationConstants.ADMIN_ROLE);
                 role.getRoleType(response);
-                return "redirect:/adminuserhomepage";
+                return ApplicationConstants.URL_AUTHENTICATION_ADMINUSERHOMEPAGE;
             } else if (userLoginResponseModel.getRoleId().equals(ApplicationConstants.RESTAURANT_OWNER_ROLEID)) {
                 IRole role = roleFactory.createRole(ApplicationConstants.ADMIN_ROLE);
                 role.getRoleType(response);
-                return "redirect:/restaurantownerhomepage";
+                return ApplicationConstants.URL_AUTHENTICATION_RESTAURANTOWNERHOMEPAGE;
             } else if (userLoginResponseModel.getRoleId().equals(ApplicationConstants.CUSTOMER_ROLEID)) {
                 IRole role = roleFactory.createRole(ApplicationConstants.CUSTOMER_ROLE);
                 role.getRoleType(response);
-                return "redirect:/userHomePage";
+                return ApplicationConstants.URL_AUTHENTICATION_USERHOMEPAGE;
             } else if (userLoginResponseModel.getRoleId().equals(ApplicationConstants.DELIVERY_PERSON_ROLEID)) {
                 IRole role = roleFactory.createRole(ApplicationConstants.DELIVERY_PERSON_ROLE);
                 role.getRoleType(response);
-                return "redirect:/order";
+                return ApplicationConstants.URL_AUTHENTICATION_ORDER;
             }
         }
-        return "redirect:/userloginerrorpage";
+        return ApplicationConstants.URL_AUTHENTICATION_USERLOGINERRORPAGE;
     }
 
     @GetMapping("/userloginerrorpage")
     public String userLoginErrorPage(Model model) {
         String errorMessage = "Some error occured, Please, try again";
         model.addAttribute("errorMessageLogin", errorMessage);
-        return "authentication/loginUserError";
+        return ApplicationConstants.URL_AUTHENTICATION_LOGINUSERERROR;
     }
 
     @GetMapping("/logout")
@@ -132,7 +132,7 @@ public class UserController {
                 response.addCookie(cookie);
             }
         }
-        return "redirect:/userloginpage";
+        return ApplicationConstants.URL_AUTHENTICATION_USERLOGINPAGE;
     }
 
     @GetMapping("/viewProfile")
@@ -140,14 +140,14 @@ public class UserController {
         String userId = CookiesLogic.extractCookie(request, ApplicationConstants.COOKIE_USERID);
         UserDetailsDto userDetailsDto = userService.getUserDetails(userId);
         model.addAttribute("user", userDetailsDto);
-        return "common/userViewProfile";
+        return ApplicationConstants.URL_AUTHENTICATION_USERVIEWPROFILE;
     }
 
     @GetMapping("/userProfile/{userId}/edit")
     public String editProfile(@PathVariable("userId") String userId, Model model) {
         UserDetailsDto userDetailsDto = userService.getUserDetails(userId);
         model.addAttribute("user", userDetailsDto);
-        return "common/editProfile";
+        return ApplicationConstants.URL_AUTHENTICATION_EDITPROFILE;
     }
 
     @PostMapping("/users/{userId}")
@@ -155,15 +155,15 @@ public class UserController {
             @ModelAttribute("restaurant") UserDetailsDto userDetailsDto, Model model) {
         model.addAttribute("user", userDetailsDto);
         userService.updateUserProfile(userDetailsDto);
-        return "redirect:/viewProfile";
+        return ApplicationConstants.URL_AUTHENTICATION_VIEWPROFILE;
     }
 
     @GetMapping("/adminuserhomepage")
     public String adminUserHomePage(HttpServletRequest request) {
         boolean isAPIAccessible = APIAccessAuthorization.getInstance().getAPIAccess(request);
         if (isAPIAccessible) {
-            return "utils/adminuserhomepage";
+            return ApplicationConstants.URL_AUTHENTICATION_ADMINHOMEPAGE;
         }
-        return "redirect:/userloginerrorpage";
+        return ApplicationConstants.URL_AUTHENTICATION_USERLOGINERRORPAGE;
     }
 }

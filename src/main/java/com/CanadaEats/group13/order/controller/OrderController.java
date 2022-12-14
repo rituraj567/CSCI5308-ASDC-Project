@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import com.CanadaEats.group13.order.dto.OrderDTO;
 import com.CanadaEats.group13.order.dto.OrderDisplayDTO;
 import com.CanadaEats.group13.order.repository.IOrderRepository;
+import com.CanadaEats.group13.utils.ApplicationConstants;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -43,6 +44,7 @@ public class OrderController {
         model.addAttribute("user", userDetailsDto);
 
         System.out.println(orderDisplay.size());
+
         System.out.println(userDetailsDto.getFirstName());
 
         List<OrderDisplayDTO> orders = new ArrayList<>();

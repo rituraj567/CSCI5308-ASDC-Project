@@ -53,6 +53,11 @@
         <div class="grid-container">
             <div class="card margin-right">
                 <div class="card-body">
+                    <p><span>Order No:</span> <span th:text="${order.getId()}">Id</span></p>
+
+
+                    <span>Order Status:</span> <span th:text="${order.getStatus()}">Status</span>
+<br/>
                     <a
                                 type="button"
                                 class="btn btn-info"
