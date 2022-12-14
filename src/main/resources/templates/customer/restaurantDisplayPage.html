@@ -34,6 +34,7 @@
 </head>
     <div th:replace="common/loginHeader :: navbar"></div>
     <div class="container margin-container">
+<<<<<<< Updated upstream
       <a
       type="button"
       class="btn btn-primary mt-lg-2"
@@ -41,6 +42,16 @@
 >
  Add reviews
 </a>
+=======
+        <a
+                type="button"
+                class="btn btn-primary mt-lg-2"
+                th:href="@{/createfeedbackpage/{restaurantid}/(restaurantid=${restaurant.getRestaurantId()})}"
+        >
+
+            Add reviews
+        </a>
+>>>>>>> Stashed changes
       <div class="grid-container">
 
      
