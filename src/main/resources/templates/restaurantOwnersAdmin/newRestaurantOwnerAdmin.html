@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="UTF-8" />
+    <meta content="IE=edge" http-equiv="X-UA-Compatible" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>New Restaurant</title>
+  </head>
+  <div th:replace="restaurantOwnersAdmin/header :: header"></div>
+  <style>
+    .margin-container {
+      margin-top: 50px;
+    }
+
+    .btn-flex {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-top: 15px;
+    }
+  </style>
+  <body>
+    <div th:replace="restaurantOwnersAdmin/header :: navbar"></div>
+    <div class="container margin-container">
+      <div class="row col-md-8 offset-md-2">
+        <form
+          method="post"
+          role="form"
+          th:action="@{/admin/restaurantsOwnerAdmin/}"
+          th:object="${restaurantOwner}"
+        >
+          <div class="mb-3">
+            <label class="form-label"> First Name </label>
+            <input
+              class="form-control"
+              id="title"
+              name="name"
+              placeholder="Enter First Name"
+              required
+              th:field="*{firstName}"
+              type="text"
+            />
+          </div>
+          <div class="mb-3">
+            <label class="form-label"> Last Name </label>
+            <input
+              class="form-control"
+              id="title"
+              name="name"
+              placeholder="Enter Last Name"
+              required
+              th:field="*{lastName}"
+              type="text"
+            />
+          </div>
+          <div class="mb-3">
+            <label class="form-label"> Email Id </label>
+            <input
+              class="form-control"
+              id="title"
+              name="name"
+              placeholder="Enter Email Id"
+              required
+              th:field="*{emailId}"
+              type="email"
+            />
+          </div>
+          <div class="mb-3">
+            <label class="form-label"> User Name </label>
+            <input
+              class="form-control"
+              id="title"
+              name="name"
+              placeholder="Enter User Name"
+              required
+              th:field="*{userName}"
+              type="text"
+            />
+          </div>
+          <div class="mb-3">
+            <label class="form-label"> Password </label>
+            <input
+              class="form-control"
+              id="title"
+              name="name"
+              placeholder="Enter Password"
+              required
+              th:field="*{password}"
+              type="password"
+            />
+          </div>
+          <div class="mb-3">
+            <label class="form-label"> Mobile Number </label>
+            <input
+              class="form-control"
+              id="title"
+              maxlength="10"
+              name="name"
+              placeholder="Enter Mobile Number"
+              required
+              th:field="*{mobileNumber}"
+              type="text"
+            />
+          </div>
+          <div class="mb-3">
+            <label class="form-label"> Gender </label>
+            <input
+              class="form-control"
+              id="title"
+              name="name"
+              placeholder="Enter Gender"
+              required
+              th:field="*{gender}"
+              type="text"
+            />
+          </div>
+          <div class="mb-3">
+            <label class="form-label"> Address </label>
+            <input
+              class="form-control"
+              id="title"
+              name="name"
+              placeholder="Enter Address"
+              required
+              th:field="*{address}"
+              type="text"
+            />
+          </div>
+          <div class="mb-3">
+            <label class="form-label"> City </label>
+            <input
+              class="form-control"
+              id="title"
+              name="city"
+              placeholder="Enter City"
+              required
+              th:field="*{city}"
+              type="text"
+            />
+          </div>
+          <div class="mb-3">
+            <label class="form-label"> Province </label>
+            <input
+              class="form-control"
+              id="title"
+              name="province"
+              placeholder="Enter Province"
+              required
+              th:field="*{province}"
+              type="text"
+            />
+          </div>
+          <div class="mb-3">
+            <label class="form-label"> Country </label>
+            <input
+              class="form-control"
+              id="title"
+              name="country"
+              placeholder="Enter Country"
+              required
+              th:field="*{country}"
+              type="text"
+            />
+          </div>
+          <div class="mb-3">
+            <label class="form-label"> Postal Code </label>
+            <input
+              class="form-control"
+              id="title"
+              name="postalCode"
+              placeholder="Enter Postal Code"
+              required
+              th:field="*{postalCode}"
+              type="text"
+            />
+          </div>
+          <div class="btn-flex">
+            <button
+              class="btn btn-outline-primary btn-lg btn-block"
+              type="submit"
+            >
+              Submit
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </body>
+</html>

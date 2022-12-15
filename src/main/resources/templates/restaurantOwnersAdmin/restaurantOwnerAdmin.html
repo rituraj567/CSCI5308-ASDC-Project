@@ -1,0 +1,94 @@
+<!DOCTYPE >
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <title>Restaurant Owners</title>
+    <link
+            crossorigin="anonymous"
+            href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+            integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+            rel="stylesheet"
+    />
+    <style>
+        ul {
+            list-style-type: none;
+        }
+
+        li {
+            display: inline-block;
+        }
+
+        .button-space {
+            margin-right: 10px;
+        }
+
+        .margin-container {
+            margin-top: 100px;
+        }
+
+        .margin-search {
+            margin-top: 30px;
+        }
+
+        .margin-left {
+            margin-left: 20px;
+        }
+        
+        .col-sm{
+            margin-left: 0px;
+        }
+
+    </style>
+</head>
+<div th:replace="restaurantOwnersAdmin/header :: header"></div>
+<body>
+<div th:replace="restaurantOwnersAdmin/header :: navbar"></div>
+
+<br />
+
+<div class="container margin-container">
+    <div class="row">
+        <div class="col-sm">
+            <li style="font-weight : 500">Name</li>
+        </div>
+        <div class="col-sm">
+            <li style="font-weight : 500">Email Address</li>
+        </div>
+        <ul th:each="restaurantOwner,index : ${restaurantOwners}">
+            <div class="row">
+                <div class="col-sm">
+                    <li th:text="${restaurantOwner.getFirstName()}">Name</li>
+                </div>
+                <div class="col-sm">
+                    <li th:text="${restaurantOwner.getEmailId()}">Address</li>
+                </div>
+                <div class="col-sm">
+                    <a
+                            class="btn btn-dark button-space"
+                            th:href="@{/admin/restaurantOwners/{userId}/edit(userId=${restaurantOwner.id})}"
+                    >
+                        Edit</a>
+
+                    <a
+                            type="button"
+                            class="btn btn-danger button-space"
+                            th:href="@{/admin/restaurantOwners/{userId}/delete(userId=${restaurantOwner.id})}"
+                    >
+                        Delete
+                    </a>
+                    <a
+                            type="button"
+                            class="btn btn-info"
+                            th:href="@{/admin/restaurantOwners/{userId}/view(userId=${restaurantOwner.id})}"
+                    >
+                        View
+                    </a>
+                </div>
+
+        </ul>
+    </div>
+</div>
+
+<div th:replace="restaurantOwnersAdmin/footer :: footer"></div>
+</body>
+</html>

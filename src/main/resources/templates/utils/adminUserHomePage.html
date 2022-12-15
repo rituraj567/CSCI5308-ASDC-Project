@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="UTF-8" />
+    <meta content="IE=edge" http-equiv="X-UA-Compatible" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Admin Home Page</title>
+  </head>
+  <div th:replace="utils/header :: header"></div>
+  <style>
+    .margin-container {
+      margin-top: 50px;
+    }
+
+    .btn-flex {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-top: 15px;
+    }
+
+    .btn-group button {
+      float: left; /* Float the buttons side by side */
+    }
+
+    li,
+    input {
+      display: inline-block;
+    }
+  </style>
+  <body>
+    <div th:replace="utils/header :: navbar"></div>
+    <br />
+    <br />
+    <div class="col-sm btn-group" style="width: 100%">
+      <a
+        class="btn btn-success button-space"
+        style="width: 25%"
+        th:href="@{/restaurants}"
+      >
+        Restaurants</a
+      >
+      <a
+        class="btn btn-info"
+        style="width: 25%"
+        th:href="@{/restaurantOwners}"
+        type="button"
+      >
+        Restaurant Owner
+      </a>
+      <a
+        class="btn btn-primary button-space"
+        style="width: 25%"
+        th:href="@{/order}"
+      >
+        Orders</a
+      >
+      <a
+        class="btn btn-dark button-space"
+        style="width: 25%"
+        th:href="@{/filters}"
+      >
+        Filters</a
+      >
+    </div>
+  </body>
+</html>

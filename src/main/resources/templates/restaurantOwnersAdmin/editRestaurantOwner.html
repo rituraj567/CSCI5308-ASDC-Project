@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="UTF-8" />
+    <meta content="IE=edge" http-equiv="X-UA-Compatible" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Edit Restaurant Owner</title>
+  </head>
+  <div th:replace="restaurantOwnersAdmin/header :: header"></div>
+  <style>
+    .margin-container {
+      margin-top: 50px;
+    }
+
+    .btn-flex {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-top: 15px;
+    }
+  </style>
+  <body>
+    <div th:replace="restaurantOwnersAdmin/header :: navbar"></div>
+    <div class="container margin-container">
+      <div class="row col-md-8 offset-md-2">
+        <form
+          method="post"
+          role="form"
+          th:action="@{/admin/restaurantOwners/{userId}(userId=${restaurantOwner.id})}"
+          th:object="${restaurantOwner}"
+        >
+          <input th:field="*{id}" type="hidden" />
+          <div class="mb-3">
+            <label class="form-label"> First Name </label>
+            <input
+              class="form-control"
+              id="title"
+              name="name"
+              placeholder="Enter Restaurant Name"
+              th:field="*{firstName}"
+              type="text"
+            />
+          </div>
+          <div class="mb-3">
+            <label class="form-label"> Last Name </label>
+            <input
+              class="form-control"
+              id="title"
+              name="address"
+              placeholder="Enter Address"
+              th:field="*{lastName}"
+              type="text"
+            />
+          </div>
+          <div class="mb-3">
+            <label class="form-label"> emailId </label>
+            <input
+              class="form-control"
+              id="title"
+              name="address"
+              placeholder="Enter Address"
+              th:field="*{emailId}"
+              type="text"
+            />
+          </div>
+          <div class="mb-3">
+            <label class="form-label"> User Name </label>
+            <input
+              class="form-control"
+              id="title"
+              name="address"
+              placeholder="Enter Address"
+              th:field="*{userName}"
+              type="text"
+            />
+          </div>
+          <div class="mb-3">
+            <label class="form-label"> Mobile Number </label>
+            <input
+              class="form-control"
+              id="title"
+              name="address"
+              placeholder="Enter Address"
+              th:field="*{mobileNumber}"
+              type="text"
+            />
+          </div>
+          <div class="mb-3">
+            <label class="form-label"> Gender </label>
+            <input
+              class="form-control"
+              id="title"
+              name="address"
+              placeholder="Enter Address"
+              th:field="*{gender}"
+              type="text"
+            />
+          </div>
+
+          <div class="mb-3">
+            <label class="form-label"> Address </label>
+            <input
+              class="form-control"
+              id="title"
+              name="address"
+              placeholder="Enter Address"
+              th:field="*{address}"
+              type="text"
+            />
+          </div>
+
+          <div class="mb-3">
+            <label class="form-label"> City </label>
+            <input
+              class="form-control"
+              id="title"
+              name="city"
+              placeholder="Enter City"
+              th:field="*{city}"
+              type="text"
+            />
+          </div>
+          <div class="mb-3">
+            <label class="form-label"> Province </label>
+            <input
+              class="form-control"
+              id="title"
+              name="province"
+              placeholder="Enter Province"
+              th:field="*{province}"
+              type="text"
+            />
+          </div>
+          <div class="mb-3">
+            <label class="form-label"> Country </label>
+            <input
+              class="form-control"
+              id="title"
+              name="country"
+              placeholder="Enter Country"
+              th:field="*{country}"
+              type="text"
+            />
+          </div>
+          <div class="mb-3">
+            <label class="form-label"> Postal Code </label>
+            <input
+              class="form-control"
+              id="title"
+              name="postalCode"
+              placeholder="Enter Postal Code"
+              th:field="*{postalCode}"
+              type="text"
+            />
+          </div>
+
+          <div class="btn-flex">
+            <button
+              class="btn btn-outline-primary btn-lg btn-block"
+              type="submit"
+            >
+              Submit
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </body>
+</html>

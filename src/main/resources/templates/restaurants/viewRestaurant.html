@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>View Restaurant</title>
+  </head>
+  <div th:replace="restaurants/header :: header"></div>
+  <style>
+    .margin-container {
+      margin-top: 50px;
+    }
+
+    .btn-flex {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-top: 15px;
+    }
+  </style>
+  <body>
+    <div th:replace="restaurants/header :: navbar"></div>
+    <div class="container margin-container">
+      <div class="row col-md-8 offset-md-2">
+        <h2 th:text="${restaurant.getName()}"></h2>
+        <hr />
+        <h4 th:text="${restaurant.getAddress()}"></h4>
+        <hr />
+        <h4 th:text="${restaurant.getCity()}"></h4>
+        <hr />
+        <h4 th:text="${restaurant.getProvince()}"></h4>
+        <hr />
+        <h4 th:text="${restaurant.getPhoneNumber()}"></h4>
+        <hr />
+        <h4 th:text="${restaurant.getPostalCode()}"></h4>
+        <hr />
+        <h4 th:text="${restaurant.getPhoneNumber()}"></h4>
+        <hr />
+      </div>
+    </div>
+  </body>
+</html>

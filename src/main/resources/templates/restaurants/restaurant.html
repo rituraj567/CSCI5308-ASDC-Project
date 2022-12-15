@@ -1,0 +1,99 @@
+<!DOCTYPE >
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <title>Restaurants</title>
+    <link
+            crossorigin="anonymous"
+            href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+            integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+            rel="stylesheet"
+    />
+    <style>
+        ul {
+            list-style-type: none;
+        }
+
+        li {
+            display: inline-block;
+        }
+
+        .button-space {
+            margin-right: 10px;
+        }
+
+        .margin-container {
+            margin-top: 100px;
+        }
+
+        .margin-search {
+            margin-top: 30px;
+        }
+
+        .margin-left {
+            margin-left: 20px;
+        }
+
+    </style>
+</head>
+<div th:replace="restaurants/header :: header"></div>
+<body>
+<div th:replace="restaurants/header :: navbar"></div>
+
+<div  class="container margin-search">
+    <div class="row">
+        <div class="col-md-5">
+            <div class="form-group">
+                <form class="form-inline" th:action="@{/restaurants/search}">
+                    <div class="input-group">
+                        <input type="text" class="form-control" name="query" />
+                        <span class="input-group-btn">
+                          <button class="btn btn-primary margin-left" type="submit"> Search</button>
+                      </span>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<br />
+
+<div class="container margin-container">
+    <div class="row">
+        <ul th:each="restaurant,index : ${restaurants}">
+            <div class="row">
+                <div class="col-sm">
+                    <li th:text="${restaurant.getName()}">Name</li>
+                </div>
+                <div class="col-sm">
+                    <li th:text="${restaurant.getAddress()}">Address</li>
+                </div>
+                <div class="col-sm">
+                    <a
+                            class="btn btn-dark button-space"
+                            th:href="@{/admin/restaurants/{restaurantId}/edit(restaurantId=${restaurant.restaurantId})}"
+                    >
+                        Edit</a>
+
+                    <a
+                            type="button"
+                            class="btn btn-danger button-space"
+                            th:href="@{/admin/restaurants/{restaurantId}/delete(restaurantId=${restaurant.restaurantId})}"
+                    >
+                        Delete
+                    </a>
+                    <a
+                            type="button"
+                            class="btn btn-info"
+                            th:href="@{/admin/restaurants/{restaurantId}/view(restaurantId=${restaurant.restaurantId})}"
+                    >
+                        View
+                    </a>
+                </div>
+        </ul>
+    </div>
+</div>
+
+<div th:replace="common/footer :: footer"></div>
+</body>
+</html>

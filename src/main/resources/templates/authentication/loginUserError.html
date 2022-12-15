@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>User Registration</title>
+  </head>
+  <div th:replace="common/header :: header"></div>
+  <style>
+    .margin-container {
+      margin-top: 50px;
+    }
+
+    .btn-flex {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-top: 15px;
+    }
+  </style>
+  <body>
+    <div th:replace="common/header :: navbar"></div>
+    <div class="container margin-container">
+      <div class="row col-md-8 offset-md-2">
+        <form role="form" method="get" th:action="@{/userloginpage}">
+          <div>
+            <h3 class="form-label" style="align-content: center; color: red">
+              Some error occurred. Please, try again
+            </h3>
+          </div>
+          <div class="btn-flex">
+            <button
+              type="submit"
+              class="btn btn-outline-primary btn-lg btn-block"
+            >
+              Login
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,89 @@
+<!DOCTYPE >
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <title>Restaurant Owner</title>
+    <link
+            crossorigin="anonymous"
+            href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+            integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+            rel="stylesheet"
+    />
+    <style>
+        ul {
+            list-style-type: none;
+        }
+
+        li {
+            display: inline-block;
+        }
+
+        .button-space {
+            margin-right: 10px;
+        }
+
+        .margin-container {
+            margin-top: 100px;
+        }
+
+        .margin-search {
+            margin-top: 30px;
+        }
+
+        .margin-left {
+            margin-left: 20px;
+        }
+
+    </style>
+</head>
+<div th:replace="restaurantowner/header :: header"></div>
+<body>
+<div th:replace="restaurantowner/header :: navbar"></div>
+
+<div class="container margin-container">
+    <div class="row">
+        <ul>
+            <div class="row">
+                <div class="col-sm">
+                    <li style="font-weight : 600">Menu Name</li>
+                </div>
+            </div>
+        </ul>
+    </div>
+</div>
+<div class="container">
+    <div class="row">
+        <ul th:each="menu,index : ${menus}">
+            <div class="row">
+                <div class="col-sm">
+                    <li th:text="${menu.getName()}">Name</li>
+                </div>
+                <div class="col-sm">
+                    <a
+                            class="btn btn-dark button-space"
+                            th:href="@{/restaurantowner/newmenuitem/{MenuId}(MenuId=${menu.MenuId})}"
+                    >
+                        Add Items</a>
+
+                    <a
+                            type="button"
+                            class="btn btn-danger button-space"
+                            th:href="@{/restaurantowner/menuitems/{MenuId}(MenuId=${menu.MenuId})}"
+                    >
+                        View Items
+                    </a>
+                    <a
+                            type="button"
+                            class="btn btn-info"
+                            th:href="@{/restaurantowner/menu/{MenuId}/delete(MenuId=${menu.MenuId})}"
+                    >
+                        Delete
+                    </a>
+                </div>
+        </ul>
+    </div>
+</div>
+
+<div th:replace="restaurantowner/footer :: footer"></div>
+</body>
+</html>

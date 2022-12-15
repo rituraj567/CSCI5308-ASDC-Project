@@ -1,0 +1,32 @@
+image: gradle:alpine
+
+variables:
+  GIT_STRATERGY: clone
+
+before_script:
+  - chmod +x ./gradlew
+
+build:
+  stage: build
+  tags:
+    - ugrad
+
+  script: ./gradlew assemble
+
+test:
+  stage: test
+  tags:
+    - ugrad
+  script:
+    - ./gradlew check
+
+deploy-test:
+  stage: deploy
+  tags:
+    - dalfcs_gitlab_docker_ci
+  image: ruby:2.6
+  script:
+    - apt-get update -qy
+    - apt-get install -y ruby-dev
+    - gem install dpl
+    - dpl --provider=heroku --app=$APP_NAME --api-key=$API_KEY

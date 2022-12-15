@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>New Menu Item</title>
+  </head>
+  <div th:replace="restaurantowner/header :: header"></div>
+  <style>
+    .margin-container {
+      margin-top: 50px;
+    }
+
+    .btn-flex {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-top: 15px;
+    }
+  </style>
+  <body>
+    <div th:replace="restaurantowner/header :: navbar"></div>
+    <div class="container margin-container">
+      <div class="row col-md-8 offset-md-2">
+        <form
+          role="form"
+          method="post"
+          th:action="@{/restaurantowner/addmenuitem/{MenuId}(MenuId=${menuId})}"
+          th:object="${menuitem}"
+        >
+          <div class="mb-3">
+            <label class="form-label"> Item Name </label>
+            <input
+              type="text"
+              class="form-control"
+              id="title"
+              placeholder="Enter Item Name"
+              name="name"
+              th:field="*{name}"
+            />
+          </div>
+          <div class="mb-3">
+            <label class="form-label"> Item Description </label>
+            <input
+              type="text"
+              class="form-control"
+              id="title"
+              placeholder="Enter Item Description"
+              name="name"
+              th:field="*{description}"
+            />
+          </div>
+          <div class="mb-3">
+            <label class="form-label"> Item Price </label>
+            <input
+              type="text"
+              class="form-control"
+              id="title"
+              placeholder="Enter Item Price"
+              name="name"
+              th:field="*{price}"
+            />
+          </div>
+          <div class="btn-flex">
+            <button
+              type="submit"
+              class="btn btn-outline-primary btn-lg btn-block"
+            >
+              Add
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </body>
+</html>

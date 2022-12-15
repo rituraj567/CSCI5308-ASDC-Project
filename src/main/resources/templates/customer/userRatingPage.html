@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="UTF-8" />
+    <meta content="IE=edge" http-equiv="X-UA-Compatible" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>User Ratings</title>
+  </head>
+  <div th:replace="filter/header :: header"></div>
+  <style>
+    .margin-container {
+      margin-top: 50px;
+    }
+
+    .btn-flex {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-top: 15px;
+    }
+
+    li,
+    input {
+      display: inline-block;
+    }
+  </style>
+  <body>
+    <div th:replace="filter/header :: navbar"></div>
+    <div class="container margin-container">
+      <div class="row col-md-8 offset-md-2">
+        <form
+          method="post"
+          role="form"
+          th:action="@{/addfeedback/{RestaurantId}(RestaurantId=${restaurantid})}"
+          th:object="${userrating}"
+        >
+          <div class="mb-3">
+            <label class="form-label"> Enter Ratings </label>
+            <input
+              class="form-control"
+              id="title"
+              name="address"
+              placeholder="Enter Ratings"
+              required
+              th:field="*{ratingNumber}"
+              type="text"
+            />
+          </div>
+
+          <div class="mb-3">
+            <label class="form-label"> Enter Description </label>
+            <input
+              class="form-control"
+              id="title"
+              name="city"
+              placeholder="Enter Description"
+              required
+              th:field="*{description}"
+              type="text"
+            />
+          </div>
+          <div class="btn-flex">
+            <button
+              class="btn btn-outline-primary btn-lg btn-block"
+              type="submit"
+            >
+              Submit
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </body>
+</html>
