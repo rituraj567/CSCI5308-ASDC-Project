@@ -1,6 +1,5 @@
 # Project
 
-- 
 - _GitHub URL: https://github.com/rituraj567/CSCI5308-ASDC-Project
 
 
